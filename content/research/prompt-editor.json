@@ -1,0 +1,1236 @@
+{
+  "project": {
+    "id": "libs/prompt-editor",
+    "project": "@epam/ai-dial-prompt-editor",
+    "path": "libs/prompt-editor",
+    "package": "@epam/ai-dial-prompt-editor",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/prompt-editor/README.md",
+      "libs/prompt-editor/package.json",
+      "libs/prompt-editor/src/index.ts",
+      "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+      "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+      "libs/prompt-editor/src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx",
+      "libs/prompt-editor/src/components/PromptFolderField/tests/PromptFolderField.spec.tsx",
+      "apps/chat/src/pages/PromptEditor/PromptEditor.tsx"
+    ],
+    "output": "decks/libs/prompt-editor.pptx",
+    "preview": "previews/libs/prompt-editor",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+      "test-ci--src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+      "test-ci--src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx",
+      "test-ci--src/components/PromptFolderField/tests/PromptFolderField.spec.tsx",
+      "test-ci"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-prompt-editor",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-prompt-editor",
+        "target": "@epam/ai-dial-builder-form",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-prompt-editor",
+    "description": "Host-agnostic form for authoring a reusable prompt, with an inline folder picker",
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0",
+      "@uiw/react-markdown-preview": "^5.2.1",
+      "@uiw/react-md-editor": "^4.1.1",
+      "@epam/ai-dial-builder-form": "*"
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9",
+      "react": "^19.2.8"
+    },
+    "nx": {
+      "tags": [
+        "type:ui"
+      ]
+    }
+  },
+  "nx": {
+    "root": "libs/prompt-editor",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/prompt-editor",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/prompt-editor/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompt-editor",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompt-editor",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompt-editor",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompt-editor",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompt-editor",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-prompt-editor --includeDependencies -- npx nx build-deps @epam/ai-dial-prompt-editor"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/prompt-editor",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompt-editor",
+          "command": "vitest run src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/PromptEditor/tests/PromptEditor.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/PromptEditor/tests/PromptEditor.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompt-editor",
+          "command": "vitest run src/components/PromptEditor/tests/PromptEditor.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/PromptEditor/tests/PromptEditor.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompt-editor",
+          "command": "vitest run src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/PromptFolderField/tests/PromptFolderField.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/PromptFolderField/tests/PromptFolderField.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/PromptFolderField/tests/PromptFolderField.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompt-editor",
+          "command": "vitest run src/components/PromptFolderField/tests/PromptFolderField.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/PromptFolderField/tests/PromptFolderField.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/PromptFolderField/tests/PromptFolderField.spec.tsx"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+          "test-ci--src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+          "test-ci--src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx",
+          "test-ci--src/components/PromptFolderField/tests/PromptFolderField.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+          "test-ci--src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+          "test-ci--src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx",
+          "test-ci--src/components/PromptFolderField/tests/PromptFolderField.spec.tsx"
+        ]
+      },
+      "description": "Host-agnostic form for authoring a reusable prompt, with an inline folder picker",
+      "js": {
+        "packageName": "@epam/ai-dial-prompt-editor",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-prompt-editor",
+    "tags": [
+      "npm:private",
+      "type:ui"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/prompt-editor/src/index.ts",
+    "libs/prompt-editor/src/vite-env.d.ts",
+    "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+    "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+    "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+    "libs/prompt-editor/src/components/PromptEditor/PromptEditor.module.scss",
+    "libs/prompt-editor/src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx",
+    "libs/prompt-editor/src/components/PromptFolderField/tests/PromptFolderField.spec.tsx",
+    "libs/prompt-editor/src/components/PromptFolderField/PromptFolderField.tsx",
+    "libs/prompt-editor/src/test-setup.ts",
+    "libs/prompt-editor/src/models/prompt-folder-field-props.ts",
+    "libs/prompt-editor/src/models/prompt-editor-props.ts",
+    "libs/prompt-editor/src/constants/public-class-names.ts",
+    "libs/prompt-editor/src/types/folder-form-mode.ts",
+    "libs/prompt-editor/tsconfig.spec.json",
+    "libs/prompt-editor/eslint.config.mjs",
+    "libs/prompt-editor/postcss.config.js",
+    "libs/prompt-editor/tsconfig.lib.json",
+    "libs/prompt-editor/tsconfig.json",
+    "libs/prompt-editor/package.json",
+    "libs/prompt-editor/vite.config.mts",
+    "libs/prompt-editor/README.md",
+    "libs/prompt-editor/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+    "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+    "libs/prompt-editor/src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx",
+    "libs/prompt-editor/src/components/PromptFolderField/tests/PromptFolderField.spec.tsx",
+    "libs/prompt-editor/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat/src/pages/PromptEditor/PromptEditor.tsx"
+  ],
+  "readme": "# @epam/ai-dial-prompt-editor\n\nForm UI for authoring a reusable prompt \u2014 its name, description, and body \u2014\ntogether with a standalone folder picker (`PromptFolderField`) that a host can\ncompose in separately, with inline controls to create, rename, and delete\nfolders.\n\nThe lib is deliberately passive about everything a prompt's storage implies. It\nholds the field values and nothing else: it never calls an API, never reads a\nroute, never validates against a storage contract, and never resolves a\ntranslation. Validation messages arrive as strings through `errors`, and the\nhost decides what \"saved\" means when `onSubmit` fires. That keeps the same\nform usable by any host whose prompt storage differs from DIAL's.\n\n`PromptEditor` doesn't render a folder picker \u2014 compose `PromptFolderField` in\nalongside it (in the host's own layout) when the host needs one; it holds the\nfolder sub-form's own state and delegates mutations through `folderActions`.\n\n## Installation\n\nRequires UI Kit ^0.15.0-dev.9 or later with the public `/editors` entry.\nThe Markdown loader uses that entry, and library builds keep UI Kit subpaths\nexternal to preserve the editor's dynamic boundary in consuming applications.\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-prompt-editor\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-prompt-editor/styles.css';\n```\n\n## Peer Dependencies\n\n- `react` `^19.2.8`\n- `@epam/ai-dial-ui-kit` `^0.15.0-dev.9`\n- `@epam/ai-dial-chat-shared` `*`\n\nInstalled for you as dependencies: `@epam/ai-dial-builder-form`,\n`@tabler/icons-react`, and the two `@uiw` stylesheets `LazyMarkdownEditor`\nneeds (`@uiw/react-markdown-preview`, `@uiw/react-md-editor`).\n\n## Components\n\n### `PromptEditor`\n\n```tsx\nimport { PromptEditor } from '@epam/ai-dial-prompt-editor';\nimport type { PromptEditorValues } from '@epam/ai-dial-prompt-editor';\n\nconst EditPromptPage = () => {\n  const initialValues = useMemo(\n    () => (prompt ? { ...prompt } : undefined),\n    [prompt],\n  );\n\n  const handleSubmit = (values: PromptEditorValues) => {\n    const message = validate(values);\n    if (message) {\n      setErrors(message);\n      return;\n    }\n    void save(values);\n  };\n\n  return (\n    <PromptEditor\n      isEditMode\n      initialValues={initialValues}\n      isLoading={isLoading}\n      hasLoadError={loadError != null}\n      isSaving={isSaving}\n      errors={errors}\n      onSubmit={handleSubmit}\n      onBack={goBack}\n      onCancel={goBack}\n      onRetry={reload}\n      labels={{ createTitle: t('promptEditor.createTitle') }}\n    />\n  );\n};\n```\n\n`initialValues` re-seeds the fields whenever its object identity changes, so a\nhost that loads asynchronously should memoise it and produce a new object only\nonce the data has arrived.\n\n### `PromptFolderField`\n\n```tsx\nimport { PromptFolderField } from '@epam/ai-dial-prompt-editor';\n\n<PromptFolderField\n  value={folderId}\n  folders={folders}\n  error={errors.folder}\n  actions={folderActions}\n  onChange={setFolderId}\n/>;\n```\n\nThe empty string is the root folder. Omitting `actions` renders the picker\nalone, without the create / rename / delete controls.\n\n## Types\n\n```tsx\nimport type {\n  PromptEditorErrors,\n  PromptEditorColors,\n  PromptEditorFolder,\n  PromptEditorLabels,\n  PromptEditorProps,\n  PromptEditorStyles,\n  PromptEditorTypography,\n  PromptEditorValues,\n  PromptFolderActions,\n  PromptFolderFieldProps,\n} from '@epam/ai-dial-prompt-editor';\nimport { FolderFormMode } from '@epam/ai-dial-prompt-editor';\n```\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. Two\nelements therefore carry a stable public class, exported as\n`PROMPT_EDITOR_CLASS`.\n\n| Key           | Class                             | Element                                                             |\n| ------------- | --------------------------------- | ------------------------------------------------------------------- |\n| `form`        | `dial-prompt-editor-form`         | The editor's scrolling form column, inside the shared editor layout |\n| `folderField` | `dial-prompt-editor-folder-field` | The folder picker row rendered by `PromptFolderField`               |\n\nThe classes carry no declarations of their own: nothing in `styles.css` selects\non them, so they change nothing until a host writes a rule. Renaming one, or\nmoving it to a different element, is a breaking change. The convention is in\n[`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\n```tsx\nimport { PROMPT_EDITOR_CLASS } from '@epam/ai-dial-prompt-editor';\n\nPROMPT_EDITOR_CLASS.form; // 'dial-prompt-editor-form'\n```\n\n```css\n.dial-prompt-editor-form {\n  max-width: 960px;\n}\n```\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/prompt-editor/src/index.ts": "export { PromptEditor } from './components/PromptEditor/PromptEditor';\nexport { PromptFolderField } from './components/PromptFolderField/PromptFolderField';\nexport type {\n  PromptEditorErrors,\n  PromptEditorColors,\n  PromptEditorFolder,\n  PromptEditorLabels,\n  PromptEditorProps,\n  PromptEditorStyles,\n  PromptEditorTypography,\n  PromptEditorValues,\n  PromptFolderActions,\n} from './models/prompt-editor-props';\nexport type { PromptFolderFieldProps } from './models/prompt-folder-field-props';\nexport { FolderFormMode } from './types/folder-form-mode';\nexport { PROMPT_EDITOR_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/prompt-editor/src/index.ts": [
+      {
+        "name": "PromptEditor",
+        "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+        "start": 68,
+        "end": 310,
+        "declaration": "PromptEditor: FC<PromptEditorProps> = ({\n  isEditMode = false,\n  initialValues,\n  isLoading = false,\n  hasLoadError = false,\n  isSaving = false,\n  errors,\n  descriptionMaxLength = DEFAULT_DESCRIPTION_MAX_LENGTH,\n  contentMaxLength = DEFAULT_CONTENT_MAX_LENGTH,\n  counterAnnounceThreshold = DEFAULT_ANNOUNCE_THRESHOLD,\n  onSubmit,\n  onCancel,\n  onBack = onCancel,\n  onRetry,\n  labels,\n  markdownEditorTheme,\n  styles: editorStyles,\n}) => {\n  const { colors, typography } = editorStyles ?? {};\n  const contentLabelClassName =\n    typography?.contentLabelClassName ?? 'dial-tiny-semi-text';\n  const helperTextClassName =\n    typography?.helperTextClassName ?? 'dial-small-text';\n\n  const [values, setValues] = useState<PromptEditorValues>({\n    ...EMPTY_VALUES,\n    ...initialValues,\n  });\n  const contentLabelId = useId();\n  const contentEditorId = useId();\n  const contentEditorCapRef = useAvailableHeightCap<HTMLDivElement>();\n\n  /* Hosts that load asynchronously re-seed the form through `initialValues`. */\n  useEffect(() => {\n    setValues({ ...EMPTY_VALUES, ...initialValues });\n  }, [initialValues]);\n\n  const setField = useCallback(\n    <K extends keyof PromptEditorValues>(\n      field: K,\n      value: PromptEditorValues[K],\n    ) => {\n      setValues((previous) => ({ ...previous, [field]: value }));\n    },\n    [],\n  );\n\n  const handleSubmit = useCallback(() => {\n    if (isSaving) return;\n    onSubmit(values);\n  }, [isSaving, onSubmit, values]);\n\n  const title = isEditMode\n    ? (labels?.editTitle ?? 'Edit prompt')\n    : (labels?.createTitle ?? 'Create prompt');\n\n  const cssVars = buildCssVars({\n    '--pe-content-error': colors?.contentErrorText,\n  });\n\n  const actions = (\n    <>\n      <NeutralButton\n        label={labels?.cancelLabel ?? 'Cancel'}\n        onClick={onCancel}\n        disabled={isSaving}\n      />\n      <PrimaryButton\n        label={labels?.saveLabel ?? 'Save'}\n        iconBefore={isSaving ? <Spinner size={16} ariaLabel=\"\" /> : undefined}\n        onClick={handleSubmit}\n        disabled={isSaving}\n      />\n    </>\n  );\n\n  if (isLoading) {\n    return (\n      <EditorLayout\n        title={title}\n        onBack={onBack}\n        backAriaLabel={labels?.backButtonAriaLabel ?? 'Back to prompts'}\n        actions={actions}\n        isSaving={isSaving}\n        labels={{ savingStatusLabel: labels?.savingStatusLabel }}\n        leftContent={\n          <div\n            role=\"status\"\n            aria-label={labels?.loadingAriaLabel ?? 'Loading prompt'}\n            className=\"flex flex-1 items-center justify-center p-8\"\n          >\n            <Spinner />\n          </div>\n        }\n      />\n    );\n  }\n\n  if (hasLoadError) {\n    return (\n      <EditorLayout\n        title={title}\n        onBack={onBack}\n        backAriaLabel={labels?.backButtonAriaLabel ?? 'Back to prompts'}\n        actions={actions}\n        isSaving={false}\n        labels={{ savingStatusLabel: labels?.savingStatusLabel }}\n        leftContent={\n          <div role=\"alert\" className=\"flex flex-col items-start gap-3 p-8\">\n            <p className={mergeClasses('m-0', helperTextClassName)}>\n              {labels?.loadErrorMessage ??\n                \"Couldn't load this prompt. Please try again.\"}\n            </p>\n            {onRetry != null && (\n              <NeutralButton\n                label={labels?.retryLabel ?? 'Retry'}\n                onClick={onRetry}\n              />\n            )}\n          </div>\n        }\n      />\n    );\n  }\n\n  const descriptionRemaining = getRemainingCharacters(\n    values.description,\n    descriptionMaxLength,\n    counterAnnounceThreshold,\n  );\n  const contentRemaining = getRemainingCharacters(\n    values.content,\n    contentMaxLength,\n    counterAnnounceThreshold,\n  );\n  const buildCounterMessage = (count: number) =>\n    labels?.charactersRemaining?.(count) ?? `${count} characters remaining`;\n\n  return (\n    <EditorLayout\n      title={title}\n      onBack={onBack}\n      backAriaLabel={labels?.backButtonAriaLabel ?? 'Back to prompts'}\n      actions={actions}\n      isSaving={isSaving}\n      labels={{ savingStatusLabel: labels?.savingStatusLabel }}\n      leftContent={\n        <div\n          className={mergeClasses(\n            'mx-auto flex w-full max-w-[1180px] flex-1 flex-col gap-5 px-4 py-6 desktop:px-8',\n            PROMPT_EDITOR_CLASS.form,\n          )}\n          style={cssVars}\n        >\n          <Input\n            id=\"prompt-name\"\n            value={values.name}\n            labelProps={{ label: labels?.nameLabel ?? 'Name', required: true }}\n            placeholder={labels?.namePlaceholder ?? 'Prompt name'}\n            invalid={errors?.name != null}\n            error={errors?.name}\n            onChange={(value) => setField('name', value ?? '')}\n          />\n\n          <Textarea\n            id=\"prompt-description\"\n            value={values.description}\n            labelProps={{ label: labels?.descriptionLabel ?? 'Description' }}\n            placeholder={\n              labels?.descriptionPlaceholder ?? 'What this prompt is for'\n            }\n            invalid={errors?.description != null}\n            error={errors?.description}\n            onChange={(value) => setField('description', value)}\n          />\n\n          <div\n            role=\"group\"\n            aria-labelledby={contentLabelId}\n            className=\"flex flex-1 flex-col gap-2\"\n          >\n            {/*\n             * htmlFor is what names the editor's textarea; without it the\n             * label is only visible text sitting above an unnamed control.\n             */}\n            <Label\n              id={contentLabelId}\n              htmlFor={contentEditorId}\n              label={labels?.contentLabel ?? 'Instructions'}\n              required\n              className={contentLabelClassName}\n            />\n            <div\n              ref={contentEditorCapRef}\n              className={mergeClasses(\n                MARKDOWN_EDITOR_MAX_HEIGHT_CLASS_NAME,\n                MARKDOWN_EDITOR_PREVIEW_LIST_CLASS_NAME,\n              )}\n            >\n              <Suspense\n                fallback={\n                  <Spinner\n                    ariaLabel={\n                      labels?.contentLoadingAriaLabel ?? 'Loading prompt editor'\n                    }\n                  />\n                }\n              >\n                <MarkdownEditor\n                  id={contentEditorId}\n                  value={values.content}\n                  onChange={(value) => setField('content', value)}\n                  height={480}\n                  placeholder={\n                    labels?.contentPlaceholder ??\n                    'Write the prompt instructions'\n                  }\n                  theme={markdownEditorTheme}\n                />\n              </Suspense>\n            </div>\n            {errors?.content != null && (\n              <p\n                className={mergeClasses(\n                  helperTextClassName,\n                  styles.contentError,\n                )}\n              >\n                {errors.content}\n              </p>\n            )}\n          </div>\n\n          <span role=\"status\" aria-live=\"polite\" className=\"sr-only\">\n            {descriptionRemaining != null &&\n              buildCounterMessage(descriptionRemaining)}\n            {contentRemaining != null && buildCounterMessage(contentRemaining)}\n          </span>\n        </div>\n      }\n    />\n  );\n}",
+        "signature": "(props: PromptEditorProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "isEditMode",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "initialValues",
+            "optional": true,
+            "type": "Partial<PromptEditorValues> | undefined"
+          },
+          {
+            "name": "isLoading",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "hasLoadError",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isSaving",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "errors",
+            "optional": true,
+            "type": "import(\"../..\").PromptEditorErrors | undefined"
+          },
+          {
+            "name": "descriptionMaxLength",
+            "optional": true,
+            "type": "number | undefined"
+          },
+          {
+            "name": "contentMaxLength",
+            "optional": true,
+            "type": "number | undefined"
+          },
+          {
+            "name": "counterAnnounceThreshold",
+            "optional": true,
+            "type": "number | undefined"
+          },
+          {
+            "name": "onSubmit",
+            "optional": false,
+            "type": "(values: PromptEditorValues) => void"
+          },
+          {
+            "name": "onCancel",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onBack",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "onRetry",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").PromptEditorLabels | undefined"
+          },
+          {
+            "name": "markdownEditorTheme",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-ui-kit\").EditorThemes | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").PromptEditorStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "PromptFolderField",
+        "file": "libs/prompt-editor/src/components/PromptFolderField/PromptFolderField.tsx",
+        "start": 32,
+        "end": 295,
+        "declaration": "PromptFolderField: FC<PromptFolderFieldProps> = ({\n  value,\n  folders,\n  error,\n  nameError,\n  actions,\n  disabled = false,\n  labels,\n  helperTextClassName = 'dial-small-text',\n  onChange,\n}) => {\n  const [mode, setMode] = useState<FolderFormMode | null>(null);\n  const [folderName, setFolderName] = useState('');\n  const [validationError, setValidationError] = useState<string>();\n  const [isPending, setIsPending] = useState(false);\n\n  const isRootSelected = value === ROOT_FOLDER_ID;\n  const rootOptionLabel = labels?.folderRootOption ?? 'Root';\n  const emptyStateLabel = labels?.folderEmptyState ?? 'No folders yet';\n\n  const options = useMemo(\n    () => [\n      { value: ROOT_OPTION_VALUE, label: rootOptionLabel },\n      ...folders.map((folder) => ({ value: folder.id, label: folder.id })),\n    ],\n    [folders, rootOptionLabel],\n  );\n\n  const closeForm = useCallback(() => {\n    setMode(null);\n    setFolderName('');\n    setValidationError(undefined);\n  }, []);\n\n  const handleSubmitName = useCallback(async () => {\n    if (isPending || actions == null) return;\n\n    const trimmed = folderName.trim();\n    const message = actions.onValidateFolderName?.(trimmed);\n    if (message != null) {\n      setValidationError(message);\n      return;\n    }\n    setValidationError(undefined);\n    setIsPending(true);\n    try {\n      if (mode === FolderFormMode.Create) {\n        const created = await actions.onCreateFolder(\n          trimmed,\n          isRootSelected ? undefined : value,\n        );\n        if (typeof created === 'string') onChange(created);\n      } else {\n        const renamed = await actions.onRenameFolder(value, trimmed);\n        if (typeof renamed === 'string') onChange(renamed);\n      }\n      closeForm();\n    } catch {\n      /*\n       * The host reports the failure through `nameError` (a conflict) or its\n       * own notification surface; the sub-form stays open with the entered\n       * name so it can be corrected.\n       */\n    } finally {\n      setIsPending(false);\n    }\n  }, [\n    isPending,\n    actions,\n    folderName,\n    mode,\n    isRootSelected,\n    value,\n    onChange,\n    closeForm,\n  ]);\n\n  const handleConfirmDelete = useCallback(async () => {\n    if (isPending || actions == null) return;\n    setIsPending(true);\n    try {\n      await actions.onDeleteFolder(value);\n      /*\n       * The selected folder no longer exists, so fall back to root before the\n       * next save targets a path that is gone.\n       */\n      onChange(ROOT_FOLDER_ID);\n      closeForm();\n    } catch {\n      /* Reported by the host; leave the confirmation open. */\n    } finally {\n      setIsPending(false);\n    }\n  }, [isPending, actions, value, onChange, closeForm]);\n\n  const openCreate = useCallback(() => {\n    setFolderName('');\n    setValidationError(undefined);\n    setMode(FolderFormMode.Create);\n  }, []);\n\n  const openRename = useCallback(() => {\n    setFolderName(lastSegment(value));\n    setValidationError(undefined);\n    setMode(FolderFormMode.Rename);\n  }, [value]);\n\n  const openDelete = useCallback(() => {\n    setValidationError(undefined);\n    setMode(FolderFormMode.ConfirmDelete);\n  }, []);\n\n  const handleSelect = useCallback(\n    (next: string | string[] | null) => {\n      const selected = Array.isArray(next) ? next[0] : next;\n      if (selected == null) return;\n      onChange(selected === ROOT_OPTION_VALUE ? ROOT_FOLDER_ID : selected);\n    },\n    [onChange],\n  );\n\n  const isNameFormOpen =\n    mode === FolderFormMode.Create || mode === FolderFormMode.Rename;\n  const nameFieldError = validationError ?? nameError;\n\n  return (\n    <div\n      className={mergeClasses(\n        'flex flex-col gap-2',\n        PROMPT_EDITOR_CLASS.folderField,\n      )}\n    >\n      <div className=\"flex items-end gap-2\">\n        <Select\n          id=\"prompt-folder\"\n          className=\"flex-1\"\n          options={options}\n          value={isRootSelected ? ROOT_OPTION_VALUE : value}\n          labelProps={{ label: labels?.folderLabel ?? 'Folder' }}\n          invalid={error != null}\n          disabled={disabled}\n          error={error}\n          emptyStateTitle={emptyStateLabel}\n          onChange={handleSelect}\n        />\n        {actions != null && !disabled && (\n          <>\n            <GhostIconButton\n              icon={\n                <IconFolderPlus\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              aria-label={labels?.folderCreateLabel ?? 'Create folder'}\n              onClick={openCreate}\n            />\n            <GhostIconButton\n              icon={\n                <IconPencil\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              aria-label={labels?.folderRenameLabel ?? 'Rename folder'}\n              disabled={isRootSelected}\n              onClick={openRename}\n            />\n            <GhostIconButton\n              icon={\n                <IconTrashX\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              aria-label={labels?.folderDeleteLabel ?? 'Delete folder'}\n              disabled={isRootSelected}\n              onClick={openDelete}\n            />\n          </>\n        )}\n      </div>\n\n      {folders.length === 0 && mode == null && (\n        <p className={mergeClasses('m-0', helperTextClassName)}>\n          {emptyStateLabel}\n        </p>\n      )}\n\n      {/*\n       * The sub-form repeats the outer form's Save/Cancel labels, so it is a\n       * named region \u2014 otherwise both pairs are indistinguishable to a screen\n       * reader walking the page's controls.\n       */}\n      {isNameFormOpen && (\n        <div\n          role=\"group\"\n          aria-label={\n            mode === FolderFormMode.Create\n              ? (labels?.folderCreateLabel ?? 'Create folder')\n              : (labels?.folderRenameLabel ?? 'Rename folder')\n          }\n          className=\"flex items-end gap-2\"\n        >\n          <Input\n            id=\"prompt-folder-name\"\n            className=\"flex-1\"\n            value={folderName}\n            autoFocus\n            labelProps={{\n              label: labels?.folderNameLabel ?? 'Folder name',\n              required: true,\n            }}\n            invalid={nameFieldError != null}\n            error={nameFieldError}\n            onChange={(next) => setFolderName(next ?? '')}\n          />\n          <NeutralButton\n            size={ElementSize.Standard}\n            label={labels?.saveLabel ?? 'Save'}\n            disabled={isPending}\n            onClick={handleSubmitName}\n          />\n          <NeutralButton\n            size={ElementSize.Standard}\n            label={labels?.cancelLabel ?? 'Cancel'}\n            disabled={isPending}\n            onClick={closeForm}\n          />\n        </div>\n      )}\n\n      {mode === FolderFormMode.ConfirmDelete && (\n        <div\n          role=\"alertdialog\"\n          aria-label={labels?.folderDeleteConfirmTitle ?? 'Delete folder'}\n        >\n          <p className={mergeClasses('m-0 mb-2', helperTextClassName)}>\n            {labels?.folderDeleteConfirmMessage?.(value) ??\n              `Delete \"${value}\" and every prompt inside it?`}\n          </p>\n          <div className=\"flex gap-2\">\n            <NeutralButton\n              size={ElementSize.Standard}\n              label={labels?.folderDeleteLabel ?? 'Delete folder'}\n              autoFocus\n              disabled={isPending}\n              onClick={handleConfirmDelete}\n            />\n            <NeutralButton\n              size={ElementSize.Standard}\n              label={labels?.cancelLabel ?? 'Cancel'}\n              disabled={isPending}\n              onClick={closeForm}\n            />\n          </div>\n        </div>\n      )}\n    </div>\n  );\n}",
+        "signature": "(props: PromptFolderFieldProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "value",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "folders",
+            "optional": false,
+            "type": "import(\"../..\").PromptEditorFolder[]"
+          },
+          {
+            "name": "error",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "nameError",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "type": "import(\"../..\").PromptFolderActions | undefined"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").PromptEditorLabels | undefined"
+          },
+          {
+            "name": "helperTextClassName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "type": "(folderId: string) => void"
+          }
+        ]
+      },
+      {
+        "name": "PromptEditorErrors",
+        "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+        "start": 25,
+        "end": 32,
+        "declaration": "export interface PromptEditorErrors {\n  /** Message shown under the name field. */\n  name?: string;\n  /** Message shown under the description field. */\n  description?: string;\n  /** Message shown under the content field. */\n  content?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PromptEditorColors",
+        "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+        "start": 111,
+        "end": 114,
+        "declaration": "export interface PromptEditorColors {\n  /** Prompt validation error text. Fallback: `--text-error`. */\n  contentErrorText?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PromptEditorFolder",
+        "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+        "start": 4,
+        "end": 9,
+        "declaration": "export interface PromptEditorFolder {\n  /** Folder path, used as the option's value. The empty string is never listed \u2014 the root option is synthesised. */\n  id: string;\n  /** Display name shown in the picker. */\n  name: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PromptEditorLabels",
+        "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+        "start": 47,
+        "end": 100,
+        "declaration": "export interface PromptEditorLabels {\n  /** Heading shown in create mode. Defaults to `'Create prompt'`. */\n  createTitle?: string;\n  /** Heading shown in edit mode. Defaults to `'Edit prompt'`. */\n  editTitle?: string;\n  /** Accessible label of the header back button. Defaults to `'Back to prompts'`. */\n  backButtonAriaLabel?: string;\n  /** Name field label. Defaults to `'Name'`. */\n  nameLabel?: string;\n  /** Name field placeholder. Defaults to `'Prompt name'`. */\n  namePlaceholder?: string;\n  /** Description field label. Defaults to `'Description'`. */\n  descriptionLabel?: string;\n  /** Description field placeholder. Defaults to `'What this prompt is for'`. */\n  descriptionPlaceholder?: string;\n  /** Content field label. Defaults to `'Instructions'`. */\n  contentLabel?: string;\n  /** Content field placeholder. Defaults to `'Write the prompt instructions'`. */\n  contentPlaceholder?: string;\n  /** Folder picker label, used by the standalone `PromptFolderField`. Defaults to `'Folder'`. */\n  folderLabel?: string;\n  /** Label of the root option in the folder picker. Defaults to `'Root'`. */\n  folderRootOption?: string;\n  /** Text shown when there are no folders yet. Defaults to `'No folders yet'`. */\n  folderEmptyState?: string;\n  /** Accessible label of the create-folder button. Defaults to `'Create folder'`. */\n  folderCreateLabel?: string;\n  /** Accessible label of the rename-folder button. Defaults to `'Rename folder'`. */\n  folderRenameLabel?: string;\n  /** Accessible label of the delete-folder button. Defaults to `'Delete folder'`. */\n  folderDeleteLabel?: string;\n  /** Label of the folder-name field in the create/rename sub-form. Defaults to `'Folder name'`. */\n  folderNameLabel?: string;\n  /** Title of the delete-folder confirmation. Defaults to `'Delete folder'`. */\n  folderDeleteConfirmTitle?: string;\n  /** Builds the delete-folder confirmation message. Defaults to a sentence naming the folder. */\n  folderDeleteConfirmMessage?: (folderId: string) => string;\n  /** Save button label. Defaults to `'Save'`. */\n  saveLabel?: string;\n  /** Cancel button label. Defaults to `'Cancel'`. */\n  cancelLabel?: string;\n  /** Retry button label shown in the load-error state. Defaults to `'Retry'`. */\n  retryLabel?: string;\n  /** Message shown when the prompt could not be loaded. Defaults to `\"Couldn't load this prompt. Please try again.\"`. */\n  loadErrorMessage?: string;\n  /** Status announced while a save is in flight. Defaults to `'Saving'`. */\n  savingStatusLabel?: string;\n  /** Accessible label of the loading spinner. Defaults to `'Loading prompt'`. */\n  loadingAriaLabel?: string;\n  /** Accessible label of the markdown editor loading spinner. Defaults to `'Loading prompt editor'`. */\n  contentLoadingAriaLabel?: string;\n  /** Builds the characters-remaining announcement. Defaults to `` `${count} characters remaining` ``. */\n  charactersRemaining?: (count: number) => string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PromptEditorProps",
+        "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+        "start": 125,
+        "end": 162,
+        "declaration": "export interface PromptEditorProps {\n  /** Whether the form edits an existing prompt (changes the heading only). Defaults to `false`. */\n  isEditMode?: boolean;\n  /**\n   * Values to seed the fields with. Changing this object's identity re-seeds\n   * the form, so hosts that load asynchronously should memoise it and only\n   * produce a new object once the data has arrived.\n   */\n  initialValues?: Partial<PromptEditorValues>;\n  /** Whether the prompt being edited is still loading. Defaults to `false`. */\n  isLoading?: boolean;\n  /** Whether loading the prompt failed; renders an error state with a retry instead of the form. Defaults to `false`. */\n  hasLoadError?: boolean;\n  /** Whether a save is in flight; disables submission. Defaults to `false`. */\n  isSaving?: boolean;\n  /** Inline validation messages to render under the fields. */\n  errors?: PromptEditorErrors;\n  /** Maximum description length used for the characters-remaining announcement. Defaults to `2000`. */\n  descriptionMaxLength?: number;\n  /** Maximum content length used for the characters-remaining announcement. Defaults to `50000`. */\n  contentMaxLength?: number;\n  /** How close to a limit the announcement starts, in characters. Defaults to `10`. */\n  counterAnnounceThreshold?: number;\n  /** Called with the current values when the form is submitted. */\n  onSubmit: (values: PromptEditorValues) => void;\n  /** Called when the form is dismissed without saving. */\n  onCancel: () => void;\n  /** Called when the header back button is activated. Defaults to `onCancel`. */\n  onBack?: () => void;\n  /** Called when the retry button in the load-error state is activated. */\n  onRetry?: () => void;\n  /** Text overrides. */\n  labels?: PromptEditorLabels;\n  /** Theme applied to the prompt markdown editor. Defaults to the editor's own default (`EditorThemes.light`). */\n  markdownEditorTheme?: EditorThemes;\n  /** Style overrides. */\n  styles?: PromptEditorStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PromptEditorStyles",
+        "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+        "start": 117,
+        "end": 122,
+        "declaration": "export interface PromptEditorStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: PromptEditorColors;\n  /** Typography class overrides. */\n  typography?: PromptEditorTypography;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PromptEditorTypography",
+        "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+        "start": 103,
+        "end": 108,
+        "declaration": "export interface PromptEditorTypography {\n  /** Class applied to the prompt editor label. Defaults to `'dial-tiny-semi-text'`. */\n  contentLabelClassName?: string;\n  /** Class applied to helper, error, and confirmation text. Defaults to `'dial-small-text'`. */\n  helperTextClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PromptEditorValues",
+        "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+        "start": 12,
+        "end": 19,
+        "declaration": "export interface PromptEditorValues {\n  /** Prompt name. */\n  name: string;\n  /** Optional short description. */\n  description: string;\n  /** The prompt body. */\n  content: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PromptFolderActions",
+        "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+        "start": 35,
+        "end": 44,
+        "declaration": "export interface PromptFolderActions {\n  /** Creates a folder; resolve with its new path so the picker can select it. `parentId` is absent for a root-level folder. */\n  onCreateFolder: (name: string, parentId?: string) => Promise<string | void>;\n  /** Renames a folder; resolve with its new path so the picker can follow it. */\n  onRenameFolder: (folderId: string, name: string) => Promise<string | void>;\n  /** Deletes a folder and everything under it. */\n  onDeleteFolder: (folderId: string) => Promise<void>;\n  /** Validates a folder name before any mutation is dispatched; return a message to block it. */\n  onValidateFolderName?: (name: string) => string | undefined;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PromptFolderFieldProps",
+        "file": "libs/prompt-editor/src/models/prompt-folder-field-props.ts",
+        "start": 8,
+        "end": 27,
+        "declaration": "export interface PromptFolderFieldProps {\n  /** Currently selected folder path. The empty string means the root folder. */\n  value: string;\n  /** Folders offered by the picker, excluding the root. */\n  folders: PromptEditorFolder[];\n  /** Message shown under the picker itself. */\n  error?: string;\n  /** Message shown under the folder-name field of the create/rename sub-form. */\n  nameError?: string;\n  /** Folder mutations. Omit to render the picker without create/rename/delete controls. */\n  actions?: PromptFolderActions;\n  /** Whether the selected folder is read-only. */\n  disabled?: boolean;\n  /** Text overrides, shared with `PromptEditor`. */\n  labels?: PromptEditorLabels;\n  /** Class applied to helper and confirmation text. Defaults to `'dial-small-text'`. */\n  helperTextClassName?: string;\n  /** Called with the newly selected folder path (the empty string for root). */\n  onChange: (folderId: string) => void;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FolderFormMode",
+        "file": "libs/prompt-editor/src/types/folder-form-mode.ts",
+        "start": 2,
+        "end": 9,
+        "declaration": "export enum FolderFormMode {\n  /** Creating a new folder under the selected one. */\n  Create = 'create',\n  /** Renaming the selected folder. */\n  Rename = 'rename',\n  /** Confirming deletion of the selected folder. */\n  ConfirmDelete = 'confirmDelete',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PROMPT_EDITOR_CLASS",
+        "file": "libs/prompt-editor/src/constants/public-class-names.ts",
+        "start": 11,
+        "end": 16,
+        "declaration": "PROMPT_EDITOR_CLASS = {\n  /** The editor's scrolling form column, inside the shared editor layout. */\n  form: 'dial-prompt-editor-form',\n  /** The folder picker row rendered by `PromptFolderField`. */\n  folderField: 'dial-prompt-editor-folder-field',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "PromptEditor",
+      "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+      "start": 68,
+      "end": 310,
+      "declaration": "PromptEditor: FC<PromptEditorProps> = ({\n  isEditMode = false,\n  initialValues,\n  isLoading = false,\n  hasLoadError = false,\n  isSaving = false,\n  errors,\n  descriptionMaxLength = DEFAULT_DESCRIPTION_MAX_LENGTH,\n  contentMaxLength = DEFAULT_CONTENT_MAX_LENGTH,\n  counterAnnounceThreshold = DEFAULT_ANNOUNCE_THRESHOLD,\n  onSubmit,\n  onCancel,\n  onBack = onCancel,\n  onRetry,\n  labels,\n  markdownEditorTheme,\n  styles: editorStyles,\n}) => {\n  const { colors, typography } = editorStyles ?? {};\n  const contentLabelClassName =\n    typography?.contentLabelClassName ?? 'dial-tiny-semi-text';\n  const helperTextClassName =\n    typography?.helperTextClassName ?? 'dial-small-text';\n\n  const [values, setValues] = useState<PromptEditorValues>({\n    ...EMPTY_VALUES,\n    ...initialValues,\n  });\n  const contentLabelId = useId();\n  const contentEditorId = useId();\n  const contentEditorCapRef = useAvailableHeightCap<HTMLDivElement>();\n\n  /* Hosts that load asynchronously re-seed the form through `initialValues`. */\n  useEffect(() => {\n    setValues({ ...EMPTY_VALUES, ...initialValues });\n  }, [initialValues]);\n\n  const setField = useCallback(\n    <K extends keyof PromptEditorValues>(\n      field: K,\n      value: PromptEditorValues[K],\n    ) => {\n      setValues((previous) => ({ ...previous, [field]: value }));\n    },\n    [],\n  );\n\n  const handleSubmit = useCallback(() => {\n    if (isSaving) return;\n    onSubmit(values);\n  }, [isSaving, onSubmit, values]);\n\n  const title = isEditMode\n    ? (labels?.editTitle ?? 'Edit prompt')\n    : (labels?.createTitle ?? 'Create prompt');\n\n  const cssVars = buildCssVars({\n    '--pe-content-error': colors?.contentErrorText,\n  });\n\n  const actions = (\n    <>\n      <NeutralButton\n        label={labels?.cancelLabel ?? 'Cancel'}\n        onClick={onCancel}\n        disabled={isSaving}\n      />\n      <PrimaryButton\n        label={labels?.saveLabel ?? 'Save'}\n        iconBefore={isSaving ? <Spinner size={16} ariaLabel=\"\" /> : undefined}\n        onClick={handleSubmit}\n        disabled={isSaving}\n      />\n    </>\n  );\n\n  if (isLoading) {\n    return (\n      <EditorLayout\n        title={title}\n        onBack={onBack}\n        backAriaLabel={labels?.backButtonAriaLabel ?? 'Back to prompts'}\n        actions={actions}\n        isSaving={isSaving}\n        labels={{ savingStatusLabel: labels?.savingStatusLabel }}\n        leftContent={\n          <div\n            role=\"status\"\n            aria-label={labels?.loadingAriaLabel ?? 'Loading prompt'}\n            className=\"flex flex-1 items-center justify-center p-8\"\n          >\n            <Spinner />\n          </div>\n        }\n      />\n    );\n  }\n\n  if (hasLoadError) {\n    return (\n      <EditorLayout\n        title={title}\n        onBack={onBack}\n        backAriaLabel={labels?.backButtonAriaLabel ?? 'Back to prompts'}\n        actions={actions}\n        isSaving={false}\n        labels={{ savingStatusLabel: labels?.savingStatusLabel }}\n        leftContent={\n          <div role=\"alert\" className=\"flex flex-col items-start gap-3 p-8\">\n            <p className={mergeClasses('m-0', helperTextClassName)}>\n              {labels?.loadErrorMessage ??\n                \"Couldn't load this prompt. Please try again.\"}\n            </p>\n            {onRetry != null && (\n              <NeutralButton\n                label={labels?.retryLabel ?? 'Retry'}\n                onClick={onRetry}\n              />\n            )}\n          </div>\n        }\n      />\n    );\n  }\n\n  const descriptionRemaining = getRemainingCharacters(\n    values.description,\n    descriptionMaxLength,\n    counterAnnounceThreshold,\n  );\n  const contentRemaining = getRemainingCharacters(\n    values.content,\n    contentMaxLength,\n    counterAnnounceThreshold,\n  );\n  const buildCounterMessage = (count: number) =>\n    labels?.charactersRemaining?.(count) ?? `${count} characters remaining`;\n\n  return (\n    <EditorLayout\n      title={title}\n      onBack={onBack}\n      backAriaLabel={labels?.backButtonAriaLabel ?? 'Back to prompts'}\n      actions={actions}\n      isSaving={isSaving}\n      labels={{ savingStatusLabel: labels?.savingStatusLabel }}\n      leftContent={\n        <div\n          className={mergeClasses(\n            'mx-auto flex w-full max-w-[1180px] flex-1 flex-col gap-5 px-4 py-6 desktop:px-8',\n            PROMPT_EDITOR_CLASS.form,\n          )}\n          style={cssVars}\n        >\n          <Input\n            id=\"prompt-name\"\n            value={values.name}\n            labelProps={{ label: labels?.nameLabel ?? 'Name', required: true }}\n            placeholder={labels?.namePlaceholder ?? 'Prompt name'}\n            invalid={errors?.name != null}\n            error={errors?.name}\n            onChange={(value) => setField('name', value ?? '')}\n          />\n\n          <Textarea\n            id=\"prompt-description\"\n            value={values.description}\n            labelProps={{ label: labels?.descriptionLabel ?? 'Description' }}\n            placeholder={\n              labels?.descriptionPlaceholder ?? 'What this prompt is for'\n            }\n            invalid={errors?.description != null}\n            error={errors?.description}\n            onChange={(value) => setField('description', value)}\n          />\n\n          <div\n            role=\"group\"\n            aria-labelledby={contentLabelId}\n            className=\"flex flex-1 flex-col gap-2\"\n          >\n            {/*\n             * htmlFor is what names the editor's textarea; without it the\n             * label is only visible text sitting above an unnamed control.\n             */}\n            <Label\n              id={contentLabelId}\n              htmlFor={contentEditorId}\n              label={labels?.contentLabel ?? 'Instructions'}\n              required\n              className={contentLabelClassName}\n            />\n            <div\n              ref={contentEditorCapRef}\n              className={mergeClasses(\n                MARKDOWN_EDITOR_MAX_HEIGHT_CLASS_NAME,\n                MARKDOWN_EDITOR_PREVIEW_LIST_CLASS_NAME,\n              )}\n            >\n              <Suspense\n                fallback={\n                  <Spinner\n                    ariaLabel={\n                      labels?.contentLoadingAriaLabel ?? 'Loading prompt editor'\n                    }\n                  />\n                }\n              >\n                <MarkdownEditor\n                  id={contentEditorId}\n                  value={values.content}\n                  onChange={(value) => setField('content', value)}\n                  height={480}\n                  placeholder={\n                    labels?.contentPlaceholder ??\n                    'Write the prompt instructions'\n                  }\n                  theme={markdownEditorTheme}\n                />\n              </Suspense>\n            </div>\n            {errors?.content != null && (\n              <p\n                className={mergeClasses(\n                  helperTextClassName,\n                  styles.contentError,\n                )}\n              >\n                {errors.content}\n              </p>\n            )}\n          </div>\n\n          <span role=\"status\" aria-live=\"polite\" className=\"sr-only\">\n            {descriptionRemaining != null &&\n              buildCounterMessage(descriptionRemaining)}\n            {contentRemaining != null && buildCounterMessage(contentRemaining)}\n          </span>\n        </div>\n      }\n    />\n  );\n}",
+      "signature": "(props: PromptEditorProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "isEditMode",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "initialValues",
+          "optional": true,
+          "type": "Partial<PromptEditorValues> | undefined"
+        },
+        {
+          "name": "isLoading",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "hasLoadError",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isSaving",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "errors",
+          "optional": true,
+          "type": "import(\"../..\").PromptEditorErrors | undefined"
+        },
+        {
+          "name": "descriptionMaxLength",
+          "optional": true,
+          "type": "number | undefined"
+        },
+        {
+          "name": "contentMaxLength",
+          "optional": true,
+          "type": "number | undefined"
+        },
+        {
+          "name": "counterAnnounceThreshold",
+          "optional": true,
+          "type": "number | undefined"
+        },
+        {
+          "name": "onSubmit",
+          "optional": false,
+          "type": "(values: PromptEditorValues) => void"
+        },
+        {
+          "name": "onCancel",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onBack",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onRetry",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").PromptEditorLabels | undefined"
+        },
+        {
+          "name": "markdownEditorTheme",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-ui-kit\").EditorThemes | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").PromptEditorStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "PromptFolderField",
+      "file": "libs/prompt-editor/src/components/PromptFolderField/PromptFolderField.tsx",
+      "start": 32,
+      "end": 295,
+      "declaration": "PromptFolderField: FC<PromptFolderFieldProps> = ({\n  value,\n  folders,\n  error,\n  nameError,\n  actions,\n  disabled = false,\n  labels,\n  helperTextClassName = 'dial-small-text',\n  onChange,\n}) => {\n  const [mode, setMode] = useState<FolderFormMode | null>(null);\n  const [folderName, setFolderName] = useState('');\n  const [validationError, setValidationError] = useState<string>();\n  const [isPending, setIsPending] = useState(false);\n\n  const isRootSelected = value === ROOT_FOLDER_ID;\n  const rootOptionLabel = labels?.folderRootOption ?? 'Root';\n  const emptyStateLabel = labels?.folderEmptyState ?? 'No folders yet';\n\n  const options = useMemo(\n    () => [\n      { value: ROOT_OPTION_VALUE, label: rootOptionLabel },\n      ...folders.map((folder) => ({ value: folder.id, label: folder.id })),\n    ],\n    [folders, rootOptionLabel],\n  );\n\n  const closeForm = useCallback(() => {\n    setMode(null);\n    setFolderName('');\n    setValidationError(undefined);\n  }, []);\n\n  const handleSubmitName = useCallback(async () => {\n    if (isPending || actions == null) return;\n\n    const trimmed = folderName.trim();\n    const message = actions.onValidateFolderName?.(trimmed);\n    if (message != null) {\n      setValidationError(message);\n      return;\n    }\n    setValidationError(undefined);\n    setIsPending(true);\n    try {\n      if (mode === FolderFormMode.Create) {\n        const created = await actions.onCreateFolder(\n          trimmed,\n          isRootSelected ? undefined : value,\n        );\n        if (typeof created === 'string') onChange(created);\n      } else {\n        const renamed = await actions.onRenameFolder(value, trimmed);\n        if (typeof renamed === 'string') onChange(renamed);\n      }\n      closeForm();\n    } catch {\n      /*\n       * The host reports the failure through `nameError` (a conflict) or its\n       * own notification surface; the sub-form stays open with the entered\n       * name so it can be corrected.\n       */\n    } finally {\n      setIsPending(false);\n    }\n  }, [\n    isPending,\n    actions,\n    folderName,\n    mode,\n    isRootSelected,\n    value,\n    onChange,\n    closeForm,\n  ]);\n\n  const handleConfirmDelete = useCallback(async () => {\n    if (isPending || actions == null) return;\n    setIsPending(true);\n    try {\n      await actions.onDeleteFolder(value);\n      /*\n       * The selected folder no longer exists, so fall back to root before the\n       * next save targets a path that is gone.\n       */\n      onChange(ROOT_FOLDER_ID);\n      closeForm();\n    } catch {\n      /* Reported by the host; leave the confirmation open. */\n    } finally {\n      setIsPending(false);\n    }\n  }, [isPending, actions, value, onChange, closeForm]);\n\n  const openCreate = useCallback(() => {\n    setFolderName('');\n    setValidationError(undefined);\n    setMode(FolderFormMode.Create);\n  }, []);\n\n  const openRename = useCallback(() => {\n    setFolderName(lastSegment(value));\n    setValidationError(undefined);\n    setMode(FolderFormMode.Rename);\n  }, [value]);\n\n  const openDelete = useCallback(() => {\n    setValidationError(undefined);\n    setMode(FolderFormMode.ConfirmDelete);\n  }, []);\n\n  const handleSelect = useCallback(\n    (next: string | string[] | null) => {\n      const selected = Array.isArray(next) ? next[0] : next;\n      if (selected == null) return;\n      onChange(selected === ROOT_OPTION_VALUE ? ROOT_FOLDER_ID : selected);\n    },\n    [onChange],\n  );\n\n  const isNameFormOpen =\n    mode === FolderFormMode.Create || mode === FolderFormMode.Rename;\n  const nameFieldError = validationError ?? nameError;\n\n  return (\n    <div\n      className={mergeClasses(\n        'flex flex-col gap-2',\n        PROMPT_EDITOR_CLASS.folderField,\n      )}\n    >\n      <div className=\"flex items-end gap-2\">\n        <Select\n          id=\"prompt-folder\"\n          className=\"flex-1\"\n          options={options}\n          value={isRootSelected ? ROOT_OPTION_VALUE : value}\n          labelProps={{ label: labels?.folderLabel ?? 'Folder' }}\n          invalid={error != null}\n          disabled={disabled}\n          error={error}\n          emptyStateTitle={emptyStateLabel}\n          onChange={handleSelect}\n        />\n        {actions != null && !disabled && (\n          <>\n            <GhostIconButton\n              icon={\n                <IconFolderPlus\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              aria-label={labels?.folderCreateLabel ?? 'Create folder'}\n              onClick={openCreate}\n            />\n            <GhostIconButton\n              icon={\n                <IconPencil\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              aria-label={labels?.folderRenameLabel ?? 'Rename folder'}\n              disabled={isRootSelected}\n              onClick={openRename}\n            />\n            <GhostIconButton\n              icon={\n                <IconTrashX\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              aria-label={labels?.folderDeleteLabel ?? 'Delete folder'}\n              disabled={isRootSelected}\n              onClick={openDelete}\n            />\n          </>\n        )}\n      </div>\n\n      {folders.length === 0 && mode == null && (\n        <p className={mergeClasses('m-0', helperTextClassName)}>\n          {emptyStateLabel}\n        </p>\n      )}\n\n      {/*\n       * The sub-form repeats the outer form's Save/Cancel labels, so it is a\n       * named region \u2014 otherwise both pairs are indistinguishable to a screen\n       * reader walking the page's controls.\n       */}\n      {isNameFormOpen && (\n        <div\n          role=\"group\"\n          aria-label={\n            mode === FolderFormMode.Create\n              ? (labels?.folderCreateLabel ?? 'Create folder')\n              : (labels?.folderRenameLabel ?? 'Rename folder')\n          }\n          className=\"flex items-end gap-2\"\n        >\n          <Input\n            id=\"prompt-folder-name\"\n            className=\"flex-1\"\n            value={folderName}\n            autoFocus\n            labelProps={{\n              label: labels?.folderNameLabel ?? 'Folder name',\n              required: true,\n            }}\n            invalid={nameFieldError != null}\n            error={nameFieldError}\n            onChange={(next) => setFolderName(next ?? '')}\n          />\n          <NeutralButton\n            size={ElementSize.Standard}\n            label={labels?.saveLabel ?? 'Save'}\n            disabled={isPending}\n            onClick={handleSubmitName}\n          />\n          <NeutralButton\n            size={ElementSize.Standard}\n            label={labels?.cancelLabel ?? 'Cancel'}\n            disabled={isPending}\n            onClick={closeForm}\n          />\n        </div>\n      )}\n\n      {mode === FolderFormMode.ConfirmDelete && (\n        <div\n          role=\"alertdialog\"\n          aria-label={labels?.folderDeleteConfirmTitle ?? 'Delete folder'}\n        >\n          <p className={mergeClasses('m-0 mb-2', helperTextClassName)}>\n            {labels?.folderDeleteConfirmMessage?.(value) ??\n              `Delete \"${value}\" and every prompt inside it?`}\n          </p>\n          <div className=\"flex gap-2\">\n            <NeutralButton\n              size={ElementSize.Standard}\n              label={labels?.folderDeleteLabel ?? 'Delete folder'}\n              autoFocus\n              disabled={isPending}\n              onClick={handleConfirmDelete}\n            />\n            <NeutralButton\n              size={ElementSize.Standard}\n              label={labels?.cancelLabel ?? 'Cancel'}\n              disabled={isPending}\n              onClick={closeForm}\n            />\n          </div>\n        </div>\n      )}\n    </div>\n  );\n}",
+      "signature": "(props: PromptFolderFieldProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "value",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "folders",
+          "optional": false,
+          "type": "import(\"../..\").PromptEditorFolder[]"
+        },
+        {
+          "name": "error",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "nameError",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "type": "import(\"../..\").PromptFolderActions | undefined"
+        },
+        {
+          "name": "disabled",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").PromptEditorLabels | undefined"
+        },
+        {
+          "name": "helperTextClassName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "onChange",
+          "optional": false,
+          "type": "(folderId: string) => void"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+      "assertions": [
+        "stamps the form column that holds the fields"
+      ]
+    },
+    {
+      "file": "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+      "assertions": [
+        "renders the create heading by default",
+        "renders a flat form without section headings, a version field, or a folder picker",
+        "renders the edit heading in edit mode",
+        "seeds the fields from initialValues",
+        "re-seeds the fields when initialValues arrives later",
+        "submits the entered values",
+        "does not validate on its own \u2014 the host owns the storage contract",
+        "renders host-supplied inline errors",
+        "blocks submission and announces status while saving",
+        "renders a labelled spinner instead of the form while loading",
+        "renders an error state with retry instead of an empty form on load failure",
+        "omits the retry button when the host cannot retry",
+        "calls onCancel without submitting",
+        "calls the dedicated back callback from the header",
+        "announces the characters remaining only near the limit",
+        "applies label overrides",
+        "names the Instructions editor through its label"
+      ]
+    },
+    {
+      "file": "libs/prompt-editor/src/components/PromptFolderField/tests/PromptFolderField.classes.spec.tsx",
+      "assertions": [
+        "stamps the field root"
+      ]
+    },
+    {
+      "file": "libs/prompt-editor/src/components/PromptFolderField/tests/PromptFolderField.spec.tsx",
+      "assertions": [
+        "omits the mutation controls when no actions are supplied",
+        "disables rename and delete while the root folder is selected",
+        "creates a root-level folder with no parentId",
+        "creates a nested folder under the selected one",
+        "selects the created folder when the host resolves its path",
+        "blocks a mutation and shows the message when validation rejects the name",
+        "keeps the sub-form open and shows the host conflict message on failure",
+        "seeds the rename field with the selected folder\u2019s last segment",
+        "renames the selected folder and follows the new path",
+        "requires confirmation before deleting, and cancel dispatches nothing",
+        "resets the selection to root after deleting the selected folder",
+        "shows the empty state when there are no folders",
+        "renders the picker error under the field"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat/src/pages/PromptEditor/PromptEditor.tsx",
+      "matches": [
+        {
+          "start": 7,
+          "end": 17,
+          "excerpt": "  validatePromptDescription,\n  validatePromptName,\n} from '@epam/ai-dial-chat-hooks';\nimport { OverlayFeature } from '@epam/ai-dial-chat-overlay';\nimport {\n  PromptEditor as PromptEditorForm,\n  type PromptEditorErrors,\n  type PromptEditorLabels,\n  type PromptEditorValues,\n} from '@epam/ai-dial-prompt-editor';\nimport { EditorThemes } from '@epam/ai-dial-ui-kit';"
+        }
+      ]
+    }
+  ]
+}

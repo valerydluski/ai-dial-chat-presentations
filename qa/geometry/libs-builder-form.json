@@ -1,0 +1,1225 @@
+[
+  {
+    "id": "lib-builder-form-01",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Builder form",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-builder-form-01",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Builder form",
+        "x": 0.65,
+        "y": 1.65,
+        "w": 11.7,
+        "h": 1.5,
+        "font": 48,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Give entity editors a shared structure and validation vocabulary.",
+        "x": 0.68,
+        "y": 3.44,
+        "w": 11.3,
+        "h": 1.15,
+        "font": 28,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Problem and boundary",
+        "x": 0.9,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "Public contract",
+        "x": 5,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "Working integration",
+        "x": 9.1,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "@epam/ai-dial-builder-form",
+        "x": 0.68,
+        "y": 6.22,
+        "w": 11.6,
+        "h": 0.32,
+        "font": 14,
+        "color": "BCC9DA"
+      }
+    ]
+  },
+  {
+    "id": "lib-builder-form-02",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Builder form",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-builder-form-02",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "When this library is useful",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Give entity editors a shared structure and validation vocabulary.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Build an editor",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Compose metadata and setup sections in a consistent page.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Share field rules",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Use one validator for name and version policies.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Localize metadata",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Edit additional deployment names and descriptions by locale.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "lib-builder-form-03",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Builder form",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-builder-form-03",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Follow the ownership boundary",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Inputs and effects stay explicit.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.82,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Host values",
+        "x": 0.82,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Metadata and labels",
+        "x": 0.82,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 3.93,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Editor controls",
+        "x": 3.93,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Field changes",
+        "x": 3.93,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 7.039999999999999,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Validation codes",
+        "x": 7.039999999999999,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Required or invalid",
+        "x": 7.039999999999999,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 10.15,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Host adapter",
+        "x": 10.15,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Translate and persist",
+        "x": 10.15,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "Library: Editor shells, field controls and pure validation error codes.",
+        "x": 0.66,
+        "y": 5.85,
+        "w": 11.95,
+        "h": 0.74,
+        "font": 24,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "lib-builder-form-04",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Builder form",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-builder-form-04",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "The public contract to start with",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "EditorLayout · selected surface; full API index is in the bundle.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "lib-builder-form-05",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Builder form",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-builder-form-05",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "05",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "A minimal workspace integration",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "TypeScript / React example · imports and host setup abridged.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "<EditorLayout\n  title=\"Create demo deployment\" onBack={onBack}\n  leftContent={\n    <EditorSection title=\"Metadata\">Demo fields</EditorSection>\n  }\n  rightContent={\n    <EditorSection title=\"Setup\">Host setup</EditorSection>\n  }\n/>",
+        "x": 0.86,
+        "y": 3.06,
+        "w": 11.55,
+        "h": 3.2,
+        "font": 18,
+        "fontFace": "Courier New",
+        "breakLine": false,
+        "paraSpaceAfterPt": 0,
+        "lineSpacingMultiple": 1.04,
+        "color": "EDF2F7"
+      },
+      {
+        "type": "text",
+        "text": "Full example: examples/builder-form.tsx · uses @epam/ai-dial-builder-form",
+        "x": 0.65,
+        "y": 6.58,
+        "w": 11.9,
+        "h": 0.24,
+        "font": 12,
+        "color": "BCC9DA"
+      }
+    ]
+  },
+  {
+    "id": "lib-builder-form-06",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Builder form",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-builder-form-06",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "06",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Wire a realistic host workflow",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Keep builder form focused on its public responsibility.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Compose metadata",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Place shared fields inside the editor sections.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Validate values",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Map validation error codes to localized field messages.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Save through the host",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Submit the validated values using the application adapter.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "lib-builder-form-10",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Builder form",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-builder-form-10",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "07",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Validate without translating",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The host maps error codes into messages.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "const codes = validateDeploymentCreationFields(\n  { name: '', description: '', iconUrl: '',\n    version: '1.0.0', topics: [], otherLocales: [] },\n  { validateNamePattern: true, validateVersionPattern: true },\n);",
+        "x": 0.86,
+        "y": 3.06,
+        "w": 11.55,
+        "h": 3.2,
+        "font": 18,
+        "fontFace": "Courier New",
+        "breakLine": false,
+        "paraSpaceAfterPt": 0,
+        "lineSpacingMultiple": 1.04,
+        "color": "EDF2F7"
+      },
+      {
+        "type": "text",
+        "text": "Focused source-backed example · see examples/ and content/api-index.md.",
+        "x": 0.65,
+        "y": 6.58,
+        "w": 11.9,
+        "h": 0.24,
+        "font": 12,
+        "color": "BCC9DA"
+      }
+    ]
+  },
+  {
+    "id": "lib-builder-form-07",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Builder form",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-builder-form-07",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "08",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Available customization",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Layout composition",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "EditorLayout exposes leftContent, rightContent and actions.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Metadata fields",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The shared creation form includes avatar, version, topics and locales.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Policy switches",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Name and version pattern checks are opt-in validator options.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "lib-builder-form-08",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Builder form",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-builder-form-08",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "09",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Find the integration and its checks",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "lib-builder-form-09",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Builder form",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-builder-form-09",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "10",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Constraints that affect integration",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Avatar ownership",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Resolve iconPreviewUrl and open file selection in the host.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Locale visibility",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The locale editor hides when no locale options are supplied.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "State is mixed",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Some controls manage transient state; persistence remains outside.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  }
+]

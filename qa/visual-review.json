@@ -1,0 +1,332 @@
+{
+  "recordedAt": "2026-09-21T19:11:11.022199+00:00",
+  "reviewer": "Codex visual inspection of actual rendered images",
+  "contactSheetCoverage": {
+    "decks": 33,
+    "slides": 329,
+    "method": "Every slide was inspected in contact sheets during the authoring/revision passes. Changed layouts were re-inspected after rerendering."
+  },
+  "individualFinalResolutionCloseups": [
+    "previews/apps/chat/slide-06.png",
+    "previews/apps/chat-api/slide-11.png",
+    "previews/overview/slide-16.png",
+    "previews/libs/prompts/slide-06.png",
+    "previews/libs/navigation-panel/slide-07.png",
+    "previews/libs/toolset-editor/slide-04.png",
+    "previews/overview/slide-09.png",
+    "previews/apps/chat-api/slide-10.png",
+    "previews/apps/mcp-app-sandbox/slide-03.png",
+    "previews/libs/publish-panel/slide-07.png",
+    "previews/libs/builder-form/slide-09.png"
+  ],
+  "prototypeCloseups": "Additional attachment-canvas prototype images were inspected before final template refinements; they are not counted as final close-ups.",
+  "demoImages": [
+    "assets/component-demo.png",
+    "assets/component-demo-mobile.png"
+  ],
+  "outcome": "No unresolved visual defects identified. Automated per-slide rendered text checks also pass.",
+  "scopeLimit": "Individual full-resolution review was selective; all-slide visual coverage uses contact sheets. No native Microsoft PowerPoint session was available.",
+  "decks": [
+    {
+      "id": "overview",
+      "slidesReviewed": 21,
+      "pptxSha256": "77471e9f04fec1cb0c2a6e2edb20761810346e21b9dc669c1177dbc56174ebfd",
+      "contactSheets": [
+        "previews/overview/contact-01.jpg",
+        "previews/overview/contact-02.jpg",
+        "previews/overview/contact-03.jpg",
+        "previews/overview/contact-04.jpg"
+      ]
+    },
+    {
+      "id": "apps/chat",
+      "slidesReviewed": 15,
+      "pptxSha256": "0ba876d7e1e81a33169cfbe0d56abb8ebed3a7de66ac99d4a84ee520a14d015e",
+      "contactSheets": [
+        "previews/apps/chat/contact-01.jpg",
+        "previews/apps/chat/contact-02.jpg",
+        "previews/apps/chat/contact-03.jpg"
+      ]
+    },
+    {
+      "id": "apps/chat-api",
+      "slidesReviewed": 14,
+      "pptxSha256": "05b608fcc7eaee694ff133079ca1f64c1e25bd9fd85096008470014c227f7fab",
+      "contactSheets": [
+        "previews/apps/chat-api/contact-01.jpg",
+        "previews/apps/chat-api/contact-02.jpg",
+        "previews/apps/chat-api/contact-03.jpg"
+      ]
+    },
+    {
+      "id": "apps/chat-overlay-sandbox",
+      "slidesReviewed": 8,
+      "pptxSha256": "3931fe85d725f13da9ba78560e4e60270ce45b4b30a0b7e2f216984a853d6952",
+      "contactSheets": [
+        "previews/apps/chat-overlay-sandbox/contact-01.jpg",
+        "previews/apps/chat-overlay-sandbox/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "apps/mcp-app-sandbox",
+      "slidesReviewed": 8,
+      "pptxSha256": "8c7b647727bfb09a38fe7b564d109262f910fe357233c057b80f26d6eaaca0b6",
+      "contactSheets": [
+        "previews/apps/mcp-app-sandbox/contact-01.jpg",
+        "previews/apps/mcp-app-sandbox/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/attachment-canvas",
+      "slidesReviewed": 10,
+      "pptxSha256": "5d95ba8280dd46deba38cedb9d1260f432836e009e0e87ae4d781e7cc5ce7982",
+      "contactSheets": [
+        "previews/libs/attachment-canvas/contact-01.jpg",
+        "previews/libs/attachment-canvas/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/attachment-input",
+      "slidesReviewed": 9,
+      "pptxSha256": "59d40c2ac3eb196744e8f79d4f2a3a64bf8cd3e23d3745bb0aa743e76ed365f3",
+      "contactSheets": [
+        "previews/libs/attachment-input/contact-01.jpg",
+        "previews/libs/attachment-input/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/builder-form",
+      "slidesReviewed": 10,
+      "pptxSha256": "929e565e83311daaae38967cf48629901fcd961d85d00818ab5437bfcc00d4c8",
+      "contactSheets": [
+        "previews/libs/builder-form/contact-01.jpg",
+        "previews/libs/builder-form/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/catalog",
+      "slidesReviewed": 10,
+      "pptxSha256": "20e4c46744c612b88f46b824fe7d8f024660902030d6b999c0177316da7b904f",
+      "contactSheets": [
+        "previews/libs/catalog/contact-01.jpg",
+        "previews/libs/catalog/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/chat-api-client",
+      "slidesReviewed": 10,
+      "pptxSha256": "1028ca0be50cd5d78e198dd65247b3e8c0a5971366d7bf9cbade52ad189e46ed",
+      "contactSheets": [
+        "previews/libs/chat-api-client/contact-01.jpg",
+        "previews/libs/chat-api-client/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/chat-hooks",
+      "slidesReviewed": 10,
+      "pptxSha256": "dbd2915f656b20d070f97685afd8448c66f1bfe03daf846ec75516be24d57023",
+      "contactSheets": [
+        "previews/libs/chat-hooks/contact-01.jpg",
+        "previews/libs/chat-hooks/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/chat-overlay",
+      "slidesReviewed": 10,
+      "pptxSha256": "af3017ab940d2e64c08335809026ac2f884ca8c82b77818c3ee4d962d35d0ca7",
+      "contactSheets": [
+        "previews/libs/chat-overlay/contact-01.jpg",
+        "previews/libs/chat-overlay/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/chat-shared",
+      "slidesReviewed": 10,
+      "pptxSha256": "586277f610ce8a62bc71eb089b6e48697704c9ea07f0e4c1e2d01a273b63c3de",
+      "contactSheets": [
+        "previews/libs/chat-shared/contact-01.jpg",
+        "previews/libs/chat-shared/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/conversation-input",
+      "slidesReviewed": 9,
+      "pptxSha256": "6830bf5a56ec90be152046f5f8ea2febe04a0c39f2dcd1175178090766d3f1aa",
+      "contactSheets": [
+        "previews/libs/conversation-input/contact-01.jpg",
+        "previews/libs/conversation-input/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/conversation-messages",
+      "slidesReviewed": 9,
+      "pptxSha256": "ca9e8e4919f6cb89b0507f99fc0efad7eb9ee93bd6856d838fcd0ff6657ea56b",
+      "contactSheets": [
+        "previews/libs/conversation-messages/contact-01.jpg",
+        "previews/libs/conversation-messages/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/conversation-panel",
+      "slidesReviewed": 9,
+      "pptxSha256": "261714175847e6bf907d41d19c50374f13b0e9e2643e3f61f98be096898e0b13",
+      "contactSheets": [
+        "previews/libs/conversation-panel/contact-01.jpg",
+        "previews/libs/conversation-panel/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/conversation-stages",
+      "slidesReviewed": 10,
+      "pptxSha256": "4684e531433ab95388337fef4c11f6099e1cc6f754504bc0ae8a9d0834149da3",
+      "contactSheets": [
+        "previews/libs/conversation-stages/contact-01.jpg",
+        "previews/libs/conversation-stages/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/mcp-apps",
+      "slidesReviewed": 9,
+      "pptxSha256": "2d22844798fcc641eed146096d04f597fde7a5716db1777cbec2ed00d23c700e",
+      "contactSheets": [
+        "previews/libs/mcp-apps/contact-01.jpg",
+        "previews/libs/mcp-apps/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/navigation-panel",
+      "slidesReviewed": 9,
+      "pptxSha256": "aab406749d878640264cd263c898c661259aac424a2c4551c0e05be7f4478df4",
+      "contactSheets": [
+        "previews/libs/navigation-panel/contact-01.jpg",
+        "previews/libs/navigation-panel/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/prompt-editor",
+      "slidesReviewed": 9,
+      "pptxSha256": "c0640d5812b495d35a568e40e294eb9067fcdbee54ced511659b764af55cd20f",
+      "contactSheets": [
+        "previews/libs/prompt-editor/contact-01.jpg",
+        "previews/libs/prompt-editor/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/prompts",
+      "slidesReviewed": 9,
+      "pptxSha256": "431a0f9490721f63833c2e5566259884c4d5a9fbc14b6e18524a982a0b87494a",
+      "contactSheets": [
+        "previews/libs/prompts/contact-01.jpg",
+        "previews/libs/prompts/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/publish-panel",
+      "slidesReviewed": 9,
+      "pptxSha256": "5b381933679dbcc5454cc1c10d4186527d85fd006a25765f9dfcedaab2321c79",
+      "contactSheets": [
+        "previews/libs/publish-panel/contact-01.jpg",
+        "previews/libs/publish-panel/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/quotations",
+      "slidesReviewed": 9,
+      "pptxSha256": "85617da3c154c15207215b9ea2e42e9fc497520cfeec2065b96ec2697fffbd10",
+      "contactSheets": [
+        "previews/libs/quotations/contact-01.jpg",
+        "previews/libs/quotations/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/scheduled-tasks",
+      "slidesReviewed": 9,
+      "pptxSha256": "678c750d8401ba621823bab9cb87be8139726aa32efdcce62a660a2a4ac68226",
+      "contactSheets": [
+        "previews/libs/scheduled-tasks/contact-01.jpg",
+        "previews/libs/scheduled-tasks/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/settings-panel",
+      "slidesReviewed": 10,
+      "pptxSha256": "07f6659784863939042b3adc611d8ba1e2ed7c11a7e233f6c8a1200a7b13273c",
+      "contactSheets": [
+        "previews/libs/settings-panel/contact-01.jpg",
+        "previews/libs/settings-panel/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/share",
+      "slidesReviewed": 9,
+      "pptxSha256": "b4d868caac496297b5bf010f6c7d0521b3bb96a70f61a6cdde88cf85f6a6646b",
+      "contactSheets": [
+        "previews/libs/share/contact-01.jpg",
+        "previews/libs/share/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/sidebar",
+      "slidesReviewed": 9,
+      "pptxSha256": "12745395f20a980b13f7a0a0107af56db1b126195da7d42831a76b61e19743f9",
+      "contactSheets": [
+        "previews/libs/sidebar/contact-01.jpg",
+        "previews/libs/sidebar/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/skill-editor",
+      "slidesReviewed": 9,
+      "pptxSha256": "34505b12ce782ba19c996673a01be84b9db85866a3f55255dba5d896110414dd",
+      "contactSheets": [
+        "previews/libs/skill-editor/contact-01.jpg",
+        "previews/libs/skill-editor/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/skills",
+      "slidesReviewed": 9,
+      "pptxSha256": "ce7d66185ba4f466c9f7af430050bdcdf104a83c1fe62eae9b32195aea26b0e6",
+      "contactSheets": [
+        "previews/libs/skills/contact-01.jpg",
+        "previews/libs/skills/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/source-panel",
+      "slidesReviewed": 9,
+      "pptxSha256": "e75e138037c457765ac42229db2706f118daf9866a66bb65011897b3ebf21619",
+      "contactSheets": [
+        "previews/libs/source-panel/contact-01.jpg",
+        "previews/libs/source-panel/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/starter-buttons",
+      "slidesReviewed": 9,
+      "pptxSha256": "bd7eb0ca0f0e224d0f68fceaa64897979a9ac862eeb649025a444c9ac49bdfa2",
+      "contactSheets": [
+        "previews/libs/starter-buttons/contact-01.jpg",
+        "previews/libs/starter-buttons/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/toolset-editor",
+      "slidesReviewed": 10,
+      "pptxSha256": "ca815311b81a9d125edb8dcb2e91780dbccfff43c8b31bdf3de754930a58d149",
+      "contactSheets": [
+        "previews/libs/toolset-editor/contact-01.jpg",
+        "previews/libs/toolset-editor/contact-02.jpg"
+      ]
+    },
+    {
+      "id": "libs/usage-dashboard",
+      "slidesReviewed": 10,
+      "pptxSha256": "041c67918c67ff95f91fdd2e3bf89224ee267b379578b015dfe1adb9c252f95f",
+      "contactSheets": [
+        "previews/libs/usage-dashboard/contact-01.jpg",
+        "previews/libs/usage-dashboard/contact-02.jpg"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,497 @@
+{
+  "id": "libs/conversation-input",
+  "shortTitle": "Conversation input",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-conversation-input-01",
+      "title": "Conversation input",
+      "layout": "cover",
+      "subtitle": "Compose a message with deployment, attachment and voice controls.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-conversation-input",
+      "notes": "This session explains compose a message with deployment, attachment and voice controls. The library is a local private workspace package at libs/conversation-input. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/conversation-input/README.md",
+          "start": 1,
+          "end": 355
+        },
+        {
+          "file": "libs/conversation-input/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-input/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/conversation-input/src/components/ConversationInput/ConversationInput.tsx",
+          "start": 8,
+          "end": 78,
+          "symbol": "ConversationInput"
+        },
+        {
+          "file": "libs/conversation-input/src/models/ConversationInput.ts",
+          "start": 182,
+          "end": 455,
+          "symbol": "ConversationInputProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-input-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Compose a message with deployment, attachment and voice controls.",
+      "cards": [
+        {
+          "title": "Send a message",
+          "body": "Collect text and attachments, then invoke a host callback."
+        },
+        {
+          "title": "Control generation",
+          "body": "Swap sending for a stop action while streaming."
+        },
+        {
+          "title": "Support rich input",
+          "body": "Wire deployment selection, settings and audio transcription."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Send a message: Collect text and attachments, then invoke a host callback. Control generation: Swap sending for a stop action while streaming. Support rich input: Wire deployment selection, settings and audio transcription. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/conversation-input/README.md",
+          "start": 1,
+          "end": 355
+        },
+        {
+          "file": "libs/conversation-input/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-input/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/conversation-input/src/components/ConversationInput/ConversationInput.tsx",
+          "start": 8,
+          "end": 78,
+          "symbol": "ConversationInput"
+        },
+        {
+          "file": "libs/conversation-input/src/models/ConversationInput.ts",
+          "start": 182,
+          "end": 455,
+          "symbol": "ConversationInputProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-input-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "User input",
+          "body": "Text, files or voice"
+        },
+        {
+          "title": "ConversationInput",
+          "body": "Local composition"
+        },
+        {
+          "title": "onSend",
+          "body": "Text and attachments"
+        },
+        {
+          "title": "Host workflow",
+          "body": "Persist and stream"
+        }
+      ],
+      "takeaway": "Library: Composer interaction, local text/attachment state and input controls.",
+      "notes": "The library owns Composer interaction, local text/attachment state and input controls. The host owns Model data, upload and transcription services, sending and generation state.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/conversation-input/README.md",
+          "start": 1,
+          "end": 355
+        },
+        {
+          "file": "libs/conversation-input/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-input/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/conversation-input/src/components/ConversationInput/ConversationInput.tsx",
+          "start": 8,
+          "end": 78,
+          "symbol": "ConversationInput"
+        },
+        {
+          "file": "libs/conversation-input/src/models/ConversationInput.ts",
+          "start": 182,
+          "end": 455,
+          "symbol": "ConversationInputProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-input-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "ConversationInput \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "onSend (optional)",
+          "((message: string, attachments: Attachment[]) => void)"
+        ],
+        [
+          "onUploadAttachment (optional)",
+          "((attachment: Attachment) => Promise<UploadedAttachmentResult>)"
+        ],
+        [
+          "isStreaming (optional)",
+          "boolean"
+        ],
+        [
+          "onStop (optional)",
+          "(() => void)"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/conversation-input/README.md",
+          "start": 1,
+          "end": 355
+        },
+        {
+          "file": "libs/conversation-input/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-input/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/conversation-input/src/components/ConversationInput/ConversationInput.tsx",
+          "start": 8,
+          "end": 78,
+          "symbol": "ConversationInput"
+        },
+        {
+          "file": "libs/conversation-input/src/models/ConversationInput.ts",
+          "start": 182,
+          "end": 455,
+          "symbol": "ConversationInputProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-input-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "function ComposerDemo() {\n  const [sent, setSent] = useState('');\n  return <>\n    <ConversationInput placeholder=\"Write a demo message\"\n      onSend={(message) => setSent(message)} />\n    <p role=\"status\">{sent ? `Last demo message: ${sent}` : 'Ready'}</p>\n  </>;\n}",
+      "caption": "Full example: examples/conversation-input.tsx \u00b7 uses @epam/ai-dial-conversation-input",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/conversation-input.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Collect text and attachments, then invoke a host callback. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/conversation-input/README.md",
+          "start": 1,
+          "end": 355
+        },
+        {
+          "file": "libs/conversation-input/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-input/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/conversation-input/src/components/ConversationInput/ConversationInput.tsx",
+          "start": 8,
+          "end": 78,
+          "symbol": "ConversationInput"
+        },
+        {
+          "file": "libs/conversation-input/src/models/ConversationInput.ts",
+          "start": 182,
+          "end": 455,
+          "symbol": "ConversationInputProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-input-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep conversation input focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Collect intent",
+          "body": "Let the composer gather text and emit onSend."
+        },
+        {
+          "title": "Start the request",
+          "body": "The host chooses the conversation and calls its adapter."
+        },
+        {
+          "title": "Reflect generation",
+          "body": "Pass the current input and generation state back to the UI."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Collect intent: Let the composer gather text and emit onSend. Start the request: The host chooses the conversation and calls its adapter. Reflect generation: Pass the current input and generation state back to the UI. The complete typed module in examples/conversation-input.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/conversation-input/README.md",
+          "start": 1,
+          "end": 355
+        },
+        {
+          "file": "libs/conversation-input/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-input/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/conversation-input/src/components/ConversationInput/ConversationInput.tsx",
+          "start": 8,
+          "end": 78,
+          "symbol": "ConversationInput"
+        },
+        {
+          "file": "libs/conversation-input/src/models/ConversationInput.ts",
+          "start": 182,
+          "end": 455,
+          "symbol": "ConversationInputProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-input-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Controlled updates",
+          "body": "messageRevision and textInsertion coordinate host-driven edits."
+        },
+        {
+          "title": "Separate attachment UI",
+          "body": "Import attachment cards and trays from attachment-input."
+        },
+        {
+          "title": "Voice extension",
+          "body": "Inject a transcription callback and supported deployment data."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Controlled updates: messageRevision and textInsertion coordinate host-driven edits. Separate attachment UI: Import attachment cards and trays from attachment-input. Voice extension: Inject a transcription callback and supported deployment data. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/conversation-input/README.md",
+          "start": 1,
+          "end": 355
+        },
+        {
+          "file": "libs/conversation-input/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-input/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/conversation-input/src/components/ConversationInput/ConversationInput.tsx",
+          "start": 8,
+          "end": 78,
+          "symbol": "ConversationInput"
+        },
+        {
+          "file": "libs/conversation-input/src/models/ConversationInput.ts",
+          "start": 182,
+          "end": 455,
+          "symbol": "ConversationInputProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-input-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat/hooks/conversation/useAudioTranscription.ts"
+        ],
+        [
+          "Test evidence",
+          "uses default label when no deployment is selected"
+        ],
+        [
+          "Test evidence",
+          "transcribes actual browser MIME and releases microphone before recognition completes"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: apps/chat/src/hooks/conversation/useAudioTranscription.ts; libs/navigation-panel/src/components/NavigationSheet/NavigableBottomSheet.tsx; apps/chat/src/hooks/keyboard-shortcut/useKeyboardShortcutPreference.ts; apps/chat/src/pages/SettingsPage/PreferencesTab/PreferencesTab.tsx; apps/chat/src/hooks/navigation/useNavigationMenuGroups.tsx; libs/skills/src/hooks/useSkillSelectorOverlay/useSkillSelectorOverlay.tsx. Existing test evidence: [{\"file\": \"libs/conversation-input/src/hooks/tests/useModelSelector.spec.tsx\", \"assertions\": [\"useModelSelector \\u2014 selectorAriaLabel\", \"uses default label when no deployment is selected\", \"appends selected item displayName to the label\", \"uses custom ariaLabel from modelSelectorLabels\", \"falls back to item id when displayName is absent\", \"useModelSelector \\u2014 menuItems\", \"returns empty array when deployments is undefined\", \"returns empty array when deployments is empty and no state label\", \"returns seven disabled skeleton items when deployments are loading\", \"prefers loading label over error and empty labels\", \"shows skeleton items during a reload even when deployments already exist\", \"falls back to error label when loading is absent\", \"returns one item per deployment preserving input order\", \"updates the active item when selectedDeploymentId changes\", \"item onClick calls onDeploymentChange with item id\"]}, {\"file\": \"libs/conversation-input/src/hooks/tests/useVoiceRecorder.spec.ts\", \"assertions\": [\"useVoiceRecorder\", \"transcribes actual browser MIME and releases microphone before recognition completes\", \"attaches audio when no recognition callback is provided\", \"ignores an old result after discard and a new recording\", \"shows failures and lets discard restore idle state\", \"releases microphone if permission resolves after unmount\", \"complete recording\", \"waits for Stop and sends all blobs as one file exactly once\", \"does not recognize a discarded recording\", \"ignores final browser events after cancellation\", \"releases late microphone permission after Stop without recognition\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-conversation-input:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/conversation-input/README.md",
+          "start": 1,
+          "end": 355
+        },
+        {
+          "file": "libs/conversation-input/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-input/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/conversation-input/src/components/ConversationInput/ConversationInput.tsx",
+          "start": 8,
+          "end": 78,
+          "symbol": "ConversationInput"
+        },
+        {
+          "file": "libs/conversation-input/src/models/ConversationInput.ts",
+          "start": 182,
+          "end": 455,
+          "symbol": "ConversationInputProps"
+        },
+        {
+          "file": "apps/chat/src/hooks/conversation/useAudioTranscription.ts",
+          "start": 1,
+          "end": 100
+        },
+        {
+          "file": "libs/conversation-input/src/hooks/tests/useModelSelector.spec.tsx",
+          "start": 1,
+          "end": 309
+        },
+        {
+          "file": "libs/conversation-input/src/hooks/tests/useVoiceRecorder.spec.ts",
+          "start": 1,
+          "end": 265
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-input-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "No completion client",
+          "body": "onSend is the integration point for a real generation flow."
+        },
+        {
+          "title": "Provider assumptions",
+          "body": "Feature-specific settings and menus need caller-supplied data."
+        },
+        {
+          "title": "Avoid state resets",
+          "body": "Keep initialization and host insertion changes intentional."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. No completion client: onSend is the integration point for a real generation flow. Provider assumptions: Feature-specific settings and menus need caller-supplied data. Avoid state resets: Keep initialization and host insertion changes intentional. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/conversation-input/README.md",
+          "start": 1,
+          "end": 355
+        },
+        {
+          "file": "libs/conversation-input/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-input/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/conversation-input/src/components/ConversationInput/ConversationInput.tsx",
+          "start": 8,
+          "end": 78,
+          "symbol": "ConversationInput"
+        },
+        {
+          "file": "libs/conversation-input/src/models/ConversationInput.ts",
+          "start": 182,
+          "end": 455,
+          "symbol": "ConversationInputProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/conversation-input.pptx"
+}

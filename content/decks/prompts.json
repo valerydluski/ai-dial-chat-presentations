@@ -1,0 +1,497 @@
+{
+  "id": "libs/prompts",
+  "shortTitle": "Prompts",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-prompts-01",
+      "title": "Prompts",
+      "layout": "cover",
+      "subtitle": "Pick reusable prompts and collect their parameter values.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-prompts",
+      "notes": "This session explains pick reusable prompts and collect their parameter values. The library is a local private workspace package at libs/prompts. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/prompts/README.md",
+          "start": 1,
+          "end": 145
+        },
+        {
+          "file": "libs/prompts/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/prompts/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+          "start": 27,
+          "end": 174,
+          "symbol": "PromptParametersPopup"
+        },
+        {
+          "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+          "start": 32,
+          "end": 69,
+          "symbol": "PromptParametersPopupProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-prompts-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Pick reusable prompts and collect their parameter values.",
+      "cards": [
+        {
+          "title": "Choose a favorite",
+          "body": "Browse FavoritePromptItem data supplied by the host."
+        },
+        {
+          "title": "Fill placeholders",
+          "body": "Collect values for named prompt parameters."
+        },
+        {
+          "title": "Populate a composer",
+          "body": "Resolve values and pass the text to host input state."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Choose a favorite: Browse FavoritePromptItem data supplied by the host. Fill placeholders: Collect values for named prompt parameters. Populate a composer: Resolve values and pass the text to host input state. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/prompts/README.md",
+          "start": 1,
+          "end": 145
+        },
+        {
+          "file": "libs/prompts/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/prompts/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+          "start": 27,
+          "end": 174,
+          "symbol": "PromptParametersPopup"
+        },
+        {
+          "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+          "start": 32,
+          "end": 69,
+          "symbol": "PromptParametersPopupProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-prompts-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Favorite selection",
+          "body": "Prompt content"
+        },
+        {
+          "title": "Parameter popup",
+          "body": "Named input fields"
+        },
+        {
+          "title": "onSubmit",
+          "body": "Record of values"
+        },
+        {
+          "title": "Host resolver",
+          "body": "Resolve and insert text"
+        }
+      ],
+      "takeaway": "Library: Favorite prompt selection and parameter-entry UI.",
+      "notes": "The library owns Favorite prompt selection and parameter-entry UI. The host owns Loading favorites, deriving parameters, resolving submitted values and sending text.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/prompts/README.md",
+          "start": 1,
+          "end": 145
+        },
+        {
+          "file": "libs/prompts/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/prompts/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+          "start": 27,
+          "end": 174,
+          "symbol": "PromptParametersPopup"
+        },
+        {
+          "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+          "start": 32,
+          "end": 69,
+          "symbol": "PromptParametersPopupProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-prompts-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "PromptParametersPopup \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "content",
+          "string"
+        ],
+        [
+          "parameters",
+          "PromptParameter[]"
+        ],
+        [
+          "onSubmit",
+          "(values: Record<string, string>) => void"
+        ],
+        [
+          "open",
+          "boolean"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/prompts/README.md",
+          "start": 1,
+          "end": 145
+        },
+        {
+          "file": "libs/prompts/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/prompts/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+          "start": 27,
+          "end": 174,
+          "symbol": "PromptParametersPopup"
+        },
+        {
+          "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+          "start": 32,
+          "end": 69,
+          "symbol": "PromptParametersPopupProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-prompts-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "<PromptParametersPopup\n  open={open} promptName=\"Demo summary\"\n  content=\"Summarize {{topic}}\"\n  parameters={[{ name: 'topic' }]}\n  onClose={close} onCancel={close}\n  onSubmit={values => {\n    onText(resolvePromptParams(content, values));\n  }}\n/>",
+      "caption": "Full example: examples/prompts.tsx \u00b7 uses @epam/ai-dial-prompts",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/prompts.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Browse FavoritePromptItem data supplied by the host. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/prompts/README.md",
+          "start": 1,
+          "end": 145
+        },
+        {
+          "file": "libs/prompts/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/prompts/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+          "start": 27,
+          "end": 174,
+          "symbol": "PromptParametersPopup"
+        },
+        {
+          "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+          "start": 32,
+          "end": 69,
+          "symbol": "PromptParametersPopupProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-prompts-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep prompts focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Collect parameters",
+          "body": "Open the parameter popup with content and parameter names."
+        },
+        {
+          "title": "Resolve the template",
+          "body": "Use the submitted value map with resolvePromptParams."
+        },
+        {
+          "title": "Apply the text",
+          "body": "The host inserts the resolved text into its composer."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Collect parameters: Open PromptParametersPopup with content and parameter names. Resolve the template: Use the submitted value map with resolvePromptParams. Apply the text: The host inserts the resolved text into its composer. The complete typed module in examples/prompts.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/prompts/README.md",
+          "start": 1,
+          "end": 145
+        },
+        {
+          "file": "libs/prompts/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/prompts/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+          "start": 27,
+          "end": 174,
+          "symbol": "PromptParametersPopup"
+        },
+        {
+          "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+          "start": 32,
+          "end": 69,
+          "symbol": "PromptParametersPopupProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-prompts-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Favorite callbacks",
+          "body": "Selection, favorite changes and browse actions are caller-owned."
+        },
+        {
+          "title": "Default values",
+          "body": "Shared helpers support tokens with a default value."
+        },
+        {
+          "title": "Explicit popup state",
+          "body": "open, onClose and onCancel are controlled by the host."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Favorite callbacks: Selection, favorite changes and browse actions are caller-owned. Default values: Shared helpers support tokens with a default value. Explicit popup state: open, onClose and onCancel are controlled by the host. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/prompts/README.md",
+          "start": 1,
+          "end": 145
+        },
+        {
+          "file": "libs/prompts/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/prompts/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+          "start": 27,
+          "end": 174,
+          "symbol": "PromptParametersPopup"
+        },
+        {
+          "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+          "start": 32,
+          "end": 69,
+          "symbol": "PromptParametersPopupProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-prompts-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat/components/PromptSelector/PromptParametersPopupOverlay.tsx"
+        ],
+        [
+          "Test evidence",
+          "renders the title and one field per parameter"
+        ],
+        [
+          "Test evidence",
+          "renders the \"My Collection\" header"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: apps/chat/src/components/PromptSelector/PromptParametersPopupOverlay.tsx; apps/chat/src/components/PromptSelector/PromptSelectorOverlay.tsx; apps/chat/src/components/PromptSelector/usePromptSelectorOverlay.tsx. Existing test evidence: [{\"file\": \"libs/prompts/src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx\", \"assertions\": [\"PromptParametersPopup\", \"renders the title and one field per parameter\", \"renders one field for a token repeated in the content, via extractPromptParams\", \"does not render a back chevron when onBack is omitted\", \"renders a back chevron when onBack is provided\", \"calls onBack when the back chevron is clicked\", \"disables Submit until every parameter field is filled\", \"calls onSubmit with the entered values when Submit is clicked\", \"opens a defaulted field holding its default value\", \"labels a defaulted field with the name alone, without the separator\", \"enables Submit with no typing when every parameter carries a default\", \"submits the default when a defaulted field is left untouched\", \"submits the edited value rather than the default when the field is changed\", \"offers the default again when the same prompt comes back after another\", \"calls onCancel when Cancel is clicked\"]}, {\"file\": \"libs/prompts/src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx\", \"assertions\": [\"FavoritePromptsPanel\", \"renders the \", \"shows the empty-state hint when there are no favorites\", \"shows the \", \"renders a favorite row with its name and a pressed star toggle\", \"calls onSelect with the item when a row is clicked\", \"does not call onToggleFavorite synchronously on click\", \"calls onToggleFavorite with the id once the exit animation finishes\", \"calls onBrowse when \", \"renders the description in the row tooltip when a described row is hovered\", \"FavoritePromptsPanel \\u2014 public class names\", \"stamps the panel root\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-prompts:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately. Existing test evidence includes: renders the \"My Collection\" header.",
+      "sources": [
+        {
+          "file": "libs/prompts/README.md",
+          "start": 1,
+          "end": 145
+        },
+        {
+          "file": "libs/prompts/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/prompts/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+          "start": 27,
+          "end": 174,
+          "symbol": "PromptParametersPopup"
+        },
+        {
+          "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+          "start": 32,
+          "end": 69,
+          "symbol": "PromptParametersPopupProps"
+        },
+        {
+          "file": "apps/chat/src/components/PromptSelector/PromptParametersPopupOverlay.tsx",
+          "start": 1,
+          "end": 71
+        },
+        {
+          "file": "libs/prompts/src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx",
+          "start": 1,
+          "end": 205
+        },
+        {
+          "file": "libs/prompts/src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx",
+          "start": 1,
+          "end": 151
+        }
+      ]
+    },
+    {
+      "id": "lib-prompts-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Submission is values",
+          "body": "The parameter popup returns a value map for the host to resolve."
+        },
+        {
+          "title": "Use shared helpers",
+          "body": "Shared helpers extract and resolve prompt parameters."
+        },
+        {
+          "title": "Syntax matters",
+          "body": "Double braces define parameters; ordinary braces remain literal."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Submission is values: PromptParametersPopup returns a value map, not a sent message. Use shared helpers: extractPromptParams and resolvePromptParams implement token semantics. Syntax matters: Double braces define parameters; ordinary braces remain literal. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/prompts/README.md",
+          "start": 1,
+          "end": 145
+        },
+        {
+          "file": "libs/prompts/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/prompts/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+          "start": 27,
+          "end": 174,
+          "symbol": "PromptParametersPopup"
+        },
+        {
+          "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+          "start": 32,
+          "end": 69,
+          "symbol": "PromptParametersPopupProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/prompts.pptx"
+}

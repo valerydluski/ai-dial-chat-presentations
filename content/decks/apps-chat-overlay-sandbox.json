@@ -1,0 +1,249 @@
+{
+  "id": "apps/chat-overlay-sandbox",
+  "shortTitle": "Overlay sandbox",
+  "series": "Sandbox walkthrough",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "apps-chat-overlay-sandbox-01",
+      "title": "Overlay sandbox",
+      "layout": "cover",
+      "sources": [
+        {
+          "file": "apps/chat-overlay-sandbox/README.md",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "apps/chat-overlay-sandbox/src/main.tsx",
+          "start": 1,
+          "end": 15
+        }
+      ],
+      "notes": "This is a React/Vite demonstration application, not an isolated MCP resource renderer. It hosts existing overlay clients against a running chat instance.",
+      "subtitle": "A real browser host for exercising the chat overlay protocol.",
+      "chips": [
+        "Integration cases",
+        "Port 4300",
+        "Running chat required"
+      ],
+      "caption": "apps/chat-overlay-sandbox"
+    },
+    {
+      "id": "apps-chat-overlay-sandbox-02",
+      "title": "Each case demonstrates a distinct contract",
+      "layout": "table",
+      "sources": [
+        {
+          "file": "apps/chat-overlay-sandbox/README.md",
+          "start": 1,
+          "end": 73
+        }
+      ],
+      "notes": "EnabledFeaturesCase and AuthUiModeCase complete the set. Cases are actual source modules under src/cases. They are useful for reproducing integration behavior before embedding the overlay into a separate product.",
+      "headers": [
+        "Case",
+        "Demonstration"
+      ],
+      "rows": [
+        [
+          "DirectOverlayCase",
+          "Mount into a host-owned region"
+        ],
+        [
+          "ManagerOverlayCase",
+          "Floating widget controls"
+        ],
+        [
+          "ConversationListCase",
+          "List, create, select, rename and delete"
+        ],
+        [
+          "Features / auth cases",
+          "Live options and provider login UI modes"
+        ]
+      ]
+    },
+    {
+      "id": "apps-chat-overlay-sandbox-03",
+      "title": "Trace the host-to-chat handshake",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 1,
+          "end": 494
+        },
+        {
+          "file": "apps/chat-overlay-sandbox/src/cases/DirectOverlayCase/DirectOverlayCase.tsx",
+          "start": 1,
+          "end": 242
+        }
+      ],
+      "notes": "The host API waits for the full ready-to-interact handshake. A blank iframe caused by frame-ancestors policy is not a protocol timeout to fix in the controls. Check server allowlisting and runtime overlay mode first.",
+      "nodes": [
+        {
+          "title": "Sandbox page",
+          "body": "Choose an integration case"
+        },
+        {
+          "title": "ChatOverlay",
+          "body": "Create iframe"
+        },
+        {
+          "title": "Embedded chat",
+          "body": "Readiness exchange"
+        },
+        {
+          "title": "Host controls",
+          "body": "Send requests / read events"
+        }
+      ],
+      "takeaway": "Host allowlisting and overlay mode are prerequisites."
+    },
+    {
+      "id": "apps-chat-overlay-sandbox-04",
+      "title": "Reproduce the local scenario",
+      "layout": "code",
+      "sources": [
+        {
+          "file": "apps/chat-overlay-sandbox/README.md",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "apps/chat-overlay-sandbox/vite.config.mts",
+          "start": 1,
+          "end": 59
+        }
+      ],
+      "notes": "The first two lines are backend environment configuration, not values to set only on the sandbox process. The host override is passed to the Vite sandbox. Run chat at 4207 and its backend at 5000 first. No real user data is required to open the page, but an authenticated deployment may require login for chat actions.",
+      "kicker": "Configure the backend, then run both the chat and this sandbox.",
+      "code": "OVERLAY_ENABLED=true\nALLOWED_IFRAME_ORIGINS=http://localhost:4300\n\n# In the shell that starts the sandbox:\nVITE_CHAT_OVERLAY_HOST=http://localhost:4207 \\\n  npm exec nx serve chat-overlay-sandbox"
+    },
+    {
+      "id": "apps-chat-overlay-sandbox-05",
+      "title": "A direct overlay is a small integration",
+      "layout": "code",
+      "sources": [
+        {
+          "file": "apps/chat-overlay-sandbox/src/cases/DirectOverlayCase/DirectOverlayCase.tsx",
+          "start": 1,
+          "end": 242
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 1,
+          "end": 494
+        }
+      ],
+      "notes": "The complete example receives domain as a parameter, subscribes to an event and returns cleanup. The container must exist in the page. Changing input is a protocol operation; it does not automatically send a model request.",
+      "kicker": "Checked pattern from examples/chat-overlay.ts.",
+      "code": "const overlay = new ChatOverlay('#demo-chat', {\n  domain: 'http://localhost:4207',\n  theme: 'dark',\n});\nawait overlay.ready();\nawait overlay.setInputContent('Explain the demo');\n// Later: overlay.destroy();"
+    },
+    {
+      "id": "apps-chat-overlay-sandbox-06",
+      "title": "Deployment shares the main chat image",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/chat-overlay-sandbox/README.md",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "Dockerfile",
+          "start": 1,
+          "end": 70
+        },
+        {
+          "file": "apps/chat-api/src/app/static-assets.ts",
+          "start": 1,
+          "end": 215
+        }
+      ],
+      "notes": "The root Dockerfile builds this app with the frontend and backend. The deployed sandbox embeds the current origin. This same-origin deployment is intentional for this demo host and must not be copied to the MCP sandbox architecture.",
+      "cards": [
+        {
+          "title": "Published route",
+          "body": "The backend can serve the sandbox at /overlay-sandbox/."
+        },
+        {
+          "title": "Enable it explicitly",
+          "body": "The backend sandbox flag controls exposure of the route."
+        },
+        {
+          "title": "Separate HTML policy",
+          "body": "The backend supplies the sandbox style nonce and response policy."
+        }
+      ]
+    },
+    {
+      "id": "apps-chat-overlay-sandbox-07",
+      "title": "Verify cases through the current targets",
+      "layout": "code",
+      "sources": [
+        {
+          "file": "apps/chat-overlay-sandbox/README.md",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "apps/chat-overlay-sandbox/package.json",
+          "start": 1,
+          "end": 10
+        }
+      ],
+      "notes": "The source includes seven test files for sandbox behavior. These suites were inspected but not run for the presentation task. The live integration requires the external chat deployment and its server policy, beyond what a mocked test can establish.",
+      "kicker": "Nx targets come from the resolved project graph.",
+      "code": "npm exec nx test chat-overlay-sandbox\nnpm exec nx build chat-overlay-sandbox\nnpm exec nx run chat-overlay-sandbox:typecheck"
+    },
+    {
+      "id": "apps-chat-overlay-sandbox-08",
+      "title": "Interpret integration failures at the right layer",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/chat-overlay-sandbox/README.md",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 1,
+          "end": 494
+        }
+      ],
+      "notes": "Same-window identity-provider login in an iframe depends on the provider tenant and browser policy. The sandbox exposes those choices for investigation; it cannot make an incompatible provider embeddable. Use it as a reproducible integration host rather than a proof of production compatibility.",
+      "cards": [
+        {
+          "title": "Blank frame",
+          "body": "Check chat CSP frame-ancestors and allowed host origin."
+        },
+        {
+          "title": "No ready event",
+          "body": "Inspect protocol readiness after the iframe loads."
+        },
+        {
+          "title": "Login cannot complete",
+          "body": "Verify the exact provider and configured UI mode."
+        }
+      ]
+    }
+  ],
+  "output": "decks/apps/chat-overlay-sandbox.pptx"
+}

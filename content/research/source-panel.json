@@ -1,0 +1,1144 @@
+{
+  "project": {
+    "id": "libs/source-panel",
+    "project": "@epam/ai-dial-source-panel",
+    "path": "libs/source-panel",
+    "package": "@epam/ai-dial-source-panel",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/source-panel/README.md",
+      "libs/source-panel/package.json",
+      "libs/source-panel/src/index.ts",
+      "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+      "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+      "libs/source-panel/src/components/FilesSection/tests/FilesSection.spec.tsx",
+      "libs/source-panel/src/components/SourcesSection/tests/SourcesSection.spec.tsx",
+      "apps/chat/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+      "apps/chat/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+      "libs/chat-hooks/src/conversation-sources/useConversationSources/useConversationSources.ts",
+      "libs/sidebar/src/constants/public-class-names.ts"
+    ],
+    "output": "decks/libs/source-panel.pptx",
+    "preview": "previews/libs/source-panel",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+      "test-ci--src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+      "test-ci--src/components/FilesSection/tests/FilesSection.spec.tsx",
+      "test-ci--src/components/SourcesSection/tests/SourcesSection.spec.tsx",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-source-panel",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-source-panel",
+        "target": "@epam/ai-dial-attachment-input",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-source-panel",
+        "target": "@epam/ai-dial-sidebar",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-source-panel",
+    "description": "Panel for displaying conversation sources \u2014 uploaded files and generated citations",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0",
+      "@epam/ai-dial-attachment-input": "*",
+      "@epam/ai-dial-sidebar": "*"
+    },
+    "peerDependencies": {
+      "react": "^19.2.8",
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9"
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/source-panel",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/source-panel",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/source-panel/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/source-panel",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/source-panel",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/source-panel",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/source-panel",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/source-panel",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-source-panel --includeDependencies -- npx nx build-deps @epam/ai-dial-source-panel"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/source-panel",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/source-panel",
+          "command": "vitest run src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/source-panel",
+          "command": "vitest run src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/FilesSection/tests/FilesSection.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/FilesSection/tests/FilesSection.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/FilesSection/tests/FilesSection.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/source-panel",
+          "command": "vitest run src/components/FilesSection/tests/FilesSection.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/FilesSection/tests/FilesSection.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/SourcesSection/tests/SourcesSection.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SourcesSection/tests/SourcesSection.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/SourcesSection/tests/SourcesSection.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/source-panel",
+          "command": "vitest run src/components/SourcesSection/tests/SourcesSection.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/SourcesSection/tests/SourcesSection.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/FilesSection/tests/FilesSection.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/SourcesSection/tests/SourcesSection.spec.tsx"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+          "test-ci--src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+          "test-ci--src/components/FilesSection/tests/FilesSection.spec.tsx",
+          "test-ci--src/components/SourcesSection/tests/SourcesSection.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-source-panel --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+          "test-ci--src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+          "test-ci--src/components/FilesSection/tests/FilesSection.spec.tsx",
+          "test-ci--src/components/SourcesSection/tests/SourcesSection.spec.tsx"
+        ]
+      },
+      "description": "Panel for displaying conversation sources \u2014 uploaded files and generated citations",
+      "js": {
+        "packageName": "@epam/ai-dial-source-panel",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-source-panel",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/source-panel/src/index.ts",
+    "libs/source-panel/src/vite-env.d.ts",
+    "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+    "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+    "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+    "libs/source-panel/src/components/FilesSection/FilesSection.tsx",
+    "libs/source-panel/src/components/FilesSection/tests/FilesSection.spec.tsx",
+    "libs/source-panel/src/components/SourcesSection/tests/SourcesSection.spec.tsx",
+    "libs/source-panel/src/components/SourcesSection/SourcesSection.module.scss",
+    "libs/source-panel/src/components/SourcesSection/SourcesSection.tsx",
+    "libs/source-panel/src/test-setup.ts",
+    "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+    "libs/source-panel/src/models/quotation-source.ts",
+    "libs/source-panel/src/constants/public-class-names.ts",
+    "libs/source-panel/tsconfig.spec.json",
+    "libs/source-panel/eslint.config.mjs",
+    "libs/source-panel/postcss.config.js",
+    "libs/source-panel/tsconfig.lib.json",
+    "libs/source-panel/tsconfig.json",
+    "libs/source-panel/package.json",
+    "libs/source-panel/vite.config.mts",
+    "libs/source-panel/README.md",
+    "libs/source-panel/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+    "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+    "libs/source-panel/src/components/FilesSection/tests/FilesSection.spec.tsx",
+    "libs/source-panel/src/components/SourcesSection/tests/SourcesSection.spec.tsx",
+    "libs/source-panel/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+    "apps/chat/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+    "libs/chat-hooks/src/conversation-sources/useConversationSources/useConversationSources.ts",
+    "libs/sidebar/src/constants/public-class-names.ts"
+  ],
+  "readme": "# @epam/ai-dial-source-panel\n\nPanel component for displaying conversation sources \u2014 uploaded files and generated citations/references.\n\n## Overview\n\n`@epam/ai-dial-source-panel` renders the sources sidebar that appears alongside an active conversation when the model produces citations or the user has uploaded reference files. It solves the problem of giving users transparent access to the evidence behind a model response: the panel is divided into two sections \u2014 uploaded files (documents the user attached before sending the message) and generated sources (documents the model retrieved or cited in its answer) \u2014 both of which are searchable and support clicking through to an inline preview via `@epam/ai-dial-attachment-canvas`. Use this library whenever a chat view needs to surface grounding information next to the conversation thread, allowing users to verify claims, re-read source material, or download referenced documents without leaving the conversation.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-source-panel\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-source-panel/styles.css';\n```\n\n## Peer Dependencies\n\n- `react`\n- `@epam/ai-dial-chat-shared`\n- `@epam/ai-dial-ui-kit`\n- `@epam/ai-dial-conversation-input`\n\n## Components\n\n### ConversationSourcesPanel\n\nRoot component. Renders both the uploaded files section and the generated sources section inside a `SidebarPanel` shell.\n\n```tsx\nimport { ConversationSourcesPanel } from '@epam/ai-dial-source-panel';\nimport type { ConversationSourcesPanelProps } from '@epam/ai-dial-source-panel';\n\n<ConversationSourcesPanel\n  isOpen={isOpen}\n  uploaded={uploadedAttachments}\n  generated={generatedAttachments}\n  sources={quotations}\n  isMobile={isMobile}\n  labels={labels}\n  onClose={handleClose}\n  onAttachmentClick={handleAttachmentClick}\n  onSourceClick={handleSourceClick}\n  onDownloadAll={handleDownloadAll}\n/>;\n```\n\n## Types\n\n```tsx\nimport type {\n  ConversationSourcesPanelProps,\n  ConversationSourcesPanelLabels,\n  ConversationSourcesPanelColors,\n  ConversationSourcesPanelStyles,\n  ConversationSourcesPanelTypography,\n  QuotationSource,\n} from '@epam/ai-dial-source-panel';\n```\n\n### QuotationSource\n\nShape of a single cited source entry.\n\n```tsx\ninterface QuotationSource {\n  url: string;\n  title: string;\n  contentType: string;\n  quote?: string;\n}\n```\n\n### ConversationSourcesPanelLabels\n\nOverride default English UI strings with translated values.\n\n```tsx\nconst labels: ConversationSourcesPanelLabels = {\n  ariaLabel: t('Sources panel'),\n  closeLabel: t('Close'),\n  searchPlaceholder: t('Search sources...'),\n  searchClearLabel: t('Clear search'),\n  noDataLabel: t('Empty'),\n  noResultsLabel: t('No results'),\n  downloadAllLabel: t('Download all'),\n  uploadedSectionTitle: t('Uploaded files'),\n  generatedSectionTitle: t('Generated files'),\n  sourcesSectionTitle: t('Sources'),\n  copySourceLabel: t('Copy link'),\n  sourceCopiedLabel: t('Copied!'),\n  attachmentClickLabel: t('Download'),\n};\n```\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. The panel\ntherefore carries a stable public class, exported as `SOURCE_PANEL_CLASS`.\n\n| Key     | Class                     | Element                                                        |\n| ------- | ------------------------- | -------------------------------------------------------------- |\n| `panel` | `dial-source-panel-panel` | The panel wrapper \u2014 the box that owns its width and transition |\n\nThe panel is drawn by [`@epam/ai-dial-sidebar`](../sidebar/README.md), which\nputs this class on the **wrapper** around the region, not on the\n`role=\"complementary\"` element itself \u2014 that one carries `dial-sb-aside`. Size\nor position the wrapper, and descend from it to reach the region.\n\nThe class carries no declarations of its own: nothing in `styles.css` selects on\nit, so it changes nothing until a host writes a rule. Renaming it, or moving it\nto a different element, is a breaking change. The convention is in\n[`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\n```tsx\nimport { SOURCE_PANEL_CLASS } from '@epam/ai-dial-source-panel';\n\nSOURCE_PANEL_CLASS.panel; // 'dial-source-panel-panel'\n```\n\n```css\n.dial-source-panel-panel {\n  inline-size: 420px;\n}\n\n.dial-source-panel-panel .dial-sb-aside {\n  border-inline-end: none;\n}\n```\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/source-panel/src/index.ts": "export { default as ConversationSourcesPanel } from './components/ConversationSourcesPanel/ConversationSourcesPanel';\nexport type {\n  ConversationSourcesPanelColors,\n  ConversationSourcesPanelLabels,\n  ConversationSourcesPanelProps,\n  ConversationSourcesPanelStyles,\n  ConversationSourcesPanelTypography,\n} from './models/conversation-sources-panel-props';\nexport type { QuotationSource } from './models/quotation-source';\nexport { SOURCE_PANEL_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/source-panel/src/index.ts": [
+      {
+        "name": "ConversationSourcesPanel",
+        "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+        "start": 203,
+        "end": 203,
+        "declaration": "export default memo(ConversationSourcesPanel);",
+        "signature": "(props: ConversationSourcesPanelProps): ReactNode",
+        "props": [
+          {
+            "name": "isOpen",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "uploaded",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[]"
+          },
+          {
+            "name": "generated",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[]"
+          },
+          {
+            "name": "sources",
+            "optional": false,
+            "type": "import(\"../..\").QuotationSource[]"
+          },
+          {
+            "name": "onAttachmentClick",
+            "optional": true,
+            "type": "((attachment: import(\"@epam/ai-dial-chat-shared\").DisplayAttachment) => void) | undefined"
+          },
+          {
+            "name": "onSourceClick",
+            "optional": true,
+            "type": "((source: import(\"../..\").QuotationSource) => void) | undefined"
+          },
+          {
+            "name": "onDownloadAll",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "isMobile",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "defaultWidth",
+            "optional": true,
+            "type": "number | undefined"
+          },
+          {
+            "name": "minWidth",
+            "optional": true,
+            "type": "number | undefined"
+          },
+          {
+            "name": "maxWidth",
+            "optional": true,
+            "type": "number | undefined"
+          },
+          {
+            "name": "onResizeStop",
+            "optional": true,
+            "type": "((width: number) => void) | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").ConversationSourcesPanelLabels"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").ConversationSourcesPanelStyles | undefined"
+          },
+          {
+            "name": "title",
+            "optional": true,
+            "type": "ReactNode"
+          },
+          {
+            "name": "additionalSections",
+            "optional": true,
+            "type": "ReactNode"
+          }
+        ]
+      },
+      {
+        "name": "ConversationSourcesPanelColors",
+        "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+        "start": 38,
+        "end": 43,
+        "declaration": "export interface ConversationSourcesPanelColors {\n  /** Source link color. */\n  sourceLink?: string;\n  /** Source quote text color. */\n  sourceQuote?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ConversationSourcesPanelLabels",
+        "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+        "start": 6,
+        "end": 35,
+        "declaration": "export interface ConversationSourcesPanelLabels {\n  /** Accessible name for the sidebar panel element. */\n  ariaLabel: string;\n  /** Label for the close button. */\n  closeLabel: string;\n  /** Accessible label for the panel's drag-to-resize handle. Defaults to `'Resize panel'`. */\n  resizeLabel?: string;\n  /** Placeholder text shown inside the search input. */\n  searchPlaceholder: string;\n  /** Accessible label for the search input clear button. */\n  searchClearLabel: string;\n  /** Text shown in the centred empty state when the panel has no files or sources. */\n  noDataLabel: string;\n  /** Text shown when a search query matches nothing. */\n  noResultsLabel: string;\n  /** Accessible label for the download-all icon button. */\n  downloadAllLabel: string;\n  /** Heading text for the uploaded-files section. */\n  uploadedSectionTitle: string;\n  /** Heading text for the generated-files section. */\n  generatedSectionTitle: string;\n  /** Heading text for the sources section. */\n  sourcesSectionTitle: string;\n  /** Accessible label for each source's copy-URL button. */\n  copySourceLabel: string;\n  /** Status message announced to assistive tech after a source URL is copied. Defaults to `'Link copied to clipboard'`. */\n  sourceCopiedLabel?: string;\n  /** Label passed to each attachment card's action button. */\n  attachmentClickLabel: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ConversationSourcesPanelProps",
+        "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+        "start": 64,
+        "end": 107,
+        "declaration": "export interface ConversationSourcesPanelProps {\n  /** Whether the panel is currently visible. */\n  isOpen: boolean;\n  /** Called when the user requests to close the panel. */\n  onClose: () => void;\n  /** Attachments uploaded by the user in this conversation. */\n  uploaded: DisplayAttachment[];\n  /** Attachments generated by the assistant in this conversation. */\n  generated: DisplayAttachment[];\n  /** Quotation sources cited by the assistant. */\n  sources: QuotationSource[];\n  /** Called when the user activates an attachment card. */\n  onAttachmentClick?: (attachment: DisplayAttachment) => void;\n  /** Called when the user clicks a source link. When omitted, the link navigates normally. */\n  onSourceClick?: (source: QuotationSource) => void;\n  /** Called when the user activates the download-all button; omit to disable the button. */\n  onDownloadAll?: () => void;\n  /** Whether the viewport is in mobile breakpoint (disables resizing). */\n  isMobile: boolean;\n  /** Initial panel width in pixels. */\n  defaultWidth?: number;\n  /** Minimum panel width in pixels. */\n  minWidth?: number;\n  /** Maximum panel width in pixels. */\n  maxWidth?: number;\n  /** Called with the new width after the user finishes a resize drag. */\n  onResizeStop?: (width: number) => void;\n  /** User-visible strings (titles, placeholders, aria labels). */\n  labels: ConversationSourcesPanelLabels;\n  /** Optional typography and color class overrides for inner elements. */\n  styles?: ConversationSourcesPanelStyles;\n  /**\n   * Overrides the panel header's title (passed through to the underlying\n   * `SidebarPanel`'s `title`). Omit to keep the panel's default (untitled)\n   * header.\n   */\n  title?: ReactNode;\n  /**\n   * Rendered inside the scrollable body, before the Uploaded Files, Generated\n   * Files, and Sources sections. A plain, host-agnostic slot \u2014 this component\n   * has no knowledge of what it contains.\n   */\n  additionalSections?: ReactNode;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ConversationSourcesPanelStyles",
+        "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+        "start": 56,
+        "end": 61,
+        "declaration": "export interface ConversationSourcesPanelStyles {\n  /** Color overrides applied as CSS custom properties to the sources section. */\n  colors?: ConversationSourcesPanelColors;\n  /** Typography overrides for section headings and source text. */\n  typography?: ConversationSourcesPanelTypography;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ConversationSourcesPanelTypography",
+        "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+        "start": 46,
+        "end": 53,
+        "declaration": "export interface ConversationSourcesPanelTypography {\n  /** CSS class applied to each section heading (`<h2>`). Defaults to `'dial-body-semi-text'`. */\n  sectionTitleClassName?: string;\n  /** CSS class applied to each source link. Defaults to `'dial-small-text'`. */\n  sourceLinkClassName?: string;\n  /** CSS class applied to each source quote paragraph. Defaults to `'dial-tiny-text'`. */\n  sourceQuoteClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "QuotationSource",
+        "file": "libs/source-panel/src/models/quotation-source.ts",
+        "start": 2,
+        "end": 11,
+        "declaration": "export interface QuotationSource {\n  /** URL of the source resource. */\n  url: string;\n  /** Human-readable title of the source. */\n  title: string;\n  /** MIME type of the source attachment (e.g. `'application/pdf'`). */\n  contentType: string;\n  /** Excerpt from the source that was quoted. */\n  quote?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SOURCE_PANEL_CLASS",
+        "file": "libs/source-panel/src/constants/public-class-names.ts",
+        "start": 11,
+        "end": 20,
+        "declaration": "SOURCE_PANEL_CLASS = {\n  /**\n   * The panel wrapper \u2014 the element `@epam/ai-dial-sidebar` gives the panel's\n   * width and slide transition, which is the outer box a host sizes or\n   * positions. It is **not** the `aside` inside it: that one carries\n   * `dial-sb-aside`, so a host targeting the region itself descends from this\n   * class.\n   */\n  panel: 'dial-source-panel-panel',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "ConversationSourcesPanel",
+      "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+      "start": 203,
+      "end": 203,
+      "declaration": "export default memo(ConversationSourcesPanel);",
+      "signature": "(props: ConversationSourcesPanelProps): ReactNode",
+      "props": [
+        {
+          "name": "isOpen",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "onClose",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "uploaded",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[]"
+        },
+        {
+          "name": "generated",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[]"
+        },
+        {
+          "name": "sources",
+          "optional": false,
+          "type": "import(\"../..\").QuotationSource[]"
+        },
+        {
+          "name": "onAttachmentClick",
+          "optional": true,
+          "type": "((attachment: import(\"@epam/ai-dial-chat-shared\").DisplayAttachment) => void) | undefined"
+        },
+        {
+          "name": "onSourceClick",
+          "optional": true,
+          "type": "((source: import(\"../..\").QuotationSource) => void) | undefined"
+        },
+        {
+          "name": "onDownloadAll",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "isMobile",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "defaultWidth",
+          "optional": true,
+          "type": "number | undefined"
+        },
+        {
+          "name": "minWidth",
+          "optional": true,
+          "type": "number | undefined"
+        },
+        {
+          "name": "maxWidth",
+          "optional": true,
+          "type": "number | undefined"
+        },
+        {
+          "name": "onResizeStop",
+          "optional": true,
+          "type": "((width: number) => void) | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").ConversationSourcesPanelLabels"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").ConversationSourcesPanelStyles | undefined"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "type": "ReactNode"
+        },
+        {
+          "name": "additionalSections",
+          "optional": true,
+          "type": "ReactNode"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+      "assertions": [
+        "stamps the panel on the desktop layout",
+        "keeps the class beside the mobile full-width utility",
+        "stamps the panel while it is closed"
+      ]
+    },
+    {
+      "file": "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+      "assertions": [
+        "renders uploaded attachments",
+        "renders generated attachments",
+        "close button calls onClose",
+        "renders empty state when no data",
+        "renders uploaded and generated sections in order",
+        "renders sources section",
+        "renders the download-all button disabled when onDownloadAll is omitted",
+        "renders the download-all button enabled and wired to onDownloadAll",
+        "typing a partial name filters uploaded and generated sections",
+        "shows no-results state when query matches nothing",
+        "clearing the query restores all attachments",
+        "filters sources by title, url, and quote",
+        "omitting title and additionalSections reproduces today's exact empty-state output",
+        "renders the supplied title in the panel header",
+        "renders additionalSections ahead of the existing file/source sections",
+        "renders additionalSections instead of the global empty state when there are no files or sources",
+        "does not render search or download-all when only additionalSections is present",
+        "keeps additionalSections visible when a search query matches no files or sources"
+      ]
+    },
+    {
+      "file": "libs/source-panel/src/components/FilesSection/tests/FilesSection.spec.tsx",
+      "assertions": [
+        "renders the title",
+        "renders nothing when no attachments",
+        "renders a card per attachment",
+        "has role=list grid when attachments present",
+        "cards have no onClick when onAttachmentClick is not provided",
+        "activating a card calls onAttachmentClick with the correct attachment"
+      ]
+    },
+    {
+      "file": "libs/source-panel/src/components/SourcesSection/tests/SourcesSection.spec.tsx",
+      "assertions": [
+        "renders nothing when sources is empty",
+        "renders the title when sources are present",
+        "renders a link per source",
+        "renders quote text when present",
+        "does not render quote paragraph when quote is absent",
+        "renders a copy button per source"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+      "matches": [
+        {
+          "start": 19,
+          "end": 29,
+          "excerpt": "  MDMessageViewer,\n  AttachmentType,\n  RequestStatus,\n} from '@epam/ai-dial-chat-shared';\nimport {\n  ScheduledTaskDetailsSummary,\n  ScheduledTaskRunHistoryList,\n  type ScheduledTaskRunItem,\n} from '@epam/ai-dial-scheduled-tasks';\nimport { ConversationSourcesPanel } from '@epam/ai-dial-source-panel';\nimport type { QuotationSource } from '@epam/ai-dial-source-panel';"
+        },
+        {
+          "start": 20,
+          "end": 30,
+          "excerpt": "  AttachmentType,\n  RequestStatus,\n} from '@epam/ai-dial-chat-shared';\nimport {\n  ScheduledTaskDetailsSummary,\n  ScheduledTaskRunHistoryList,\n  type ScheduledTaskRunItem,\n} from '@epam/ai-dial-scheduled-tasks';\nimport { ConversationSourcesPanel } from '@epam/ai-dial-source-panel';\nimport type { QuotationSource } from '@epam/ai-dial-source-panel';\nimport { ButtonVariant, Accordion, GhostButton } from '@epam/ai-dial-ui-kit';"
+        }
+      ]
+    },
+    {
+      "file": "libs/chat-hooks/src/conversation-sources/useConversationSources/useConversationSources.ts",
+      "matches": [
+        {
+          "start": 5,
+          "end": 15,
+          "excerpt": "} from '@epam/ai-dial-chat-shared';\nimport {\n  messageAttachmentToDisplayAttachment,\n  MessageRole,\n} from '@epam/ai-dial-chat-shared';\nimport {\n  isReferenceOnlyAttachment,\n  resolveMessageAnnotations,\n} from '@epam/ai-dial-quotations';\nimport type { QuotationSource } from '@epam/ai-dial-source-panel';\nimport { useMemo } from 'react';"
+        }
+      ]
+    },
+    {
+      "file": "libs/sidebar/src/constants/public-class-names.ts",
+      "matches": [
+        {
+          "start": 10,
+          "end": 20,
+          "excerpt": " * Read the \"Public class names\" section of openspec/lib-styling-guide.md before\n * renaming one or moving it to a different element \u2014 both are breaking changes.\n */\nexport const SIDEBAR_CLASS = {\n  /**\n   * The panel's `<aside role=\"complementary\">` element \u2014 the region itself,\n   * not the wrapper around it. The wrapper is where `styles.className` lands,\n   * which is how the libs built on this panel mark themselves:\n   * `@epam/ai-dial-attachment-canvas` puts `dial-attachment-canvas-panel`\n   * there and `@epam/ai-dial-source-panel` puts `dial-source-panel-panel`. A\n   * host targeting one of those panels therefore descends from its class to"
+        }
+      ]
+    }
+  ]
+}

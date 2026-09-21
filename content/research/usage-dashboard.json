@@ -1,0 +1,1448 @@
+{
+  "project": {
+    "id": "libs/usage-dashboard",
+    "project": "usage-dashboard",
+    "path": "libs/usage-dashboard",
+    "package": "@epam/ai-dial-usage-dashboard",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/usage-dashboard/README.md",
+      "libs/usage-dashboard/package.json",
+      "libs/usage-dashboard/src/index.ts",
+      "libs/usage-dashboard/src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx",
+      "libs/usage-dashboard/src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx",
+      "libs/usage-dashboard/src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx",
+      "libs/usage-dashboard/src/utils/tests/map-user-usage-to-model-limits.spec.ts",
+      "apps/chat/src/pages/SettingsPage/UsageTab/UsageTab.tsx",
+      "apps/chat/src/pages/SettingsPage/UsageTab/tests/UsageTab.spec.tsx",
+      "apps/chat/src/utils/usage-reset-time.ts"
+    ],
+    "output": "decks/libs/usage-dashboard.pptx",
+    "preview": "previews/libs/usage-dashboard",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx",
+      "test-ci--src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx",
+      "test-ci--src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx",
+      "test-ci--src/utils/tests/map-usage-data-to-dashboard.spec.ts",
+      "test-ci--src/utils/tests/map-user-usage-to-model-limits.spec.ts",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "usage-dashboard",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      },
+      {
+        "source": "usage-dashboard",
+        "target": "chat-api-client",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-usage-dashboard",
+    "description": "Presentational aggregate cost-limit cards for the Usage settings dashboard",
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0",
+      "@epam/ai-dial-chat-api-client": "*"
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9",
+      "react": "^19.2.8"
+    },
+    "nx": {
+      "name": "usage-dashboard",
+      "tags": [
+        "type:ui",
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/usage-dashboard",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/usage-dashboard",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/usage-dashboard/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/usage-dashboard",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/usage-dashboard",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/usage-dashboard",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/usage-dashboard",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/usage-dashboard",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects usage-dashboard --includeDependencies -- npx nx build-deps usage-dashboard"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/usage-dashboard",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/usage-dashboard",
+          "command": "vitest run src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/usage-dashboard",
+          "command": "vitest run src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/usage-dashboard",
+          "command": "vitest run src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/map-usage-data-to-dashboard.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/map-usage-data-to-dashboard.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/map-usage-data-to-dashboard.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/usage-dashboard",
+          "command": "vitest run src/utils/tests/map-usage-data-to-dashboard.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/map-usage-data-to-dashboard.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/map-user-usage-to-model-limits.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/map-user-usage-to-model-limits.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/map-user-usage-to-model-limits.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/usage-dashboard",
+          "command": "vitest run src/utils/tests/map-user-usage-to-model-limits.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/map-user-usage-to-model-limits.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/map-usage-data-to-dashboard.spec.ts",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/map-user-usage-to-model-limits.spec.ts"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx",
+          "test-ci--src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx",
+          "test-ci--src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx",
+          "test-ci--src/utils/tests/map-usage-data-to-dashboard.spec.ts",
+          "test-ci--src/utils/tests/map-user-usage-to-model-limits.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs usage-dashboard --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx",
+          "test-ci--src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx",
+          "test-ci--src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx",
+          "test-ci--src/utils/tests/map-usage-data-to-dashboard.spec.ts",
+          "test-ci--src/utils/tests/map-user-usage-to-model-limits.spec.ts"
+        ]
+      },
+      "description": "Presentational aggregate cost-limit cards for the Usage settings dashboard",
+      "js": {
+        "packageName": "@epam/ai-dial-usage-dashboard",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "usage-dashboard",
+    "tags": [
+      "npm:private",
+      "type:ui",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/usage-dashboard/src/index.ts",
+    "libs/usage-dashboard/src/components/UsageLimitCard/UsageLimitCard.module.scss",
+    "libs/usage-dashboard/src/components/UsageLimitCard/UsageLimitCard.tsx",
+    "libs/usage-dashboard/src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx",
+    "libs/usage-dashboard/src/components/ModelLimitsSection/ModelLimitsSection.module.scss",
+    "libs/usage-dashboard/src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx",
+    "libs/usage-dashboard/src/components/ModelLimitsSection/PeriodStatusIndicator.tsx",
+    "libs/usage-dashboard/src/components/ModelLimitsSection/MetricCell.tsx",
+    "libs/usage-dashboard/src/components/ModelLimitsSection/PeriodCell.tsx",
+    "libs/usage-dashboard/src/components/ModelLimitsSection/ModelLimitsSection.tsx",
+    "libs/usage-dashboard/src/components/ModelLimitsSection/ModelLimitsRow.tsx",
+    "libs/usage-dashboard/src/components/UsageLimitCardGroup/UsageLimitCardGroup.tsx",
+    "libs/usage-dashboard/src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx",
+    "libs/usage-dashboard/src/models/model-limits-props.ts",
+    "libs/usage-dashboard/src/models/usage-limit-card-props.ts",
+    "libs/usage-dashboard/src/utils/map-user-usage-to-model-limits.ts",
+    "libs/usage-dashboard/src/utils/tests/map-user-usage-to-model-limits.spec.ts",
+    "libs/usage-dashboard/src/utils/tests/map-usage-data-to-dashboard.spec.ts",
+    "libs/usage-dashboard/src/utils/map-usage-data-to-dashboard.ts",
+    "libs/usage-dashboard/src/constants/public-class-names.ts",
+    "libs/usage-dashboard/tsconfig.spec.json",
+    "libs/usage-dashboard/eslint.config.mjs",
+    "libs/usage-dashboard/postcss.config.js",
+    "libs/usage-dashboard/tsconfig.lib.json",
+    "libs/usage-dashboard/tsconfig.json",
+    "libs/usage-dashboard/package.json",
+    "libs/usage-dashboard/vite.config.mts",
+    "libs/usage-dashboard/README.md",
+    "libs/usage-dashboard/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/usage-dashboard/src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx",
+    "libs/usage-dashboard/src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx",
+    "libs/usage-dashboard/src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx",
+    "libs/usage-dashboard/src/utils/tests/map-user-usage-to-model-limits.spec.ts",
+    "libs/usage-dashboard/src/utils/tests/map-usage-data-to-dashboard.spec.ts",
+    "libs/usage-dashboard/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat/src/pages/SettingsPage/UsageTab/UsageTab.tsx",
+    "apps/chat/src/pages/SettingsPage/UsageTab/tests/UsageTab.spec.tsx",
+    "apps/chat/src/utils/usage-reset-time.ts"
+  ],
+  "readme": "# @epam/ai-dial-usage-dashboard\n\n## Overview\n\nProvides `UsageLimitCardGroup` and `UsageLimitCard`, presentational cards for a caller's aggregate\ncost-budget usage over a calendar period (the current UTC day, week, and month), and\n`ModelLimitsSection`, a presentational per-model comparison table with fixed Today / This week /\nThis month columns. Each period groups Tokens usage/progress with a compact attributed Cost line, and a final\nStatus reflects the host-derived result across model-token and overall Cost limits in all periods.\nOverall Cost warning/reached indicators, their tooltips, and an optional preformatted reset-time\nline are supplied for the matching period headers. All components are fully host-agnostic: they take already-normalized,\npreformatted amounts, status enums, and localized labels via props \u2014 they never interpret raw API\ndata, format currency, detect the unlimited sentinel, or compute percentages themselves.\n`UsageLimitCardGroup` renders each card as its own independent, equally-sized box: stacked on mobile,\nside by side on desktop. `UsageLimitCard` is also exported standalone for a single-card use case.\n\n### BREAKING \u2014 period properties renamed to calendar names\n\nThe three fixed periods are DIAL Core **calendar** windows anchored to UTC boundaries (UTC midnight,\nUTC week start, UTC month start), not trailing windows of 24 hours, 7 days, or 30 days. The property\nnames were renamed accordingly; the old names are no longer exported or accepted.\n\n| Type                       | Old property             | New property       |\n| -------------------------- | ------------------------ | ------------------ |\n| `ModelLimitRow`            | `last24Hours`            | `day`              |\n| `ModelLimitRow`            | `last7Days`              | `week`             |\n| `ModelLimitRow`            | `last30Days`             | `month`            |\n| `ModelLimitPeriodStatuses` | `last24Hours`            | `day`              |\n| `ModelLimitPeriodStatuses` | `last7Days`              | `week`             |\n| `ModelLimitPeriodStatuses` | `last30Days`             | `month`            |\n| `ModelLimitsLabels`        | `last24HoursColumnLabel` | `dayColumnLabel`   |\n| `ModelLimitsLabels`        | `last7DaysColumnLabel`   | `weekColumnLabel`  |\n| `ModelLimitsLabels`        | `last30DaysColumnLabel`  | `monthColumnLabel` |\n\nColumn-label **values** should change with them \u2014 pass `Today` / `This week` / `This month` rather\nthan `Last 24 hours` / `Last 7 days` / `Last 30 days`.\n\n`mapUsageDataToDashboard` also gained a required third parameter, `formatResetTime`; see\n[Utilities](#utilities).\n\n### Reset times\n\n`UsageLimitCardData` and `ModelLimitPeriodStatus` each accept an optional trio of host-preformatted\nreset-time strings \u2014 `resetLabel` (visible text), `resetIsoValue` (the machine-readable instant for\nthe rendered `<time dateTime>`), and `resetAriaLabel` (the spoken form, which should name the\ntimezone in full rather than as an offset). When `resetAriaLabel` is supplied the library renders it\non a visually-hidden sibling and marks the visible `<time>` `aria-hidden`, because `aria-label` is\nnot reliably supported on a bare `<time>`; with no `resetAriaLabel` the visible line is its own\naccessible name. The library renders every string verbatim: it imports no `Intl`, accepts no locale, timezone, or raw timestamp, and never parses\nor reformats a value. All three are absent together when the host could not format a reset time, in\nwhich case the card or header renders exactly as it did before reset times existed. A card renders\nits reset line even when `isUnlimited` is `true` \u2014 an unconfigured limit still accumulates spend\nagainst a period that rolls over.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-usage-dashboard\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-usage-dashboard/styles.css';\n```\n\n## Peer Dependencies\n\n- `react` ^19.2.8\n- `@epam/ai-dial-chat-shared` \\*\n- `@epam/ai-dial-ui-kit`\n\n## Components\n\n### UsageLimitCardGroup\n\n```tsx\nimport {\n  UsageLimitCardGroup,\n  UsageLimitStatus,\n} from '@epam/ai-dial-usage-dashboard';\n\n<UsageLimitCardGroup\n  cards={[\n    {\n      title: 'Today',\n      periodDescription: 'Today',\n      used: 3.6,\n      total: 4,\n      usedLabel: '$3.60',\n      totalLabel: '$4.00',\n      remainingLabel: '$0.40',\n      usedPercent: 90,\n      status: UsageLimitStatus.RunningLow,\n      progressAriaLabel: '$3.60 of $4.00, 90% used',\n    },\n    {\n      title: 'This month',\n      periodDescription: 'This month',\n      used: 41,\n      total: 120,\n      usedLabel: '$41.00',\n      totalLabel: '$120.00',\n      remainingLabel: '$79.00',\n      usedPercent: 34,\n      status: UsageLimitStatus.Default,\n      progressAriaLabel: '$41.00 of $120.00, 34% used',\n      resetLabel: 'Resets Oct 1, 2026, 2:00 AM GMT+2',\n      resetIsoValue: '2026-10-01T00:00:00Z',\n      resetAriaLabel:\n        'Usage resets Oct 1, 2026, 2:00 AM Central European Summer Time',\n    },\n  ]}\n  labels={{\n    defaultBadgeLabel: 'Within limits',\n    runningLowBadgeLabel: 'Running low',\n    limitReachedBadgeLabel: 'Limit reached',\n    usedOfTotalLabel: ({ total }) => `used of ${total}`,\n    remainingCaptionLabel: ({ remaining }) => `${remaining} left`,\n    usedPercentLabel: ({ percent }) => `${percent}%`,\n  }}\n/>;\n```\n\nPass `styles={{ colors, typography }}` to override the per-card background/accent colors or the\ntypography classes (applied as CSS custom properties and class overrides):\n\n```tsx\n<UsageLimitCardGroup\n  cards={cards}\n  labels={labels}\n  styles={{ colors: { cardBackground: '#0e1320' } }}\n/>\n```\n\n### UsageLimitCard\n\nRenders a single card:\n\n```tsx\nimport {\n  UsageLimitCard,\n  UsageLimitStatus,\n} from '@epam/ai-dial-usage-dashboard';\n\n<UsageLimitCard\n  data={{\n    title: 'Today',\n    periodDescription: 'Today',\n    used: 0.4,\n    total: 4,\n    usedLabel: '$0.40',\n    totalLabel: '$4.00',\n    remainingLabel: '$3.60',\n    isUnlimited: false,\n    usedPercent: 10,\n    status: UsageLimitStatus.Default,\n    progressAriaLabel: '$0.40 of $4.00, 10% used',\n  }}\n  labels={{\n    defaultBadgeLabel: 'Within limits',\n    runningLowBadgeLabel: 'Running low',\n    limitReachedBadgeLabel: 'Limit reached',\n    usedOfTotalLabel: ({ total }) => `used of ${total}`,\n    remainingCaptionLabel: ({ remaining }) => `${remaining} left`,\n    usedPercentLabel: ({ percent }) => `${percent}%`,\n  }}\n/>;\n```\n\n### ModelLimitsSection\n\nRenders a \"Model tokens limits\" heading with the rendered row count and one fixed comparison table per\nmodel: Item, Today, This week, This month, and Status. Every period cell contains Tokens\nfollowed by an attributed Cost amount supplied by the host. Cost has no visible sublabel,\nper-model limit, or progress bar; `costLabel` supplies screen-reader context. Overall Cost statuses\ncan add warning/reached icons with accessible tooltips to the period headers. Desktop row content is\nvertically centered while preserving its existing horizontal alignment:\n\n```tsx\nimport {\n  ModelLimitMetricKind,\n  ModelLimitsSection,\n  ModelLimitStatus,\n} from '@epam/ai-dial-usage-dashboard';\n\n<ModelLimitsSection\n  periodStatuses={{\n    day: {\n      status: ModelLimitStatus.LimitReached,\n      tooltipLabel:\n        \"Overall cost limit for today is reached. Models can't be used until the period resets, regardless of remaining token limits.\",\n      resetLabel: 'Resets Sep 16, 2026, 2:00 AM GMT+2',\n      resetIsoValue: '2026-09-16T00:00:00Z',\n      resetAriaLabel:\n        'Usage resets Sep 16, 2026, 2:00 AM Central European Summer Time',\n    },\n    week: { status: ModelLimitStatus.WithinLimits },\n    month: { status: ModelLimitStatus.WithinLimits },\n  }}\n  rows={[\n    {\n      id: 'gpt-4o',\n      name: 'GPT-4o',\n      version: '2024-08-06',\n      avatarSrc: 'https://example.com/gpt-4o.png',\n      day: {\n        tokens: {\n          kind: ModelLimitMetricKind.Finite,\n          usedLabel: '4K',\n          totalLabel: '10K',\n          usedPercent: 40,\n          status: ModelLimitStatus.WithinLimits,\n          ariaLabel: '4,000 of 10,000 tokens used, 40%',\n        },\n        cost: {\n          kind: ModelLimitMetricKind.Unlimited,\n          usedLabel: '$3.20 spent',\n          ariaLabel: '$3.20 spent',\n        },\n      },\n      week: {\n        tokens: {\n          kind: ModelLimitMetricKind.Finite,\n          usedLabel: '52K',\n          totalLabel: '70K',\n          usedPercent: 74.3,\n          status: ModelLimitStatus.WithinLimits,\n          ariaLabel: '52,000 of 70,000 tokens used, 74%',\n        },\n        cost: {\n          kind: ModelLimitMetricKind.Unlimited,\n          usedLabel: '$18.60 spent',\n          ariaLabel: '$18.60 spent',\n        },\n      },\n      month: {\n        tokens: {\n          kind: ModelLimitMetricKind.Finite,\n          usedLabel: '240K',\n          totalLabel: '300K',\n          usedPercent: 80,\n          status: ModelLimitStatus.RunningLow,\n          ariaLabel: '240,000 of 300,000 tokens used, 80%',\n        },\n        cost: {\n          kind: ModelLimitMetricKind.Unlimited,\n          usedLabel: '$55.10 spent',\n          ariaLabel: '$55.10 spent',\n        },\n      },\n      status: ModelLimitStatus.RunningLow,\n    },\n  ]}\n  labels={{\n    headingLabel: 'Model tokens limits',\n    itemColumnLabel: 'Item',\n    dayColumnLabel: 'Today',\n    weekColumnLabel: 'This week',\n    monthColumnLabel: 'This month',\n    statusColumnLabel: 'Status',\n    tokensLabel: 'Tokens',\n    costLabel: 'Cost',\n    modelTypeLabel: 'Model',\n    noLimitLabel: 'No limit',\n    unavailableLabel: 'Not available',\n    withinLimitsBadgeLabel: 'Within limits',\n    runningLowBadgeLabel: 'Running low',\n    limitReachedBadgeLabel: 'Limit reached',\n    noLimitBadgeLabel: 'No limit',\n    unavailableBadgeLabel: 'Unavailable',\n    emptyStateLabel: 'No models to show yet.',\n  }}\n/>;\n```\n\n`ModelLimitsSection` never fetches data or infers the unlimited sentinel, percentage, supporting\nlabel, header status, tooltip, or row status. The host derives `kind`, `usedPercent`, and `status`\nfor every token/cost cell, supplies `Follows cost limit` through an unlimited token cell's optional\n`supportingLabel`, and combines model-token plus overall Cost limits into the final row `status`.\nCost renders only its normalized attributed-spend `usedLabel` (or the unavailable state), even\nthough the cell keeps its metric kind. All three periods are always present; there is no period\nselector state.\n\nThe heading and row count remain visible when `rows` is empty; the table body switches to\n`labels.emptyStateLabel`.\n\n## Utilities\n\nThree pure transform functions map raw `UserLimitStatsResponseDto` data (from `@epam/ai-dial-chat-api-client`) into the props each component consumes. They are host-agnostic: every user-visible string is produced by a caller-supplied `t` function that matches i18next's `TFunction` signature.\n\n### mapUsageDataToDashboard\n\nMaps a `UserLimitStatsResponseDto` into the `cards` array for `UsageLimitCardGroup`, in Today / This week / This month order. A period is omitted when the response carries no usable stat for it.\n\nRequires a host-owned `formatResetTime(resetsAt)` callback, so that all `Date`/`Intl` work stays at the application edge. It receives each period's raw `resetsAt` and returns a `ResetTimeDisplayLike`, or `undefined` when the value is absent, unparseable, or `Intl` is unavailable \u2014 in which case the card carries no reset fields.\n\n```tsx\nimport {\n  mapUsageDataToDashboard,\n  USAGE_DATA_I18N_KEYS,\n  UsageLimitCardGroup,\n} from '@epam/ai-dial-usage-dashboard';\nimport type { UserLimitStatsResponseDto } from '@epam/ai-dial-chat-api-client';\n\n// In your component:\nconst formatResetTime = useCallback(\n  (resetsAt: string | undefined) =>\n    formatMyResetTime(resetsAt, activeLocale, t),\n  [activeLocale, t],\n);\n\nconst cards = mapUsageDataToDashboard(usage, t, formatResetTime);\n// <UsageLimitCardGroup cards={cards} labels={labels} />\n```\n\nKeep `formatResetTime` referentially stable (for example with `useCallback`) \u2014 it is a dependency of\nthe `useMemo` the mapper usually sits behind, so an unstable identity recomputes on every render.\n\n`USAGE_DATA_I18N_KEYS` is a const object of the default i18n key strings this function passes to `t`. Include those keys in your translation bundle.\n\n### mapUserUsageToModelLimits\n\nMaps `usage.deployments` into the `rows` array for `ModelLimitsSection`, joined with display metadata from a list of `DeploymentItemDto`. Only deployments that have nonzero usage in at least one displayed period are included. Requires two host-owned callbacks to stay host-agnostic:\n\n- `resolveIconUrl(iconUrl)` \u2014 resolves a deployment's raw `iconUrl` to the URL the avatar should load (typically the app's own icon-proxy endpoint).\n- `resolveDisplayName(name, locale)` \u2014 resolves a localized-text map or plain string to the display name for the active locale.\n\nCost and Tokens cells use the same `total >= 2 ** 53` sentinel test. A sentinel Cost `total` produces an `Unlimited` cell showing attributed spend with no cap; a genuinely finite one produces a `Finite` cell whose status folds into the row's overall Status alongside finite Tokens statuses.\n\n```tsx\nimport {\n  mapUserUsageToModelLimits,\n  USAGE_MODEL_LIMITS_I18N_KEYS,\n  ModelLimitsSection,\n} from '@epam/ai-dial-usage-dashboard';\n\nconst rows = mapUserUsageToModelLimits(\n  usage,\n  deploymentItems,\n  activeLocale,\n  t,\n  (iconUrl) => resolveMyIconUrl(iconUrl),\n  (name, locale) => resolveLocalizedText(name, locale),\n);\n// <ModelLimitsSection rows={rows} labels={labels} periodStatuses={periodStatuses} />\n```\n\n`USAGE_MODEL_LIMITS_I18N_KEYS` is a const object of the default i18n key strings this function passes to `t`.\n\n### mapOverallCostLimitsToPeriodStatuses\n\nMaps the top-level Cost budget fields from `UserLimitStatsResponseDto` (the same source `mapUsageDataToDashboard` uses for the aggregate cards) into the `periodStatuses` prop for `ModelLimitsSection`. Produces a `{ status, tooltipLabel? }` entry keyed `day`, `week`, and `month`.\n\nPass the same `formatResetTime` callback used for the aggregate cards as an optional fourth argument to add each header's reset trio, read from the same top-level `*CostStats` stat that drives that header's status. A per-deployment `resetsAt` is never read for a header, and a top-level value is never reconciled against a differing per-deployment one. Omit the argument to produce statuses with no reset fields.\n\n```tsx\nimport { mapOverallCostLimitsToPeriodStatuses } from '@epam/ai-dial-usage-dashboard';\n\nconst periodStatuses = mapOverallCostLimitsToPeriodStatuses(\n  usage,\n  activeLocale,\n  t,\n  formatResetTime,\n);\n// <ModelLimitsSection periodStatuses={periodStatuses} ... />\n```\n\n## Types\n\n- `UsageLimitStatus` \u2014 `Default | RunningLow | LimitReached`\n- `UsageLimitCardData` \u2014 `{ title, periodDescription, used, total, usedLabel, totalLabel?, remainingLabel?, isUnlimited?, usedPercent?, status, progressAriaLabel, resetLabel?, resetIsoValue?, resetAriaLabel? }`\n- `UsageLimitCardGroupLabels` \u2014 `{ defaultBadgeLabel, runningLowBadgeLabel, limitReachedBadgeLabel, usedOfTotalLabel, remainingCaptionLabel, usedPercentLabel }`\n- `UsageLimitCardGroupProps` \u2014 `{ cards, labels, styles? }`\n- `UsageLimitCardProps` \u2014 `{ data, labels, styles? }`\n- `UsageLimitCardGroupStyles` \u2014 `{ colors?, typography? }`\n- `UsageLimitCardGroupColors` \u2014 CSS-custom-property color overrides\n- `UsageLimitCardGroupTypography` \u2014 typography class overrides\n- `ModelLimitStatus` \u2014 `WithinLimits | RunningLow | LimitReached | NoLimit | Unavailable`\n- `ModelLimitMetricKind` \u2014 `Finite | Unlimited | Unavailable`\n- `ModelLimitMetricCell` \u2014 `{ kind, usedLabel?, totalLabel?, usedPercent?, status?, supportingLabel?, ariaLabel }`\n- `ModelLimitPeriodCell` \u2014 `{ tokens: ModelLimitMetricCell, cost: ModelLimitMetricCell }`\n- `ModelLimitPeriodStatus` \u2014 `{ status, tooltipLabel?, resetLabel?, resetIsoValue?, resetAriaLabel? }`\n- `ModelLimitPeriodStatuses` \u2014 `{ day, week, month }`\n- `ModelLimitRow` \u2014 `{ id, name, version?, avatarSrc?, day, week, month, status }`\n- `ModelLimitsLabels` \u2014 `{ headingLabel, itemColumnLabel, dayColumnLabel, weekColumnLabel, monthColumnLabel, statusColumnLabel, tokensLabel, costLabel, modelTypeLabel, noLimitLabel, unavailableLabel, withinLimitsBadgeLabel, runningLowBadgeLabel, limitReachedBadgeLabel, noLimitBadgeLabel, unavailableBadgeLabel, emptyStateLabel }`\n- `ModelLimitsSectionProps` \u2014 `{ rows, labels, periodStatuses, styles? }`\n- `ModelLimitsStyles` \u2014 `{ colors?, typography? }`\n- `ModelLimitsColors` \u2014 CSS-custom-property color overrides\n- `ModelLimitsTypography` \u2014 typography class overrides\n- `ResetTimeDisplayLike` \u2014 `{ resetsAtMs, isoValue, label, ariaLabel }`, the structural shape `formatResetTime` returns\n- `FormatResetTime` \u2014 `(resetsAt: string | undefined) => ResetTimeDisplayLike | undefined`\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. Selected\nelements therefore carry a stable public class.\n\n| Key         | Class                             | Element                                                           |\n| ----------- | --------------------------------- | ----------------------------------------------------------------- |\n| `card`      | `dial-usage-dashboard-card`       | One usage-limit card, which carries the themed CSS variables      |\n| `cardGroup` | `dial-usage-dashboard-card-group` | The responsive grid a `UsageLimitCardGroup` lays its cards out in |\n\n```tsx\nimport { USAGE_DASHBOARD_CLASS } from '@epam/ai-dial-usage-dashboard';\n\nUSAGE_DASHBOARD_CLASS.card; // 'dial-usage-dashboard-card'\n```\n\nA card's accessible name is built from its title and its period description,\nboth localisable, so it was never usable as a selector.\n\nThe classes carry no declarations of their own: nothing in `styles.css`\nselects on them, so they change nothing until a host writes a rule. Renaming\none, or moving it to a different element, is a breaking change. The convention\nis in [`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/usage-dashboard/src/index.ts": "export { UsageLimitCard } from './components/UsageLimitCard/UsageLimitCard';\nexport { UsageLimitCardGroup } from './components/UsageLimitCardGroup/UsageLimitCardGroup';\nexport { UsageLimitStatus } from './models/usage-limit-card-props';\nexport type {\n  UsageLimitCardData,\n  UsageLimitCardGroupColors,\n  UsageLimitCardGroupLabels,\n  UsageLimitCardGroupProps,\n  UsageLimitCardGroupStyles,\n  UsageLimitCardGroupTypography,\n  UsageLimitCardProps,\n} from './models/usage-limit-card-props';\nexport { ModelLimitsSection } from './components/ModelLimitsSection/ModelLimitsSection';\nexport {\n  USAGE_DATA_I18N_KEYS,\n  mapUsageDataToDashboard,\n} from './utils/map-usage-data-to-dashboard';\nexport type {\n  FormatResetTime,\n  ResetTimeDisplayLike,\n} from './utils/map-usage-data-to-dashboard';\nexport {\n  USAGE_MODEL_LIMITS_I18N_KEYS,\n  mapOverallCostLimitsToPeriodStatuses,\n  mapUserUsageToModelLimits,\n} from './utils/map-user-usage-to-model-limits';\nexport {\n  ModelLimitMetricKind,\n  ModelLimitStatus,\n} from './models/model-limits-props';\nexport type {\n  ModelLimitMetricCell,\n  ModelLimitPeriodCell,\n  ModelLimitPeriodStatus,\n  ModelLimitPeriodStatuses,\n  ModelLimitRow,\n  ModelLimitsColors,\n  ModelLimitsLabels,\n  ModelLimitsSectionProps,\n  ModelLimitsStyles,\n  ModelLimitsTypography,\n} from './models/model-limits-props';\nexport { USAGE_DASHBOARD_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/usage-dashboard/src/index.ts": [
+      {
+        "name": "UsageLimitCard",
+        "file": "libs/usage-dashboard/src/components/UsageLimitCard/UsageLimitCard.tsx",
+        "start": 26,
+        "end": 191,
+        "declaration": "UsageLimitCard: FC<UsageLimitCardProps> = ({\n  data,\n  labels,\n  styles: stylesProp,\n}) => {\n  const { colors, typography } = stylesProp ?? {};\n  const {\n    titleClassName = 'dial-body-semi-text',\n    amountClassName = 'dial-display1-text',\n    secondaryAmountClassName = 'dial-small-text',\n    badgeClassName = 'dial-caption-lead-semi-text',\n    usedPercentLabelClassName = 'dial-small-text',\n    resetLabelClassName = 'dial-tiny-text',\n  } = typography ?? {};\n\n  const cssVars = buildCssVars({\n    '--uld-card-bg': colors?.cardBackground,\n    '--uld-title': colors?.titleColor,\n    '--uld-default-accent': colors?.defaultAccentColor,\n    '--uld-default-progress': colors?.defaultProgressColor,\n    '--uld-warning-accent': colors?.warningAccentColor,\n    '--uld-warning-progress': colors?.warningProgressColor,\n    '--uld-error-accent': colors?.errorAccentColor,\n    '--uld-error-progress': colors?.errorProgressColor,\n    '--uld-secondary-amount': colors?.secondaryAmountColor,\n    '--uld-progress-track': colors?.progressTrackColor,\n    '--uld-default-badge-bg': colors?.defaultBadgeBackground,\n    '--uld-default-badge-text': colors?.defaultBadgeColor,\n    '--uld-warning-badge-bg': colors?.warningBadgeBackground,\n    '--uld-warning-badge-text': colors?.warningBadgeColor,\n    '--uld-error-badge-bg': colors?.errorBadgeBackground,\n    '--uld-error-badge-text': colors?.errorBadgeColor,\n    '--uld-used-percent-label': colors?.usedPercentLabelColor,\n  });\n\n  const badgeLabel = getBadgeLabel(data.status, labels);\n\n  return (\n    <div\n      className={mergeClasses(\n        'flex min-w-0 flex-col gap-4 rounded-xl px-6 py-5 shadow-md',\n        styles.card,\n        USAGE_DASHBOARD_CLASS.card,\n      )}\n      style={cssVars}\n      role=\"group\"\n      aria-label={`${data.title}, ${data.periodDescription}`}\n    >\n      <div className=\"flex items-center justify-between gap-2\">\n        <p className={mergeClasses('m-0', titleClassName, styles.title)}>\n          {data.title}\n        </p>\n        <span\n          className={mergeClasses(\n            'shrink-0 rounded-full px-2 py-1',\n            badgeClassName,\n            data.status === UsageLimitStatus.Default && styles.defaultBadge,\n            data.status === UsageLimitStatus.RunningLow && styles.warningBadge,\n            data.status === UsageLimitStatus.LimitReached && styles.errorBadge,\n          )}\n        >\n          {badgeLabel}\n        </span>\n      </div>\n\n      <div className=\"flex flex-col gap-2\">\n        <p className=\"m-0 flex flex-wrap items-baseline gap-2\">\n          <span\n            className={mergeClasses(\n              amountClassName,\n              styles.amount,\n              data.status === UsageLimitStatus.Default && styles.defaultAccent,\n              data.status === UsageLimitStatus.RunningLow &&\n                styles.warningAccent,\n              data.status === UsageLimitStatus.LimitReached &&\n                styles.errorAccent,\n            )}\n          >\n            {data.usedLabel}\n          </span>\n          {!data.isUnlimited && data.totalLabel != null && (\n            <span\n              className={mergeClasses(\n                secondaryAmountClassName,\n                styles.secondaryAmount,\n              )}\n            >\n              {labels.usedOfTotalLabel({ total: data.totalLabel })}\n            </span>\n          )}\n        </p>\n\n        {!data.isUnlimited && data.usedPercent != null && (\n          <>\n            <ProgressBar\n              value={Math.min(data.usedPercent, 100)}\n              max={100}\n              size={ElementSize.Small}\n              className={mergeClasses(\n                '!h-1 w-full',\n                styles.progressTrack,\n                data.status === UsageLimitStatus.Default &&\n                  styles.progressFillDefault,\n                data.status === UsageLimitStatus.RunningLow &&\n                  styles.progressFillWarning,\n                data.status === UsageLimitStatus.LimitReached &&\n                  styles.progressFillDanger,\n              )}\n              aria-label={data.title}\n              aria-valuetext={data.progressAriaLabel}\n            />\n            <div className=\"flex items-center justify-between gap-2\">\n              {data.remainingLabel != null && (\n                <span\n                  className={mergeClasses(\n                    secondaryAmountClassName,\n                    styles.secondaryAmount,\n                  )}\n                >\n                  {labels.remainingCaptionLabel({\n                    remaining: data.remainingLabel,\n                  })}\n                </span>\n              )}\n              <span\n                className={mergeClasses(\n                  'ms-auto',\n                  usedPercentLabelClassName,\n                  styles.usedPercentLabel,\n                )}\n              >\n                {labels.usedPercentLabel({\n                  percent: Math.min(Math.round(data.usedPercent), 100),\n                })}\n              </span>\n            </div>\n          </>\n        )}\n\n        {/* Rendered for an unlimited card too \u2014 an unconfigured limit still\n            accumulates spend against a period that rolls over. */}\n        {data.resetLabel != null && (\n          <span className=\"contents\">\n            {/* `aria-label` is not reliably supported on a bare `<time>`, so the\n                spoken form \u2014 which names the timezone in full rather than as an\n                offset \u2014 is carried by a visually-hidden sibling instead. */}\n            <time\n              dateTime={data.resetIsoValue}\n              aria-hidden={data.resetAriaLabel != null || undefined}\n              className={mergeClasses(\n                'block break-words',\n                resetLabelClassName,\n                styles.secondaryAmount,\n              )}\n            >\n              {data.resetLabel}\n            </time>\n            {data.resetAriaLabel != null && (\n              <span className=\"sr-only\">{data.resetAriaLabel}</span>\n            )}\n          </span>\n        )}\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: UsageLimitCardProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "data",
+            "optional": false,
+            "type": "import(\"../..\").UsageLimitCardData"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").UsageLimitCardGroupLabels"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").UsageLimitCardGroupStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "UsageLimitCardGroup",
+        "file": "libs/usage-dashboard/src/components/UsageLimitCardGroup/UsageLimitCardGroup.tsx",
+        "start": 8,
+        "end": 35,
+        "declaration": "UsageLimitCardGroup: FC<UsageLimitCardGroupProps> = ({\n  cards,\n  labels,\n  styles: stylesProp,\n}) => {\n  if (cards.length === 0) {\n    return null;\n  }\n\n  return (\n    <div\n      className={mergeClasses(\n        'grid grid-cols-1 gap-4 desktop:grid-cols-[repeat(var(--uld-card-count),minmax(0,1fr))]',\n        USAGE_DASHBOARD_CLASS.cardGroup,\n      )}\n      style={{ '--uld-card-count': cards.length } as CSSProperties}\n    >\n      {cards.map((card) => (\n        <UsageLimitCard\n          key={card.title}\n          data={card}\n          labels={labels}\n          styles={stylesProp}\n        />\n      ))}\n    </div>\n  );\n}",
+        "signature": "(props: UsageLimitCardGroupProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "cards",
+            "optional": false,
+            "type": "import(\"../..\").UsageLimitCardData[]"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").UsageLimitCardGroupLabels"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").UsageLimitCardGroupStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "UsageLimitStatus",
+        "file": "libs/usage-dashboard/src/models/usage-limit-card-props.ts",
+        "start": 2,
+        "end": 9,
+        "declaration": "export enum UsageLimitStatus {\n  /** Below the running-low threshold. Rendered with the default (blue) accent and a \"within limits\" badge. */\n  Default = 'default',\n  /** At or above the running-low threshold but below 100% used. Rendered with the warning (amber) accent and badge. */\n  RunningLow = 'runningLow',\n  /** At or above 100% used. Rendered with the error (red) accent and badge. */\n  LimitReached = 'limitReached',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UsageLimitCardData",
+        "file": "libs/usage-dashboard/src/models/usage-limit-card-props.ts",
+        "start": 12,
+        "end": 48,
+        "declaration": "export interface UsageLimitCardData {\n  /** Card title, e.g. `'Today'` / `'This week'` / `'This month'`. */\n  title: string;\n  /** Accessible description of the calendar period, e.g. `'Today'`, appended to the card's accessible group name. */\n  periodDescription: string;\n  /** Raw used amount, already clamped to `>= 0` by the host. Used only to drive `progressAriaLabel`/text \u2014 the library never recomputes it. */\n  used: number;\n  /** Raw total amount. Ignored when `isUnlimited` is `true`. */\n  total: number;\n  /** Preformatted used amount, e.g. `'$3.60'`. Always the card's prominent figure. */\n  usedLabel: string;\n  /** Preformatted total amount, e.g. `'$4.00'`, passed to `labels.usedOfTotalLabel`. Omitted when `isUnlimited` is `true`. */\n  totalLabel?: string;\n  /** Preformatted remaining amount, e.g. `'$0.40'`, passed to `labels.remainingCaptionLabel`. Omitted when `isUnlimited` is `true`. */\n  remainingLabel?: string;\n  /** Whether the host detected the unlimited sentinel or an otherwise-unusable total. When `true`, only `usedLabel` is shown \u2014 no progress bar, ratio, or badge. */\n  isUnlimited?: boolean;\n  /** Used percentage, not pre-clamped \u2014 may exceed 100. The card clamps both the progress-bar fill and the visible percent label at 100%; only `progressAriaLabel` conveys the real, uncapped value. Ignored when `isUnlimited` is `true`. */\n  usedPercent?: number;\n  /** Status the host derived from `usedPercent` against its own thresholds. */\n  status: UsageLimitStatus;\n  /** Accessible value text for the progress bar (`aria-valuetext`), e.g. `'$3.60 of $4.00, 90% used'`. */\n  progressAriaLabel: string;\n  /*\n   * The reset-time trio is host-preformatted. The library renders these\n   * strings verbatim and never parses, formats, or timezone-shifts them \u2014 it\n   * imports no `Intl`, and accepts no locale, timezone, or raw timestamp. All\n   * three are absent together when the host could not format a reset time, in\n   * which case the card renders exactly as it did before reset times existed.\n   */\n  /** Visible reset line, e.g. `'Resets Sep 16, 2026, 2:00 AM GMT+2'`. */\n  resetLabel?: string;\n  /** Machine-readable instant for the reset line's `<time dateTime>` attribute, e.g. `'2026-09-16T00:00:00Z'`. */\n  resetIsoValue?: string;\n  /** Accessible expansion of the reset line, applied as its `aria-label` when supplied. */\n  resetAriaLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UsageLimitCardGroupColors",
+        "file": "libs/usage-dashboard/src/models/usage-limit-card-props.ts",
+        "start": 67,
+        "end": 108,
+        "declaration": "export interface UsageLimitCardGroupColors {\n  /** Individual card background. Fallback: `--bg-layer-raised`. */\n  cardBackground?: string;\n  /** Title text color. Fallback: `--text-primary`. */\n  titleColor?: string;\n  /*\n   * Every status splits into a *text* color (amount figure) and a *progress* color (bar fill) \u2014\n   * each pair uses the same two design tokens the Figma export uses, and they deliberately\n   * differ: the bar's brighter/lighter token reads fine as a decorative fill but would fail text\n   * contrast, so the amount figure uses the darker token of the pair instead.\n   */\n  /** Prominent amount text color in the default status. Fallback: `--text-accent` (`#1D4ED8`). */\n  defaultAccentColor?: string;\n  /** Progress-fill color in the default status. Fallback: `--text-control-accent-hover` (`#5976E9`). */\n  defaultProgressColor?: string;\n  /** Prominent amount text color in the running-low status. Fallback: `--text-warning` (`#7F6300`). */\n  warningAccentColor?: string;\n  /** Progress-fill color in the running-low status. Fallback: `--text-warning-icon` (`#EEC840`). */\n  warningProgressColor?: string;\n  /** Prominent amount text color in the limit-reached status. Fallback: `--text-error` (`#AE2F2F`). */\n  errorAccentColor?: string;\n  /** Progress-fill color in the limit-reached status. Fallback: `--bg-control-error-active` (`#CC4545`). */\n  errorProgressColor?: string;\n  /** Secondary amount/caption text color (the \"used of $X.XX\" and \"$X.XX left\" portions). Fallback: `--text-secondary`. */\n  secondaryAmountColor?: string;\n  /** Progress-bar track color. Fallback: `--bg-layer-sunken`. */\n  progressTrackColor?: string;\n  /** Default-status badge background. Fallback: `--bg-success` (`#DBF1EB`). */\n  defaultBadgeBackground?: string;\n  /** Default-status badge text color. Fallback: `--text-success` (`#007274`). */\n  defaultBadgeColor?: string;\n  /** Running-low badge background. Fallback: `--bg-warning` (`#FAF0CF`). */\n  warningBadgeBackground?: string;\n  /** Running-low badge text color. Fallback: `--text-warning` (`#7F6300`). */\n  warningBadgeColor?: string;\n  /** Limit-reached badge background. Fallback: `--bg-error` (`#F3D6D8`). */\n  errorBadgeBackground?: string;\n  /** Limit-reached badge text color. Fallback: `--text-error` (`#AE2F2F`). */\n  errorBadgeColor?: string;\n  /** Used-percent trailing label color. Fallback: `--text-secondary`. */\n  usedPercentLabelColor?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UsageLimitCardGroupLabels",
+        "file": "libs/usage-dashboard/src/models/usage-limit-card-props.ts",
+        "start": 51,
+        "end": 64,
+        "declaration": "export interface UsageLimitCardGroupLabels {\n  /** Status badge text for `UsageLimitStatus.Default`, e.g. `'Within limits'`. */\n  defaultBadgeLabel: string;\n  /** Status badge text for `UsageLimitStatus.RunningLow`, e.g. `'Running low'`. */\n  runningLowBadgeLabel: string;\n  /** Status badge text for `UsageLimitStatus.LimitReached`, e.g. `'Limit reached'`. */\n  limitReachedBadgeLabel: string;\n  /** Builds the caption next to the prominent used amount, e.g. `({ total }) => \\`used of ${total}\\`` . Not shown when `isUnlimited` is `true`. */\n  usedOfTotalLabel: (params: { total: string }) => string;\n  /** Builds the remaining-amount caption below the progress bar, e.g. `({ remaining }) => \\`${remaining} left\\`` . Not shown when `isUnlimited` is `true`. */\n  remainingCaptionLabel: (params: { remaining: string }) => string;\n  /** Builds the trailing used-percent label, e.g. `({ percent }) => \\`${percent}%\\`` . */\n  usedPercentLabel: (params: { percent: number }) => string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UsageLimitCardGroupProps",
+        "file": "libs/usage-dashboard/src/models/usage-limit-card-props.ts",
+        "start": 135,
+        "end": 142,
+        "declaration": "export interface UsageLimitCardGroupProps {\n  /** Cards to render, in display order (e.g. Today, This week, This month). Each renders as its own independent, equally-sized box. Empty array renders nothing. */\n  cards: UsageLimitCardData[];\n  /** Localized strings shared by every card. */\n  labels: UsageLimitCardGroupLabels;\n  /** Style overrides applied as CSS custom properties and typography class overrides. */\n  styles?: UsageLimitCardGroupStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UsageLimitCardGroupStyles",
+        "file": "libs/usage-dashboard/src/models/usage-limit-card-props.ts",
+        "start": 127,
+        "end": 132,
+        "declaration": "export interface UsageLimitCardGroupStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: UsageLimitCardGroupColors;\n  /** Typography class overrides. */\n  typography?: UsageLimitCardGroupTypography;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UsageLimitCardGroupTypography",
+        "file": "libs/usage-dashboard/src/models/usage-limit-card-props.ts",
+        "start": 111,
+        "end": 124,
+        "declaration": "export interface UsageLimitCardGroupTypography {\n  /** CSS class for the card title. Defaults to `'dial-body-semi-text'`. */\n  titleClassName?: string;\n  /** CSS class for the prominent used-amount figure. Defaults to `'dial-display1-text'`. */\n  amountClassName?: string;\n  /** CSS class for the secondary (\"used of $X.XX\" / \"$X.XX left\") caption text. Defaults to `'dial-small-text'`. */\n  secondaryAmountClassName?: string;\n  /** CSS class for the status badge text. Defaults to `'dial-caption-lead-semi-text'`. */\n  badgeClassName?: string;\n  /** CSS class for the trailing used-percent label. Defaults to `'dial-small-text'`. */\n  usedPercentLabelClassName?: string;\n  /** CSS class for the reset-time line. Defaults to `'dial-tiny-text'`. */\n  resetLabelClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UsageLimitCardProps",
+        "file": "libs/usage-dashboard/src/models/usage-limit-card-props.ts",
+        "start": 145,
+        "end": 152,
+        "declaration": "export interface UsageLimitCardProps {\n  /** The card's normalized data. */\n  data: UsageLimitCardData;\n  /** Localized strings shared by every card. */\n  labels: UsageLimitCardGroupLabels;\n  /** Style overrides applied as CSS custom properties and typography class overrides. */\n  styles?: UsageLimitCardGroupStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ModelLimitsSection",
+        "file": "libs/usage-dashboard/src/components/ModelLimitsSection/ModelLimitsSection.tsx",
+        "start": 66,
+        "end": 200,
+        "declaration": "ModelLimitsSection: FC<ModelLimitsSectionProps> = ({\n  rows,\n  labels,\n  periodStatuses,\n  styles: stylesProp,\n}) => {\n  const { colors, typography = {} } = stylesProp ?? {};\n  const {\n    headingClassName = 'dial-body-semi-text',\n    headingCountClassName = 'dial-tiny-semi-text',\n    columnHeaderClassName = 'dial-caption-lead-semi-text',\n    resetLabelClassName = 'dial-tiny-text',\n  } = typography;\n\n  const cssVars = buildCssVars({\n    '--mls-container-bg': colors?.containerBackground,\n    '--mls-heading': colors?.headingColor,\n    '--mls-heading-count': colors?.headingCountColor,\n    '--mls-column-header': colors?.columnHeaderColor,\n    '--mls-row-divider': colors?.rowDividerColor,\n    '--mls-name': colors?.nameColor,\n    '--mls-model-type': colors?.modelTypeColor,\n    '--mls-version': colors?.versionColor,\n    '--mls-value': colors?.valueColor,\n    '--mls-secondary-value': colors?.secondaryValueColor,\n    '--mls-progress-track': colors?.progressTrackColor,\n    '--mls-progress-default': colors?.defaultProgressColor,\n    '--mls-progress-warning': colors?.warningProgressColor,\n    '--mls-progress-error': colors?.errorProgressColor,\n    '--mls-indicator-warning': colors?.warningIndicatorColor,\n    '--mls-indicator-error': colors?.errorIndicatorColor,\n    '--mls-badge-default-bg': colors?.defaultBadgeBackground,\n    '--mls-badge-default-text': colors?.defaultBadgeColor,\n    '--mls-badge-warning-bg': colors?.warningBadgeBackground,\n    '--mls-badge-warning-text': colors?.warningBadgeColor,\n    '--mls-badge-error-bg': colors?.errorBadgeBackground,\n    '--mls-badge-error-text': colors?.errorBadgeColor,\n    '--mls-badge-neutral-text': colors?.neutralBadgeColor,\n  });\n\n  const tableLabel = `${labels.headingLabel} ${rows.length}`;\n\n  return (\n    <div className=\"flex flex-col gap-4\" style={cssVars}>\n      <div className=\"flex min-h-10 items-center\">\n        <h3 className=\"m-0 flex items-center gap-2\">\n          <span className={mergeClasses(headingClassName, styles.heading)}>\n            {labels.headingLabel}\n          </span>\n          <span\n            className={mergeClasses(headingCountClassName, styles.headingCount)}\n          >\n            {rows.length}\n          </span>\n        </h3>\n      </div>\n\n      <div\n        role=\"table\"\n        aria-label={tableLabel}\n        className={mergeClasses(\n          'overflow-hidden rounded-xl shadow-md',\n          styles.container,\n        )}\n      >\n        {rows.length === 0 ? (\n          <div className=\"flex items-center justify-center px-6 py-10\">\n            <PanelEmptyState label={labels.emptyStateLabel} />\n          </div>\n        ) : (\n          <>\n            <div\n              role=\"row\"\n              className={mergeClasses(\n                'hidden gap-4 px-6 py-3 desktop:grid desktop:items-center',\n                MODEL_LIMITS_GRID_COLUMNS,\n                styles.headerRow,\n              )}\n            >\n              <span\n                role=\"columnheader\"\n                className={mergeClasses(\n                  columnHeaderClassName,\n                  styles.columnHeader,\n                )}\n              >\n                {labels.itemColumnLabel}\n              </span>\n              <PeriodHeader\n                label={labels.dayColumnLabel}\n                periodStatus={periodStatuses.day}\n                className={columnHeaderClassName}\n                resetLabelClassName={resetLabelClassName}\n              />\n              <PeriodHeader\n                label={labels.weekColumnLabel}\n                periodStatus={periodStatuses.week}\n                className={columnHeaderClassName}\n                resetLabelClassName={resetLabelClassName}\n              />\n              <PeriodHeader\n                label={labels.monthColumnLabel}\n                periodStatus={periodStatuses.month}\n                className={columnHeaderClassName}\n                resetLabelClassName={resetLabelClassName}\n              />\n              <span\n                role=\"columnheader\"\n                className={mergeClasses(\n                  columnHeaderClassName,\n                  styles.columnHeader,\n                )}\n              >\n                {labels.statusColumnLabel}\n              </span>\n            </div>\n\n            <div role=\"rowgroup\">\n              {rows.map((row) => (\n                <ModelLimitsRow\n                  key={row.id}\n                  row={row}\n                  labels={labels}\n                  periodStatuses={periodStatuses}\n                  typography={typography}\n                  avatarSize={AVATAR_SIZE}\n                />\n              ))}\n            </div>\n          </>\n        )}\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: ModelLimitsSectionProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "rows",
+            "optional": false,
+            "type": "import(\"../..\").ModelLimitRow[]"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").ModelLimitsLabels"
+          },
+          {
+            "name": "periodStatuses",
+            "optional": false,
+            "type": "import(\"../..\").ModelLimitPeriodStatuses"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").ModelLimitsStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "USAGE_DATA_I18N_KEYS",
+        "file": "libs/usage-dashboard/src/utils/map-usage-data-to-dashboard.ts",
+        "start": 130,
+        "end": 147,
+        "declaration": "USAGE_DATA_I18N_KEYS = {\n  /** Title for the current-UTC-day card (e.g. `'Today'`). */\n  todayTitle: 'usage.todayTitle',\n  /** Accessible period description for the current-UTC-day card. */\n  todayPeriodDescription: 'usage.todayPeriodDescription',\n  /** Title for the current-UTC-week card (e.g. `'This week'`). */\n  thisWeekTitle: 'usage.thisWeekTitle',\n  /** Accessible period description for the current-UTC-week card. */\n  thisWeekPeriodDescription: 'usage.thisWeekPeriodDescription',\n  /** Title for the current-UTC-month card (e.g. `'This month'`). */\n  thisMonthTitle: 'usage.thisMonthTitle',\n  /** Accessible period description for the current-UTC-month card. */\n  thisMonthPeriodDescription: 'usage.thisMonthPeriodDescription',\n  /** Aria label when there is no limit. Receives `{ used: string }`. */\n  unlimitedProgressAriaLabel: 'usage.unlimitedProgressAriaLabel',\n  /** Aria label for a progress bar with a finite limit. Receives `{ used: string, total: string, percent: number }`. */\n  progressAriaLabel: 'usage.progressAriaLabel',\n} as const",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "mapUsageDataToDashboard",
+        "file": "libs/usage-dashboard/src/utils/map-usage-data-to-dashboard.ts",
+        "start": 155,
+        "end": 195,
+        "declaration": "mapUsageDataToDashboard = (\n  usage: UserLimitStatsResponseDto | undefined,\n  t: Translate,\n  formatResetTime: FormatResetTime,\n): UsageLimitCardData[] => {\n  const periods: {\n    stats: LimitStatsDto | undefined;\n    titleKey: string;\n    periodDescriptionKey: string;\n  }[] = [\n    {\n      stats: usage?.dayCostStats,\n      titleKey: USAGE_DATA_I18N_KEYS.todayTitle,\n      periodDescriptionKey: USAGE_DATA_I18N_KEYS.todayPeriodDescription,\n    },\n    {\n      stats: usage?.weekCostStats,\n      titleKey: USAGE_DATA_I18N_KEYS.thisWeekTitle,\n      periodDescriptionKey: USAGE_DATA_I18N_KEYS.thisWeekPeriodDescription,\n    },\n    {\n      stats: usage?.monthCostStats,\n      titleKey: USAGE_DATA_I18N_KEYS.thisMonthTitle,\n      periodDescriptionKey: USAGE_DATA_I18N_KEYS.thisMonthPeriodDescription,\n    },\n  ];\n\n  return periods.flatMap(({ stats, titleKey, periodDescriptionKey }) =>\n    isUsableStats(stats)\n      ? [\n          mapStatsToCardData(\n            stats,\n            t(titleKey),\n            t(periodDescriptionKey),\n            t,\n            formatResetTime(stats.resetsAt),\n          ),\n        ]\n      : [],\n  );\n}",
+        "signature": "(usage: UserLimitStatsResponseDto | undefined, t: Translate, formatResetTime: FormatResetTime): UsageLimitCardData[]",
+        "props": []
+      },
+      {
+        "name": "FormatResetTime",
+        "file": "libs/usage-dashboard/src/utils/map-usage-data-to-dashboard.ts",
+        "start": 29,
+        "end": 31,
+        "declaration": "export type FormatResetTime = (\n  resetsAt: string | undefined,\n) => ResetTimeDisplayLike | undefined;",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ResetTimeDisplayLike",
+        "file": "libs/usage-dashboard/src/utils/map-usage-data-to-dashboard.ts",
+        "start": 17,
+        "end": 26,
+        "declaration": "export interface ResetTimeDisplayLike {\n  /** Exclusive end of the period as an epoch ms value, for the host's boundary scheduling. */\n  resetsAtMs: number;\n  /** Machine-readable instant for a `<time dateTime>` attribute. */\n  isoValue: string;\n  /** Visible reset line. */\n  label: string;\n  /** Accessible expansion of the reset line. */\n  ariaLabel: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "USAGE_MODEL_LIMITS_I18N_KEYS",
+        "file": "libs/usage-dashboard/src/utils/map-user-usage-to-model-limits.ts",
+        "start": 56,
+        "end": 81,
+        "declaration": "USAGE_MODEL_LIMITS_I18N_KEYS = {\n  /** Period label used in tooltip text. Receives no interpolation. */\n  todayPeriodDescription: 'usage.todayPeriodDescription',\n  /** Period label used in tooltip text. Receives no interpolation. */\n  thisWeekPeriodDescription: 'usage.thisWeekPeriodDescription',\n  /** Period label used in tooltip text. Receives no interpolation. */\n  thisMonthPeriodDescription: 'usage.thisMonthPeriodDescription',\n  /** Tooltip when the overall cost limit is running low. Receives `{ period: string }`. */\n  overallCostLimitRunningLowTooltip: 'usage.overallCostLimitRunningLowTooltip',\n  /** Tooltip when the overall cost limit is reached. Receives `{ period: string }`. */\n  overallCostLimitReachedTooltip: 'usage.overallCostLimitReachedTooltip',\n  /** Aria label for a metric cell with no data. */\n  unavailableLabel: 'usage.unavailableLabel',\n  /** Supporting label when a token limit follows the cost limit. */\n  followsCostLimitLabel: 'usage.followsCostLimitLabel',\n  /** Supporting label when there is no per-deployment token limit. */\n  noLimitLabel: 'usage.noLimitLabel',\n  /** Aria label when token usage has no limit but follows the cost limit. Receives `{ used: string }`. */\n  followsCostLimitAriaLabel: 'usage.followsCostLimitAriaLabel',\n  /** Aria label when there is no limit. Receives `{ used: string }`. */\n  unlimitedProgressAriaLabel: 'usage.unlimitedProgressAriaLabel',\n  /** Aria label for a progress bar with a finite limit. Receives `{ used: string, total: string, percent: number }`. */\n  progressAriaLabel: 'usage.progressAriaLabel',\n  /** Label for the spent-cost cell. Receives `{ amount: string }`. */\n  spentLabel: 'usage.spentLabel',\n} as const",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "mapOverallCostLimitsToPeriodStatuses",
+        "file": "libs/usage-dashboard/src/utils/map-user-usage-to-model-limits.ts",
+        "start": 211,
+        "end": 238,
+        "declaration": "mapOverallCostLimitsToPeriodStatuses = (\n  usage: UserLimitStatsResponseDto | undefined,\n  activeLocale: string,\n  t: Translate,\n  formatResetTime: FormatResetTime = noResetTime,\n): ModelLimitPeriodStatuses => ({\n  day: buildOverallCostPeriodStatus(\n    usage,\n    OVERALL_COST_PERIODS.day,\n    activeLocale,\n    t,\n    formatResetTime,\n  ),\n  week: buildOverallCostPeriodStatus(\n    usage,\n    OVERALL_COST_PERIODS.week,\n    activeLocale,\n    t,\n    formatResetTime,\n  ),\n  month: buildOverallCostPeriodStatus(\n    usage,\n    OVERALL_COST_PERIODS.month,\n    activeLocale,\n    t,\n    formatResetTime,\n  ),\n})",
+        "signature": "(usage: UserLimitStatsResponseDto | undefined, activeLocale: string, t: Translate, formatResetTime?: FormatResetTime): ModelLimitPeriodStatuses",
+        "props": []
+      },
+      {
+        "name": "mapUserUsageToModelLimits",
+        "file": "libs/usage-dashboard/src/utils/map-user-usage-to-model-limits.ts",
+        "start": 413,
+        "end": 494,
+        "declaration": "mapUserUsageToModelLimits = (\n  usage: UserLimitStatsResponseDto | undefined,\n  deploymentItems: DeploymentItemDto[],\n  activeLocale: string,\n  t: Translate,\n  resolveIconUrl: ResolveIconUrl,\n  resolveDisplayName: ResolveDisplayName,\n): ModelLimitRow[] => {\n  const deployments = usage?.deployments;\n  if (deployments == null) {\n    return [];\n  }\n\n  const modelItemById = new Map(\n    deploymentItems\n      .filter((item) => item.type === DeploymentItemDtoTypeEnum.Model)\n      .map((item) => [item.id, item]),\n  );\n  const periodStatuses = mapOverallCostLimitsToPeriodStatuses(\n    usage,\n    activeLocale,\n    t,\n  );\n\n  return Object.keys(deployments)\n    .map((id) => {\n      const item = modelItemById.get(id);\n      const name =\n        item != null\n          ? resolveDisplayName(item.displayName, activeLocale) || item.id\n          : id;\n      const deploymentStats = deployments[id];\n      const avatarSrc = resolveIconUrl(item?.iconUrl);\n\n      const day = buildPeriodCell(\n        deploymentStats,\n        PERIOD_FIELD_MAPPINGS.day,\n        periodStatuses.day.status,\n        t,\n      );\n      const week = buildPeriodCell(\n        deploymentStats,\n        PERIOD_FIELD_MAPPINGS.week,\n        periodStatuses.week.status,\n        t,\n      );\n      const month = buildPeriodCell(\n        deploymentStats,\n        PERIOD_FIELD_MAPPINGS.month,\n        periodStatuses.month.status,\n        t,\n      );\n\n      const displayedStats = Object.values(PERIOD_FIELD_MAPPINGS).flatMap(\n        ({ cost, tokens }) => [deploymentStats[cost], deploymentStats[tokens]],\n      );\n\n      return {\n        row: {\n          id,\n          name,\n          version: item?.displayVersion,\n          avatarSrc,\n          day,\n          week,\n          month,\n          status: getRowStatus(\n            [day.tokens, week.tokens, month.tokens],\n            [day.cost, week.cost, month.cost],\n            [\n              periodStatuses.day.status,\n              periodStatuses.week.status,\n              periodStatuses.month.status,\n            ],\n          ),\n        },\n        hasUsage: hasUsageAcrossDisplayedPeriods(displayedStats),\n      };\n    })\n    .filter(({ hasUsage }) => hasUsage)\n    .map(({ row }) => row);\n}",
+        "signature": "(usage: UserLimitStatsResponseDto | undefined, deploymentItems: DeploymentItemDto[], activeLocale: string, t: Translate, resolveIconUrl: ResolveIconUrl, resolveDisplayName: ResolveDisplayName): ModelLimitRow[]",
+        "props": []
+      },
+      {
+        "name": "ModelLimitMetricKind",
+        "file": "libs/usage-dashboard/src/models/model-limits-props.ts",
+        "start": 16,
+        "end": 23,
+        "declaration": "export enum ModelLimitMetricKind {\n  /** A usable total exists \u2014 renders `used / total` with a progress bar. */\n  Finite = 'finite',\n  /** The host detected the unlimited sentinel; the renderer decides whether its metric shows supporting limit text. */\n  Unlimited = 'unlimited',\n  /** The metric could not be determined \u2014 renders an explicit unavailable state, no progress bar. */\n  Unavailable = 'unavailable',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ModelLimitStatus",
+        "file": "libs/usage-dashboard/src/models/model-limits-props.ts",
+        "start": 2,
+        "end": 13,
+        "declaration": "export enum ModelLimitStatus {\n  /** Below the running-low threshold. Rendered with the default (blue) accent and a \"within limits\" badge. */\n  WithinLimits = 'within-limits',\n  /** At or above the running-low threshold but below 100% used. Rendered with the warning (amber) accent and badge. */\n  RunningLow = 'running-low',\n  /** At or above 100% used. Rendered with the error (red) accent and badge. */\n  LimitReached = 'limit-reached',\n  /** Every supported metric on the row is unlimited. Rendered with a dedicated \"No limit\" badge. */\n  NoLimit = 'no-limit',\n  /** No usable (finite or unlimited) metric exists on the row. Rendered with a dedicated \"Unavailable\" badge. */\n  Unavailable = 'unavailable',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ModelLimitMetricCell",
+        "file": "libs/usage-dashboard/src/models/model-limits-props.ts",
+        "start": 26,
+        "end": 41,
+        "declaration": "export interface ModelLimitMetricCell {\n  /** Which of the three rendering shapes this cell uses. */\n  kind: ModelLimitMetricKind;\n  /** Preformatted used amount, e.g. `'12,345'` or `'$3.60'`. Present for `Finite`/`Unlimited`. */\n  usedLabel?: string;\n  /** Preformatted total amount, e.g. `'50,000'`. Present for `Finite` only. */\n  totalLabel?: string;\n  /** Used percentage, not pre-clamped \u2014 may exceed 100. Present for `Finite` only; the cell clamps the visual progress fill at 100%, while `ariaLabel` conveys the real value. */\n  usedPercent?: number;\n  /** Status derived from `usedPercent` against the host's thresholds. Present for `Finite` only. */\n  status?: ModelLimitStatus;\n  /** Host-provided secondary text for an `Unlimited` metric, e.g. `'Follows cost limit'` or `'No limit'`. */\n  supportingLabel?: string;\n  /** Accessible text describing the cell's full value, present regardless of `kind` (e.g. `'12,345 of 50,000 tokens used'` or `'Not available'`). */\n  ariaLabel: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ModelLimitPeriodCell",
+        "file": "libs/usage-dashboard/src/models/model-limits-props.ts",
+        "start": 76,
+        "end": 81,
+        "declaration": "export interface ModelLimitPeriodCell {\n  /** Tokens usage and limit for the period. */\n  tokens: ModelLimitMetricCell;\n  /** Attributed cost for the period. */\n  cost: ModelLimitMetricCell;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ModelLimitPeriodStatus",
+        "file": "libs/usage-dashboard/src/models/model-limits-props.ts",
+        "start": 44,
+        "end": 63,
+        "declaration": "export interface ModelLimitPeriodStatus {\n  /** Host-derived status of the matching overall Cost limit. */\n  status: ModelLimitStatus;\n  /** Complete tooltip/accessibility text for warning and error indicators. */\n  tooltipLabel?: string;\n  /*\n   * The reset-time trio is host-preformatted. The library renders these\n   * strings verbatim and never parses, formats, or timezone-shifts them \u2014 it\n   * imports no `Intl`, and accepts no locale, timezone, or raw timestamp. All\n   * three are absent together when the host could not format a reset time, in\n   * which case the header renders exactly as it did before reset times\n   * existed.\n   */\n  /** Visible reset line, e.g. `'Resets Sep 16, 2026, 2:00 AM GMT+2'`. */\n  resetLabel?: string;\n  /** Machine-readable instant for the reset line's `<time dateTime>` attribute, e.g. `'2026-09-16T00:00:00Z'`. */\n  resetIsoValue?: string;\n  /** Accessible expansion of the reset line, applied as its `aria-label` when supplied. */\n  resetAriaLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ModelLimitPeriodStatuses",
+        "file": "libs/usage-dashboard/src/models/model-limits-props.ts",
+        "start": 66,
+        "end": 73,
+        "declaration": "export interface ModelLimitPeriodStatuses {\n  /** Overall Cost status for the current UTC day. */\n  day: ModelLimitPeriodStatus;\n  /** Overall Cost status for the current UTC week. */\n  week: ModelLimitPeriodStatus;\n  /** Overall Cost status for the current UTC month. */\n  month: ModelLimitPeriodStatus;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ModelLimitRow",
+        "file": "libs/usage-dashboard/src/models/model-limits-props.ts",
+        "start": 84,
+        "end": 101,
+        "declaration": "export interface ModelLimitRow {\n  /** Stable identifier for the row, e.g. the deployment ID. */\n  id: string;\n  /** Display name of the model. */\n  name: string;\n  /** Display version of the model, when known. */\n  version?: string;\n  /** Image URL for the model's avatar. When absent, an initials-based fallback derived from `name` is shown. */\n  avatarSrc?: string;\n  /** Cost and Tokens metrics for the current UTC day. */\n  day: ModelLimitPeriodCell;\n  /** Cost and Tokens metrics for the current UTC week. */\n  week: ModelLimitPeriodCell;\n  /** Cost and Tokens metrics for the current UTC month. */\n  month: ModelLimitPeriodCell;\n  /** Host-derived overall status across all model-token and overall Cost limit periods. */\n  status: ModelLimitStatus;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ModelLimitsColors",
+        "file": "libs/usage-dashboard/src/models/model-limits-props.ts",
+        "start": 142,
+        "end": 189,
+        "declaration": "export interface ModelLimitsColors {\n  /** Section container background. Fallback: `--bg-layer-raised`. */\n  containerBackground?: string;\n  /** Heading text color. Fallback: `--text-primary`. */\n  headingColor?: string;\n  /** Heading count color. Fallback: `--text-tertiary`. */\n  headingCountColor?: string;\n  /** Column header text color. Fallback: `--text-secondary`. */\n  columnHeaderColor?: string;\n  /** Row divider color. Fallback: `--stroke-secondary`. */\n  rowDividerColor?: string;\n  /** Model name text color. Fallback: `--text-primary`. */\n  nameColor?: string;\n  /** Model entity-type text color. Fallback: `--text-accent`. */\n  modelTypeColor?: string;\n  /** Model version text color. Fallback: `--text-secondary`. */\n  versionColor?: string;\n  /** Metric prominent used-value text color. Fallback: `--text-primary`. */\n  valueColor?: string;\n  /** Secondary metric text color (the \"used of X\" caption). Fallback: `--text-secondary`. */\n  secondaryValueColor?: string;\n  /** Progress-bar track color. Fallback: `--bg-layer-sunken`. */\n  progressTrackColor?: string;\n  /** Progress-fill / accent color for `WithinLimits`. Fallback: `--text-control-accent-hover`. */\n  defaultProgressColor?: string;\n  /** Progress-fill / accent color for `RunningLow`. Fallback: `--text-warning-icon`. */\n  warningProgressColor?: string;\n  /** Progress-fill / accent color for `LimitReached`. Fallback: `--bg-control-error-active`. */\n  errorProgressColor?: string;\n  /** Period-header indicator color for `RunningLow`. Fallback: `--text-warning-icon`. */\n  warningIndicatorColor?: string;\n  /** Period-header indicator color for `LimitReached`. Fallback: `--text-error`. */\n  errorIndicatorColor?: string;\n  /** `WithinLimits` badge background. Fallback: `--bg-success`. */\n  defaultBadgeBackground?: string;\n  /** `WithinLimits` badge text color. Fallback: `--text-success`. */\n  defaultBadgeColor?: string;\n  /** `RunningLow` badge background. Fallback: `--bg-warning`. */\n  warningBadgeBackground?: string;\n  /** `RunningLow` badge text color. Fallback: `--text-warning`. */\n  warningBadgeColor?: string;\n  /** `LimitReached` badge background. Fallback: `--bg-error`. */\n  errorBadgeBackground?: string;\n  /** `LimitReached` badge text color. Fallback: `--text-error`. */\n  errorBadgeColor?: string;\n  /** `NoLimit`/`Unavailable` status text color. Fallback: `--text-secondary`. */\n  neutralBadgeColor?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ModelLimitsLabels",
+        "file": "libs/usage-dashboard/src/models/model-limits-props.ts",
+        "start": 104,
+        "end": 139,
+        "declaration": "export interface ModelLimitsLabels {\n  /** Section heading text, e.g. `'Model tokens limits'`. The row count is rendered separately. */\n  headingLabel: string;\n  /** Column header text for the Item (identity) column. */\n  itemColumnLabel: string;\n  /** Column header text for the current UTC day. */\n  dayColumnLabel: string;\n  /** Column header text for the current UTC week. */\n  weekColumnLabel: string;\n  /** Column header text for the current UTC month. */\n  monthColumnLabel: string;\n  /** Column header text for the Status column. */\n  statusColumnLabel: string;\n  /** Non-visual accessible label for Tokens values inside every period cell. */\n  tokensLabel: string;\n  /** Non-visual accessible label for the value-only Cost amount in every period cell. */\n  costLabel: string;\n  /** Entity type shown above each model name. */\n  modelTypeLabel: string;\n  /** Text shown after an unlimited Tokens value, e.g. `'No limit'`. */\n  noLimitLabel: string;\n  /** Text shown in place of a value when the metric is unavailable, e.g. `'Not available'`. Must read as distinct from `noLimitLabel`. */\n  unavailableLabel: string;\n  /** Status badge text for `ModelLimitStatus.WithinLimits`. */\n  withinLimitsBadgeLabel: string;\n  /** Status badge text for `ModelLimitStatus.RunningLow`. */\n  runningLowBadgeLabel: string;\n  /** Status badge text for `ModelLimitStatus.LimitReached`. */\n  limitReachedBadgeLabel: string;\n  /** Status badge text for `ModelLimitStatus.NoLimit`. */\n  noLimitBadgeLabel: string;\n  /** Status badge text for `ModelLimitStatus.Unavailable`. */\n  unavailableBadgeLabel: string;\n  /** Message shown in place of the table when `rows` is empty, e.g. `'No models to show yet.'`. */\n  emptyStateLabel: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ModelLimitsSectionProps",
+        "file": "libs/usage-dashboard/src/models/model-limits-props.ts",
+        "start": 224,
+        "end": 233,
+        "declaration": "export interface ModelLimitsSectionProps {\n  /** Rows to render, in display order. Each renders as one table row. */\n  rows: ModelLimitRow[];\n  /** Localized strings shared by the section shell and every row. */\n  labels: ModelLimitsLabels;\n  /** Host-derived overall Cost statuses/tooltips for the three fixed period headers. */\n  periodStatuses: ModelLimitPeriodStatuses;\n  /** Style overrides applied as CSS custom properties and typography class overrides. */\n  styles?: ModelLimitsStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ModelLimitsStyles",
+        "file": "libs/usage-dashboard/src/models/model-limits-props.ts",
+        "start": 216,
+        "end": 221,
+        "declaration": "export interface ModelLimitsStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: ModelLimitsColors;\n  /** Typography class overrides. */\n  typography?: ModelLimitsTypography;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ModelLimitsTypography",
+        "file": "libs/usage-dashboard/src/models/model-limits-props.ts",
+        "start": 192,
+        "end": 213,
+        "declaration": "export interface ModelLimitsTypography {\n  /** CSS class for the section heading. Defaults to `'dial-body-semi-text'`. */\n  headingClassName?: string;\n  /** CSS class for the count next to the section heading. Defaults to `'dial-tiny-semi-text'`. */\n  headingCountClassName?: string;\n  /** CSS class for column headers. Defaults to `'dial-caption-lead-semi-text'`. */\n  columnHeaderClassName?: string;\n  /** CSS class for a period header's reset-time line. Defaults to `'dial-tiny-text'`. */\n  resetLabelClassName?: string;\n  /** CSS class for the model name. Defaults to `'dial-small-semi-text'`. */\n  nameClassName?: string;\n  /** CSS class for the model entity type. Defaults to `'dial-caption-lead-semi-text'`. */\n  modelTypeClassName?: string;\n  /** CSS class for the model version. Defaults to `'dial-small-text'`. */\n  versionClassName?: string;\n  /** CSS class for a metric's prominent used value. Defaults to `'dial-small-text'`. */\n  valueClassName?: string;\n  /** CSS class for a metric's secondary caption (total / \"No limit\" / \"Not available\"). Defaults to `'dial-tiny-text'`. */\n  secondaryValueClassName?: string;\n  /** CSS class for status badge text. Defaults to `'dial-caption-lead-semi-text'`. */\n  badgeClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "USAGE_DASHBOARD_CLASS",
+        "file": "libs/usage-dashboard/src/constants/public-class-names.ts",
+        "start": 12,
+        "end": 17,
+        "declaration": "USAGE_DASHBOARD_CLASS = {\n  /** One usage-limit card, which carries the themed CSS variables. */\n  card: 'dial-usage-dashboard-card',\n  /** The responsive grid a `UsageLimitCardGroup` lays its cards out in. */\n  cardGroup: 'dial-usage-dashboard-card-group',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "UsageLimitCard",
+      "file": "libs/usage-dashboard/src/components/UsageLimitCard/UsageLimitCard.tsx",
+      "start": 26,
+      "end": 191,
+      "declaration": "UsageLimitCard: FC<UsageLimitCardProps> = ({\n  data,\n  labels,\n  styles: stylesProp,\n}) => {\n  const { colors, typography } = stylesProp ?? {};\n  const {\n    titleClassName = 'dial-body-semi-text',\n    amountClassName = 'dial-display1-text',\n    secondaryAmountClassName = 'dial-small-text',\n    badgeClassName = 'dial-caption-lead-semi-text',\n    usedPercentLabelClassName = 'dial-small-text',\n    resetLabelClassName = 'dial-tiny-text',\n  } = typography ?? {};\n\n  const cssVars = buildCssVars({\n    '--uld-card-bg': colors?.cardBackground,\n    '--uld-title': colors?.titleColor,\n    '--uld-default-accent': colors?.defaultAccentColor,\n    '--uld-default-progress': colors?.defaultProgressColor,\n    '--uld-warning-accent': colors?.warningAccentColor,\n    '--uld-warning-progress': colors?.warningProgressColor,\n    '--uld-error-accent': colors?.errorAccentColor,\n    '--uld-error-progress': colors?.errorProgressColor,\n    '--uld-secondary-amount': colors?.secondaryAmountColor,\n    '--uld-progress-track': colors?.progressTrackColor,\n    '--uld-default-badge-bg': colors?.defaultBadgeBackground,\n    '--uld-default-badge-text': colors?.defaultBadgeColor,\n    '--uld-warning-badge-bg': colors?.warningBadgeBackground,\n    '--uld-warning-badge-text': colors?.warningBadgeColor,\n    '--uld-error-badge-bg': colors?.errorBadgeBackground,\n    '--uld-error-badge-text': colors?.errorBadgeColor,\n    '--uld-used-percent-label': colors?.usedPercentLabelColor,\n  });\n\n  const badgeLabel = getBadgeLabel(data.status, labels);\n\n  return (\n    <div\n      className={mergeClasses(\n        'flex min-w-0 flex-col gap-4 rounded-xl px-6 py-5 shadow-md',\n        styles.card,\n        USAGE_DASHBOARD_CLASS.card,\n      )}\n      style={cssVars}\n      role=\"group\"\n      aria-label={`${data.title}, ${data.periodDescription}`}\n    >\n      <div className=\"flex items-center justify-between gap-2\">\n        <p className={mergeClasses('m-0', titleClassName, styles.title)}>\n          {data.title}\n        </p>\n        <span\n          className={mergeClasses(\n            'shrink-0 rounded-full px-2 py-1',\n            badgeClassName,\n            data.status === UsageLimitStatus.Default && styles.defaultBadge,\n            data.status === UsageLimitStatus.RunningLow && styles.warningBadge,\n            data.status === UsageLimitStatus.LimitReached && styles.errorBadge,\n          )}\n        >\n          {badgeLabel}\n        </span>\n      </div>\n\n      <div className=\"flex flex-col gap-2\">\n        <p className=\"m-0 flex flex-wrap items-baseline gap-2\">\n          <span\n            className={mergeClasses(\n              amountClassName,\n              styles.amount,\n              data.status === UsageLimitStatus.Default && styles.defaultAccent,\n              data.status === UsageLimitStatus.RunningLow &&\n                styles.warningAccent,\n              data.status === UsageLimitStatus.LimitReached &&\n                styles.errorAccent,\n            )}\n          >\n            {data.usedLabel}\n          </span>\n          {!data.isUnlimited && data.totalLabel != null && (\n            <span\n              className={mergeClasses(\n                secondaryAmountClassName,\n                styles.secondaryAmount,\n              )}\n            >\n              {labels.usedOfTotalLabel({ total: data.totalLabel })}\n            </span>\n          )}\n        </p>\n\n        {!data.isUnlimited && data.usedPercent != null && (\n          <>\n            <ProgressBar\n              value={Math.min(data.usedPercent, 100)}\n              max={100}\n              size={ElementSize.Small}\n              className={mergeClasses(\n                '!h-1 w-full',\n                styles.progressTrack,\n                data.status === UsageLimitStatus.Default &&\n                  styles.progressFillDefault,\n                data.status === UsageLimitStatus.RunningLow &&\n                  styles.progressFillWarning,\n                data.status === UsageLimitStatus.LimitReached &&\n                  styles.progressFillDanger,\n              )}\n              aria-label={data.title}\n              aria-valuetext={data.progressAriaLabel}\n            />\n            <div className=\"flex items-center justify-between gap-2\">\n              {data.remainingLabel != null && (\n                <span\n                  className={mergeClasses(\n                    secondaryAmountClassName,\n                    styles.secondaryAmount,\n                  )}\n                >\n                  {labels.remainingCaptionLabel({\n                    remaining: data.remainingLabel,\n                  })}\n                </span>\n              )}\n              <span\n                className={mergeClasses(\n                  'ms-auto',\n                  usedPercentLabelClassName,\n                  styles.usedPercentLabel,\n                )}\n              >\n                {labels.usedPercentLabel({\n                  percent: Math.min(Math.round(data.usedPercent), 100),\n                })}\n              </span>\n            </div>\n          </>\n        )}\n\n        {/* Rendered for an unlimited card too \u2014 an unconfigured limit still\n            accumulates spend against a period that rolls over. */}\n        {data.resetLabel != null && (\n          <span className=\"contents\">\n            {/* `aria-label` is not reliably supported on a bare `<time>`, so the\n                spoken form \u2014 which names the timezone in full rather than as an\n                offset \u2014 is carried by a visually-hidden sibling instead. */}\n            <time\n              dateTime={data.resetIsoValue}\n              aria-hidden={data.resetAriaLabel != null || undefined}\n              className={mergeClasses(\n                'block break-words',\n                resetLabelClassName,\n                styles.secondaryAmount,\n              )}\n            >\n              {data.resetLabel}\n            </time>\n            {data.resetAriaLabel != null && (\n              <span className=\"sr-only\">{data.resetAriaLabel}</span>\n            )}\n          </span>\n        )}\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: UsageLimitCardProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "data",
+          "optional": false,
+          "type": "import(\"../..\").UsageLimitCardData"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").UsageLimitCardGroupLabels"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").UsageLimitCardGroupStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "UsageLimitCardGroup",
+      "file": "libs/usage-dashboard/src/components/UsageLimitCardGroup/UsageLimitCardGroup.tsx",
+      "start": 8,
+      "end": 35,
+      "declaration": "UsageLimitCardGroup: FC<UsageLimitCardGroupProps> = ({\n  cards,\n  labels,\n  styles: stylesProp,\n}) => {\n  if (cards.length === 0) {\n    return null;\n  }\n\n  return (\n    <div\n      className={mergeClasses(\n        'grid grid-cols-1 gap-4 desktop:grid-cols-[repeat(var(--uld-card-count),minmax(0,1fr))]',\n        USAGE_DASHBOARD_CLASS.cardGroup,\n      )}\n      style={{ '--uld-card-count': cards.length } as CSSProperties}\n    >\n      {cards.map((card) => (\n        <UsageLimitCard\n          key={card.title}\n          data={card}\n          labels={labels}\n          styles={stylesProp}\n        />\n      ))}\n    </div>\n  );\n}",
+      "signature": "(props: UsageLimitCardGroupProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "cards",
+          "optional": false,
+          "type": "import(\"../..\").UsageLimitCardData[]"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").UsageLimitCardGroupLabels"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").UsageLimitCardGroupStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "ModelLimitsSection",
+      "file": "libs/usage-dashboard/src/components/ModelLimitsSection/ModelLimitsSection.tsx",
+      "start": 66,
+      "end": 200,
+      "declaration": "ModelLimitsSection: FC<ModelLimitsSectionProps> = ({\n  rows,\n  labels,\n  periodStatuses,\n  styles: stylesProp,\n}) => {\n  const { colors, typography = {} } = stylesProp ?? {};\n  const {\n    headingClassName = 'dial-body-semi-text',\n    headingCountClassName = 'dial-tiny-semi-text',\n    columnHeaderClassName = 'dial-caption-lead-semi-text',\n    resetLabelClassName = 'dial-tiny-text',\n  } = typography;\n\n  const cssVars = buildCssVars({\n    '--mls-container-bg': colors?.containerBackground,\n    '--mls-heading': colors?.headingColor,\n    '--mls-heading-count': colors?.headingCountColor,\n    '--mls-column-header': colors?.columnHeaderColor,\n    '--mls-row-divider': colors?.rowDividerColor,\n    '--mls-name': colors?.nameColor,\n    '--mls-model-type': colors?.modelTypeColor,\n    '--mls-version': colors?.versionColor,\n    '--mls-value': colors?.valueColor,\n    '--mls-secondary-value': colors?.secondaryValueColor,\n    '--mls-progress-track': colors?.progressTrackColor,\n    '--mls-progress-default': colors?.defaultProgressColor,\n    '--mls-progress-warning': colors?.warningProgressColor,\n    '--mls-progress-error': colors?.errorProgressColor,\n    '--mls-indicator-warning': colors?.warningIndicatorColor,\n    '--mls-indicator-error': colors?.errorIndicatorColor,\n    '--mls-badge-default-bg': colors?.defaultBadgeBackground,\n    '--mls-badge-default-text': colors?.defaultBadgeColor,\n    '--mls-badge-warning-bg': colors?.warningBadgeBackground,\n    '--mls-badge-warning-text': colors?.warningBadgeColor,\n    '--mls-badge-error-bg': colors?.errorBadgeBackground,\n    '--mls-badge-error-text': colors?.errorBadgeColor,\n    '--mls-badge-neutral-text': colors?.neutralBadgeColor,\n  });\n\n  const tableLabel = `${labels.headingLabel} ${rows.length}`;\n\n  return (\n    <div className=\"flex flex-col gap-4\" style={cssVars}>\n      <div className=\"flex min-h-10 items-center\">\n        <h3 className=\"m-0 flex items-center gap-2\">\n          <span className={mergeClasses(headingClassName, styles.heading)}>\n            {labels.headingLabel}\n          </span>\n          <span\n            className={mergeClasses(headingCountClassName, styles.headingCount)}\n          >\n            {rows.length}\n          </span>\n        </h3>\n      </div>\n\n      <div\n        role=\"table\"\n        aria-label={tableLabel}\n        className={mergeClasses(\n          'overflow-hidden rounded-xl shadow-md',\n          styles.container,\n        )}\n      >\n        {rows.length === 0 ? (\n          <div className=\"flex items-center justify-center px-6 py-10\">\n            <PanelEmptyState label={labels.emptyStateLabel} />\n          </div>\n        ) : (\n          <>\n            <div\n              role=\"row\"\n              className={mergeClasses(\n                'hidden gap-4 px-6 py-3 desktop:grid desktop:items-center',\n                MODEL_LIMITS_GRID_COLUMNS,\n                styles.headerRow,\n              )}\n            >\n              <span\n                role=\"columnheader\"\n                className={mergeClasses(\n                  columnHeaderClassName,\n                  styles.columnHeader,\n                )}\n              >\n                {labels.itemColumnLabel}\n              </span>\n              <PeriodHeader\n                label={labels.dayColumnLabel}\n                periodStatus={periodStatuses.day}\n                className={columnHeaderClassName}\n                resetLabelClassName={resetLabelClassName}\n              />\n              <PeriodHeader\n                label={labels.weekColumnLabel}\n                periodStatus={periodStatuses.week}\n                className={columnHeaderClassName}\n                resetLabelClassName={resetLabelClassName}\n              />\n              <PeriodHeader\n                label={labels.monthColumnLabel}\n                periodStatus={periodStatuses.month}\n                className={columnHeaderClassName}\n                resetLabelClassName={resetLabelClassName}\n              />\n              <span\n                role=\"columnheader\"\n                className={mergeClasses(\n                  columnHeaderClassName,\n                  styles.columnHeader,\n                )}\n              >\n                {labels.statusColumnLabel}\n              </span>\n            </div>\n\n            <div role=\"rowgroup\">\n              {rows.map((row) => (\n                <ModelLimitsRow\n                  key={row.id}\n                  row={row}\n                  labels={labels}\n                  periodStatuses={periodStatuses}\n                  typography={typography}\n                  avatarSize={AVATAR_SIZE}\n                />\n              ))}\n            </div>\n          </>\n        )}\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: ModelLimitsSectionProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "rows",
+          "optional": false,
+          "type": "import(\"../..\").ModelLimitRow[]"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").ModelLimitsLabels"
+        },
+        {
+          "name": "periodStatuses",
+          "optional": false,
+          "type": "import(\"../..\").ModelLimitPeriodStatuses"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").ModelLimitsStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "mapUsageDataToDashboard",
+      "file": "libs/usage-dashboard/src/utils/map-usage-data-to-dashboard.ts",
+      "start": 155,
+      "end": 195,
+      "declaration": "mapUsageDataToDashboard = (\n  usage: UserLimitStatsResponseDto | undefined,\n  t: Translate,\n  formatResetTime: FormatResetTime,\n): UsageLimitCardData[] => {\n  const periods: {\n    stats: LimitStatsDto | undefined;\n    titleKey: string;\n    periodDescriptionKey: string;\n  }[] = [\n    {\n      stats: usage?.dayCostStats,\n      titleKey: USAGE_DATA_I18N_KEYS.todayTitle,\n      periodDescriptionKey: USAGE_DATA_I18N_KEYS.todayPeriodDescription,\n    },\n    {\n      stats: usage?.weekCostStats,\n      titleKey: USAGE_DATA_I18N_KEYS.thisWeekTitle,\n      periodDescriptionKey: USAGE_DATA_I18N_KEYS.thisWeekPeriodDescription,\n    },\n    {\n      stats: usage?.monthCostStats,\n      titleKey: USAGE_DATA_I18N_KEYS.thisMonthTitle,\n      periodDescriptionKey: USAGE_DATA_I18N_KEYS.thisMonthPeriodDescription,\n    },\n  ];\n\n  return periods.flatMap(({ stats, titleKey, periodDescriptionKey }) =>\n    isUsableStats(stats)\n      ? [\n          mapStatsToCardData(\n            stats,\n            t(titleKey),\n            t(periodDescriptionKey),\n            t,\n            formatResetTime(stats.resetsAt),\n          ),\n        ]\n      : [],\n  );\n}",
+      "signature": "(usage: UserLimitStatsResponseDto | undefined, t: Translate, formatResetTime: FormatResetTime): UsageLimitCardData[]",
+      "props": []
+    },
+    {
+      "name": "mapOverallCostLimitsToPeriodStatuses",
+      "file": "libs/usage-dashboard/src/utils/map-user-usage-to-model-limits.ts",
+      "start": 211,
+      "end": 238,
+      "declaration": "mapOverallCostLimitsToPeriodStatuses = (\n  usage: UserLimitStatsResponseDto | undefined,\n  activeLocale: string,\n  t: Translate,\n  formatResetTime: FormatResetTime = noResetTime,\n): ModelLimitPeriodStatuses => ({\n  day: buildOverallCostPeriodStatus(\n    usage,\n    OVERALL_COST_PERIODS.day,\n    activeLocale,\n    t,\n    formatResetTime,\n  ),\n  week: buildOverallCostPeriodStatus(\n    usage,\n    OVERALL_COST_PERIODS.week,\n    activeLocale,\n    t,\n    formatResetTime,\n  ),\n  month: buildOverallCostPeriodStatus(\n    usage,\n    OVERALL_COST_PERIODS.month,\n    activeLocale,\n    t,\n    formatResetTime,\n  ),\n})",
+      "signature": "(usage: UserLimitStatsResponseDto | undefined, activeLocale: string, t: Translate, formatResetTime?: FormatResetTime): ModelLimitPeriodStatuses",
+      "props": []
+    },
+    {
+      "name": "mapUserUsageToModelLimits",
+      "file": "libs/usage-dashboard/src/utils/map-user-usage-to-model-limits.ts",
+      "start": 413,
+      "end": 494,
+      "declaration": "mapUserUsageToModelLimits = (\n  usage: UserLimitStatsResponseDto | undefined,\n  deploymentItems: DeploymentItemDto[],\n  activeLocale: string,\n  t: Translate,\n  resolveIconUrl: ResolveIconUrl,\n  resolveDisplayName: ResolveDisplayName,\n): ModelLimitRow[] => {\n  const deployments = usage?.deployments;\n  if (deployments == null) {\n    return [];\n  }\n\n  const modelItemById = new Map(\n    deploymentItems\n      .filter((item) => item.type === DeploymentItemDtoTypeEnum.Model)\n      .map((item) => [item.id, item]),\n  );\n  const periodStatuses = mapOverallCostLimitsToPeriodStatuses(\n    usage,\n    activeLocale,\n    t,\n  );\n\n  return Object.keys(deployments)\n    .map((id) => {\n      const item = modelItemById.get(id);\n      const name =\n        item != null\n          ? resolveDisplayName(item.displayName, activeLocale) || item.id\n          : id;\n      const deploymentStats = deployments[id];\n      const avatarSrc = resolveIconUrl(item?.iconUrl);\n\n      const day = buildPeriodCell(\n        deploymentStats,\n        PERIOD_FIELD_MAPPINGS.day,\n        periodStatuses.day.status,\n        t,\n      );\n      const week = buildPeriodCell(\n        deploymentStats,\n        PERIOD_FIELD_MAPPINGS.week,\n        periodStatuses.week.status,\n        t,\n      );\n      const month = buildPeriodCell(\n        deploymentStats,\n        PERIOD_FIELD_MAPPINGS.month,\n        periodStatuses.month.status,\n        t,\n      );\n\n      const displayedStats = Object.values(PERIOD_FIELD_MAPPINGS).flatMap(\n        ({ cost, tokens }) => [deploymentStats[cost], deploymentStats[tokens]],\n      );\n\n      return {\n        row: {\n          id,\n          name,\n          version: item?.displayVersion,\n          avatarSrc,\n          day,\n          week,\n          month,\n          status: getRowStatus(\n            [day.tokens, week.tokens, month.tokens],\n            [day.cost, week.cost, month.cost],\n            [\n              periodStatuses.day.status,\n              periodStatuses.week.status,\n              periodStatuses.month.status,\n            ],\n          ),\n        },\n        hasUsage: hasUsageAcrossDisplayedPeriods(displayedStats),\n      };\n    })\n    .filter(({ hasUsage }) => hasUsage)\n    .map(({ row }) => row);\n}",
+      "signature": "(usage: UserLimitStatsResponseDto | undefined, deploymentItems: DeploymentItemDto[], activeLocale: string, t: Translate, resolveIconUrl: ResolveIconUrl, resolveDisplayName: ResolveDisplayName): ModelLimitRow[]",
+      "props": []
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/usage-dashboard/src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx",
+      "assertions": [
+        "renders the title and the prominent used amount with its \"used of\" caption",
+        "renders the \"within limits\" badge for the default status",
+        "renders the running-low badge and warning accent at 90% used",
+        "renders the limit-reached badge and error accent at 100% used",
+        "renders the remaining-amount and used-percent captions below the progress bar",
+        "shows only the used amount, with no progress bar, ratio, or badge, when unlimited",
+        "clamps the visual progress fill and the visible percent label at 100%, while the accessible value text keeps the real percentage",
+        "names the progress bar after the card title",
+        "renders long localized labels without breaking the layout query",
+        "exposes the card as an accessible group named with the title and period description",
+        "keeps the same accessible name and value text under an RTL ancestor",
+        "renders the reset label in a <time> carrying the original UTC instant",
+        "carries the spoken form on a visually-hidden sibling, not on the <time>",
+        "leaves the <time> exposed when no spoken form is supplied",
+        "renders no reset line when the reset label is absent",
+        "renders the reset line on an unlimited card too",
+        "leaves the badge, progress bar, and aria-valuetext unchanged",
+        "wraps rather than forcing horizontal overflow",
+        "stamps the card root"
+      ]
+    },
+    {
+      "file": "libs/usage-dashboard/src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx",
+      "assertions": [
+        "renders the row count separately in the section heading",
+        "renders the empty state while preserving the section shell",
+        "renders exactly the fixed comparison headers in order",
+        "renders one semantic row with Item, three period cells, and Status",
+        "vertically centers desktop row content without changing horizontal alignment",
+        "renders token progress followed by attributed Cost in every period cell",
+        "renders unavailable Cost as a value without a visible Cost label",
+        "renders unlimited and unavailable token states without progress bars",
+        "clamps progress visually while retaining the real accessible value",
+        "renders rows in supplied order with avatar fallback and accessible names",
+        "keeps long identity content constrained inside the Item cell",
+        "uses one responsive semantic subtree under an RTL ancestor",
+        "renders accessible overall Cost indicators for affected period headers",
+        "renders the reset label beneath its column label in a <time>",
+        "carries the spoken form on a visually-hidden sibling, not on the <time>",
+        "renders no reset line for a period status without one",
+        "renders nothing when no period carries a reset label",
+        "keeps the period status indicator in place alongside the reset line",
+        "wraps the reset line rather than forcing horizontal overflow"
+      ]
+    },
+    {
+      "file": "libs/usage-dashboard/src/components/UsageLimitCardGroup/tests/UsageLimitCardGroup.spec.tsx",
+      "assertions": [
+        "renders one independent box per card, in order",
+        "renders a single full-width card when only one is provided",
+        "renders nothing when no cards are provided",
+        "uses the mobile-first grid classes with a card-count-driven desktop column count",
+        "stamps the grid the cards are laid out in"
+      ]
+    },
+    {
+      "file": "libs/usage-dashboard/src/utils/tests/map-user-usage-to-model-limits.spec.ts",
+      "assertions": [
+        "returns one row per deployment with usage in a displayed period",
+        "returns an empty array when usage is absent",
+        "returns an empty array when deployments is empty",
+        "excludes a deployment with no non-zero usage across displayed periods",
+        "keeps a deployment used in only one displayed period",
+        "keeps cost-only usage while leaving token Status unavailable",
+        "ignores minute, hour, and request usage for row inclusion",
+        "falls back to the deployment ID and no avatar when metadata is missing",
+        "calls resolveIconUrl and forwards its result to avatarSrc",
+        "does not enrich a model row from a non-model deployment item",
+        "preserves usage.deployments key order independently of metadata order",
+        "never adds a deployment absent from usage.deployments",
+        "maps day Cost and Tokens to Last 24 hours",
+        "maps week Cost and Tokens to Last 7 days",
+        "maps month Cost and Tokens to Last 30 days",
+        "does not substitute a missing period value",
+        "classifies well-formed cost as unlimited attributed spend",
+        "classifies missing cost as unavailable",
+        "keeps finite token percentages uncapped",
+        "classifies unlimited and unavailable token periods distinctly",
+        "shows that unlimited model tokens follow the matching finite overall Cost limit",
+        "uses compact visible token values and full accessible values",
+        "uses LimitReached from any displayed token period",
+        "uses RunningLow when no period has reached its limit",
+        "uses WithinLimits when every finite period is healthy",
+        "uses NoLimit only when no finite token period exists",
+        "does not treat per-model attributed cost as a finite limit",
+        "applies the worst overall Cost status to every model row",
+        "maps top-level Cost limits to period-aware header tooltips",
+        "keys the statuses day/week/month",
+        "sources each header reset trio from its own top-level stat",
+        "ignores a differing per-deployment resetsAt for the header",
+        "omits the reset trio when no formatter is supplied",
+        "keeps a sentinel cost cell Unlimited with the spent label",
+        "produces a Finite cell for a genuinely finite cost total",
+        "folds a finite cost status into the row status",
+        "keeps sentinel cost cells from promoting an all-unavailable row"
+      ]
+    },
+    {
+      "file": "libs/usage-dashboard/src/utils/tests/map-usage-data-to-dashboard.spec.ts",
+      "assertions": [
+        "maps all three usable periods in Today/This week/This month order",
+        "omits a period entirely when the stat is missing",
+        "rounds accumulated costs and remaining amounts to cents",
+        "returns an empty array when no period has a usable stat",
+        "returns an empty array when usage is undefined",
+        "clamps a negative used value to zero",
+        "treats a NaN used or total as an unusable stat and omits the period",
+        "treats a total at the unlimited sentinel (2**53) as unlimited",
+        "treats a total above the unlimited sentinel as unlimited",
+        "reports the real, uncapped percentage for used amounts over the total",
+        "treats exactly 75% used as RunningLow",
+        "treats just under 75% used as Default",
+        "treats exactly 100% used as LimitReached",
+        "populates each card's reset trio from its own stat",
+        "leaves all three fields absent when the formatter returns undefined",
+        "leaves the fields absent for a stat that carries no resetsAt",
+        "carries the reset trio on an unlimited card too",
+        "titles the cards with the calendar names"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat/src/pages/SettingsPage/UsageTab/UsageTab.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 10,
+          "excerpt": "import { useUsageData } from '@epam/ai-dial-chat-hooks';\nimport { Spinner } from '@epam/ai-dial-ui-kit';\nimport {\n  mapOverallCostLimitsToPeriodStatuses,\n  mapUsageDataToDashboard,\n  mapUserUsageToModelLimits,\n  ModelLimitsSection,\n  UsageLimitCardGroup,\n} from '@epam/ai-dial-usage-dashboard';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/utils/usage-reset-time.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 7,
+          "excerpt": "import { UsageI18nKeys } from '../constants/translation-keys';\n\n/**\n * A DIAL Core `resetsAt` instant, normalized into the preformatted strings the\n * usage dashboard renders. Every `Date` and `Intl` call for reset times lives\n * in this module: `@epam/ai-dial-usage-dashboard` receives only these strings\n * and never sees a raw timestamp, a locale, or a timezone."
+        }
+      ]
+    }
+  ]
+}

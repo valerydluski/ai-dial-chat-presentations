@@ -1,0 +1,1017 @@
+{
+  "project": {
+    "id": "libs/share",
+    "project": "@epam/ai-dial-share",
+    "path": "libs/share",
+    "package": "@epam/ai-dial-share",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/share/README.md",
+      "libs/share/package.json",
+      "libs/share/src/index.ts",
+      "libs/share/src/components/SharePopover/tests/SharePopover.spec.tsx",
+      "libs/share/tsconfig.spec.json",
+      "apps/chat-api/src/share/dto/create-share-link.dto.ts",
+      "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+      "libs/chat-hooks/src/useShareLink/tests/useShareLink.spec.ts",
+      "apps/chat/src/components/SharePopoverContainer/SharePopoverContainer.tsx"
+    ],
+    "output": "decks/libs/share.pptx",
+    "preview": "previews/libs/share",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/SharePopover/tests/SharePopover.spec.tsx",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-share",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-share",
+    "description": "Share popover UI component and share-link types for AI DIAL catalog deployments",
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0",
+      "react-qr-code": "^2.2.0"
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-shared": "*",
+      "react": "^19.2.8",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9"
+    },
+    "nx": {
+      "tags": [
+        "publishable",
+        "type:ui"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/share",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/share",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/share/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/share",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/share",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/share",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/share",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/share",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-share --includeDependencies -- npx nx build-deps @epam/ai-dial-share"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/share",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/SharePopover/tests/SharePopover.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SharePopover/tests/SharePopover.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/SharePopover/tests/SharePopover.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/share",
+          "command": "vitest run src/components/SharePopover/tests/SharePopover.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/SharePopover/tests/SharePopover.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SharePopover/tests/SharePopover.spec.tsx"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/SharePopover/tests/SharePopover.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-share --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/SharePopover/tests/SharePopover.spec.tsx"
+        ]
+      },
+      "description": "Share popover UI component and share-link types for AI DIAL catalog deployments",
+      "js": {
+        "packageName": "@epam/ai-dial-share",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-share",
+    "tags": [
+      "npm:private",
+      "publishable",
+      "type:ui"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/share/src/index.ts",
+    "libs/share/src/vite-env.d.ts",
+    "libs/share/src/components/LinkView/LinkView.tsx",
+    "libs/share/src/components/QrCode/QrCode.module.scss",
+    "libs/share/src/components/QrCode/QrCode.tsx",
+    "libs/share/src/components/SharePopover/SharePopover.tsx",
+    "libs/share/src/components/SharePopover/LoadingSkeleton.tsx",
+    "libs/share/src/components/SharePopover/SharePopover.module.scss",
+    "libs/share/src/components/SharePopover/tests/SharePopover.spec.tsx",
+    "libs/share/src/components/SharePopover/SharePopoverHeader.tsx",
+    "libs/share/src/components/AccessControl/AccessControl.tsx",
+    "libs/share/src/test-setup.ts",
+    "libs/share/src/models/share-popover-props.ts",
+    "libs/share/src/models/share-link-data.ts",
+    "libs/share/src/utils/focus.ts",
+    "libs/share/src/constants/public-class-names.ts",
+    "libs/share/src/types/share.ts",
+    "libs/share/tsconfig.spec.json",
+    "libs/share/eslint.config.mjs",
+    "libs/share/postcss.config.js",
+    "libs/share/tsconfig.lib.json",
+    "libs/share/tsconfig.json",
+    "libs/share/package.json",
+    "libs/share/vite.config.mts",
+    "libs/share/README.md",
+    "libs/share/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/share/src/components/SharePopover/tests/SharePopover.spec.tsx",
+    "libs/share/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat-api/src/share/dto/create-share-link.dto.ts",
+    "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+    "libs/chat-hooks/src/useShareLink/tests/useShareLink.spec.ts",
+    "apps/chat/src/components/SharePopoverContainer/SharePopoverContainer.tsx",
+    "apps/chat/src/components/SharePopoverContainer/tests/SharePopoverContainer.spec.tsx",
+    "libs/attachment-canvas/src/components/VisualizerCanvasRenderer/VisualizerCanvasRenderer.tsx",
+    "libs/attachment-canvas/src/components/VisualizerCanvasRenderer/tests/VisualizerCanvasRenderer.spec.tsx",
+    "libs/attachment-canvas/src/utils/vite-external-matcher.ts",
+    "apps/chat/src/components/ShareConversationPopoverContainer/tests/ShareConversationPopoverContainer.spec.tsx",
+    "apps/chat/src/components/ShareConversationPopoverContainer/ShareConversationPopoverContainer.tsx"
+  ],
+  "readme": "# @epam/ai-dial-share\n\n## Overview\n\nProvides the `SharePopover` UI component, a scannable `QrCode` view, and the associated share-link types for sharing catalog deployments in AI DIAL Chat. The component is host-agnostic: it receives all runtime data (URL, loading state, error, access levels) via props and calls back via `onAccessChange` and `onClose`. The consuming app is responsible for fetching share-link data, mapping the entity type to `canEditAccess`, and passing translated strings.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-share\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-share/styles.css';\n```\n\n## Peer Dependencies\n\n- `react` ^19.2.8\n- `@epam/ai-dial-ui-kit`\n- `@epam/ai-dial-chat-shared`\n\n## Components\n\n### SharePopover\n\nShare popover with a link body and a QR body, plus per-level access control.\n`access` is a list, so a link can grant view and edit at once. `url` is\n`undefined` while `isLoading` is `true`. Exported as the module's default and as\na named export.\n\n```tsx\nimport { SharePopover, ShareLinkAccess } from '@epam/ai-dial-share';\n\n<SharePopover\n  url={shareLink?.url}\n  isLoading={isLoading}\n  error={error}\n  access={shareLink?.access ?? [ShareLinkAccess.View]}\n  canEditAccess={isEditableEntityType}\n  onAccessChange={handleAccessChange}\n  onClose={handleClose}\n  labels={{ title: 'Share' }}\n/>;\n```\n\n### QrCode\n\nQR rendering of the share link, scannable to open it on another device. Used by\n`SharePopover`'s QR body, and exported for hosts that need it standalone.\n\n```tsx\nimport { QrCode } from '@epam/ai-dial-share';\n\n<QrCode value={shareLink.url} labels={{ ariaLabel: 'Share link QR code' }} />;\n```\n\n## Enums\n\n```tsx\nimport { ShareLinkAccess, SharePopoverView } from '@epam/ai-dial-share';\n\nShareLinkAccess.View; // 'view'\nShareLinkAccess.Edit; // 'edit'\n\nSharePopoverView.Link; // 'link' \u2014 the copyable-link body\nSharePopoverView.Qr; // 'qr' \u2014 the QR-code body\n```\n\n## Types\n\n```tsx\nimport type {\n  SharePopoverProps,\n  SharePopoverLabels,\n  SharePopoverStyles,\n  SharePopoverColors,\n  SharePopoverTypography,\n  QrCodeProps,\n  QrCodeLabels,\n  QrCodeStyles,\n  QrCodeColors,\n  ShareLinkData,\n} from '@epam/ai-dial-share';\n```\n\n`ShareLinkData` \u2014 `{ url: string; expiresInDays: number; access: ShareLinkAccess[] }` \u2014\nis the shape the host's share-link seam returns; the popover takes its fields as\nindividual props rather than the object.\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. Selected\nelements therefore carry a stable public class.\n\n| Key       | Class                | Element                                                                    |\n| --------- | -------------------- | -------------------------------------------------------------------------- |\n| `popover` | `dial-share-popover` | The popover's `role=\"dialog\"` root, which carries the themed CSS variables |\n\n```tsx\nimport { SHARE_CLASS } from '@epam/ai-dial-share';\n\nSHARE_CLASS.popover; // 'dial-share-popover'\n```\n\nThe popover's `aria-label` is its localisable title, so it was never usable as\na selector \u2014 this class replaces it.\n\nThe classes carry no declarations of their own: nothing in `styles.css`\nselects on them, so they change nothing until a host writes a rule. Renaming\none, or moving it to a different element, is a breaking change. The convention\nis in [`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/share/src/index.ts": "export { default as SharePopover } from './components/SharePopover/SharePopover';\nexport type {\n  SharePopoverColors,\n  SharePopoverLabels,\n  SharePopoverProps,\n  SharePopoverStyles,\n  SharePopoverTypography,\n} from './models/share-popover-props';\nexport { QrCode } from './components/QrCode/QrCode';\nexport type {\n  QrCodeColors,\n  QrCodeLabels,\n  QrCodeProps,\n  QrCodeStyles,\n} from './components/QrCode/QrCode';\nexport type { ShareLinkData } from './models/share-link-data';\nexport { ShareLinkAccess, SharePopoverView } from './types/share';\nexport { SHARE_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/share/src/index.ts": [
+      {
+        "name": "SharePopover",
+        "file": "libs/share/src/components/SharePopover/SharePopover.tsx",
+        "start": 326,
+        "end": 326,
+        "declaration": "export default memo(SharePopover);",
+        "signature": "(props: SharePopoverProps): import(\"react\").ReactNode",
+        "props": [
+          {
+            "name": "url",
+            "optional": false,
+            "type": "string | undefined"
+          },
+          {
+            "name": "isLoading",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "error",
+            "optional": false,
+            "type": "Error | null"
+          },
+          {
+            "name": "access",
+            "optional": false,
+            "type": "ShareLinkAccess[]"
+          },
+          {
+            "name": "canEditAccess",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "onAccessChange",
+            "optional": false,
+            "type": "(access: ShareLinkAccess[]) => void"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").SharePopoverLabels | undefined"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").SharePopoverStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "SharePopoverColors",
+        "file": "libs/share/src/models/share-popover-props.ts",
+        "start": 44,
+        "end": 81,
+        "declaration": "export interface SharePopoverColors {\n  /** Access-trigger button background color. */\n  accessTriggerBackground?: string;\n  /** Access-trigger button border color. */\n  accessTriggerBorder?: string;\n  /** Access-trigger button border color on hover. */\n  accessTriggerBorderHover?: string;\n  /** Access-trigger button border color on focus/open. */\n  accessTriggerBorderFocus?: string;\n  /** Access-trigger button label text color. */\n  accessTriggerText?: string;\n  /** Popover header title text color. */\n  titleText?: string;\n  /** \"Anyone with the link\" row icon badge background color. */\n  linkIconBackground?: string;\n  /** \"Anyone with the link\" row icon badge icon color. */\n  linkIconText?: string;\n  /** \"Anyone with the link\" row primary text color. */\n  anyoneTitle?: string;\n  /** \"Anyone with the link\" row secondary text color. */\n  anyoneSubtitle?: string;\n  /** Access-trigger chevron icon color. */\n  accessChevron?: string;\n  /** Access menu item label text color. */\n  menuItemLabel?: string;\n  /** Background color of the link pill row. */\n  linkRowBackground?: string;\n  /** Share-URL text color inside the link pill row. */\n  linkText?: string;\n  /** Error message text color. */\n  errorText?: string;\n  /** Visibility/expiry note text color. */\n  noteText?: string;\n  /** Divider line color below the header. */\n  divider?: string;\n  /** Loading-skeleton bar/shape color. */\n  skeletonColor?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SharePopoverLabels",
+        "file": "libs/share/src/models/share-popover-props.ts",
+        "start": 4,
+        "end": 41,
+        "declaration": "export interface SharePopoverLabels {\n  /** Popover heading and dialog `aria-label`. Defaults to `\"Share\"`. */\n  title?: string;\n  /** QR-tab button label. Defaults to `\"QR\"`. */\n  qrButtonLabel?: string;\n  /** Link-tab (back) button label. Defaults to `\"Link\"`. */\n  linkLabel?: string;\n  /** Primary row text. Defaults to `\"Anyone with the link\"`. */\n  anyoneWithLinkTitle?: string;\n  /** Secondary row text. Defaults to `\"in your organization\"`. */\n  anyoneWithLinkSubtitle?: string;\n  /** `aria-label` for the access-level control. Defaults to `\"Link access level\"`. */\n  accessAriaLabel?: string;\n  /** Access-dropdown option for view access. Defaults to `\"Can view\"`. */\n  accessViewLabel?: string;\n  /** Access-dropdown option for edit access. Defaults to `\"Can edit\"`. */\n  accessEditLabel?: string;\n  /** Visibility note shown when access is View. */\n  visibilityNote?: string;\n  /** Visibility note shown when access is Edit. */\n  visibilityNoteEdit?: string;\n  /** Extra warning shown below the visibility note when the shared item has nested content (e.g. prompts, files) that is not shared automatically. Omitted when not supplied. */\n  nestedItemsNote?: string;\n  /** Copy button default label. Defaults to `\"Copy\"`. */\n  copyButtonLabel?: string;\n  /** Copy button label after copying. Defaults to `\"Copied\"`. */\n  copiedButtonLabel?: string;\n  /** `aria-label` for the share-link URL input. Defaults to `\"Share link\"`. */\n  linkAriaLabel?: string;\n  /** Pre-formatted expiry note (e.g. \"This link is active for 3 days.\"). */\n  expiryNote?: string;\n  /** `aria-label` on the QR placeholder image. Defaults to `\"QR code for the share link\"`. */\n  qrCodeAriaLabel?: string;\n  /** `aria-label` for the loading skeleton. Defaults to `\"Creating share link\u2026\"`. */\n  loadingLabel?: string;\n  /** Error message shown when share-link creation fails. */\n  errorTitle?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SharePopoverProps",
+        "file": "libs/share/src/models/share-popover-props.ts",
+        "start": 108,
+        "end": 129,
+        "declaration": "export interface SharePopoverProps {\n  /** Resolved share URL; `undefined` while loading. */\n  url: string | undefined;\n  /** Whether the share link is still being fetched. */\n  isLoading: boolean;\n  /** Set when the share link could not be created. */\n  error: Error | null;\n  /** Current access levels granted to link holders. */\n  access: ShareLinkAccess[];\n  /** True for editable entity types (Agent, Application, Skill, Toolset); false for Model. */\n  canEditAccess: boolean;\n  /** Called when the user selects a different access level. */\n  onAccessChange: (access: ShareLinkAccess[]) => void;\n  /** Called when the popover should close. */\n  onClose: () => void;\n  /** Overrides for user-visible strings. All fields have English defaults. */\n  labels?: SharePopoverLabels;\n  /** CSS class applied to the popover container. */\n  className?: string;\n  /** Color and typography overrides applied as CSS custom properties / utility classes. */\n  styles?: SharePopoverStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SharePopoverStyles",
+        "file": "libs/share/src/models/share-popover-props.ts",
+        "start": 100,
+        "end": 105,
+        "declaration": "export interface SharePopoverStyles {\n  /** Color overrides applied as CSS custom properties, cascaded to `AccessControl` and `LinkView`. */\n  colors?: SharePopoverColors;\n  /** Typography (font utility class) overrides for the error message and notes. */\n  typography?: SharePopoverTypography;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SharePopoverTypography",
+        "file": "libs/share/src/models/share-popover-props.ts",
+        "start": 84,
+        "end": 97,
+        "declaration": "export interface SharePopoverTypography {\n  /** CSS class applied to the error message. Defaults to `'dial-tiny-text'`. */\n  errorClassName?: string;\n  /** CSS class applied to the visibility and expiry notes. Defaults to `'dial-tiny-text'`. */\n  noteClassName?: string;\n  /** CSS class applied to the nested-items warning note. Defaults to `'dial-tiny-semi-text'`. */\n  nestedItemsNoteClassName?: string;\n  /** CSS class applied to the \"Anyone with the link\" primary text. Defaults to `'dial-small-semi-text'`. */\n  anyoneTitleClassName?: string;\n  /** CSS class applied to the \"Anyone with the link\" secondary text. Defaults to `'dial-small-text'`. */\n  anyoneSubtitleClassName?: string;\n  /** CSS class applied to the access-trigger label. Defaults to `'dial-small-semi-text'`. */\n  accessTriggerLabelClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "QrCode",
+        "file": "libs/share/src/components/QrCode/QrCode.tsx",
+        "start": 39,
+        "end": 68,
+        "declaration": "QrCode: FC<QrCodeProps> = ({ value, labels, styles }) => {\n  const { colors } = styles ?? {};\n\n  const cssVars = buildCssVars({\n    '--qr-border': colors?.borderColor,\n    '--qr-bg': colors?.backgroundColor,\n    '--qr-color': colors?.fillColor,\n  });\n\n  return (\n    <div\n      role=\"img\"\n      aria-label={labels.ariaLabel}\n      style={cssVars}\n      className={mergeClasses(\n        'flex size-40 items-center justify-center self-center rounded-lg border p-3',\n        cssStyles.container,\n      )}\n    >\n      <QRCodeSvg\n        value={value}\n        size={128}\n        bgColor=\"transparent\"\n        fgColor=\"currentColor\"\n        aria-hidden\n        className={mergeClasses('size-full', cssStyles.qrColor)}\n      />\n    </div>\n  );\n}",
+        "signature": "(props: QrCodeProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "value",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "QrCodeLabels"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "QrCodeStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "QrCodeColors",
+        "file": "libs/share/src/components/QrCode/QrCode.tsx",
+        "start": 13,
+        "end": 20,
+        "declaration": "export interface QrCodeColors {\n  /** Outer frame border color. */\n  borderColor?: string;\n  /** Outer frame background color. */\n  backgroundColor?: string;\n  /** QR modules' fill color (drives the SVG's `currentColor`). */\n  fillColor?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "QrCodeLabels",
+        "file": "libs/share/src/components/QrCode/QrCode.tsx",
+        "start": 7,
+        "end": 10,
+        "declaration": "export interface QrCodeLabels {\n  /** Accessible label describing the QR code image. */\n  ariaLabel: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "QrCodeProps",
+        "file": "libs/share/src/components/QrCode/QrCode.tsx",
+        "start": 29,
+        "end": 36,
+        "declaration": "export interface QrCodeProps {\n  /** The value encoded into the QR code (the share URL). */\n  value: string;\n  /** User-visible strings. */\n  labels: QrCodeLabels;\n  /** Typography/color utility-class overrides for the frame and QR fill. */\n  styles?: QrCodeStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "QrCodeStyles",
+        "file": "libs/share/src/components/QrCode/QrCode.tsx",
+        "start": 23,
+        "end": 26,
+        "declaration": "export interface QrCodeStyles {\n  /** Color overrides applied as CSS custom properties to the outer frame's border/background and the QR fill. */\n  colors?: QrCodeColors;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ShareLinkData",
+        "file": "libs/share/src/models/share-link-data.ts",
+        "start": 4,
+        "end": 11,
+        "declaration": "export interface ShareLinkData {\n  /** Shareable URL for the entity. */\n  url: string;\n  /** Number of days the link stays active before expiring. */\n  expiresInDays: number;\n  /** Access levels granted to anyone with the link. */\n  access: ShareLinkAccess[];\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ShareLinkAccess",
+        "file": "libs/share/src/types/share.ts",
+        "start": 2,
+        "end": 5,
+        "declaration": "export enum ShareLinkAccess {\n  View = 'view',\n  Edit = 'edit',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SharePopoverView",
+        "file": "libs/share/src/types/share.ts",
+        "start": 8,
+        "end": 11,
+        "declaration": "export enum SharePopoverView {\n  Link = 'link',\n  Qr = 'qr',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SHARE_CLASS",
+        "file": "libs/share/src/constants/public-class-names.ts",
+        "start": 12,
+        "end": 15,
+        "declaration": "SHARE_CLASS = {\n  /** The popover's `role=\"dialog\"` root, which carries the themed CSS variables. */\n  popover: 'dial-share-popover',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "SharePopover",
+      "file": "libs/share/src/components/SharePopover/SharePopover.tsx",
+      "start": 326,
+      "end": 326,
+      "declaration": "export default memo(SharePopover);",
+      "signature": "(props: SharePopoverProps): import(\"react\").ReactNode",
+      "props": [
+        {
+          "name": "url",
+          "optional": false,
+          "type": "string | undefined"
+        },
+        {
+          "name": "isLoading",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "error",
+          "optional": false,
+          "type": "Error | null"
+        },
+        {
+          "name": "access",
+          "optional": false,
+          "type": "ShareLinkAccess[]"
+        },
+        {
+          "name": "canEditAccess",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "onAccessChange",
+          "optional": false,
+          "type": "(access: ShareLinkAccess[]) => void"
+        },
+        {
+          "name": "onClose",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").SharePopoverLabels | undefined"
+        },
+        {
+          "name": "className",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").SharePopoverStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "QrCode",
+      "file": "libs/share/src/components/QrCode/QrCode.tsx",
+      "start": 39,
+      "end": 68,
+      "declaration": "QrCode: FC<QrCodeProps> = ({ value, labels, styles }) => {\n  const { colors } = styles ?? {};\n\n  const cssVars = buildCssVars({\n    '--qr-border': colors?.borderColor,\n    '--qr-bg': colors?.backgroundColor,\n    '--qr-color': colors?.fillColor,\n  });\n\n  return (\n    <div\n      role=\"img\"\n      aria-label={labels.ariaLabel}\n      style={cssVars}\n      className={mergeClasses(\n        'flex size-40 items-center justify-center self-center rounded-lg border p-3',\n        cssStyles.container,\n      )}\n    >\n      <QRCodeSvg\n        value={value}\n        size={128}\n        bgColor=\"transparent\"\n        fgColor=\"currentColor\"\n        aria-hidden\n        className={mergeClasses('size-full', cssStyles.qrColor)}\n      />\n    </div>\n  );\n}",
+      "signature": "(props: QrCodeProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "value",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "QrCodeLabels"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "QrCodeStyles | undefined"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/share/src/components/SharePopover/tests/SharePopover.spec.tsx",
+      "assertions": [
+        "renders the link view by default with Can view access",
+        "shows the view-access visibility note by default",
+        "shows the edit-access visibility note in both the link and QR views",
+        "calls onAccessChange with Edit when an access option is selected",
+        "shows Can edit as the selected trigger label and checkmark when access starts as Edit",
+        "moves focus between access menu options with Arrow keys",
+        "traps Tab within the open access menu",
+        "shows the interactive access dropdown when canEditAccess is true",
+        "hides the access dropdown and shows a static Can view label when canEditAccess is false",
+        "never shows the edit-access visibility note when canEditAccess is false",
+        "shows the nested-items note only when supplied via labels",
+        "shows a transient Copied confirmation after clicking Copy",
+        "announces Copied via an aria-live region after clicking Copy",
+        "swaps to the QR view and back, moving focus each time",
+        "keeps the access control and expiry note visible in the QR view",
+        "closes only the access dropdown on Escape while in the QR view",
+        "returns to the link view on Escape from the QR view without closing",
+        "calls onClose on Escape from the link view",
+        "traps Tab within the popover, wrapping from the last control back to the first",
+        "moves Tab focus explicitly through every interior control, reaching Copy",
+        "moves focus to the first control in the popover when it mounts",
+        "moves focus into the popover when it mounts without a link",
+        "shows a skeleton loading state while the link is not ready",
+        "shows an error state when the link could not be created",
+        "stamps the popover root"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat-api/src/share/dto/create-share-link.dto.ts",
+      "matches": [
+        {
+          "start": 4,
+          "end": 14,
+          "excerpt": "  IsArray,\n  IsEnum,\n  IsNotEmpty,\n  IsString,\n} from 'class-validator';\nimport { IsValidFilePath } from '../../files/dto/file-path.validator';\n\n/**\n * Access level requested for a share link. Defined locally rather than\n * imported from `@epam/ai-dial-share` to keep the backend DTO independent of\n * the frontend lib's contract (see design decision on access representation)."
+        }
+      ]
+    },
+    {
+      "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 6,
+          "excerpt": "import {\n  ShareLinkResponseDtoAccessEnum,\n  type ShareApi,\n} from '@epam/ai-dial-chat-api-client';\nimport { ShareLinkAccess, ShareLinkData } from '@epam/ai-dial-share';\nimport { useCallback, useEffect, useRef, useState } from 'react';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/SharePopoverContainer/SharePopoverContainer.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 5,
+          "excerpt": "import { type CatalogItem } from '@epam/ai-dial-catalog';\nimport { useShareLink } from '@epam/ai-dial-chat-hooks';\nimport { CatalogEntityType } from '@epam/ai-dial-chat-shared';\nimport { ShareLinkAccess, SharePopover } from '@epam/ai-dial-share';\nimport type { FC } from 'react';"
+        },
+        {
+          "start": 31,
+          "end": 41,
+          "excerpt": "  item: CatalogItem;\n  /** Whether the item being shared is a QuickApp; shows the nested-items warning note when true. */\n  isQuickApp?: boolean;\n  /** Called when the popover should close. */\n  onClose: () => void;\n}\n\n/**\n * Wires `useShareLink` to the host-agnostic `SharePopover` from\n * `@epam/ai-dial-share`, resolving all runtime data and i18n strings the lib\n * receives as flat props."
+        }
+      ]
+    },
+    {
+      "file": "libs/attachment-canvas/src/components/VisualizerCanvasRenderer/VisualizerCanvasRenderer.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 9,
+          "excerpt": "import {\n  buildCssVars,\n  type CustomVisualizerData,\n  mergeClasses,\n} from '@epam/ai-dial-chat-shared';\n/*\n * Host drives the iframe via published `@epam/ai-dial-visualizer-connector`\n * (+ `@epam/ai-dial-shared` for the request enum). A later follow-up may port\n * those packages into this monorepo \u2014 see checklist below."
+        },
+        {
+          "start": 4,
+          "end": 14,
+          "excerpt": "  mergeClasses,\n} from '@epam/ai-dial-chat-shared';\n/*\n * Host drives the iframe via published `@epam/ai-dial-visualizer-connector`\n * (+ `@epam/ai-dial-shared` for the request enum). A later follow-up may port\n * those packages into this monorepo \u2014 see checklist below.\n *\n * Migration checklist:\n * 1. Port `VisualizerConnector` into `libs/visualizer-connector` with\n *    peerDep `@epam/ai-dial-chat-shared` (not `@epam/ai-dial-shared`).\n * 2. Port `ChatVisualizerConnector` into `libs/chat-visualizer-connector`"
+        },
+        {
+          "start": 9,
+          "end": 19,
+          "excerpt": " * those packages into this monorepo \u2014 see checklist below.\n *\n * Migration checklist:\n * 1. Port `VisualizerConnector` into `libs/visualizer-connector` with\n *    peerDep `@epam/ai-dial-chat-shared` (not `@epam/ai-dial-shared`).\n * 2. Port `ChatVisualizerConnector` into `libs/chat-visualizer-connector`\n *    for third-party authors; publish from this monorepo.\n * 3. Keep wire values (`SEND_VISUALIZE_DATA`, `READY`, \u2026) identical.\n *    Align enum member names with host conventions (PascalCase\n *    `SendVisualizeData`) \u2014 npm `@epam/ai-dial-shared` uses camelCase\n *    (`sendVisualizeData`)."
+        },
+        {
+          "start": 19,
+          "end": 29,
+          "excerpt": " *    (`sendVisualizeData`).\n * 4. Drop `hostDomain` from the constructor call below if the ported\n *    `VisualizerConnectorOptions` no longer requires it (npm type requires\n *    it; runtime currently ignores it).\n * 5. Carry forward security/hygiene fixes not present in the published package:\n *    - idempotent `destroy()` (`isDestroyed` guard; README promises no-op)\n *    - strict origin equality in `ChatVisualizerConnector` (not `startsWith`)\n *    - sandbox `allow-same-origin`+`allow-scripts` rationale comment/spec\n * 6. Remove root deps / attachment-canvas peers for\n *    `@epam/ai-dial-visualizer-connector` and `@epam/ai-dial-shared`.\n * 7. Point this file at workspace `@epam/ai-dial-visualizer-connector` and"
+        },
+        {
+          "start": 24,
+          "end": 34,
+          "excerpt": " *    - idempotent `destroy()` (`isDestroyed` guard; README promises no-op)\n *    - strict origin equality in `ChatVisualizerConnector` (not `startsWith`)\n *    - sandbox `allow-same-origin`+`allow-scripts` rationale comment/spec\n * 6. Remove root deps / attachment-canvas peers for\n *    `@epam/ai-dial-visualizer-connector` and `@epam/ai-dial-shared`.\n * 7. Point this file at workspace `@epam/ai-dial-visualizer-connector` and\n *    `@epam/ai-dial-chat-shared` for the request enum.\n * 8. Update `openspec/specs/custom-visualizers/spec.md` accordingly.\n */\nimport { VisualizerConnectorRequests } from '@epam/ai-dial-shared';\nimport { DIAL_KIT_ICON_STROKE, Spinner } from '@epam/ai-dial-ui-kit';"
+        }
+      ]
+    },
+    {
+      "file": "libs/attachment-canvas/src/utils/vite-external-matcher.ts",
+      "matches": [
+        {
+          "start": 3,
+          "end": 13,
+          "excerpt": " * declared in `package.json` as either a peer (resolved to the copy the host\n * app already installs) or a dependency (npm installs it alongside this\n * package), and either way the import stays external so consumers get one\n * shared copy rather than a second one inlined here.\n */\nexport const EXTERNAL_PACKAGE_NAMES = [\n  'react',\n  '@silurus/ooxml',\n  '@epam/ai-dial-chat-shared',\n  '@epam/ai-dial-shared',\n  '@epam/ai-dial-sidebar',"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/ShareConversationPopoverContainer/ShareConversationPopoverContainer.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 3,
+          "excerpt": "import { useShareLink } from '@epam/ai-dial-chat-hooks';\nimport { ShareLinkAccess, SharePopover } from '@epam/ai-dial-share';\nimport type { FC } from 'react';"
+        }
+      ]
+    }
+  ]
+}

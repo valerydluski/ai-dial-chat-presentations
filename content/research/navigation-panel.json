@@ -1,0 +1,1998 @@
+{
+  "project": {
+    "id": "libs/navigation-panel",
+    "project": "@epam/ai-dial-navigation-panel",
+    "path": "libs/navigation-panel",
+    "package": "@epam/ai-dial-navigation-panel",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/navigation-panel/README.md",
+      "libs/navigation-panel/package.json",
+      "libs/navigation-panel/src/index.ts",
+      "libs/navigation-panel/src/components/NavigationPanel/tests/NavigationPanel.spec.tsx",
+      "libs/navigation-panel/src/components/UserMenu/tests/UserMenu.spec.tsx",
+      "libs/navigation-panel/src/components/NavigationSheet/tests/NavigationSheet.spec.tsx",
+      "libs/navigation-panel/src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx",
+      "apps/chat/src/components/Navigation/Navigation.tsx",
+      "apps/chat/src/hooks/navigation/useNavigationMenuGroups.tsx",
+      "apps/chat/src/hooks/navigation/useNavigationItems.ts",
+      "apps/chat/src/hooks/navigation/useNavigationUserProfile.ts"
+    ],
+    "output": "decks/libs/navigation-panel.pptx",
+    "preview": "previews/libs/navigation-panel",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/NavigationPanel/tests/NavigationPanel.spec.tsx",
+      "test-ci--src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx",
+      "test-ci--src/components/NavigationSheet/tests/NavigationSheet.spec.tsx",
+      "test-ci--src/components/UserMenu/tests/UserMenu.spec.tsx",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-navigation-panel",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-navigation-panel",
+        "target": "@epam/ai-dial-conversation-input",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-navigation-panel",
+    "description": "Primary application navigation \u2014 desktop nav rail, user menu, and mobile navigation bottom sheet",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0",
+      "@epam/ai-dial-conversation-input": "*"
+    },
+    "peerDependencies": {
+      "react": "^19.2.8",
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9"
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/navigation-panel",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/navigation-panel",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/navigation-panel/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/navigation-panel",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/navigation-panel",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/navigation-panel",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/navigation-panel",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/navigation-panel",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-navigation-panel --includeDependencies -- npx nx build-deps @epam/ai-dial-navigation-panel"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/navigation-panel",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/NavigationPanel/tests/NavigationPanel.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/NavigationPanel/tests/NavigationPanel.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/NavigationPanel/tests/NavigationPanel.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/navigation-panel",
+          "command": "vitest run src/components/NavigationPanel/tests/NavigationPanel.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/NavigationPanel/tests/NavigationPanel.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/navigation-panel",
+          "command": "vitest run src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/NavigationSheet/tests/NavigationSheet.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/NavigationSheet/tests/NavigationSheet.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/NavigationSheet/tests/NavigationSheet.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/navigation-panel",
+          "command": "vitest run src/components/NavigationSheet/tests/NavigationSheet.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/NavigationSheet/tests/NavigationSheet.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/UserMenu/tests/UserMenu.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/UserMenu/tests/UserMenu.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/UserMenu/tests/UserMenu.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/navigation-panel",
+          "command": "vitest run src/components/UserMenu/tests/UserMenu.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/UserMenu/tests/UserMenu.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/NavigationPanel/tests/NavigationPanel.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/NavigationSheet/tests/NavigationSheet.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/UserMenu/tests/UserMenu.spec.tsx"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/NavigationPanel/tests/NavigationPanel.spec.tsx",
+          "test-ci--src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx",
+          "test-ci--src/components/NavigationSheet/tests/NavigationSheet.spec.tsx",
+          "test-ci--src/components/UserMenu/tests/UserMenu.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-navigation-panel --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/NavigationPanel/tests/NavigationPanel.spec.tsx",
+          "test-ci--src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx",
+          "test-ci--src/components/NavigationSheet/tests/NavigationSheet.spec.tsx",
+          "test-ci--src/components/UserMenu/tests/UserMenu.spec.tsx"
+        ]
+      },
+      "description": "Primary application navigation \u2014 desktop nav rail, user menu, and mobile navigation bottom sheet",
+      "js": {
+        "packageName": "@epam/ai-dial-navigation-panel",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-navigation-panel",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/navigation-panel/src/index.ts",
+    "libs/navigation-panel/src/hooks/useSheetNavigation.ts",
+    "libs/navigation-panel/src/vite-env.d.ts",
+    "libs/navigation-panel/src/components/NavigationPanel/NavigationPanel.module.scss",
+    "libs/navigation-panel/src/components/NavigationPanel/NavigationPanel.tsx",
+    "libs/navigation-panel/src/components/NavigationPanel/tests/NavigationPanel.spec.tsx",
+    "libs/navigation-panel/src/components/UserMenu/UserMenu.module.scss",
+    "libs/navigation-panel/src/components/UserMenu/tests/UserMenu.spec.tsx",
+    "libs/navigation-panel/src/components/UserMenu/UserMenu.tsx",
+    "libs/navigation-panel/src/components/common/UserAvatar.tsx",
+    "libs/navigation-panel/src/components/common/MenuPrimitives.module.scss",
+    "libs/navigation-panel/src/components/common/AvatarInitials.tsx",
+    "libs/navigation-panel/src/components/NavigationSheet/OptionListPage.tsx",
+    "libs/navigation-panel/src/components/NavigationSheet/NavigationSheet.tsx",
+    "libs/navigation-panel/src/components/NavigationSheet/tests/NavigationSheet.spec.tsx",
+    "libs/navigation-panel/src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx",
+    "libs/navigation-panel/src/components/NavigationSheet/NavigableBottomSheet.tsx",
+    "libs/navigation-panel/src/components/NavigationSheet/NavigationMenuPage.tsx",
+    "libs/navigation-panel/src/components/NavigationSheet/NavigationSheet.module.scss",
+    "libs/navigation-panel/src/components/NavigationSheet/ProfilePage.tsx",
+    "libs/navigation-panel/src/components/NavigationSheet/SheetRow.tsx",
+    "libs/navigation-panel/src/test-setup.ts",
+    "libs/navigation-panel/src/models/navigation-panel-props.ts",
+    "libs/navigation-panel/src/models/user-menu-props.ts",
+    "libs/navigation-panel/src/models/navigation-sheet-props.ts",
+    "libs/navigation-panel/src/models/sheet-navigation.ts",
+    "libs/navigation-panel/src/models/navigation-menu.ts",
+    "libs/navigation-panel/src/models/navigation-item.ts",
+    "libs/navigation-panel/src/models/user-profile.ts",
+    "libs/navigation-panel/src/constants/public-class-names.ts",
+    "libs/navigation-panel/src/context/SheetNavigationContext.ts",
+    "libs/navigation-panel/tsconfig.spec.json",
+    "libs/navigation-panel/eslint.config.mjs",
+    "libs/navigation-panel/postcss.config.js",
+    "libs/navigation-panel/tsconfig.lib.json",
+    "libs/navigation-panel/tsconfig.json",
+    "libs/navigation-panel/package.json",
+    "libs/navigation-panel/vite.config.mts",
+    "libs/navigation-panel/README.md",
+    "libs/navigation-panel/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/navigation-panel/src/components/NavigationPanel/tests/NavigationPanel.spec.tsx",
+    "libs/navigation-panel/src/components/UserMenu/tests/UserMenu.spec.tsx",
+    "libs/navigation-panel/src/components/NavigationSheet/tests/NavigationSheet.spec.tsx",
+    "libs/navigation-panel/src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx",
+    "libs/navigation-panel/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat/src/components/Navigation/Navigation.tsx",
+    "apps/chat/src/hooks/navigation/useNavigationMenuGroups.tsx",
+    "apps/chat/src/hooks/navigation/useNavigationItems.ts",
+    "apps/chat/src/hooks/navigation/useNavigationUserProfile.ts"
+  ],
+  "readme": "# @epam/ai-dial-navigation-panel\n\nPrimary application navigation: the desktop nav rail, the user menu, and the mobile navigation bottom sheet.\n\n## Overview\n\n`@epam/ai-dial-navigation-panel` owns the chrome a host application uses to move between its top-level destinations. On wide viewports that is `NavigationPanel` \u2014 a 60 px vertical rail with a brand mark, one icon button per destination, and a pinned footer slot holding `UserMenu`. On narrow viewports the same destinations appear in `NavigationSheet`, a bottom sheet whose root page lists the destinations plus a profile entry, and whose settings drill down through an in-sheet page stack (`NavigableBottomSheet` + `useSheetNavigation`).\n\nEverything in this library is presentational. It knows nothing about routing, feature flags, authentication, i18n, or REST endpoints \u2014 the host resolves all of that and passes the result in: translated labels, an `isActive` flag per destination, a resolved logo URL, a `renderLink` function that wraps rail items in the host's router link, and `NavigationMenuGroup` objects describing single-select settings (locale, keyboard shortcuts, theme). The same group objects render as dropdown submenus on desktop and as pushed pages on mobile, so a host declares each setting once.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-navigation-panel\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-navigation-panel/styles.css';\n```\n\n## Peer Dependencies\n\n- `react`\n- `@epam/ai-dial-chat-shared`\n- `@epam/ai-dial-ui-kit`\n\n## Components\n\n### NavigationPanel\n\nThe desktop rail. Renders the logo, one `IconButton` per item, and the footer slot.\n\n```tsx\nimport { NavigationPanel, UserMenu } from '@epam/ai-dial-navigation-panel';\nimport { Link } from 'react-router';\n\n<NavigationPanel\n  items={items}\n  labels={{ ariaLabel: t(NavigationI18nKeys.AriaLabel) }}\n  logo={{ iconUrl: resolvedFaviconUrl, ariaLabel: t(ChatI18nKeys.Logo) }}\n  renderLink={(item, children) => (\n    <Link to={item.id} className=\"contents\">\n      {children}\n    </Link>\n  )}\n  footer={<UserMenu {...userMenuProps} />}\n/>;\n```\n\nWithout `renderLink` each item is wrapped in a plain `<a href={item.href}>`, so supply `href` when relying on the default.\n\n### UserMenu\n\nAvatar trigger plus dropdown: identity row, one submenu per settings group, divider, log-out entry. The host owns the log-out confirmation flow \u2014 `onLogout` only signals intent.\n\n```tsx\n<UserMenu\n  profile={{\n    email,\n    displayName,\n    shortName,\n    imageUrl,\n    isFallbackShown,\n    onImageError,\n  }}\n  groups={[languageGroup, keyboardGroup]}\n  labels={{\n    trigger: t(AuthI18nKeys.SignedInAs, { email }),\n    avatarAlt: t(AuthI18nKeys.UserAvatar),\n    logOut: t(ButtonsI18nKeys.LogOut),\n  }}\n  onLogout={openLogoutConfirmation}\n/>\n```\n\n### NavigationSheet\n\nThe mobile counterpart. `onSelectItem` fires after the sheet closes so the host can navigate.\n\n```tsx\n<NavigationSheet\n  isOpen={isOpen}\n  onClose={close}\n  items={items}\n  onSelectItem={(item) => navigate(item.id)}\n  profile={profile}\n  groups={[keyboardGroup]}\n  onLogout={openLogoutConfirmation}\n  footer={<FooterMessage />}\n  labels={{\n    title: t(NavigationI18nKeys.Menu),\n    close: t(ButtonsI18nKeys.Close),\n    back: t(NavigationI18nKeys.Back),\n    profile: t(NavigationI18nKeys.Profile),\n    logOut: t(ButtonsI18nKeys.LogOut),\n  }}\n/>\n```\n\n### NavigableBottomSheet\n\nThe page-stack shell `NavigationSheet` is built on, exported for hosts that need their own sheet flows. Content pushes and pops pages via `useSheetNavigation`; the header swaps its title and shows a back button while a page is on the stack.\n\n```tsx\n<NavigableBottomSheet\n  isOpen={isOpen}\n  onClose={close}\n  title=\"Menu\"\n  closeLabel=\"Close\"\n  backLabel=\"Back\"\n>\n  {rootContent}\n</NavigableBottomSheet>\n```\n\n### Page and row building blocks\n\n`NavigationMenuPage`, `ProfilePage`, `OptionListPage`, and `SheetRow` are the sheet's internals, exported so a host can assemble a different page order or add its own rows.\n\nA `SheetRow` marks state through two props: `isCurrent` sets `aria-current=\"true\"`, and `isHighlighted` draws the accent in-navigation tint. `NavigationMenuPage` passes each destination's `isActive` to both, so the sheet marks the open section the way the desktop rail does; `OptionListPage` passes only `isCurrent`, since a value list marks its choice with the trailing check rather than a tint.\n\n### Shared primitives\n\n`UserAvatar` (image with initials fallback) and `AvatarInitials` (circular initials badge).\n\n`UserMenu`'s submenu rows mark the applied option through the UI kit's own `MenuItemMark.Check`, so the trailing check and the `menuitemradio` role come from `Dropdown` rather than from this library.\n\n## Hooks\n\n### useSheetNavigation\n\n```tsx\nimport { useSheetNavigation } from '@epam/ai-dial-navigation-panel';\n\nconst { push, pop, close } = useSheetNavigation();\n```\n\nThrows when called outside a `NavigableBottomSheet`.\n\n## Theming\n\nColors come from CSS custom properties with DIAL token fallbacks, overridable through each component's `styles.colors`. The rail reads `--np-bg`, `--np-item-text`, `--np-item-active-text`, `--np-item-selected-bg`, `--np-item-hover-bg`, and `--np-item-active-bg`; the menus and sheet read `--np-menu-text`, `--np-menu-active-icon`, `--np-avatar-bg`, `--np-avatar-text`, `--np-trigger-hover-bg`, `--np-sheet-text`, `--np-sheet-icon`, `--np-sheet-item-hover`, `--np-sheet-item-active`, and `--np-sheet-divider`.\n\n## Types\n\n```tsx\nimport type {\n  NavigationItemIcon,\n  NavigationLinkRenderer,\n  NavigationMenuGroup,\n  NavigationMenuOption,\n  NavigationPanelColors,\n  NavigationPanelItem,\n  NavigationPanelLabels,\n  NavigationPanelLogo,\n  NavigationPanelProps,\n  NavigationPanelStyles,\n  NavigationPanelTypography,\n  NavigationSheetColors,\n  NavigationSheetLabels,\n  NavigationSheetProps,\n  NavigationSheetStyles,\n  NavigationSheetTypography,\n  NavigationUserProfile,\n  SheetNavigation,\n  SheetPage,\n  UserMenuColors,\n  UserMenuLabels,\n  UserMenuProps,\n  UserMenuStyles,\n  UserMenuTypography,\n} from '@epam/ai-dial-navigation-panel';\n```\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. Selected\nelements therefore carry a stable public class.\n\n| Key    | Class                        | Element                               |\n| ------ | ---------------------------- | ------------------------------------- |\n| `rail` | `dial-navigation-panel-rail` | The `nav` rail itself                 |\n| `item` | `dial-navigation-panel-item` | Every item in the rail, active or not |\n\n```tsx\nimport { NAVIGATION_PANEL_CLASS } from '@epam/ai-dial-navigation-panel';\n\nNAVIGATION_PANEL_CLASS.item; // 'dial-navigation-panel-item'\n```\n\n`role=\"navigation\"` stays an accessibility contract: use `dial-navigation-panel-rail`\nas the selector instead.\n\nThe classes carry no declarations of their own: nothing in `styles.css`\nselects on them, so they change nothing until a host writes a rule. Renaming\none, or moving it to a different element, is a breaking change. The convention\nis in [`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/navigation-panel/src/index.ts": "export { NavigationPanel } from './components/NavigationPanel/NavigationPanel';\nexport { UserMenu } from './components/UserMenu/UserMenu';\nexport { NavigationSheet } from './components/NavigationSheet/NavigationSheet';\nexport { NavigableBottomSheet } from './components/NavigationSheet/NavigableBottomSheet';\nexport { NavigationMenuPage } from './components/NavigationSheet/NavigationMenuPage';\nexport { ProfilePage } from './components/NavigationSheet/ProfilePage';\nexport { OptionListPage } from './components/NavigationSheet/OptionListPage';\nexport { SheetRow } from './components/NavigationSheet/SheetRow';\nexport { AvatarInitials } from './components/common/AvatarInitials';\nexport { UserAvatar } from './components/common/UserAvatar';\n\nexport { useSheetNavigation } from './hooks/useSheetNavigation';\n\nexport type {\n  NavigationItemIcon,\n  NavigationLinkRenderer,\n  NavigationPanelItem,\n} from './models/navigation-item';\nexport type {\n  NavigationMenuGroup,\n  NavigationMenuOption,\n} from './models/navigation-menu';\nexport type {\n  NavigationPanelColors,\n  NavigationPanelLabels,\n  NavigationPanelLogo,\n  NavigationPanelProps,\n  NavigationPanelStyles,\n  NavigationPanelTypography,\n} from './models/navigation-panel-props';\nexport type {\n  NavigationSheetColors,\n  NavigationSheetLabels,\n  NavigationSheetProps,\n  NavigationSheetStyles,\n  NavigationSheetTypography,\n} from './models/navigation-sheet-props';\nexport type { SheetNavigation, SheetPage } from './models/sheet-navigation';\nexport type {\n  UserMenuColors,\n  UserMenuLabels,\n  UserMenuProps,\n  UserMenuStyles,\n  UserMenuTypography,\n} from './models/user-menu-props';\nexport type { NavigationUserProfile } from './models/user-profile';\nexport type { AvatarInitialsProps } from './components/common/AvatarInitials';\nexport type { UserAvatarProps } from './components/common/UserAvatar';\nexport type { NavigableBottomSheetProps } from './components/NavigationSheet/NavigableBottomSheet';\nexport type { NavigationMenuPageProps } from './components/NavigationSheet/NavigationMenuPage';\nexport type { OptionListPageProps } from './components/NavigationSheet/OptionListPage';\nexport type { ProfilePageProps } from './components/NavigationSheet/ProfilePage';\nexport type { SheetRowProps } from './components/NavigationSheet/SheetRow';\nexport { NAVIGATION_PANEL_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/navigation-panel/src/index.ts": [
+      {
+        "name": "NavigationPanel",
+        "file": "libs/navigation-panel/src/components/NavigationPanel/NavigationPanel.tsx",
+        "start": 29,
+        "end": 111,
+        "declaration": "NavigationPanel: FC<NavigationPanelProps> = memo(\n  ({\n    items,\n    labels,\n    logo,\n    footer,\n    renderLink = renderPlainLink,\n    styles: panelStyles,\n  }) => {\n    const { colors, typography, className, cssVars } = panelStyles ?? {};\n\n    const railCssVars = useMemo(\n      () =>\n        buildCssVars({\n          '--np-bg': colors?.background,\n          '--np-item-text': colors?.itemText,\n          '--np-item-active-text': colors?.itemActiveText,\n          '--np-item-selected-bg': colors?.itemSelectedBackground,\n          '--np-item-hover-bg': colors?.itemHoverBackground,\n          '--np-item-active-bg': colors?.itemActiveBackground,\n          '--np-font-family': typography?.fontFamily,\n        }),\n      [colors, typography?.fontFamily],\n    );\n\n    return (\n      <nav\n        aria-label={labels.ariaLabel}\n        style={{ ...cssVars, ...railCssVars }}\n        className={mergeClasses(\n          styles.rail,\n          'relative z-10 flex h-full w-[60px] flex-col justify-between shadow-sm',\n          typography?.fontClassName,\n          className,\n          NAVIGATION_PANEL_CLASS.rail,\n        )}\n      >\n        <div className=\"flex flex-col items-center\">\n          {logo && (\n            <a\n              href={logo.href ?? '/'}\n              aria-label={logo.ariaLabel}\n              className=\"flex h-16 w-full shrink-0 items-center justify-center\"\n            >\n              <span\n                style={{ backgroundImage: `url(${logo.iconUrl})` }}\n                className=\"h-6 w-6 bg-contain bg-center bg-no-repeat\"\n              />\n            </a>\n          )}\n          <div className=\"flex flex-col items-center gap-2 p-2\">\n            {items.map((item) => (\n              <Fragment key={item.id}>\n                {renderLink(\n                  item,\n                  <IconButton\n                    icon={\n                      <item.icon\n                        size={DIAL_ICON_SIZE.LG}\n                        stroke={DIAL_KIT_ICON_STROKE}\n                      />\n                    }\n                    aria-label={item.label}\n                    aria-current={item.isActive ? 'page' : undefined}\n                    tooltipProps={{ tooltip: item.label }}\n                    tabIndex={-1}\n                    className={mergeClasses(\n                      styles.item,\n                      'rounded-xl',\n                      item.isActive && styles.itemActive,\n                      NAVIGATION_PANEL_CLASS.item,\n                    )}\n                  />,\n                )}\n              </Fragment>\n            ))}\n          </div>\n        </div>\n        {footer}\n      </nav>\n    );\n  },\n)",
+        "signature": "(props: NavigationPanelProps): ReactNode | Promise<ReactNode>",
+        "props": [
+          {
+            "name": "items",
+            "optional": false,
+            "type": "NavigationPanelItem[]"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").NavigationPanelLabels"
+          },
+          {
+            "name": "logo",
+            "optional": true,
+            "type": "import(\"../..\").NavigationPanelLogo | undefined"
+          },
+          {
+            "name": "footer",
+            "optional": true,
+            "type": "ReactNode"
+          },
+          {
+            "name": "renderLink",
+            "optional": true,
+            "type": "NavigationLinkRenderer | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").NavigationPanelStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "UserMenu",
+        "file": "libs/navigation-panel/src/components/UserMenu/UserMenu.tsx",
+        "start": 23,
+        "end": 161,
+        "declaration": "UserMenu: FC<UserMenuProps> = memo(\n  ({\n    profile,\n    labels,\n    groups,\n    onLogout,\n    onSettings,\n    isTooltipHidden,\n    styles: menuStyles,\n  }) => {\n    const { colors, typography, className, cssVars } = menuStyles ?? {};\n    const labelClassName = typography?.fontClassName ?? 'dial-small-text';\n\n    const menuCssVars = useMemo(\n      () =>\n        buildCssVars({\n          '--np-avatar-bg': colors?.avatarBackground,\n          '--np-avatar-text': colors?.avatarText,\n          '--np-menu-text': colors?.text,\n          '--np-trigger-hover-bg': colors?.triggerHoverBackground,\n          '--np-font-family': typography?.fontFamily,\n        }),\n      [colors, typography?.fontFamily],\n    );\n\n    const menuLabelClassName = useMemo(\n      () => mergeClasses(styles.menuLabel, labelClassName),\n      [labelClassName],\n    );\n\n    const items = useMemo<DropdownItem[]>(() => {\n      const groupItems = (groups ?? [])\n        .filter(({ options }) => options.length > 0)\n        .map(({ id, label, icon, options }) => ({\n          key: id,\n          label: <span className={menuLabelClassName}>{label}</span>,\n          icon,\n          children: options.map((option) => ({\n            key: option.id,\n            label: <span className={menuLabelClassName}>{option.label}</span>,\n            icon: option.icon,\n            /* The applied value is the menu's single choice, so the kit draws\n               the trailing check and announces the row as a radio item. */\n            mark: MenuItemMark.Check,\n            checked: option.isActive,\n            onClick: option.onSelect,\n          })),\n        }));\n\n      return [\n        {\n          key: 'identity',\n          type: DropdownItemType.PlainText,\n          label: (\n            <div className=\"flex h-[40px] min-w-0 items-center gap-3\">\n              <AvatarInitials shortName={profile.shortName} />\n              <EllipsisTooltip\n                text={profile.displayName}\n                className={mergeClasses(\n                  styles.identityText,\n                  labelClassName,\n                  'min-w-0 flex-1 truncate',\n                )}\n              />\n            </div>\n          ),\n        },\n        ...groupItems,\n        { key: 'divider-1', type: DropdownItemType.Divider },\n        ...(onSettings\n          ? [\n              {\n                key: 'settings',\n                label: (\n                  <span className={menuLabelClassName}>{labels.settings}</span>\n                ),\n                icon: (\n                  <IconSettings\n                    size={DIAL_ICON_SIZE.SM}\n                    aria-hidden\n                    stroke={DIAL_KIT_ICON_STROKE}\n                  />\n                ),\n                onClick: onSettings,\n              },\n            ]\n          : []),\n        {\n          key: 'logout',\n          label: <span className={menuLabelClassName}>{labels.logOut}</span>,\n          icon: (\n            <IconLogout\n              size={DIAL_ICON_SIZE.SM}\n              aria-hidden\n              stroke={DIAL_KIT_ICON_STROKE}\n            />\n          ),\n          onClick: onLogout,\n        },\n      ];\n    }, [\n      groups,\n      labelClassName,\n      menuLabelClassName,\n      labels.logOut,\n      labels.settings,\n      onLogout,\n      onSettings,\n      profile.displayName,\n      profile.shortName,\n    ]);\n\n    return (\n      <div\n        style={{ ...cssVars, ...menuCssVars }}\n        className={mergeClasses(\n          styles.wrapper,\n          'flex size-[60px] items-center justify-center',\n          className,\n        )}\n      >\n        <Dropdown placement=\"top-end\" matchReferenceWidth={false} items={items}>\n          <button\n            type=\"button\"\n            className={mergeClasses(\n              styles.trigger,\n              'flex size-[44px] items-center justify-center rounded-full border border-transparent',\n            )}\n            aria-label={labels.trigger}\n          >\n            <Tooltip tooltip={profile.email} hideTooltip={isTooltipHidden}>\n              <UserAvatar profile={profile} alt={labels.avatarAlt} />\n            </Tooltip>\n          </button>\n        </Dropdown>\n      </div>\n    );\n  },\n)",
+        "signature": "(props: UserMenuProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "profile",
+            "optional": false,
+            "type": "import(\"../..\").NavigationUserProfile"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").UserMenuLabels"
+          },
+          {
+            "name": "groups",
+            "optional": true,
+            "type": "import(\"../..\").NavigationMenuGroup[] | undefined"
+          },
+          {
+            "name": "onLogout",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onSettings",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "isTooltipHidden",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").UserMenuStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "NavigationSheet",
+        "file": "libs/navigation-panel/src/components/NavigationSheet/NavigationSheet.tsx",
+        "start": 12,
+        "end": 70,
+        "declaration": "NavigationSheet: FC<NavigationSheetProps> = memo(\n  ({\n    isOpen,\n    onClose,\n    items,\n    onSelectItem,\n    labels,\n    profile,\n    groups,\n    onLogout,\n    footer,\n    styles: sheetStyles,\n  }) => {\n    const { colors, typography, className, cssVars } = sheetStyles ?? {};\n\n    const sheetCssVars = useMemo(\n      () =>\n        buildCssVars({\n          '--np-sheet-text': colors?.text,\n          '--np-sheet-item-hover': colors?.itemHoverBackground,\n          '--np-sheet-item-active': colors?.itemActiveBackground,\n          '--np-sheet-row-active-text': colors?.activeRowText,\n          '--np-sheet-row-active-bg': colors?.activeRowBackground,\n          '--np-sheet-row-active-bg-hover': colors?.activeRowBackgroundHover,\n          '--np-sheet-icon': colors?.icon,\n          '--np-sheet-divider': colors?.divider,\n          '--np-avatar-bg': colors?.avatarBackground,\n          '--np-avatar-text': colors?.avatarText,\n          '--np-menu-active-icon': colors?.activeIcon,\n          '--np-font-family': typography?.fontFamily,\n        }),\n      [colors, typography?.fontFamily],\n    );\n\n    return (\n      <NavigableBottomSheet\n        isOpen={isOpen}\n        onClose={onClose}\n        title={labels.title}\n        closeLabel={labels.close}\n        backLabel={labels.back}\n        className={mergeClasses(styles.sheet, className)}\n        style={{ ...cssVars, ...sheetCssVars }}\n      >\n        <NavigationMenuPage\n          items={items}\n          onSelectItem={onSelectItem}\n          profileLabel={labels.profile}\n          logOutLabel={labels.logOut}\n          onLogout={onLogout}\n          profile={profile}\n          groups={groups}\n          footer={footer}\n          textClassName={typography?.fontClassName}\n        />\n      </NavigableBottomSheet>\n    );\n  },\n)",
+        "signature": "(props: NavigationSheetProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "isOpen",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "items",
+            "optional": false,
+            "type": "import(\"../..\").NavigationPanelItem[]"
+          },
+          {
+            "name": "onSelectItem",
+            "optional": false,
+            "type": "(item: import(\"../..\").NavigationPanelItem) => void"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").NavigationSheetLabels"
+          },
+          {
+            "name": "profile",
+            "optional": true,
+            "type": "import(\"../..\").NavigationUserProfile | undefined"
+          },
+          {
+            "name": "groups",
+            "optional": true,
+            "type": "import(\"../..\").NavigationMenuGroup[] | undefined"
+          },
+          {
+            "name": "onLogout",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "footer",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").NavigationSheetStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "NavigableBottomSheet",
+        "file": "libs/navigation-panel/src/components/NavigationSheet/NavigableBottomSheet.tsx",
+        "start": 40,
+        "end": 94,
+        "declaration": "NavigableBottomSheet: FC<NavigableBottomSheetProps> = memo(\n  ({\n    isOpen,\n    onClose,\n    children,\n    title,\n    closeLabel,\n    backLabel,\n    className,\n    style,\n  }) => {\n    const [stack, setStack] = useState<SheetPage[]>([]);\n\n    useEffect(() => {\n      if (!isOpen) setStack([]);\n    }, [isOpen]);\n\n    const push = useCallback((page: SheetPage) => {\n      setStack((prev) => [...prev, page]);\n    }, []);\n\n    const pop = useCallback(() => {\n      setStack((prev) => prev.slice(0, -1));\n    }, []);\n\n    const close = useCallback(() => {\n      setStack([]);\n      onClose();\n    }, [onClose]);\n\n    const contextValue = useMemo(\n      () => ({ push, pop, close }),\n      [push, pop, close],\n    );\n\n    const topPage = stack[stack.length - 1];\n\n    return (\n      <SheetNavigationContext.Provider value={contextValue}>\n        <BottomSheetShell\n          isOpen={isOpen}\n          onClose={close}\n          title={topPage?.title ?? title}\n          closeLabel={closeLabel}\n          onBack={topPage ? pop : undefined}\n          backLabel={topPage ? backLabel : undefined}\n          className={className}\n          style={style}\n        >\n          {topPage ? topPage.content : children}\n        </BottomSheetShell>\n      </SheetNavigationContext.Provider>\n    );\n  },\n)",
+        "signature": "(props: NavigableBottomSheetProps): ReactNode | Promise<ReactNode>",
+        "props": [
+          {
+            "name": "isOpen",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "type": "ReactNode"
+          },
+          {
+            "name": "title",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "closeLabel",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "backLabel",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "style",
+            "optional": true,
+            "type": "CSSProperties | undefined"
+          }
+        ]
+      },
+      {
+        "name": "NavigationMenuPage",
+        "file": "libs/navigation-panel/src/components/NavigationSheet/NavigationMenuPage.tsx",
+        "start": 34,
+        "end": 107,
+        "declaration": "NavigationMenuPage: FC<NavigationMenuPageProps> = memo(\n  ({\n    items,\n    onSelectItem,\n    profileLabel,\n    logOutLabel,\n    onLogout,\n    profile,\n    groups,\n    footer,\n    textClassName,\n  }) => {\n    const { push, close } = useSheetNavigation();\n\n    const handleSelectItem = (item: NavigationPanelItem) => {\n      close();\n      onSelectItem(item);\n    };\n\n    const handleOpenProfile = () => {\n      if (!profile) return;\n      push({\n        title: profileLabel,\n        content: (\n          <ProfilePage\n            profile={profile}\n            groups={groups}\n            logOutLabel={logOutLabel}\n            onLogout={onLogout}\n            textClassName={textClassName}\n          />\n        ),\n      });\n    };\n\n    return (\n      <>\n        <ul className=\"flex flex-col pb-4\">\n          {items.map((item) => (\n            <SheetRow\n              key={item.id}\n              label={item.label}\n              textClassName={textClassName}\n              isCurrent={item.isActive}\n              isHighlighted={item.isActive}\n              icon={\n                <item.icon\n                  size={BASE_ICON_SIZE}\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              onClick={() => handleSelectItem(item)}\n            />\n          ))}\n          {profile && (\n            <SheetRow\n              label={profileLabel}\n              textClassName={textClassName}\n              icon={\n                <IconUser\n                  size={BASE_ICON_SIZE}\n                  stroke={DIAL_KIT_ICON_STROKE}\n                  aria-hidden\n                />\n              }\n              onClick={handleOpenProfile}\n            />\n          )}\n        </ul>\n        {footer}\n      </>\n    );\n  },\n)",
+        "signature": "(props: NavigationMenuPageProps): ReactNode | Promise<ReactNode>",
+        "props": [
+          {
+            "name": "items",
+            "optional": false,
+            "type": "NavigationPanelItem[]"
+          },
+          {
+            "name": "onSelectItem",
+            "optional": false,
+            "type": "(item: NavigationPanelItem) => void"
+          },
+          {
+            "name": "profileLabel",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "logOutLabel",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "onLogout",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "profile",
+            "optional": true,
+            "type": "NavigationUserProfile | undefined"
+          },
+          {
+            "name": "groups",
+            "optional": true,
+            "type": "NavigationMenuGroup[] | undefined"
+          },
+          {
+            "name": "footer",
+            "optional": true,
+            "type": "ReactNode"
+          },
+          {
+            "name": "textClassName",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "ProfilePage",
+        "file": "libs/navigation-panel/src/components/NavigationSheet/ProfilePage.tsx",
+        "start": 35,
+        "end": 124,
+        "declaration": "ProfilePage: FC<ProfilePageProps> = memo(\n  ({\n    profile,\n    logOutLabel,\n    onLogout,\n    groups,\n    textClassName = 'dial-small-text',\n  }) => {\n    const { push, close } = useSheetNavigation();\n\n    const settingsGroups = (groups ?? []).filter(\n      ({ options }) => options.length > 0,\n    );\n\n    const handleLogout = () => {\n      close();\n      onLogout();\n    };\n\n    return (\n      <>\n        <div className=\"flex h-[56px] items-center gap-3 px-4 py-2\">\n          <UserAvatar profile={profile} alt=\"\" />\n          <EllipsisTooltip\n            text={profile.displayName}\n            className={mergeClasses(\n              styles.mutedText,\n              textClassName,\n              'min-w-0 flex-1 truncate',\n            )}\n          />\n        </div>\n\n        {settingsGroups.length > 0 && (\n          <>\n            <ul className=\"flex flex-col\">\n              {settingsGroups.map((group) => (\n                <SheetRow\n                  key={group.id}\n                  label={group.label}\n                  icon={group.icon}\n                  textClassName={textClassName}\n                  trailing={\n                    <IconChevronRight\n                      size={BASE_ICON_SIZE}\n                      stroke={DIAL_KIT_ICON_STROKE}\n                      aria-hidden\n                      className={mergeClasses(\n                        styles.rowIcon,\n                        'rtl:scale-x-[-1]',\n                      )}\n                    />\n                  }\n                  onClick={() =>\n                    push({\n                      title: group.label,\n                      content: (\n                        <OptionListPage\n                          options={group.options}\n                          textClassName={textClassName}\n                        />\n                      ),\n                    })\n                  }\n                />\n              ))}\n            </ul>\n\n            <hr className={styles.divider} />\n          </>\n        )}\n\n        <ul className=\"flex flex-col pb-4\">\n          <SheetRow\n            label={logOutLabel}\n            textClassName={textClassName}\n            icon={\n              <IconLogout\n                size={BASE_ICON_SIZE}\n                stroke={DIAL_KIT_ICON_STROKE}\n                aria-hidden\n              />\n            }\n            onClick={handleLogout}\n          />\n        </ul>\n      </>\n    );\n  },\n)",
+        "signature": "(props: ProfilePageProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "profile",
+            "optional": false,
+            "type": "NavigationUserProfile"
+          },
+          {
+            "name": "logOutLabel",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "onLogout",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "groups",
+            "optional": true,
+            "type": "NavigationMenuGroup[] | undefined"
+          },
+          {
+            "name": "textClassName",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "OptionListPage",
+        "file": "libs/navigation-panel/src/components/NavigationSheet/OptionListPage.tsx",
+        "start": 18,
+        "end": 52,
+        "declaration": "OptionListPage: FC<OptionListPageProps> = memo(\n  ({ options, textClassName }) => {\n    const { pop } = useSheetNavigation();\n\n    return (\n      <ul className=\"flex flex-col pb-4\">\n        {options.map((option) => (\n          <SheetRow\n            key={option.id}\n            label={option.label}\n            icon={option.icon}\n            textClassName={textClassName}\n            /* The applied value is the current one of the group; the design\n               marks it with the trailing check, not with a tint. */\n            isCurrent={option.isActive}\n            trailing={\n              option.isActive ? (\n                <IconCheck\n                  size={DIAL_ICON_SIZE.SM}\n                  stroke={DIAL_KIT_ICON_STROKE}\n                  aria-hidden\n                  className={styles.activeIcon}\n                />\n              ) : undefined\n            }\n            onClick={() => {\n              option.onSelect();\n              pop();\n            }}\n          />\n        ))}\n      </ul>\n    );\n  },\n)",
+        "signature": "(props: OptionListPageProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "options",
+            "optional": false,
+            "type": "NavigationMenuOption[]"
+          },
+          {
+            "name": "textClassName",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "SheetRow",
+        "file": "libs/navigation-panel/src/components/NavigationSheet/SheetRow.tsx",
+        "start": 33,
+        "end": 60,
+        "declaration": "SheetRow: FC<SheetRowProps> = memo(\n  ({\n    label,\n    onClick,\n    icon,\n    trailing,\n    isCurrent = false,\n    isHighlighted = false,\n    textClassName = 'dial-small-text',\n  }) => (\n    <li>\n      <button\n        type=\"button\"\n        aria-current={isCurrent ? 'true' : undefined}\n        className={mergeClasses(\n          styles.row,\n          isHighlighted && styles.rowActive,\n          'flex w-full items-center gap-3 px-4 py-[10px] text-start',\n        )}\n        onClick={onClick}\n      >\n        {icon && <span className={styles.rowIcon}>{icon}</span>}\n        <span className={mergeClasses(textClassName, 'flex-1')}>{label}</span>\n        {trailing}\n      </button>\n    </li>\n  ),\n)",
+        "signature": "(props: SheetRowProps): ReactNode | Promise<ReactNode>",
+        "props": [
+          {
+            "name": "label",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "onClick",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "icon",
+            "optional": true,
+            "type": "ReactNode"
+          },
+          {
+            "name": "trailing",
+            "optional": true,
+            "type": "ReactNode"
+          },
+          {
+            "name": "isCurrent",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isHighlighted",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "textClassName",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "AvatarInitials",
+        "file": "libs/navigation-panel/src/components/common/AvatarInitials.tsx",
+        "start": 16,
+        "end": 29,
+        "declaration": "AvatarInitials: FC<AvatarInitialsProps> = memo(\n  ({ shortName, className, textClassName = 'dial-tiny-text' }) => (\n    <div\n      className={mergeClasses(\n        styles.avatar,\n        'flex size-[28px] flex-shrink-0 items-center justify-center rounded-full',\n        textClassName,\n        className,\n      )}\n    >\n      {shortName}\n    </div>\n  ),\n)",
+        "signature": "(props: AvatarInitialsProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "shortName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "textClassName",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "UserAvatar",
+        "file": "libs/navigation-panel/src/components/common/UserAvatar.tsx",
+        "start": 14,
+        "end": 28,
+        "declaration": "UserAvatar: FC<UserAvatarProps> = memo(({ profile, alt }) =>\n  profile.isFallbackShown || !profile.imageUrl ? (\n    <AvatarInitials shortName={profile.shortName} />\n  ) : (\n    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions\n    <img\n      className=\"rounded-full\"\n      src={profile.imageUrl}\n      width={28}\n      height={28}\n      alt={alt}\n      onError={profile.onImageError}\n    />\n  ),\n)",
+        "signature": "(props: UserAvatarProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "profile",
+            "optional": false,
+            "type": "NavigationUserProfile"
+          },
+          {
+            "name": "alt",
+            "optional": false,
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "useSheetNavigation",
+        "file": "libs/navigation-panel/src/hooks/useSheetNavigation.ts",
+        "start": 6,
+        "end": 14,
+        "declaration": "useSheetNavigation = (): SheetNavigation => {\n  const ctx = useContext(SheetNavigationContext);\n  if (!ctx) {\n    throw new Error(\n      'useSheetNavigation must be used within a NavigableBottomSheet',\n    );\n  }\n  return ctx;\n}",
+        "signature": "(): SheetNavigation",
+        "props": []
+      },
+      {
+        "name": "NavigationItemIcon",
+        "file": "libs/navigation-panel/src/models/navigation-item.ts",
+        "start": 7,
+        "end": 7,
+        "declaration": "export type NavigationItemIcon = FC<{ size?: number; stroke?: number }>;",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationLinkRenderer",
+        "file": "libs/navigation-panel/src/models/navigation-item.ts",
+        "start": 27,
+        "end": 30,
+        "declaration": "export type NavigationLinkRenderer = (\n  item: NavigationPanelItem,\n  children: ReactNode,\n) => ReactNode;",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationPanelItem",
+        "file": "libs/navigation-panel/src/models/navigation-item.ts",
+        "start": 10,
+        "end": 21,
+        "declaration": "export interface NavigationPanelItem {\n  /** Stable identity used as the React key and as the `onSelect` discriminator. */\n  id: string;\n  /** Translated label used as the accessible name, tooltip, and sheet row text. */\n  label: string;\n  /** Icon component rendered inside the rail button and the sheet row. */\n  icon: NavigationItemIcon;\n  /** Whether this entry points at the page currently on screen. */\n  isActive?: boolean;\n  /** Target URL placed on the rail anchor. The host owns route matching and navigation. */\n  href?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationMenuGroup",
+        "file": "libs/navigation-panel/src/models/navigation-menu.ts",
+        "start": 21,
+        "end": 30,
+        "declaration": "export interface NavigationMenuGroup {\n  /** Stable identity used as the React key. */\n  id: string;\n  /** Translated group label shown on the parent row and as the sheet page title. */\n  label: string;\n  /** Optional leading icon for the parent row. */\n  icon?: ReactNode;\n  /** Options belonging to the group; a group with no options is skipped. */\n  options: NavigationMenuOption[];\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationMenuOption",
+        "file": "libs/navigation-panel/src/models/navigation-menu.ts",
+        "start": 4,
+        "end": 15,
+        "declaration": "export interface NavigationMenuOption {\n  /** Stable identity used as the React key. */\n  id: string;\n  /** Translated option label. */\n  label: string;\n  /** Whether this option is the currently applied value; renders a check mark. */\n  isActive: boolean;\n  /** Optional leading icon. */\n  icon?: ReactNode;\n  /** Applies the option. */\n  onSelect: () => void;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationPanelColors",
+        "file": "libs/navigation-panel/src/models/navigation-panel-props.ts",
+        "start": 18,
+        "end": 31,
+        "declaration": "export interface NavigationPanelColors {\n  /** Rail background color. */\n  background?: string;\n  /** Icon color of an inactive item. */\n  itemText?: string;\n  /** Icon color of the active item. */\n  itemActiveText?: string;\n  /** Background of the active/selected item. */\n  itemSelectedBackground?: string;\n  /** Item background on hover. */\n  itemHoverBackground?: string;\n  /** Item background while pressed. */\n  itemActiveBackground?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationPanelLabels",
+        "file": "libs/navigation-panel/src/models/navigation-panel-props.ts",
+        "start": 54,
+        "end": 57,
+        "declaration": "export interface NavigationPanelLabels {\n  /** Accessible name for the `<nav>` landmark. */\n  ariaLabel: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationPanelLogo",
+        "file": "libs/navigation-panel/src/models/navigation-panel-props.ts",
+        "start": 8,
+        "end": 15,
+        "declaration": "export interface NavigationPanelLogo {\n  /** Image URL used as the mark's `background-image`. */\n  iconUrl: string;\n  /** Link target for the mark. Defaults to `'/'`. */\n  href?: string;\n  /** Translated accessible name for the logo link. */\n  ariaLabel: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationPanelProps",
+        "file": "libs/navigation-panel/src/models/navigation-panel-props.ts",
+        "start": 60,
+        "end": 73,
+        "declaration": "export interface NavigationPanelProps {\n  /** Destinations rendered as icon buttons, in display order. */\n  items: NavigationPanelItem[];\n  /** Translated labels for the landmark. */\n  labels: NavigationPanelLabels;\n  /** Brand mark shown above the items; omit to render no logo. */\n  logo?: NavigationPanelLogo;\n  /** Pinned to the bottom of the rail \u2014 typically `UserMenu`. */\n  footer?: ReactNode;\n  /** Wraps each item in a host-owned link element. Defaults to a plain `<a href>`. */\n  renderLink?: NavigationLinkRenderer;\n  /** Style overrides for colors, typography, and class names. */\n  styles?: NavigationPanelStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationPanelStyles",
+        "file": "libs/navigation-panel/src/models/navigation-panel-props.ts",
+        "start": 42,
+        "end": 51,
+        "declaration": "export interface NavigationPanelStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: NavigationPanelColors;\n  /** Typography overrides applied to the rail root. */\n  typography?: NavigationPanelTypography;\n  /** Extra class name(s) merged onto the `<nav>` element. */\n  className?: string;\n  /** CSS custom properties applied to the `<nav>` element. */\n  cssVars?: CSSProperties;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationPanelTypography",
+        "file": "libs/navigation-panel/src/models/navigation-panel-props.ts",
+        "start": 34,
+        "end": 39,
+        "declaration": "export interface NavigationPanelTypography {\n  /** CSS class applied to the rail root, inherited by all rail content. */\n  fontClassName?: string;\n  /** `font-family` applied to the rail root. */\n  fontFamily?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationSheetColors",
+        "file": "libs/navigation-panel/src/models/navigation-sheet-props.ts",
+        "start": 7,
+        "end": 30,
+        "declaration": "export interface NavigationSheetColors {\n  /** Row label text color. */\n  text?: string;\n  /** Row background on hover. */\n  itemHoverBackground?: string;\n  /** Row background while pressed. */\n  itemActiveBackground?: string;\n  /** Label and icon color of the row whose destination is open. */\n  activeRowText?: string;\n  /** Background of the row whose destination is open. */\n  activeRowBackground?: string;\n  /** Background of the row whose destination is open, on hover. */\n  activeRowBackgroundHover?: string;\n  /** Row leading-icon color. */\n  icon?: string;\n  /** Divider color between row groups. */\n  divider?: string;\n  /** Avatar initials-badge background. */\n  avatarBackground?: string;\n  /** Avatar initials text color. */\n  avatarText?: string;\n  /** Check-mark color marking the active option. */\n  activeIcon?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationSheetLabels",
+        "file": "libs/navigation-panel/src/models/navigation-sheet-props.ts",
+        "start": 53,
+        "end": 64,
+        "declaration": "export interface NavigationSheetLabels {\n  /** Root-page header title, e.g. `\"Menu\"`. */\n  title: string;\n  /** Accessible name for the close (\u00d7) button. */\n  close: string;\n  /** Accessible name for the back button shown on pushed pages. */\n  back: string;\n  /** Label of the row that opens the profile page, also its page title. */\n  profile: string;\n  /** Label of the log-out row. */\n  logOut: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationSheetProps",
+        "file": "libs/navigation-panel/src/models/navigation-sheet-props.ts",
+        "start": 67,
+        "end": 88,
+        "declaration": "export interface NavigationSheetProps {\n  /** Controls sheet visibility. */\n  isOpen: boolean;\n  /** Called when the sheet should close (backdrop tap, close button, or Escape). */\n  onClose: () => void;\n  /** Destinations rendered as rows on the root page, in display order. */\n  items: NavigationPanelItem[];\n  /** Called with the picked destination; the host performs the navigation. */\n  onSelectItem: (item: NavigationPanelItem) => void;\n  /** Translated labels for the header, profile row, and log-out row. */\n  labels: NavigationSheetLabels;\n  /** Signed-in user details shown on the profile page; omit to hide the profile row. */\n  profile?: NavigationUserProfile;\n  /** Single-select settings groups listed on the profile page; empty groups are skipped. */\n  groups?: NavigationMenuGroup[];\n  /** Called when the user taps \"Log out\"; the host owns the confirmation flow. */\n  onLogout: () => void;\n  /** Rendered at the end of the root page \u2014 typically a footer message. */\n  footer?: ReactNode;\n  /** Style overrides for colors, typography, and class names. */\n  styles?: NavigationSheetStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationSheetStyles",
+        "file": "libs/navigation-panel/src/models/navigation-sheet-props.ts",
+        "start": 41,
+        "end": 50,
+        "declaration": "export interface NavigationSheetStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: NavigationSheetColors;\n  /** Typography overrides applied to row labels. */\n  typography?: NavigationSheetTypography;\n  /** Extra class name(s) merged onto the sheet container. */\n  className?: string;\n  /** CSS custom properties applied to the sheet container. */\n  cssVars?: CSSProperties;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationSheetTypography",
+        "file": "libs/navigation-panel/src/models/navigation-sheet-props.ts",
+        "start": 33,
+        "end": 38,
+        "declaration": "export interface NavigationSheetTypography {\n  /** CSS class applied to row labels. Defaults to `'dial-small-text'`. */\n  fontClassName?: string;\n  /** `font-family` applied to the sheet content. */\n  fontFamily?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SheetNavigation",
+        "file": "libs/navigation-panel/src/models/sheet-navigation.ts",
+        "start": 12,
+        "end": 19,
+        "declaration": "export interface SheetNavigation {\n  /** Pushes a page on top of the stack. */\n  push: (page: SheetPage) => void;\n  /** Pops the top page, revealing the one beneath it. */\n  pop: () => void;\n  /** Clears the stack and closes the sheet. */\n  close: () => void;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SheetPage",
+        "file": "libs/navigation-panel/src/models/sheet-navigation.ts",
+        "start": 4,
+        "end": 9,
+        "declaration": "export interface SheetPage {\n  /** Header title shown while the page is on top of the stack. */\n  title: string;\n  /** Page body. */\n  content: ReactNode;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UserMenuColors",
+        "file": "libs/navigation-panel/src/models/user-menu-props.ts",
+        "start": 6,
+        "end": 15,
+        "declaration": "export interface UserMenuColors {\n  /** Avatar initials-badge background. */\n  avatarBackground?: string;\n  /** Avatar initials text color. */\n  avatarText?: string;\n  /** Menu label text color. */\n  text?: string;\n  /** Trigger background on hover. */\n  triggerHoverBackground?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UserMenuLabels",
+        "file": "libs/navigation-panel/src/models/user-menu-props.ts",
+        "start": 38,
+        "end": 47,
+        "declaration": "export interface UserMenuLabels {\n  /** Accessible name for the avatar trigger, e.g. `\"Signed in as a@b.c\"`. */\n  trigger: string;\n  /** Alternative text for the avatar image. */\n  avatarAlt: string;\n  /** Label of the log-out entry. */\n  logOut: string;\n  /** Label of the settings entry; required when `onSettings` is provided. */\n  settings?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UserMenuProps",
+        "file": "libs/navigation-panel/src/models/user-menu-props.ts",
+        "start": 50,
+        "end": 65,
+        "declaration": "export interface UserMenuProps {\n  /** Signed-in user details used for the identity row and avatar. */\n  profile: NavigationUserProfile;\n  /** Translated labels for the trigger, avatar, and log-out entry. */\n  labels: UserMenuLabels;\n  /** Single-select settings groups rendered as submenus; empty groups are skipped. */\n  groups?: NavigationMenuGroup[];\n  /** Called when the user picks \"Log out\"; the host owns the confirmation flow. */\n  onLogout: () => void;\n  /** When provided, renders a Settings entry that invokes this callback. */\n  onSettings?: () => void;\n  /** Hides the avatar tooltip \u2014 set on touch layouts where hover never fires. */\n  isTooltipHidden?: boolean;\n  /** Style overrides for colors, typography, and class names. */\n  styles?: UserMenuStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UserMenuStyles",
+        "file": "libs/navigation-panel/src/models/user-menu-props.ts",
+        "start": 26,
+        "end": 35,
+        "declaration": "export interface UserMenuStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: UserMenuColors;\n  /** Typography overrides applied to menu labels. */\n  typography?: UserMenuTypography;\n  /** Extra class name(s) merged onto the trigger wrapper. */\n  className?: string;\n  /** CSS custom properties applied to the trigger wrapper. */\n  cssVars?: CSSProperties;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UserMenuTypography",
+        "file": "libs/navigation-panel/src/models/user-menu-props.ts",
+        "start": 18,
+        "end": 23,
+        "declaration": "export interface UserMenuTypography {\n  /** CSS class applied to menu labels. Defaults to `'dial-small-text'`. */\n  fontClassName?: string;\n  /** `font-family` applied to the menu trigger and overlay content. */\n  fontFamily?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationUserProfile",
+        "file": "libs/navigation-panel/src/models/user-profile.ts",
+        "start": 2,
+        "end": 15,
+        "declaration": "export interface NavigationUserProfile {\n  /** Address shown in the avatar tooltip and the \"signed in as\" label. */\n  email: string;\n  /** Full name, falling back to the email when no name claim exists. */\n  displayName: string;\n  /** One-or-two-letter initials rendered when no avatar image is available. */\n  shortName?: string;\n  /** Avatar image URL, already resolved to something usable as an `<img src>`. */\n  imageUrl?: string;\n  /** Whether the initials badge replaces the image (no image, or it failed to load). */\n  isFallbackShown?: boolean;\n  /** Called when the avatar image fails to load so the host can flip to initials. */\n  onImageError?: () => void;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AvatarInitialsProps",
+        "file": "libs/navigation-panel/src/components/common/AvatarInitials.tsx",
+        "start": 6,
+        "end": 13,
+        "declaration": "export interface AvatarInitialsProps {\n  /** One-or-two-letter initials; renders an empty badge when omitted. */\n  shortName?: string;\n  /** Extra class name(s) merged onto the badge. */\n  className?: string;\n  /** CSS class controlling the initials' type scale. Defaults to `'dial-tiny-text'`. */\n  textClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UserAvatarProps",
+        "file": "libs/navigation-panel/src/components/common/UserAvatar.tsx",
+        "start": 6,
+        "end": 11,
+        "declaration": "export interface UserAvatarProps {\n  /** Signed-in user details supplying the image URL and initials. */\n  profile: NavigationUserProfile;\n  /** Alternative text for the image. Pass `''` when a sibling already names the row. */\n  alt: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigableBottomSheetProps",
+        "file": "libs/navigation-panel/src/components/NavigationSheet/NavigableBottomSheet.tsx",
+        "start": 16,
+        "end": 33,
+        "declaration": "export interface NavigableBottomSheetProps {\n  /** Controls sheet visibility; closing resets the page stack. */\n  isOpen: boolean;\n  /** Called when the sheet should close (backdrop tap, close button, or Escape). */\n  onClose: () => void;\n  /** Root-page body, shown whenever the stack is empty. */\n  children: ReactNode;\n  /** Root-page header title. Required for accessibility. */\n  title: string;\n  /** Accessible name for the close (\u00d7) button. */\n  closeLabel: string;\n  /** Accessible name for the back button shown on pushed pages. */\n  backLabel: string;\n  /** Extra class name(s) merged onto the sheet container. */\n  className?: string;\n  /** CSS custom properties forwarded to the sheet root for theming. */\n  style?: CSSProperties;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NavigationMenuPageProps",
+        "file": "libs/navigation-panel/src/components/NavigationSheet/NavigationMenuPage.tsx",
+        "start": 12,
+        "end": 31,
+        "declaration": "export interface NavigationMenuPageProps {\n  /** Destinations rendered as rows, in display order. */\n  items: NavigationPanelItem[];\n  /** Called with the picked destination after the sheet closes. */\n  onSelectItem: (item: NavigationPanelItem) => void;\n  /** Label of the row opening the profile page, also that page's title. */\n  profileLabel: string;\n  /** Label of the log-out row on the profile page. */\n  logOutLabel: string;\n  /** Called when the user taps \"Log out\" on the profile page. */\n  onLogout: () => void;\n  /** Signed-in user details; omit to hide the profile row entirely. */\n  profile?: NavigationUserProfile;\n  /** Settings groups listed on the profile page; empty groups are skipped. */\n  groups?: NavigationMenuGroup[];\n  /** Rendered below the row list \u2014 typically a footer message. */\n  footer?: ReactNode;\n  /** CSS class controlling the row labels' type scale. Defaults to `'dial-small-text'`. */\n  textClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OptionListPageProps",
+        "file": "libs/navigation-panel/src/components/NavigationSheet/OptionListPage.tsx",
+        "start": 10,
+        "end": 15,
+        "declaration": "export interface OptionListPageProps {\n  /** Single-select options; picking one applies it and pops back one page. */\n  options: NavigationMenuOption[];\n  /** CSS class controlling the row labels' type scale. */\n  textClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ProfilePageProps",
+        "file": "libs/navigation-panel/src/components/NavigationSheet/ProfilePage.tsx",
+        "start": 18,
+        "end": 29,
+        "declaration": "export interface ProfilePageProps {\n  /** Signed-in user details shown in the identity row. */\n  profile: NavigationUserProfile;\n  /** Label of the log-out row. */\n  logOutLabel: string;\n  /** Called when the user taps \"Log out\"; the sheet closes first. */\n  onLogout: () => void;\n  /** Settings groups listed above the log-out row; empty groups are skipped. */\n  groups?: NavigationMenuGroup[];\n  /** CSS class controlling the row labels' type scale. Defaults to `'dial-small-text'`. */\n  textClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SheetRowProps",
+        "file": "libs/navigation-panel/src/components/NavigationSheet/SheetRow.tsx",
+        "start": 6,
+        "end": 30,
+        "declaration": "export interface SheetRowProps {\n  /** Translated row label. */\n  label: string;\n  /** Activates the row. */\n  onClick: () => void;\n  /** Leading icon, rendered in the muted icon color. */\n  icon?: ReactNode;\n  /** Trailing content such as a chevron or a check mark. */\n  trailing?: ReactNode;\n  /**\n   * Whether the row is the current one of its set \u2014 the open destination, or\n   * the applied value of a settings group. Marks the row `aria-current=\"true\"`.\n   * Defaults to `false`.\n   */\n  isCurrent?: boolean;\n  /**\n   * Whether to draw the accent in-navigation highlight. Set it alongside\n   * `isCurrent` for a navigation destination; leave it off for a value list,\n   * where the design marks the choice with a trailing check instead of a tint.\n   * Defaults to `false`.\n   */\n  isHighlighted?: boolean;\n  /** CSS class controlling the label's type scale. Defaults to `'dial-small-text'`. */\n  textClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NAVIGATION_PANEL_CLASS",
+        "file": "libs/navigation-panel/src/constants/public-class-names.ts",
+        "start": 12,
+        "end": 17,
+        "declaration": "NAVIGATION_PANEL_CLASS = {\n  /** The `nav` rail itself. */\n  rail: 'dial-navigation-panel-rail',\n  /** Every item in the rail, whether or not it is the active one. */\n  item: 'dial-navigation-panel-item',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "NavigationPanel",
+      "file": "libs/navigation-panel/src/components/NavigationPanel/NavigationPanel.tsx",
+      "start": 29,
+      "end": 111,
+      "declaration": "NavigationPanel: FC<NavigationPanelProps> = memo(\n  ({\n    items,\n    labels,\n    logo,\n    footer,\n    renderLink = renderPlainLink,\n    styles: panelStyles,\n  }) => {\n    const { colors, typography, className, cssVars } = panelStyles ?? {};\n\n    const railCssVars = useMemo(\n      () =>\n        buildCssVars({\n          '--np-bg': colors?.background,\n          '--np-item-text': colors?.itemText,\n          '--np-item-active-text': colors?.itemActiveText,\n          '--np-item-selected-bg': colors?.itemSelectedBackground,\n          '--np-item-hover-bg': colors?.itemHoverBackground,\n          '--np-item-active-bg': colors?.itemActiveBackground,\n          '--np-font-family': typography?.fontFamily,\n        }),\n      [colors, typography?.fontFamily],\n    );\n\n    return (\n      <nav\n        aria-label={labels.ariaLabel}\n        style={{ ...cssVars, ...railCssVars }}\n        className={mergeClasses(\n          styles.rail,\n          'relative z-10 flex h-full w-[60px] flex-col justify-between shadow-sm',\n          typography?.fontClassName,\n          className,\n          NAVIGATION_PANEL_CLASS.rail,\n        )}\n      >\n        <div className=\"flex flex-col items-center\">\n          {logo && (\n            <a\n              href={logo.href ?? '/'}\n              aria-label={logo.ariaLabel}\n              className=\"flex h-16 w-full shrink-0 items-center justify-center\"\n            >\n              <span\n                style={{ backgroundImage: `url(${logo.iconUrl})` }}\n                className=\"h-6 w-6 bg-contain bg-center bg-no-repeat\"\n              />\n            </a>\n          )}\n          <div className=\"flex flex-col items-center gap-2 p-2\">\n            {items.map((item) => (\n              <Fragment key={item.id}>\n                {renderLink(\n                  item,\n                  <IconButton\n                    icon={\n                      <item.icon\n                        size={DIAL_ICON_SIZE.LG}\n                        stroke={DIAL_KIT_ICON_STROKE}\n                      />\n                    }\n                    aria-label={item.label}\n                    aria-current={item.isActive ? 'page' : undefined}\n                    tooltipProps={{ tooltip: item.label }}\n                    tabIndex={-1}\n                    className={mergeClasses(\n                      styles.item,\n                      'rounded-xl',\n                      item.isActive && styles.itemActive,\n                      NAVIGATION_PANEL_CLASS.item,\n                    )}\n                  />,\n                )}\n              </Fragment>\n            ))}\n          </div>\n        </div>\n        {footer}\n      </nav>\n    );\n  },\n)",
+      "signature": "(props: NavigationPanelProps): ReactNode | Promise<ReactNode>",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "type": "NavigationPanelItem[]"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").NavigationPanelLabels"
+        },
+        {
+          "name": "logo",
+          "optional": true,
+          "type": "import(\"../..\").NavigationPanelLogo | undefined"
+        },
+        {
+          "name": "footer",
+          "optional": true,
+          "type": "ReactNode"
+        },
+        {
+          "name": "renderLink",
+          "optional": true,
+          "type": "NavigationLinkRenderer | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").NavigationPanelStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "UserMenu",
+      "file": "libs/navigation-panel/src/components/UserMenu/UserMenu.tsx",
+      "start": 23,
+      "end": 161,
+      "declaration": "UserMenu: FC<UserMenuProps> = memo(\n  ({\n    profile,\n    labels,\n    groups,\n    onLogout,\n    onSettings,\n    isTooltipHidden,\n    styles: menuStyles,\n  }) => {\n    const { colors, typography, className, cssVars } = menuStyles ?? {};\n    const labelClassName = typography?.fontClassName ?? 'dial-small-text';\n\n    const menuCssVars = useMemo(\n      () =>\n        buildCssVars({\n          '--np-avatar-bg': colors?.avatarBackground,\n          '--np-avatar-text': colors?.avatarText,\n          '--np-menu-text': colors?.text,\n          '--np-trigger-hover-bg': colors?.triggerHoverBackground,\n          '--np-font-family': typography?.fontFamily,\n        }),\n      [colors, typography?.fontFamily],\n    );\n\n    const menuLabelClassName = useMemo(\n      () => mergeClasses(styles.menuLabel, labelClassName),\n      [labelClassName],\n    );\n\n    const items = useMemo<DropdownItem[]>(() => {\n      const groupItems = (groups ?? [])\n        .filter(({ options }) => options.length > 0)\n        .map(({ id, label, icon, options }) => ({\n          key: id,\n          label: <span className={menuLabelClassName}>{label}</span>,\n          icon,\n          children: options.map((option) => ({\n            key: option.id,\n            label: <span className={menuLabelClassName}>{option.label}</span>,\n            icon: option.icon,\n            /* The applied value is the menu's single choice, so the kit draws\n               the trailing check and announces the row as a radio item. */\n            mark: MenuItemMark.Check,\n            checked: option.isActive,\n            onClick: option.onSelect,\n          })),\n        }));\n\n      return [\n        {\n          key: 'identity',\n          type: DropdownItemType.PlainText,\n          label: (\n            <div className=\"flex h-[40px] min-w-0 items-center gap-3\">\n              <AvatarInitials shortName={profile.shortName} />\n              <EllipsisTooltip\n                text={profile.displayName}\n                className={mergeClasses(\n                  styles.identityText,\n                  labelClassName,\n                  'min-w-0 flex-1 truncate',\n                )}\n              />\n            </div>\n          ),\n        },\n        ...groupItems,\n        { key: 'divider-1', type: DropdownItemType.Divider },\n        ...(onSettings\n          ? [\n              {\n                key: 'settings',\n                label: (\n                  <span className={menuLabelClassName}>{labels.settings}</span>\n                ),\n                icon: (\n                  <IconSettings\n                    size={DIAL_ICON_SIZE.SM}\n                    aria-hidden\n                    stroke={DIAL_KIT_ICON_STROKE}\n                  />\n                ),\n                onClick: onSettings,\n              },\n            ]\n          : []),\n        {\n          key: 'logout',\n          label: <span className={menuLabelClassName}>{labels.logOut}</span>,\n          icon: (\n            <IconLogout\n              size={DIAL_ICON_SIZE.SM}\n              aria-hidden\n              stroke={DIAL_KIT_ICON_STROKE}\n            />\n          ),\n          onClick: onLogout,\n        },\n      ];\n    }, [\n      groups,\n      labelClassName,\n      menuLabelClassName,\n      labels.logOut,\n      labels.settings,\n      onLogout,\n      onSettings,\n      profile.displayName,\n      profile.shortName,\n    ]);\n\n    return (\n      <div\n        style={{ ...cssVars, ...menuCssVars }}\n        className={mergeClasses(\n          styles.wrapper,\n          'flex size-[60px] items-center justify-center',\n          className,\n        )}\n      >\n        <Dropdown placement=\"top-end\" matchReferenceWidth={false} items={items}>\n          <button\n            type=\"button\"\n            className={mergeClasses(\n              styles.trigger,\n              'flex size-[44px] items-center justify-center rounded-full border border-transparent',\n            )}\n            aria-label={labels.trigger}\n          >\n            <Tooltip tooltip={profile.email} hideTooltip={isTooltipHidden}>\n              <UserAvatar profile={profile} alt={labels.avatarAlt} />\n            </Tooltip>\n          </button>\n        </Dropdown>\n      </div>\n    );\n  },\n)",
+      "signature": "(props: UserMenuProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "profile",
+          "optional": false,
+          "type": "import(\"../..\").NavigationUserProfile"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").UserMenuLabels"
+        },
+        {
+          "name": "groups",
+          "optional": true,
+          "type": "import(\"../..\").NavigationMenuGroup[] | undefined"
+        },
+        {
+          "name": "onLogout",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onSettings",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "isTooltipHidden",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").UserMenuStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "NavigationSheet",
+      "file": "libs/navigation-panel/src/components/NavigationSheet/NavigationSheet.tsx",
+      "start": 12,
+      "end": 70,
+      "declaration": "NavigationSheet: FC<NavigationSheetProps> = memo(\n  ({\n    isOpen,\n    onClose,\n    items,\n    onSelectItem,\n    labels,\n    profile,\n    groups,\n    onLogout,\n    footer,\n    styles: sheetStyles,\n  }) => {\n    const { colors, typography, className, cssVars } = sheetStyles ?? {};\n\n    const sheetCssVars = useMemo(\n      () =>\n        buildCssVars({\n          '--np-sheet-text': colors?.text,\n          '--np-sheet-item-hover': colors?.itemHoverBackground,\n          '--np-sheet-item-active': colors?.itemActiveBackground,\n          '--np-sheet-row-active-text': colors?.activeRowText,\n          '--np-sheet-row-active-bg': colors?.activeRowBackground,\n          '--np-sheet-row-active-bg-hover': colors?.activeRowBackgroundHover,\n          '--np-sheet-icon': colors?.icon,\n          '--np-sheet-divider': colors?.divider,\n          '--np-avatar-bg': colors?.avatarBackground,\n          '--np-avatar-text': colors?.avatarText,\n          '--np-menu-active-icon': colors?.activeIcon,\n          '--np-font-family': typography?.fontFamily,\n        }),\n      [colors, typography?.fontFamily],\n    );\n\n    return (\n      <NavigableBottomSheet\n        isOpen={isOpen}\n        onClose={onClose}\n        title={labels.title}\n        closeLabel={labels.close}\n        backLabel={labels.back}\n        className={mergeClasses(styles.sheet, className)}\n        style={{ ...cssVars, ...sheetCssVars }}\n      >\n        <NavigationMenuPage\n          items={items}\n          onSelectItem={onSelectItem}\n          profileLabel={labels.profile}\n          logOutLabel={labels.logOut}\n          onLogout={onLogout}\n          profile={profile}\n          groups={groups}\n          footer={footer}\n          textClassName={typography?.fontClassName}\n        />\n      </NavigableBottomSheet>\n    );\n  },\n)",
+      "signature": "(props: NavigationSheetProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "isOpen",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "onClose",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "items",
+          "optional": false,
+          "type": "import(\"../..\").NavigationPanelItem[]"
+        },
+        {
+          "name": "onSelectItem",
+          "optional": false,
+          "type": "(item: import(\"../..\").NavigationPanelItem) => void"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").NavigationSheetLabels"
+        },
+        {
+          "name": "profile",
+          "optional": true,
+          "type": "import(\"../..\").NavigationUserProfile | undefined"
+        },
+        {
+          "name": "groups",
+          "optional": true,
+          "type": "import(\"../..\").NavigationMenuGroup[] | undefined"
+        },
+        {
+          "name": "onLogout",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "footer",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").NavigationSheetStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "NavigableBottomSheet",
+      "file": "libs/navigation-panel/src/components/NavigationSheet/NavigableBottomSheet.tsx",
+      "start": 40,
+      "end": 94,
+      "declaration": "NavigableBottomSheet: FC<NavigableBottomSheetProps> = memo(\n  ({\n    isOpen,\n    onClose,\n    children,\n    title,\n    closeLabel,\n    backLabel,\n    className,\n    style,\n  }) => {\n    const [stack, setStack] = useState<SheetPage[]>([]);\n\n    useEffect(() => {\n      if (!isOpen) setStack([]);\n    }, [isOpen]);\n\n    const push = useCallback((page: SheetPage) => {\n      setStack((prev) => [...prev, page]);\n    }, []);\n\n    const pop = useCallback(() => {\n      setStack((prev) => prev.slice(0, -1));\n    }, []);\n\n    const close = useCallback(() => {\n      setStack([]);\n      onClose();\n    }, [onClose]);\n\n    const contextValue = useMemo(\n      () => ({ push, pop, close }),\n      [push, pop, close],\n    );\n\n    const topPage = stack[stack.length - 1];\n\n    return (\n      <SheetNavigationContext.Provider value={contextValue}>\n        <BottomSheetShell\n          isOpen={isOpen}\n          onClose={close}\n          title={topPage?.title ?? title}\n          closeLabel={closeLabel}\n          onBack={topPage ? pop : undefined}\n          backLabel={topPage ? backLabel : undefined}\n          className={className}\n          style={style}\n        >\n          {topPage ? topPage.content : children}\n        </BottomSheetShell>\n      </SheetNavigationContext.Provider>\n    );\n  },\n)",
+      "signature": "(props: NavigableBottomSheetProps): ReactNode | Promise<ReactNode>",
+      "props": [
+        {
+          "name": "isOpen",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "onClose",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "type": "ReactNode"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "closeLabel",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "backLabel",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "className",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "style",
+          "optional": true,
+          "type": "CSSProperties | undefined"
+        }
+      ]
+    },
+    {
+      "name": "NavigationMenuPage",
+      "file": "libs/navigation-panel/src/components/NavigationSheet/NavigationMenuPage.tsx",
+      "start": 34,
+      "end": 107,
+      "declaration": "NavigationMenuPage: FC<NavigationMenuPageProps> = memo(\n  ({\n    items,\n    onSelectItem,\n    profileLabel,\n    logOutLabel,\n    onLogout,\n    profile,\n    groups,\n    footer,\n    textClassName,\n  }) => {\n    const { push, close } = useSheetNavigation();\n\n    const handleSelectItem = (item: NavigationPanelItem) => {\n      close();\n      onSelectItem(item);\n    };\n\n    const handleOpenProfile = () => {\n      if (!profile) return;\n      push({\n        title: profileLabel,\n        content: (\n          <ProfilePage\n            profile={profile}\n            groups={groups}\n            logOutLabel={logOutLabel}\n            onLogout={onLogout}\n            textClassName={textClassName}\n          />\n        ),\n      });\n    };\n\n    return (\n      <>\n        <ul className=\"flex flex-col pb-4\">\n          {items.map((item) => (\n            <SheetRow\n              key={item.id}\n              label={item.label}\n              textClassName={textClassName}\n              isCurrent={item.isActive}\n              isHighlighted={item.isActive}\n              icon={\n                <item.icon\n                  size={BASE_ICON_SIZE}\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              onClick={() => handleSelectItem(item)}\n            />\n          ))}\n          {profile && (\n            <SheetRow\n              label={profileLabel}\n              textClassName={textClassName}\n              icon={\n                <IconUser\n                  size={BASE_ICON_SIZE}\n                  stroke={DIAL_KIT_ICON_STROKE}\n                  aria-hidden\n                />\n              }\n              onClick={handleOpenProfile}\n            />\n          )}\n        </ul>\n        {footer}\n      </>\n    );\n  },\n)",
+      "signature": "(props: NavigationMenuPageProps): ReactNode | Promise<ReactNode>",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "type": "NavigationPanelItem[]"
+        },
+        {
+          "name": "onSelectItem",
+          "optional": false,
+          "type": "(item: NavigationPanelItem) => void"
+        },
+        {
+          "name": "profileLabel",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "logOutLabel",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "onLogout",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "profile",
+          "optional": true,
+          "type": "NavigationUserProfile | undefined"
+        },
+        {
+          "name": "groups",
+          "optional": true,
+          "type": "NavigationMenuGroup[] | undefined"
+        },
+        {
+          "name": "footer",
+          "optional": true,
+          "type": "ReactNode"
+        },
+        {
+          "name": "textClassName",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "ProfilePage",
+      "file": "libs/navigation-panel/src/components/NavigationSheet/ProfilePage.tsx",
+      "start": 35,
+      "end": 124,
+      "declaration": "ProfilePage: FC<ProfilePageProps> = memo(\n  ({\n    profile,\n    logOutLabel,\n    onLogout,\n    groups,\n    textClassName = 'dial-small-text',\n  }) => {\n    const { push, close } = useSheetNavigation();\n\n    const settingsGroups = (groups ?? []).filter(\n      ({ options }) => options.length > 0,\n    );\n\n    const handleLogout = () => {\n      close();\n      onLogout();\n    };\n\n    return (\n      <>\n        <div className=\"flex h-[56px] items-center gap-3 px-4 py-2\">\n          <UserAvatar profile={profile} alt=\"\" />\n          <EllipsisTooltip\n            text={profile.displayName}\n            className={mergeClasses(\n              styles.mutedText,\n              textClassName,\n              'min-w-0 flex-1 truncate',\n            )}\n          />\n        </div>\n\n        {settingsGroups.length > 0 && (\n          <>\n            <ul className=\"flex flex-col\">\n              {settingsGroups.map((group) => (\n                <SheetRow\n                  key={group.id}\n                  label={group.label}\n                  icon={group.icon}\n                  textClassName={textClassName}\n                  trailing={\n                    <IconChevronRight\n                      size={BASE_ICON_SIZE}\n                      stroke={DIAL_KIT_ICON_STROKE}\n                      aria-hidden\n                      className={mergeClasses(\n                        styles.rowIcon,\n                        'rtl:scale-x-[-1]',\n                      )}\n                    />\n                  }\n                  onClick={() =>\n                    push({\n                      title: group.label,\n                      content: (\n                        <OptionListPage\n                          options={group.options}\n                          textClassName={textClassName}\n                        />\n                      ),\n                    })\n                  }\n                />\n              ))}\n            </ul>\n\n            <hr className={styles.divider} />\n          </>\n        )}\n\n        <ul className=\"flex flex-col pb-4\">\n          <SheetRow\n            label={logOutLabel}\n            textClassName={textClassName}\n            icon={\n              <IconLogout\n                size={BASE_ICON_SIZE}\n                stroke={DIAL_KIT_ICON_STROKE}\n                aria-hidden\n              />\n            }\n            onClick={handleLogout}\n          />\n        </ul>\n      </>\n    );\n  },\n)",
+      "signature": "(props: ProfilePageProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "profile",
+          "optional": false,
+          "type": "NavigationUserProfile"
+        },
+        {
+          "name": "logOutLabel",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "onLogout",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "groups",
+          "optional": true,
+          "type": "NavigationMenuGroup[] | undefined"
+        },
+        {
+          "name": "textClassName",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "OptionListPage",
+      "file": "libs/navigation-panel/src/components/NavigationSheet/OptionListPage.tsx",
+      "start": 18,
+      "end": 52,
+      "declaration": "OptionListPage: FC<OptionListPageProps> = memo(\n  ({ options, textClassName }) => {\n    const { pop } = useSheetNavigation();\n\n    return (\n      <ul className=\"flex flex-col pb-4\">\n        {options.map((option) => (\n          <SheetRow\n            key={option.id}\n            label={option.label}\n            icon={option.icon}\n            textClassName={textClassName}\n            /* The applied value is the current one of the group; the design\n               marks it with the trailing check, not with a tint. */\n            isCurrent={option.isActive}\n            trailing={\n              option.isActive ? (\n                <IconCheck\n                  size={DIAL_ICON_SIZE.SM}\n                  stroke={DIAL_KIT_ICON_STROKE}\n                  aria-hidden\n                  className={styles.activeIcon}\n                />\n              ) : undefined\n            }\n            onClick={() => {\n              option.onSelect();\n              pop();\n            }}\n          />\n        ))}\n      </ul>\n    );\n  },\n)",
+      "signature": "(props: OptionListPageProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "options",
+          "optional": false,
+          "type": "NavigationMenuOption[]"
+        },
+        {
+          "name": "textClassName",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "SheetRow",
+      "file": "libs/navigation-panel/src/components/NavigationSheet/SheetRow.tsx",
+      "start": 33,
+      "end": 60,
+      "declaration": "SheetRow: FC<SheetRowProps> = memo(\n  ({\n    label,\n    onClick,\n    icon,\n    trailing,\n    isCurrent = false,\n    isHighlighted = false,\n    textClassName = 'dial-small-text',\n  }) => (\n    <li>\n      <button\n        type=\"button\"\n        aria-current={isCurrent ? 'true' : undefined}\n        className={mergeClasses(\n          styles.row,\n          isHighlighted && styles.rowActive,\n          'flex w-full items-center gap-3 px-4 py-[10px] text-start',\n        )}\n        onClick={onClick}\n      >\n        {icon && <span className={styles.rowIcon}>{icon}</span>}\n        <span className={mergeClasses(textClassName, 'flex-1')}>{label}</span>\n        {trailing}\n      </button>\n    </li>\n  ),\n)",
+      "signature": "(props: SheetRowProps): ReactNode | Promise<ReactNode>",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "onClick",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "icon",
+          "optional": true,
+          "type": "ReactNode"
+        },
+        {
+          "name": "trailing",
+          "optional": true,
+          "type": "ReactNode"
+        },
+        {
+          "name": "isCurrent",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isHighlighted",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "textClassName",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "AvatarInitials",
+      "file": "libs/navigation-panel/src/components/common/AvatarInitials.tsx",
+      "start": 16,
+      "end": 29,
+      "declaration": "AvatarInitials: FC<AvatarInitialsProps> = memo(\n  ({ shortName, className, textClassName = 'dial-tiny-text' }) => (\n    <div\n      className={mergeClasses(\n        styles.avatar,\n        'flex size-[28px] flex-shrink-0 items-center justify-center rounded-full',\n        textClassName,\n        className,\n      )}\n    >\n      {shortName}\n    </div>\n  ),\n)",
+      "signature": "(props: AvatarInitialsProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "shortName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "className",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "textClassName",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "UserAvatar",
+      "file": "libs/navigation-panel/src/components/common/UserAvatar.tsx",
+      "start": 14,
+      "end": 28,
+      "declaration": "UserAvatar: FC<UserAvatarProps> = memo(({ profile, alt }) =>\n  profile.isFallbackShown || !profile.imageUrl ? (\n    <AvatarInitials shortName={profile.shortName} />\n  ) : (\n    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions\n    <img\n      className=\"rounded-full\"\n      src={profile.imageUrl}\n      width={28}\n      height={28}\n      alt={alt}\n      onError={profile.onImageError}\n    />\n  ),\n)",
+      "signature": "(props: UserAvatarProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "profile",
+          "optional": false,
+          "type": "NavigationUserProfile"
+        },
+        {
+          "name": "alt",
+          "optional": false,
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/navigation-panel/src/components/NavigationPanel/tests/NavigationPanel.spec.tsx",
+      "assertions": [
+        "renders the nav landmark with the given accessible name",
+        "renders one labelled button per item",
+        "marks only the active item with aria-current=\"page\"",
+        "wraps items in plain anchors carrying their href by default",
+        "delegates link rendering to renderLink when provided",
+        "renders the logo link when a logo is supplied",
+        "omits the logo link when no logo is supplied",
+        "renders the footer slot",
+        "stamps the rail and every item"
+      ]
+    },
+    {
+      "file": "libs/navigation-panel/src/components/UserMenu/tests/UserMenu.spec.tsx",
+      "assertions": [
+        "labels the avatar trigger",
+        "renders the avatar image when an image URL is supplied",
+        "falls back to initials when no image URL is supplied",
+        "reports a broken avatar image through onImageError",
+        "renders each settings group with its options",
+        "marks the applied option as the checked single choice of the menu",
+        "applies an option through its onSelect callback",
+        "skips groups that have no options",
+        "calls onLogout when the log-out entry is clicked",
+        "renders a settings entry when onSettings is provided",
+        "does not render a settings entry when onSettings is omitted",
+        "calls onSettings when the settings entry is clicked"
+      ]
+    },
+    {
+      "file": "libs/navigation-panel/src/components/NavigationSheet/tests/NavigationSheet.spec.tsx",
+      "assertions": [
+        "renders nothing while closed",
+        "lists every destination on the root page",
+        "marks the open destination as the current page",
+        "closes the sheet and reports the picked destination",
+        "omits the profile row when no profile is supplied",
+        "opens the profile page showing the display name and log-out row",
+        "closes the sheet and requests log-out from the profile page",
+        "drills into a settings group and applies the chosen option",
+        "hides the settings section when every group is empty",
+        "renders the footer slot on the root page"
+      ]
+    },
+    {
+      "file": "libs/navigation-panel/src/components/NavigationSheet/tests/NavigableBottomSheet.spec.tsx",
+      "assertions": [
+        "renders root children and no back button when the stack is empty",
+        "shows the pushed page title and content",
+        "pops the top page when the back button is clicked",
+        "calls onClose when the close button is clicked",
+        "resets the stack when isOpen transitions to false",
+        "throws when used outside NavigableBottomSheet"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat/src/components/Navigation/Navigation.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 8,
+          "excerpt": "import { OverlayFeature } from '@epam/ai-dial-chat-overlay';\nimport {\n  NavigationPanel,\n  NavigationSheet,\n  UserMenu,\n  type NavigationPanelItem,\n} from '@epam/ai-dial-navigation-panel';\nimport type { FC } from 'react';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/hooks/navigation/useNavigationMenuGroups.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 4,
+          "excerpt": "import { OverlayFeature } from '@epam/ai-dial-chat-overlay';\nimport { SendOnEnter } from '@epam/ai-dial-conversation-input';\nimport type { NavigationMenuGroup } from '@epam/ai-dial-navigation-panel';\nimport { DIAL_ICON_SIZE, DIAL_KIT_ICON_STROKE } from '@epam/ai-dial-ui-kit';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/hooks/navigation/useNavigationItems.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import type { NavigationPanelItem } from '@epam/ai-dial-navigation-panel';\nimport { useTranslation } from 'react-i18next';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/hooks/navigation/useNavigationUserProfile.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import type { NavigationUserProfile } from '@epam/ai-dial-navigation-panel';\nimport { useCallback, useMemo } from 'react';"
+        }
+      ]
+    }
+  ]
+}

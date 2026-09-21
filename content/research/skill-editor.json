@@ -1,0 +1,1630 @@
+{
+  "project": {
+    "id": "libs/skill-editor",
+    "project": "@epam/ai-dial-skill-editor",
+    "path": "libs/skill-editor",
+    "package": "@epam/ai-dial-skill-editor",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/skill-editor/README.md",
+      "libs/skill-editor/package.json",
+      "libs/skill-editor/src/index.ts",
+      "libs/skill-editor/src/hooks/tests/useSkillFileDropZone.spec.ts",
+      "libs/skill-editor/src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx",
+      "libs/skill-editor/src/components/SkillEditor/tests/SkillEditor.spec.tsx",
+      "libs/skill-editor/src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx",
+      "libs/chat-hooks/src/skill/skill.ts",
+      "apps/chat/src/pages/SkillEditor/SkillEditor.tsx",
+      "libs/chat-hooks/src/skill/useSkillEditorSubmit.ts",
+      "libs/chat-hooks/src/skill/useSkillEditorLoad.ts"
+    ],
+    "output": "decks/libs/skill-editor.pptx",
+    "preview": "previews/libs/skill-editor",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/SkillEditor/tests/SkillEditor.spec.tsx",
+      "test-ci--src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx",
+      "test-ci--src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx",
+      "test-ci--src/components/SkillFileUploadDialog/tests/SkillFileUploadDialog.spec.tsx",
+      "test-ci--src/hooks/tests/useSkillFileDropZone.spec.ts",
+      "test-ci--src/utils/tests/candidate-path.spec.ts",
+      "test-ci--src/utils/tests/file-tree.spec.ts",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-skill-editor",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-skill-editor",
+        "target": "@epam/ai-dial-builder-form",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-skill-editor",
+    "description": "Host-agnostic form for authoring a DIAL Skill, with an inline supporting-file tree",
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0",
+      "@uiw/react-markdown-preview": "^5.2.1",
+      "@uiw/react-md-editor": "^4.1.1",
+      "@epam/ai-dial-builder-form": "*"
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9",
+      "@epam/ai-dial-react-file-manager": "^0.3.0-dev.2",
+      "react": "^19.2.8"
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/skill-editor",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/skill-editor/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-skill-editor --includeDependencies -- npx nx build-deps @epam/ai-dial-skill-editor"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/SkillEditor/tests/SkillEditor.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SkillEditor/tests/SkillEditor.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/SkillEditor/tests/SkillEditor.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "vitest run src/components/SkillEditor/tests/SkillEditor.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/SkillEditor/tests/SkillEditor.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "vitest run src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "vitest run src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/SkillFileUploadDialog/tests/SkillFileUploadDialog.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SkillFileUploadDialog/tests/SkillFileUploadDialog.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/SkillFileUploadDialog/tests/SkillFileUploadDialog.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "vitest run src/components/SkillFileUploadDialog/tests/SkillFileUploadDialog.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/SkillFileUploadDialog/tests/SkillFileUploadDialog.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/hooks/tests/useSkillFileDropZone.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/hooks/tests/useSkillFileDropZone.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/hooks/tests/useSkillFileDropZone.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "vitest run src/hooks/tests/useSkillFileDropZone.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/hooks/tests/useSkillFileDropZone.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/candidate-path.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/candidate-path.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/candidate-path.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "vitest run src/utils/tests/candidate-path.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/candidate-path.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/file-tree.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/file-tree.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/file-tree.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skill-editor",
+          "command": "vitest run src/utils/tests/file-tree.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/file-tree.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SkillEditor/tests/SkillEditor.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/SkillFileUploadDialog/tests/SkillFileUploadDialog.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/hooks/tests/useSkillFileDropZone.spec.ts",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/candidate-path.spec.ts",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/file-tree.spec.ts"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/SkillEditor/tests/SkillEditor.spec.tsx",
+          "test-ci--src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx",
+          "test-ci--src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx",
+          "test-ci--src/components/SkillFileUploadDialog/tests/SkillFileUploadDialog.spec.tsx",
+          "test-ci--src/hooks/tests/useSkillFileDropZone.spec.ts",
+          "test-ci--src/utils/tests/candidate-path.spec.ts",
+          "test-ci--src/utils/tests/file-tree.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-skill-editor --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/SkillEditor/tests/SkillEditor.spec.tsx",
+          "test-ci--src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx",
+          "test-ci--src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx",
+          "test-ci--src/components/SkillFileUploadDialog/tests/SkillFileUploadDialog.spec.tsx",
+          "test-ci--src/hooks/tests/useSkillFileDropZone.spec.ts",
+          "test-ci--src/utils/tests/candidate-path.spec.ts",
+          "test-ci--src/utils/tests/file-tree.spec.ts"
+        ]
+      },
+      "description": "Host-agnostic form for authoring a DIAL Skill, with an inline supporting-file tree",
+      "js": {
+        "packageName": "@epam/ai-dial-skill-editor",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-skill-editor",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/skill-editor/src/index.ts",
+    "libs/skill-editor/src/hooks/tests/useSkillFileDropZone.spec.ts",
+    "libs/skill-editor/src/hooks/useSkillFileDropZone.ts",
+    "libs/skill-editor/src/vite-env.d.ts",
+    "libs/skill-editor/src/components/SkillFileDropOverlay/SkillFileDropOverlay.tsx",
+    "libs/skill-editor/src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx",
+    "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+    "libs/skill-editor/src/components/SkillEditor/SkillEditor.module.scss",
+    "libs/skill-editor/src/components/SkillEditor/tests/SkillEditor.spec.tsx",
+    "libs/skill-editor/src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx",
+    "libs/skill-editor/src/components/SkillFileUploadDialog/SkillFileUploadDialog.tsx",
+    "libs/skill-editor/src/components/SkillFileUploadDialog/tests/SkillFileUploadDialog.spec.tsx",
+    "libs/skill-editor/src/test-setup.ts",
+    "libs/skill-editor/src/models/skill-editor-props.ts",
+    "libs/skill-editor/src/utils/file-tree.ts",
+    "libs/skill-editor/src/utils/tests/file-tree.spec.ts",
+    "libs/skill-editor/src/utils/tests/candidate-path.spec.ts",
+    "libs/skill-editor/src/utils/candidate-path.ts",
+    "libs/skill-editor/src/constants/public-class-names.ts",
+    "libs/skill-editor/src/types/skill-file-node-kind.ts",
+    "libs/skill-editor/src/types/skill-editor-defaults.ts",
+    "libs/skill-editor/tsconfig.spec.json",
+    "libs/skill-editor/eslint.config.mjs",
+    "libs/skill-editor/postcss.config.js",
+    "libs/skill-editor/tsconfig.lib.json",
+    "libs/skill-editor/tsconfig.json",
+    "libs/skill-editor/package.json",
+    "libs/skill-editor/vite.config.mts",
+    "libs/skill-editor/README.md",
+    "libs/skill-editor/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/skill-editor/src/hooks/tests/useSkillFileDropZone.spec.ts",
+    "libs/skill-editor/src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx",
+    "libs/skill-editor/src/components/SkillEditor/tests/SkillEditor.spec.tsx",
+    "libs/skill-editor/src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx",
+    "libs/skill-editor/src/components/SkillFileUploadDialog/tests/SkillFileUploadDialog.spec.tsx",
+    "libs/skill-editor/src/utils/tests/file-tree.spec.ts",
+    "libs/skill-editor/src/utils/tests/candidate-path.spec.ts",
+    "libs/skill-editor/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "libs/chat-hooks/src/skill/skill.ts",
+    "apps/chat/src/pages/SkillEditor/SkillEditor.tsx",
+    "libs/chat-hooks/src/skill/useSkillEditorSubmit.ts",
+    "libs/chat-hooks/src/skill/useSkillEditorLoad.ts",
+    "libs/chat-hooks/src/skill/useSkillFileActions.ts",
+    "libs/chat-hooks/src/skill/tests/skill-file-preview.spec.ts",
+    "libs/chat-hooks/src/skill/tests/skill-file-batch-validation.spec.ts",
+    "libs/chat-hooks/src/skill/skill-file-batch-validation.ts",
+    "libs/chat-hooks/src/skill/skill-file-preview.ts",
+    "apps/chat/src/components/CatalogView/SkillDetailsFilePreview.tsx",
+    "apps/chat/src/hooks/attachment/useSkillFilePreviewSync.ts",
+    "apps/chat/src/hooks/attachment/tests/useSkillFilePreviewSync.spec.ts"
+  ],
+  "readme": "# @epam/ai-dial-skill-editor\n\nForm UI for authoring a DIAL Skill \u2014 its name, description, and Markdown\ninstructions \u2014 together with a file tree for the skill's supporting files and\nfolders, always anchored by a mandatory, non-removable root `SKILL.md` node.\n\nThe lib is deliberately passive about everything a skill's storage implies. It\nholds the field values, the file tree's selection/expansion state, and the\nin-progress add/remove sub-form's own state, and nothing else: it never calls\nan API, never reads a route, never serializes YAML frontmatter or a ZIP\narchive, never validates against DIAL's naming contract, and never resolves a\ntranslation. Validation messages arrive as strings through `errors`, path\nsafety checks are delegated through `fileActions.validatePath`, and the host\ndecides what \"created\" means when `onSubmit` fires. That keeps the same form\nusable by any host whose skill storage differs from DIAL Core's.\n\n## Installation\n\nRequires UI Kit ^0.15.0-dev.9 or later with the public `/editors` entry.\nThe Markdown loader uses that entry, and library builds keep UI Kit subpaths\nexternal to preserve the editor's dynamic boundary in consuming applications.\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-skill-editor\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-skill-editor/styles.css';\n```\n\n## Peer Dependencies\n\n- `react` `^19.2.8`\n- `@epam/ai-dial-ui-kit` `^0.15.0-dev.9`\n- `@epam/ai-dial-react-file-manager` `^0.3.0-dev.2`\n- `@epam/ai-dial-chat-shared` `*`\n\n## Components\n\n### `SkillEditor`\n\n```tsx\nimport { SkillEditor } from '@epam/ai-dial-skill-editor';\nimport type {\n  SkillEditorValues,\n  SkillFileTreeNode,\n} from '@epam/ai-dial-skill-editor';\n\nconst CreateSkillPage = () => {\n  const [files, setFiles] = useState<SkillFileTreeNode[]>([]);\n\n  const handleSubmit = (values: SkillEditorValues) => {\n    const message = validate(values);\n    if (message) {\n      setErrors(message);\n      return;\n    }\n    void createSkill(values, files);\n  };\n\n  return (\n    <SkillEditor\n      files={files}\n      isSubmitting={isSubmitting}\n      submitError={submitError}\n      errors={errors}\n      onSubmit={handleSubmit}\n      onCancel={goBack}\n      onBack={goBack}\n      backAriaLabel=\"Back to catalog\"\n      title={isEditMode ? 'Edit skill' : 'Create skill'}\n      fileActions={{\n        validatePath: (path) => validateSkillRelativePath(path),\n        onUploadFile: async (file, path) => {\n          const blob = await file.arrayBuffer();\n          setSupportingFileContent(path, blob);\n          setFiles((prev) => [\n            ...prev,\n            { path, name: file.name, kind: SkillFileNodeKind.File },\n          ]);\n        },\n        onRemoveNode: (path) =>\n          setFiles((prev) => prev.filter((node) => node.path !== path)),\n      }}\n      labels={{ nameLabel: t('skillEditor.nameLabel') }}\n    />\n  );\n};\n```\n\n`initialValues` re-seeds the fields whenever its object identity changes, so a\nhost that loads asynchronously should memoise it and produce a new object only\nonce the data has arrived. The root `SKILL.md` node is synthesised internally\nand is always present, first, and selected by default \u2014 it never appears in\nthe `files` prop and never exposes a rename/move/delete affordance.\n\n`fileActions.validatePath` runs before a device upload is accepted \u2014\nreturning a message blocks it and shows the message inline. Removing any\nother node requires the user to confirm a popup before\n`fileActions.onRemoveNode` is called. The library currently offers only\n\"Upload from device\" as an Add action; it does not support creating an empty\nfile or folder.\n\nThe header is rendered by `EditorLayout` (from `@epam/ai-dial-builder-form`).\nPass `onBack` (called when the back arrow is activated), `title` (the page\nheading), and optionally `backAriaLabel` (accessible label for the arrow,\ndefaults to `'Back'`). The header, including the back arrow, Cancel/Create\nactions, and saving status, appears on all viewports \u2014 no separate mobile\nheader is needed from the host.\n\n## Types\n\n```tsx\nimport type {\n  SkillEditorColors,\n  SkillEditorErrors,\n  SkillEditorFileActions,\n  SkillEditorLabels,\n  SkillEditorProps,\n  SkillEditorStyles,\n  SkillEditorTypography,\n  SkillEditorValues,\n  SkillFileTreeNode,\n} from '@epam/ai-dial-skill-editor';\nimport { SkillFileNodeKind } from '@epam/ai-dial-skill-editor';\n```\n\n`styles.colors` (`SkillEditorColors`) overrides the section-heading, Instructions-label, and border colors as CSS custom properties, falling back to this app's theme tokens (`--text-primary`, `--text-secondary`, `--stroke-tertiary`) and then to a hard-coded hex when no theme is present:\n\n```tsx\n<SkillEditor\n  // ...\n  styles={{\n    colors: { title: '#161b2d', helperText: '#57647a', border: '#e0e6f0' },\n    typography: { titleClassName: 'dial-body-semi-text' },\n  }}\n/>\n```\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. The root\nsurface therefore carries a stable public class, exported as\n`SKILL_EDITOR_CLASS`.\n\n| Key    | Class                    | Element                                                     |\n| ------ | ------------------------ | ----------------------------------------------------------- |\n| `root` | `dial-skill-editor-root` | The editor's root surface, which is also the file drop zone |\n\nThe class carries no declarations of its own: nothing in `styles.css` selects on\nit, so it changes nothing until a host writes a rule. Renaming it, or moving it\nto a different element, is a breaking change. The convention is in\n[`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\n```tsx\nimport { SKILL_EDITOR_CLASS } from '@epam/ai-dial-skill-editor';\n\nSKILL_EDITOR_CLASS.root; // 'dial-skill-editor-root'\n```\n\n```css\n.dial-skill-editor-root {\n  background: var(--bg-layer-base);\n}\n```\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/skill-editor/src/index.ts": "export { SkillEditor } from './components/SkillEditor/SkillEditor';\nexport type {\n  SkillEditorColors,\n  SkillEditorConflict,\n  SkillEditorErrors,\n  SkillEditorFileActions,\n  SkillEditorLabels,\n  SkillEditorProps,\n  SkillEditorStyles,\n  SkillEditorTypography,\n  SkillEditorValues,\n  SkillFileBatchError,\n  SkillFileCommitResult,\n  SkillFileTreeNode,\n  SkillFileUploadCandidate,\n  SkillFileValidationResult,\n} from './models/skill-editor-props';\nexport {\n  SkillFileCandidateKind,\n  SkillFileValidationStatus,\n} from './models/skill-editor-props';\nexport { SkillFileNodeKind } from './types/skill-file-node-kind';\nexport { SKILL_EDITOR_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/skill-editor/src/index.ts": [
+      {
+        "name": "SkillEditor",
+        "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+        "start": 76,
+        "end": 570,
+        "declaration": "SkillEditor: FC<SkillEditorProps> = ({\n  initialValues,\n  files,\n  selectedPath: controlledSelectedPath,\n  onSelectedPathChange,\n  expandedPaths: controlledExpandedPaths,\n  onExpandedPathsChange,\n  isLoading = false,\n  hasLoadError = false,\n  isSubmitting = false,\n  errors,\n  submitError,\n  conflict,\n  onReloadLatest,\n  isNameReadOnly = false,\n  onDirtyChange,\n  fileActions,\n  supportingFileContent,\n  onSubmit,\n  onCancel,\n  onBack,\n  backAriaLabel,\n  title,\n  onRetry,\n  labels,\n  styles: stylesProp,\n  dir,\n  instructionsEditorTheme = EditorThemes.light,\n}) => {\n  const [values, setValues] = useState<SkillEditorValues>({\n    name: initialValues?.name ?? '',\n    description: initialValues?.description ?? '',\n    instructions: initialValues?.instructions ?? '',\n  });\n  const instructionsCapRef = useAvailableHeightCap<HTMLDivElement>();\n  const seededInitialValuesRef = useRef(initialValues);\n  const isReseeding = seededInitialValuesRef.current !== initialValues;\n  const seededFilesRef = useRef<SkillFileTreeNode[]>(files);\n  useEffect(() => {\n    seededInitialValuesRef.current = initialValues;\n    setValues({\n      name: initialValues?.name ?? '',\n      description: initialValues?.description ?? '',\n      instructions: initialValues?.instructions ?? '',\n    });\n    seededFilesRef.current = files;\n    // eslint-disable-next-line react-hooks/exhaustive-deps -- re-seeding is keyed on `initialValues` identity only, per this component's documented contract\n  }, [initialValues]);\n\n  const sortedFilesKey = (nodes: SkillFileTreeNode[]): string =>\n    JSON.stringify([...nodes].sort((a, b) => a.path.localeCompare(b.path)));\n\n  const isDirtyRef = useRef(false);\n  useEffect(() => {\n    if (isReseeding) return;\n    const seededValues: SkillEditorValues = {\n      name: initialValues?.name ?? '',\n      description: initialValues?.description ?? '',\n      instructions: initialValues?.instructions ?? '',\n    };\n    const isDirty =\n      JSON.stringify(values) !== JSON.stringify(seededValues) ||\n      sortedFilesKey(files) !== sortedFilesKey(seededFilesRef.current);\n    if (isDirty !== isDirtyRef.current) {\n      isDirtyRef.current = isDirty;\n      onDirtyChange?.(isDirty);\n    }\n  }, [values, files, initialValues, isReseeding, onDirtyChange]);\n\n  const [internalSelectedPath, setInternalSelectedPath] =\n    useState(SKILL_MANIFEST_PATH);\n  const selectedPath = controlledSelectedPath ?? internalSelectedPath;\n  const handleSelectedPathChange = useCallback(\n    (path: string) => {\n      setInternalSelectedPath(path);\n      onSelectedPathChange?.(path);\n    },\n    [onSelectedPathChange],\n  );\n\n  const [internalExpandedPaths, setInternalExpandedPaths] = useState<string[]>(\n    [],\n  );\n  const expandedPaths = controlledExpandedPaths ?? internalExpandedPaths;\n  const expandedPathsSet = useMemo(\n    () => new Set(expandedPaths),\n    [expandedPaths],\n  );\n  const handleExpandedPathsChange = useCallback(\n    (next: Set<string>) => {\n      const nextArray = [...next];\n      setInternalExpandedPaths(nextArray);\n      onExpandedPathsChange?.(nextArray);\n    },\n    [onExpandedPathsChange],\n  );\n\n  const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);\n  const [droppedFiles, setDroppedFiles] = useState<File[] | undefined>();\n  /*\n   * Collapsed on first paint. The accordion only mounts under the mobile\n   * breakpoint \u2014 desktop renders the always-visible Files sidebar instead \u2014 so\n   * the initial state needs no breakpoint check, and starting expanded would\n   * push the Instructions editor below the fold on the narrowest layout.\n   */\n  const [isFilesExpanded, setIsFilesExpanded] = useState(false);\n\n  /*\n   * Files dropped anywhere on the editor surface (not just inside the\n   * already-open dialog's own drop zone) open the upload dialog and stage\n   * them immediately \u2014 dragging in from the OS shouldn't first require\n   * clicking \"Upload from device\".\n   */\n  const handleSurfaceFilesDropped = useCallback(\n    (droppedFileList: File[]) => {\n      if (isUploadDialogOpen) return;\n      setDroppedFiles(droppedFileList);\n      setIsUploadDialogOpen(true);\n    },\n    [isUploadDialogOpen],\n  );\n  const {\n    isDragActive: isSurfaceDragActive,\n    dropZoneHandlers: surfaceDropZoneHandlers,\n  } = useSkillFileDropZone(handleSurfaceFilesDropped);\n\n  const t = labels ?? {};\n  const colors = stylesProp?.colors;\n  const typography = stylesProp?.typography ?? {};\n  const titleClassName = typography.titleClassName ?? 'dial-body-semi-text';\n  const helperTextClassName =\n    typography.helperTextClassName ?? 'dial-tiny-semi-text';\n  const removeIconClassName =\n    typography.removeIconClassName ?? 'text-secondary';\n\n  const cssVars = buildCssVars({\n    '--se-title-color': colors?.title,\n    '--se-helper-text-color': colors?.helperText,\n  });\n\n  const layoutStyles = colors?.border\n    ? {\n        colors: {\n          headerBorderColor: colors.border,\n          sidebarBorderColor: colors.border,\n        },\n      }\n    : undefined;\n\n  const treeItems: DialFile[] = useMemo(\n    () =>\n      buildDialFileTree([\n        {\n          path: SKILL_MANIFEST_PATH,\n          name: SKILL_MANIFEST_PATH,\n          kind: SkillFileNodeKind.File,\n        },\n        ...files,\n      ]),\n    [files],\n  );\n\n  const selectedNode = useMemo(\n    () => files.find((node) => node.path === selectedPath),\n    [files, selectedPath],\n  );\n\n  const handleTreeItemClick = useCallback(\n    (item: DialFile) => {\n      handleSelectedPathChange(item.path);\n    },\n    [handleSelectedPathChange],\n  );\n\n  const handleRemoveNode = useCallback(\n    (path: string) => {\n      fileActions.onRemoveNode(path);\n      if (selectedPath === path) {\n        handleSelectedPathChange(SKILL_MANIFEST_PATH);\n      }\n    },\n    [fileActions, selectedPath, handleSelectedPathChange],\n  );\n\n  const getContextMenuItems = useCallback(\n    (item: DialFile): DropdownItem[] => {\n      if (item.path === SKILL_MANIFEST_PATH) return [];\n      return [\n        {\n          key: 'remove',\n          label: t.removeLabel ?? 'Remove',\n          icon: (\n            <IconTrashX\n              size={DIAL_ICON_SIZE.SM}\n              className={removeIconClassName}\n              aria-hidden\n              stroke={DIAL_KIT_ICON_STROKE}\n            />\n          ),\n          onClick: () => handleRemoveNode(item.path),\n        },\n      ];\n    },\n    [t.removeLabel, removeIconClassName, handleRemoveNode],\n  );\n\n  const filesPane = (\n    <div className=\"flex flex-col gap-2 desktop:gap-5\">\n      <div className=\"flex items-center justify-between\">\n        <span className={mergeClasses(styles.title, titleClassName)}>\n          {t.filesHeading ?? 'Files'}\n        </span>\n        <NeutralButton\n          label={t.addUploadLabel ?? 'Upload from device'}\n          iconBefore={\n            <IconPlus size={16} aria-hidden stroke={DIAL_KIT_ICON_STROKE} />\n          }\n          onClick={() => {\n            setDroppedFiles(undefined);\n            setIsUploadDialogOpen(true);\n          }}\n        />\n      </div>\n      <div role=\"tree\" aria-label={t.filesTreeAriaLabel ?? 'Skill files'}>\n        <DialFoldersTree\n          items={treeItems}\n          showFiles\n          selectedPath={selectedPath}\n          expandedPaths={expandedPathsSet}\n          onExpandedPathsChange={handleExpandedPathsChange}\n          onItemClick={handleTreeItemClick}\n          getContextMenuItems={getContextMenuItems}\n          rootItemPath=\"\"\n        />\n      </div>\n    </div>\n  );\n\n  const actions = (\n    <>\n      <NeutralButton\n        label={t.cancelLabel ?? 'Cancel'}\n        onClick={onCancel}\n        disabled={isSubmitting}\n      />\n      <PrimaryButton\n        label={t.createLabel ?? 'Create'}\n        iconBefore={\n          isSubmitting ? <Spinner size={16} ariaLabel=\"\" /> : undefined\n        }\n        onClick={() => onSubmit(values)}\n        disabled={isSubmitting}\n      />\n    </>\n  );\n\n  if (isLoading) {\n    return (\n      <div dir={dir} className=\"relative flex min-h-0 flex-1 flex-col\">\n        <EditorLayout\n          title={title}\n          onBack={onBack}\n          backAriaLabel={backAriaLabel}\n          actions={actions}\n          isSaving={false}\n          labels={{ savingStatusLabel: t.savingStatusLabel }}\n          styles={layoutStyles}\n          leftContent={\n            <div\n              role=\"status\"\n              aria-label={t.loadingAriaLabel ?? 'Loading skill'}\n              className=\"flex flex-1 items-center justify-center p-8\"\n            >\n              <Spinner />\n            </div>\n          }\n        />\n      </div>\n    );\n  }\n\n  if (hasLoadError) {\n    return (\n      <div dir={dir} className=\"relative flex min-h-0 flex-1 flex-col\">\n        <EditorLayout\n          title={title}\n          onBack={onBack}\n          backAriaLabel={backAriaLabel}\n          actions={actions}\n          isSaving={false}\n          labels={{ savingStatusLabel: t.savingStatusLabel }}\n          styles={layoutStyles}\n          leftContent={\n            <div role=\"alert\" className=\"flex flex-col items-center gap-4 p-8\">\n              <ErrorText\n                text={\n                  t.loadErrorMessage ??\n                  \"Couldn't load this skill. Please try again.\"\n                }\n              />\n              <PrimaryButton\n                label={t.retryLabel ?? 'Retry'}\n                onClick={onRetry}\n              />\n            </div>\n          }\n        />\n      </div>\n    );\n  }\n\n  return (\n    <div\n      dir={dir}\n      className={mergeClasses(\n        'relative flex min-h-0 flex-1 flex-col',\n        SKILL_EDITOR_CLASS.root,\n      )}\n      style={cssVars}\n      {...surfaceDropZoneHandlers}\n    >\n      <SkillFileDropOverlay\n        isVisible={isSurfaceDragActive && !isUploadDialogOpen}\n        labels={labels}\n      />\n\n      <EditorLayout\n        title={title}\n        onBack={onBack}\n        backAriaLabel={backAriaLabel}\n        actions={actions}\n        isSaving={isSubmitting}\n        labels={{ savingStatusLabel: t.savingStatusLabel }}\n        styles={layoutStyles}\n        leftContent={\n          <>\n            {/* Mobile: collapsible file-list summary, collapsed by default. */}\n            <div className=\"px-4 py-4 desktop:hidden\">\n              <Accordion\n                title={t.editingFileLabel ?? 'Editing file'}\n                description={selectedNode?.name ?? SKILL_MANIFEST_PATH}\n                expanded={isFilesExpanded}\n                onToggle={setIsFilesExpanded}\n                ariaLabel={t.editingFileLabel ?? 'Editing file'}\n              >\n                {filesPane}\n              </Accordion>\n            </div>\n\n            {/* Desktop: always-visible Files panel. */}\n            <div className=\"hidden px-8 py-6 desktop:block\">{filesPane}</div>\n          </>\n        }\n        rightContent={\n          <div className=\"flex flex-1 flex-col gap-4 px-4 py-6 desktop:gap-5 desktop:px-8\">\n            {submitError != null && (\n              <div role=\"alert\">\n                <ErrorText text={submitError} />\n              </div>\n            )}\n            {conflict != null && (\n              <div role=\"alert\" className=\"flex items-center gap-2\">\n                <ErrorText text={conflict.message} />\n                <GhostButton\n                  label={t.reloadLatestLabel ?? 'Reload latest'}\n                  onClick={onReloadLatest}\n                />\n              </div>\n            )}\n\n            <h2 className={mergeClasses(styles.title, titleClassName)}>\n              {selectedPath === SKILL_MANIFEST_PATH\n                ? SKILL_MANIFEST_PATH\n                : (t.selectedFileHeading?.(\n                    selectedNode?.name ?? selectedPath,\n                  ) ??\n                  selectedNode?.name ??\n                  selectedPath)}\n            </h2>\n\n            {selectedPath === SKILL_MANIFEST_PATH ? (\n              <>\n                <Input\n                  labelProps={{\n                    label: t.nameLabel ?? 'Name',\n                    required: true,\n                  }}\n                  value={values.name}\n                  onChange={(value) =>\n                    setValues((prev) => ({ ...prev, name: value ?? '' }))\n                  }\n                  placeholder={t.namePlaceholder ?? 'good-morning-breakfast'}\n                  caption={\n                    errors?.name\n                      ? undefined\n                      : (t.nameCaption ??\n                        \"Lowercase letters and hyphens only, no spaces. We'll reformat automatically if needed.\")\n                  }\n                  error={errors?.name}\n                  invalid={!!errors?.name}\n                  disabled={isNameReadOnly}\n                />\n                <Textarea\n                  labelProps={{\n                    label: t.descriptionLabel ?? 'Description',\n                    required: true,\n                  }}\n                  value={values.description}\n                  placeholder={\n                    t.descriptionPlaceholder ??\n                    'What this skill does and when to use it'\n                  }\n                  onChange={(value) =>\n                    setValues((prev) => ({ ...prev, description: value }))\n                  }\n                  error={errors?.description}\n                  invalid={!!errors?.description}\n                />\n                <div className=\"flex flex-1 flex-col gap-2\">\n                  <span className=\"flex items-center gap-0.5\">\n                    <span\n                      className={mergeClasses(\n                        styles.helperText,\n                        helperTextClassName,\n                      )}\n                    >\n                      {t.instructionsLabel ?? 'Instructions'}\n                    </span>\n                    <span className=\"dial-tiny-text text-error\">*</span>\n                  </span>\n                  <div\n                    ref={instructionsCapRef}\n                    className={mergeClasses(\n                      MARKDOWN_EDITOR_MAX_HEIGHT_CLASS_NAME,\n                      MARKDOWN_EDITOR_PREVIEW_LIST_CLASS_NAME,\n                    )}\n                  >\n                    <Suspense\n                      fallback={\n                        <Spinner\n                          ariaLabel={\n                            t.instructionsLoadingAriaLabel ?? 'Loading'\n                          }\n                        />\n                      }\n                    >\n                      <LazyMarkdown\n                        value={values.instructions}\n                        onChange={(value) =>\n                          setValues((prev) => ({\n                            ...prev,\n                            instructions: value,\n                          }))\n                        }\n                        theme={instructionsEditorTheme}\n                        placeholder={\n                          t.instructionsPlaceholder ??\n                          'Write the skill instructions in Markdown'\n                        }\n                      />\n                    </Suspense>\n                  </div>\n                  {errors?.instructions != null && (\n                    <ErrorText text={errors.instructions} />\n                  )}\n                </div>\n              </>\n            ) : (\n              selectedNode?.kind === SkillFileNodeKind.File &&\n              (supportingFileContent ?? (\n                <CaptionText\n                  text={\n                    t.supportingFileNote ??\n                    'This supporting file is included in the skill package as-is. Remove it from the Files panel to replace its content.'\n                  }\n                />\n              ))\n            )}\n          </div>\n        }\n      />\n\n      <SkillFileUploadDialog\n        isOpen={isUploadDialogOpen}\n        onClose={() => {\n          setIsUploadDialogOpen(false);\n          setDroppedFiles(undefined);\n        }}\n        fileActions={fileActions}\n        initialFiles={droppedFiles}\n        labels={labels}\n      />\n    </div>\n  );\n}",
+        "signature": "(props: SkillEditorProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "initialValues",
+            "optional": true,
+            "type": "Partial<SkillEditorValues> | undefined"
+          },
+          {
+            "name": "files",
+            "optional": false,
+            "type": "SkillFileTreeNode[]"
+          },
+          {
+            "name": "selectedPath",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "onSelectedPathChange",
+            "optional": true,
+            "type": "((path: string) => void) | undefined"
+          },
+          {
+            "name": "expandedPaths",
+            "optional": true,
+            "type": "string[] | undefined"
+          },
+          {
+            "name": "onExpandedPathsChange",
+            "optional": true,
+            "type": "((paths: string[]) => void) | undefined"
+          },
+          {
+            "name": "isLoading",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "hasLoadError",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isSubmitting",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "errors",
+            "optional": true,
+            "type": "import(\"../..\").SkillEditorErrors | undefined"
+          },
+          {
+            "name": "submitError",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "conflict",
+            "optional": true,
+            "type": "import(\"../..\").SkillEditorConflict | undefined"
+          },
+          {
+            "name": "onReloadLatest",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "isNameReadOnly",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "onDirtyChange",
+            "optional": true,
+            "type": "((isDirty: boolean) => void) | undefined"
+          },
+          {
+            "name": "fileActions",
+            "optional": false,
+            "type": "import(\"../..\").SkillEditorFileActions"
+          },
+          {
+            "name": "onBack",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "backAriaLabel",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "title",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "supportingFileContent",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "onSubmit",
+            "optional": false,
+            "type": "(values: SkillEditorValues) => void"
+          },
+          {
+            "name": "onCancel",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onRetry",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").SkillEditorLabels | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").SkillEditorStyles | undefined"
+          },
+          {
+            "name": "dir",
+            "optional": true,
+            "type": "\"ltr\" | \"rtl\" | undefined"
+          },
+          {
+            "name": "instructionsEditorTheme",
+            "optional": true,
+            "type": "EditorThemes | undefined"
+          }
+        ]
+      },
+      {
+        "name": "SkillEditorColors",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 208,
+        "end": 215,
+        "declaration": "export interface SkillEditorColors {\n  /** Color of the \"Files\" and selected-file section headings. Defaults to `--text-primary`. */\n  title?: string;\n  /** Color of the hand-rendered Instructions field label. Defaults to `--text-secondary`. */\n  helperText?: string;\n  /** Border color of the layout header row and Files sidebar divider. Defaults to `--stroke-tertiary`. */\n  border?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillEditorConflict",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 202,
+        "end": 205,
+        "declaration": "export interface SkillEditorConflict {\n  /** Host-resolved, already-translated conflict message. */\n  message: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillEditorErrors",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 33,
+        "end": 40,
+        "declaration": "export interface SkillEditorErrors {\n  /** Message shown under the Name field. */\n  name?: string;\n  /** Message shown under the Description field. */\n  description?: string;\n  /** Message shown under the Instructions editor. */\n  instructions?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillEditorFileActions",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 97,
+        "end": 119,
+        "declaration": "export interface SkillEditorFileActions {\n  /**\n   * Validates the complete currently staged batch. Called on every staged-set\n   * change and again immediately before a commit. Never mutates any state.\n   */\n  validateBatch: (candidates: SkillFileUploadCandidate[]) => Promise<{\n    /** One result per candidate, in the same order as `candidates`. */\n    results: SkillFileValidationResult[];\n    /** Errors attributable to the batch as a whole. */\n    batchErrors: SkillFileBatchError[];\n  }>;\n  /**\n   * Called once, with the full currently-valid staged batch, when the user\n   * confirms the upload dialog. Resolves without an `error` to close the\n   * dialog and clear staged state; resolves with an `error` to keep the\n   * dialog open with the batch intact.\n   */\n  commitBatch: (\n    candidates: SkillFileUploadCandidate[],\n  ) => Promise<SkillFileCommitResult>;\n  /** Called after the user confirms removing a non-protected node already present in the tree. */\n  onRemoveNode: (path: string) => void;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillEditorLabels",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 122,
+        "end": 194,
+        "declaration": "export interface SkillEditorLabels {\n  /** Files pane heading. Defaults to `'Files'`. */\n  filesHeading?: string;\n  /** Accessible name of the file tree region. Defaults to `'Skill files'`. */\n  filesTreeAriaLabel?: string;\n  /**\n   * Label of the control that opens the device file picker to add a\n   * supporting file. Defaults to `'Upload from device'`.\n   */\n  addUploadLabel?: string;\n  /** Accessible label of a node's remove action. Defaults to `'Remove'`. */\n  removeLabel?: string;\n  /** Collapsed mobile summary label. Defaults to `'Editing file'`. */\n  editingFileLabel?: string;\n  /** Main-pane heading, given the selected node's name. Defaults to the name itself. */\n  selectedFileHeading?: (name: string) => string;\n  /** Name field label. Defaults to `'Name'`. */\n  nameLabel?: string;\n  /** Name field placeholder. Defaults to `'good-morning-breakfast'`. */\n  namePlaceholder?: string;\n  /** Name field helper text. Defaults to `\"Lowercase letters and hyphens only, no spaces. We'll reformat automatically if needed.\"`. */\n  nameCaption?: string;\n  /** Description field label. Defaults to `'Description'`. */\n  descriptionLabel?: string;\n  /** Description field placeholder. Defaults to `'What this skill does and when to use it'`. */\n  descriptionPlaceholder?: string;\n  /** Instructions editor label. Defaults to `'Instructions'`. */\n  instructionsLabel?: string;\n  /** Instructions editor placeholder. Defaults to `'Write the skill instructions in Markdown'`. */\n  instructionsPlaceholder?: string;\n  /** Create button label. Defaults to `'Create'`. */\n  createLabel?: string;\n  /** Cancel button label. Defaults to `'Cancel'`. */\n  cancelLabel?: string;\n  /** Retry button label shown in the load-error state. Defaults to `'Retry'`. */\n  retryLabel?: string;\n  /** Message shown when the skill could not be loaded. Defaults to `\"Couldn't load this skill. Please try again.\"`. */\n  loadErrorMessage?: string;\n  /** Status announced while a save is in flight. Defaults to `'Saving'`. */\n  savingStatusLabel?: string;\n  /** Accessible label of the top-level loading spinner shown while `isLoading` is `true`. Defaults to `'Loading skill'`. */\n  loadingAriaLabel?: string;\n  /** Accessible label of the spinner shown while the Instructions Markdown editor's chunk is loading. Defaults to `'Loading'`. */\n  instructionsLoadingAriaLabel?: string;\n  /** Note shown in the main pane when a supporting file (not `SKILL.md` or a folder) is selected. Defaults to a sentence explaining content isn't editable here. */\n  supportingFileNote?: string;\n  /** Label of the \"Reload latest\" button rendered next to the host-supplied `conflict.message` in the conflict state. Defaults to `'Reload latest'`. */\n  reloadLatestLabel?: string;\n  /** Upload dialog title. Defaults to `'Upload files from device'`. */\n  uploadDialogTitle?: string;\n  /** Accessible label of the upload dialog's close control. Defaults to `'Close'`. */\n  uploadDialogCloseAriaLabel?: string;\n  /** Drop-zone copy shown at the `desktop` breakpoint. Defaults to `'Drag and drop it or click here to upload'`. */\n  uploadDropZoneLabel?: string;\n  /** Drop-zone copy shown at the `mobile` breakpoint (no drag surface). Defaults to `'Click here to upload'`. */\n  uploadDropZoneMobileLabel?: string;\n  /** Accessible label of the drop zone / native-picker trigger. Defaults to `'Upload files'`. */\n  uploadDropZoneAriaLabel?: string;\n  /** Builds the accessible label of a staged row's remove control, given its path. Defaults to a sentence naming the path. */\n  uploadRemoveCandidateLabel?: (path: string) => string;\n  /** Explanatory copy on a manifest-kind staged row. Defaults to a sentence explaining it will populate/replace the Skill's metadata. */\n  uploadManifestRowNote?: string;\n  /** Confirm (\"Add\"/\"Upload\") button label in the upload dialog. Defaults to `'Add'`. */\n  uploadConfirmLabel?: string;\n  /** Cancel button label in the upload dialog. Defaults to `'Cancel'`. */\n  uploadCancelLabel?: string;\n  /** Prefix announced in the `aria-live` region when a batch-level error appears. Defaults to `'Upload error: '`. */\n  uploadBatchErrorAriaPrefix?: string;\n  /** Title shown in the full-surface overlay while a file-bearing drag is over the editor and the upload dialog isn't open yet. Defaults to `'Upload files'`. */\n  dropOverlayTitle?: string;\n  /** Subtitle shown below `dropOverlayTitle`. Defaults to `'Drop files here to add them to this skill'`. */\n  dropOverlaySubtitle?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillEditorProps",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 236,
+        "end": 315,
+        "declaration": "export interface SkillEditorProps {\n  /**\n   * Values to seed the fields with. Changing this object's identity re-seeds\n   * the form, so hosts that load asynchronously should memoise it and only\n   * produce a new object once the data has arrived.\n   */\n  initialValues?: Partial<SkillEditorValues>;\n  /** Supporting files/folders, excluding the always-present root `SKILL.md` node, which the component synthesises. */\n  files: SkillFileTreeNode[];\n  /** Currently selected node path. Defaults to `'SKILL.md'` when omitted. */\n  selectedPath?: string;\n  /** Called when the selected node changes. Omit to let the component manage selection internally. */\n  onSelectedPathChange?: (path: string) => void;\n  /** Currently expanded folder paths. Omit to let the component manage expansion internally. */\n  expandedPaths?: string[];\n  /** Called when the set of expanded folder paths changes. */\n  onExpandedPathsChange?: (paths: string[]) => void;\n  /** Whether the skill being edited is still loading. Defaults to `false`. */\n  isLoading?: boolean;\n  /** Whether loading the skill failed; renders an error state with a retry instead of the form. Defaults to `false`. */\n  hasLoadError?: boolean;\n  /** Whether a save is in flight; disables submission. Defaults to `false`. */\n  isSubmitting?: boolean;\n  /** Inline validation messages to render under the fields. */\n  errors?: SkillEditorErrors;\n  /** General submit-time error (e.g. a naming conflict or a server error) rendered in a `role=\"alert\"` region. */\n  submitError?: string;\n  /**\n   * A save-time conflict (e.g. a stale ETag), distinct from `submitError`.\n   * When present, renders `conflict.message` plus a \"Reload latest\" control\n   * calling `onReloadLatest`. Omit when there is no conflict.\n   */\n  conflict?: SkillEditorConflict;\n  /** Called when the conflict state's \"Reload latest\" control is activated. Required when `conflict` can be set. */\n  onReloadLatest?: () => void;\n  /**\n   * When `true`, the Name field renders read-only \u2014 its value is still\n   * included in submitted values unchanged. The host sets this in edit mode,\n   * since DIAL Core has no rename/move operation for a skill; the library\n   * itself has no notion of \"edit mode\" and infers no policy from this flag\n   * beyond disabling the field.\n   */\n  isNameReadOnly?: boolean;\n  /**\n   * Called whenever any field value or the file-tree state diverges from its\n   * most recently seeded `initialValues`/`files` (`true`), and again once it\n   * returns to exactly that seeded state (`false`).\n   */\n  onDirtyChange?: (isDirty: boolean) => void;\n  /** File-tree mutation operations. */\n  fileActions: SkillEditorFileActions;\n  /** Called when the header back button is activated. */\n  onBack: () => void;\n  /** Accessible label of the header back button. Defaults to `'Back'`. */\n  backAriaLabel?: string;\n  /** Page title displayed in the header. */\n  title: string;\n  /**\n   * Host-rendered content shown in the main pane in place of `labels.supportingFileNote`\n   * whenever the currently selected node is a supporting file (not `SKILL.md`, not a\n   * folder). The library renders it verbatim with no knowledge of what it contains \u2014 it\n   * only decides *when* to show it, mirroring the `headerContent` pattern. Falls back to\n   * `labels.supportingFileNote` when omitted.\n   */\n  supportingFileContent?: ReactNode;\n  /** Called with the current values when the form is submitted. */\n  onSubmit: (values: SkillEditorValues) => void;\n  /** Called when the form is dismissed without saving. */\n  onCancel: () => void;\n  /** Called when the retry button in the load-error state is activated. */\n  onRetry?: () => void;\n  /** Text overrides. */\n  labels?: SkillEditorLabels;\n  /** Style overrides. */\n  styles?: SkillEditorStyles;\n  /** Explicit direction override. Omit to inherit from the ambient `dir` attribute. */\n  dir?: 'ltr' | 'rtl';\n  /** Theme applied to the Instructions Markdown editor, resolved by the host from its own theme state. Defaults to `EditorThemes.light`. */\n  instructionsEditorTheme?: EditorThemes;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillEditorStyles",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 228,
+        "end": 233,
+        "declaration": "export interface SkillEditorStyles {\n  /** Color overrides, applied as CSS custom properties. */\n  colors?: SkillEditorColors;\n  /** Typography class overrides. */\n  typography?: SkillEditorTypography;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillEditorTypography",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 218,
+        "end": 225,
+        "declaration": "export interface SkillEditorTypography {\n  /** Typography class applied to the \"Files\" and selected-file section headings. Defaults to `'dial-body-semi-text'`. */\n  titleClassName?: string;\n  /** Typography class applied to the hand-rendered Instructions field label. Defaults to `'dial-tiny-semi-text'`. */\n  helperTextClassName?: string;\n  /** Color class applied to the file tree \"Remove\" context-menu icon. Defaults to `'text-secondary'`. */\n  removeIconClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillEditorValues",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 20,
+        "end": 27,
+        "declaration": "export interface SkillEditorValues {\n  /** Skill name, as typed by the user (host normalizes it on submit). */\n  name: string;\n  /** Short description of what the skill does. */\n  description: string;\n  /** The skill's instructions body (Markdown). */\n  instructions: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillFileBatchError",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 81,
+        "end": 84,
+        "declaration": "export interface SkillFileBatchError {\n  /** Message rendered in the dialog's batch-level error region. */\n  message: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillFileCommitResult",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 87,
+        "end": 90,
+        "declaration": "export interface SkillFileCommitResult {\n  /** Present when the commit failed; the dialog stays open with the batch intact and shows this message. */\n  error?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillFileTreeNode",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 10,
+        "end": 17,
+        "declaration": "export interface SkillFileTreeNode {\n  /** Relative path from the skill root, using `/` separators. */\n  path: string;\n  /** Display name \u2014 the final path segment. */\n  name: string;\n  /** Whether this node is a file or a folder. */\n  kind: SkillFileNodeKind;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillFileUploadCandidate",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 59,
+        "end": 66,
+        "declaration": "export interface SkillFileUploadCandidate {\n  /** Stable id for React keys and remove targeting, independent of path edits. */\n  id: string;\n  /** The raw selected or dropped file. */\n  file: File;\n  /** Resolved relative path (`webkitRelativePath` falling back to `File.name`, `/`-normalized). */\n  path: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillFileValidationResult",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 69,
+        "end": 78,
+        "declaration": "export interface SkillFileValidationResult {\n  /** The `SkillFileUploadCandidate.id` this result applies to. */\n  candidateId: string;\n  /** Whether the candidate currently passes host validation. */\n  status: SkillFileValidationStatus;\n  /** Whether this candidate is the Skill manifest or an ordinary supporting file. */\n  kind: SkillFileCandidateKind;\n  /** Error message to render on the candidate's row. Present when `status` is `Invalid`. */\n  error?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillFileCandidateKind",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 43,
+        "end": 48,
+        "declaration": "export enum SkillFileCandidateKind {\n  /** An ordinary supporting file, added to the tree on commit. */\n  SupportingFile = 'supporting-file',\n  /** The root `SKILL.md` manifest, handled by the host as a metadata import rather than a tree entry. */\n  Manifest = 'manifest',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillFileValidationStatus",
+        "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+        "start": 51,
+        "end": 56,
+        "declaration": "export enum SkillFileValidationStatus {\n  /** The candidate may be included in a commit. */\n  Valid = 'valid',\n  /** The candidate is blocked from commit; see the result's `error`. */\n  Invalid = 'invalid',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillFileNodeKind",
+        "file": "libs/skill-editor/src/types/skill-file-node-kind.ts",
+        "start": 2,
+        "end": 7,
+        "declaration": "export enum SkillFileNodeKind {\n  /** A regular file, including the protected root `SKILL.md`. */\n  File = 'file',\n  /** A grouping folder that may contain other files/folders. */\n  Folder = 'folder',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SKILL_EDITOR_CLASS",
+        "file": "libs/skill-editor/src/constants/public-class-names.ts",
+        "start": 11,
+        "end": 14,
+        "declaration": "SKILL_EDITOR_CLASS = {\n  /** The editor's root surface, which is also the file drop zone. */\n  root: 'dial-skill-editor-root',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "SkillEditor",
+      "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+      "start": 76,
+      "end": 570,
+      "declaration": "SkillEditor: FC<SkillEditorProps> = ({\n  initialValues,\n  files,\n  selectedPath: controlledSelectedPath,\n  onSelectedPathChange,\n  expandedPaths: controlledExpandedPaths,\n  onExpandedPathsChange,\n  isLoading = false,\n  hasLoadError = false,\n  isSubmitting = false,\n  errors,\n  submitError,\n  conflict,\n  onReloadLatest,\n  isNameReadOnly = false,\n  onDirtyChange,\n  fileActions,\n  supportingFileContent,\n  onSubmit,\n  onCancel,\n  onBack,\n  backAriaLabel,\n  title,\n  onRetry,\n  labels,\n  styles: stylesProp,\n  dir,\n  instructionsEditorTheme = EditorThemes.light,\n}) => {\n  const [values, setValues] = useState<SkillEditorValues>({\n    name: initialValues?.name ?? '',\n    description: initialValues?.description ?? '',\n    instructions: initialValues?.instructions ?? '',\n  });\n  const instructionsCapRef = useAvailableHeightCap<HTMLDivElement>();\n  const seededInitialValuesRef = useRef(initialValues);\n  const isReseeding = seededInitialValuesRef.current !== initialValues;\n  const seededFilesRef = useRef<SkillFileTreeNode[]>(files);\n  useEffect(() => {\n    seededInitialValuesRef.current = initialValues;\n    setValues({\n      name: initialValues?.name ?? '',\n      description: initialValues?.description ?? '',\n      instructions: initialValues?.instructions ?? '',\n    });\n    seededFilesRef.current = files;\n    // eslint-disable-next-line react-hooks/exhaustive-deps -- re-seeding is keyed on `initialValues` identity only, per this component's documented contract\n  }, [initialValues]);\n\n  const sortedFilesKey = (nodes: SkillFileTreeNode[]): string =>\n    JSON.stringify([...nodes].sort((a, b) => a.path.localeCompare(b.path)));\n\n  const isDirtyRef = useRef(false);\n  useEffect(() => {\n    if (isReseeding) return;\n    const seededValues: SkillEditorValues = {\n      name: initialValues?.name ?? '',\n      description: initialValues?.description ?? '',\n      instructions: initialValues?.instructions ?? '',\n    };\n    const isDirty =\n      JSON.stringify(values) !== JSON.stringify(seededValues) ||\n      sortedFilesKey(files) !== sortedFilesKey(seededFilesRef.current);\n    if (isDirty !== isDirtyRef.current) {\n      isDirtyRef.current = isDirty;\n      onDirtyChange?.(isDirty);\n    }\n  }, [values, files, initialValues, isReseeding, onDirtyChange]);\n\n  const [internalSelectedPath, setInternalSelectedPath] =\n    useState(SKILL_MANIFEST_PATH);\n  const selectedPath = controlledSelectedPath ?? internalSelectedPath;\n  const handleSelectedPathChange = useCallback(\n    (path: string) => {\n      setInternalSelectedPath(path);\n      onSelectedPathChange?.(path);\n    },\n    [onSelectedPathChange],\n  );\n\n  const [internalExpandedPaths, setInternalExpandedPaths] = useState<string[]>(\n    [],\n  );\n  const expandedPaths = controlledExpandedPaths ?? internalExpandedPaths;\n  const expandedPathsSet = useMemo(\n    () => new Set(expandedPaths),\n    [expandedPaths],\n  );\n  const handleExpandedPathsChange = useCallback(\n    (next: Set<string>) => {\n      const nextArray = [...next];\n      setInternalExpandedPaths(nextArray);\n      onExpandedPathsChange?.(nextArray);\n    },\n    [onExpandedPathsChange],\n  );\n\n  const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);\n  const [droppedFiles, setDroppedFiles] = useState<File[] | undefined>();\n  /*\n   * Collapsed on first paint. The accordion only mounts under the mobile\n   * breakpoint \u2014 desktop renders the always-visible Files sidebar instead \u2014 so\n   * the initial state needs no breakpoint check, and starting expanded would\n   * push the Instructions editor below the fold on the narrowest layout.\n   */\n  const [isFilesExpanded, setIsFilesExpanded] = useState(false);\n\n  /*\n   * Files dropped anywhere on the editor surface (not just inside the\n   * already-open dialog's own drop zone) open the upload dialog and stage\n   * them immediately \u2014 dragging in from the OS shouldn't first require\n   * clicking \"Upload from device\".\n   */\n  const handleSurfaceFilesDropped = useCallback(\n    (droppedFileList: File[]) => {\n      if (isUploadDialogOpen) return;\n      setDroppedFiles(droppedFileList);\n      setIsUploadDialogOpen(true);\n    },\n    [isUploadDialogOpen],\n  );\n  const {\n    isDragActive: isSurfaceDragActive,\n    dropZoneHandlers: surfaceDropZoneHandlers,\n  } = useSkillFileDropZone(handleSurfaceFilesDropped);\n\n  const t = labels ?? {};\n  const colors = stylesProp?.colors;\n  const typography = stylesProp?.typography ?? {};\n  const titleClassName = typography.titleClassName ?? 'dial-body-semi-text';\n  const helperTextClassName =\n    typography.helperTextClassName ?? 'dial-tiny-semi-text';\n  const removeIconClassName =\n    typography.removeIconClassName ?? 'text-secondary';\n\n  const cssVars = buildCssVars({\n    '--se-title-color': colors?.title,\n    '--se-helper-text-color': colors?.helperText,\n  });\n\n  const layoutStyles = colors?.border\n    ? {\n        colors: {\n          headerBorderColor: colors.border,\n          sidebarBorderColor: colors.border,\n        },\n      }\n    : undefined;\n\n  const treeItems: DialFile[] = useMemo(\n    () =>\n      buildDialFileTree([\n        {\n          path: SKILL_MANIFEST_PATH,\n          name: SKILL_MANIFEST_PATH,\n          kind: SkillFileNodeKind.File,\n        },\n        ...files,\n      ]),\n    [files],\n  );\n\n  const selectedNode = useMemo(\n    () => files.find((node) => node.path === selectedPath),\n    [files, selectedPath],\n  );\n\n  const handleTreeItemClick = useCallback(\n    (item: DialFile) => {\n      handleSelectedPathChange(item.path);\n    },\n    [handleSelectedPathChange],\n  );\n\n  const handleRemoveNode = useCallback(\n    (path: string) => {\n      fileActions.onRemoveNode(path);\n      if (selectedPath === path) {\n        handleSelectedPathChange(SKILL_MANIFEST_PATH);\n      }\n    },\n    [fileActions, selectedPath, handleSelectedPathChange],\n  );\n\n  const getContextMenuItems = useCallback(\n    (item: DialFile): DropdownItem[] => {\n      if (item.path === SKILL_MANIFEST_PATH) return [];\n      return [\n        {\n          key: 'remove',\n          label: t.removeLabel ?? 'Remove',\n          icon: (\n            <IconTrashX\n              size={DIAL_ICON_SIZE.SM}\n              className={removeIconClassName}\n              aria-hidden\n              stroke={DIAL_KIT_ICON_STROKE}\n            />\n          ),\n          onClick: () => handleRemoveNode(item.path),\n        },\n      ];\n    },\n    [t.removeLabel, removeIconClassName, handleRemoveNode],\n  );\n\n  const filesPane = (\n    <div className=\"flex flex-col gap-2 desktop:gap-5\">\n      <div className=\"flex items-center justify-between\">\n        <span className={mergeClasses(styles.title, titleClassName)}>\n          {t.filesHeading ?? 'Files'}\n        </span>\n        <NeutralButton\n          label={t.addUploadLabel ?? 'Upload from device'}\n          iconBefore={\n            <IconPlus size={16} aria-hidden stroke={DIAL_KIT_ICON_STROKE} />\n          }\n          onClick={() => {\n            setDroppedFiles(undefined);\n            setIsUploadDialogOpen(true);\n          }}\n        />\n      </div>\n      <div role=\"tree\" aria-label={t.filesTreeAriaLabel ?? 'Skill files'}>\n        <DialFoldersTree\n          items={treeItems}\n          showFiles\n          selectedPath={selectedPath}\n          expandedPaths={expandedPathsSet}\n          onExpandedPathsChange={handleExpandedPathsChange}\n          onItemClick={handleTreeItemClick}\n          getContextMenuItems={getContextMenuItems}\n          rootItemPath=\"\"\n        />\n      </div>\n    </div>\n  );\n\n  const actions = (\n    <>\n      <NeutralButton\n        label={t.cancelLabel ?? 'Cancel'}\n        onClick={onCancel}\n        disabled={isSubmitting}\n      />\n      <PrimaryButton\n        label={t.createLabel ?? 'Create'}\n        iconBefore={\n          isSubmitting ? <Spinner size={16} ariaLabel=\"\" /> : undefined\n        }\n        onClick={() => onSubmit(values)}\n        disabled={isSubmitting}\n      />\n    </>\n  );\n\n  if (isLoading) {\n    return (\n      <div dir={dir} className=\"relative flex min-h-0 flex-1 flex-col\">\n        <EditorLayout\n          title={title}\n          onBack={onBack}\n          backAriaLabel={backAriaLabel}\n          actions={actions}\n          isSaving={false}\n          labels={{ savingStatusLabel: t.savingStatusLabel }}\n          styles={layoutStyles}\n          leftContent={\n            <div\n              role=\"status\"\n              aria-label={t.loadingAriaLabel ?? 'Loading skill'}\n              className=\"flex flex-1 items-center justify-center p-8\"\n            >\n              <Spinner />\n            </div>\n          }\n        />\n      </div>\n    );\n  }\n\n  if (hasLoadError) {\n    return (\n      <div dir={dir} className=\"relative flex min-h-0 flex-1 flex-col\">\n        <EditorLayout\n          title={title}\n          onBack={onBack}\n          backAriaLabel={backAriaLabel}\n          actions={actions}\n          isSaving={false}\n          labels={{ savingStatusLabel: t.savingStatusLabel }}\n          styles={layoutStyles}\n          leftContent={\n            <div role=\"alert\" className=\"flex flex-col items-center gap-4 p-8\">\n              <ErrorText\n                text={\n                  t.loadErrorMessage ??\n                  \"Couldn't load this skill. Please try again.\"\n                }\n              />\n              <PrimaryButton\n                label={t.retryLabel ?? 'Retry'}\n                onClick={onRetry}\n              />\n            </div>\n          }\n        />\n      </div>\n    );\n  }\n\n  return (\n    <div\n      dir={dir}\n      className={mergeClasses(\n        'relative flex min-h-0 flex-1 flex-col',\n        SKILL_EDITOR_CLASS.root,\n      )}\n      style={cssVars}\n      {...surfaceDropZoneHandlers}\n    >\n      <SkillFileDropOverlay\n        isVisible={isSurfaceDragActive && !isUploadDialogOpen}\n        labels={labels}\n      />\n\n      <EditorLayout\n        title={title}\n        onBack={onBack}\n        backAriaLabel={backAriaLabel}\n        actions={actions}\n        isSaving={isSubmitting}\n        labels={{ savingStatusLabel: t.savingStatusLabel }}\n        styles={layoutStyles}\n        leftContent={\n          <>\n            {/* Mobile: collapsible file-list summary, collapsed by default. */}\n            <div className=\"px-4 py-4 desktop:hidden\">\n              <Accordion\n                title={t.editingFileLabel ?? 'Editing file'}\n                description={selectedNode?.name ?? SKILL_MANIFEST_PATH}\n                expanded={isFilesExpanded}\n                onToggle={setIsFilesExpanded}\n                ariaLabel={t.editingFileLabel ?? 'Editing file'}\n              >\n                {filesPane}\n              </Accordion>\n            </div>\n\n            {/* Desktop: always-visible Files panel. */}\n            <div className=\"hidden px-8 py-6 desktop:block\">{filesPane}</div>\n          </>\n        }\n        rightContent={\n          <div className=\"flex flex-1 flex-col gap-4 px-4 py-6 desktop:gap-5 desktop:px-8\">\n            {submitError != null && (\n              <div role=\"alert\">\n                <ErrorText text={submitError} />\n              </div>\n            )}\n            {conflict != null && (\n              <div role=\"alert\" className=\"flex items-center gap-2\">\n                <ErrorText text={conflict.message} />\n                <GhostButton\n                  label={t.reloadLatestLabel ?? 'Reload latest'}\n                  onClick={onReloadLatest}\n                />\n              </div>\n            )}\n\n            <h2 className={mergeClasses(styles.title, titleClassName)}>\n              {selectedPath === SKILL_MANIFEST_PATH\n                ? SKILL_MANIFEST_PATH\n                : (t.selectedFileHeading?.(\n                    selectedNode?.name ?? selectedPath,\n                  ) ??\n                  selectedNode?.name ??\n                  selectedPath)}\n            </h2>\n\n            {selectedPath === SKILL_MANIFEST_PATH ? (\n              <>\n                <Input\n                  labelProps={{\n                    label: t.nameLabel ?? 'Name',\n                    required: true,\n                  }}\n                  value={values.name}\n                  onChange={(value) =>\n                    setValues((prev) => ({ ...prev, name: value ?? '' }))\n                  }\n                  placeholder={t.namePlaceholder ?? 'good-morning-breakfast'}\n                  caption={\n                    errors?.name\n                      ? undefined\n                      : (t.nameCaption ??\n                        \"Lowercase letters and hyphens only, no spaces. We'll reformat automatically if needed.\")\n                  }\n                  error={errors?.name}\n                  invalid={!!errors?.name}\n                  disabled={isNameReadOnly}\n                />\n                <Textarea\n                  labelProps={{\n                    label: t.descriptionLabel ?? 'Description',\n                    required: true,\n                  }}\n                  value={values.description}\n                  placeholder={\n                    t.descriptionPlaceholder ??\n                    'What this skill does and when to use it'\n                  }\n                  onChange={(value) =>\n                    setValues((prev) => ({ ...prev, description: value }))\n                  }\n                  error={errors?.description}\n                  invalid={!!errors?.description}\n                />\n                <div className=\"flex flex-1 flex-col gap-2\">\n                  <span className=\"flex items-center gap-0.5\">\n                    <span\n                      className={mergeClasses(\n                        styles.helperText,\n                        helperTextClassName,\n                      )}\n                    >\n                      {t.instructionsLabel ?? 'Instructions'}\n                    </span>\n                    <span className=\"dial-tiny-text text-error\">*</span>\n                  </span>\n                  <div\n                    ref={instructionsCapRef}\n                    className={mergeClasses(\n                      MARKDOWN_EDITOR_MAX_HEIGHT_CLASS_NAME,\n                      MARKDOWN_EDITOR_PREVIEW_LIST_CLASS_NAME,\n                    )}\n                  >\n                    <Suspense\n                      fallback={\n                        <Spinner\n                          ariaLabel={\n                            t.instructionsLoadingAriaLabel ?? 'Loading'\n                          }\n                        />\n                      }\n                    >\n                      <LazyMarkdown\n                        value={values.instructions}\n                        onChange={(value) =>\n                          setValues((prev) => ({\n                            ...prev,\n                            instructions: value,\n                          }))\n                        }\n                        theme={instructionsEditorTheme}\n                        placeholder={\n                          t.instructionsPlaceholder ??\n                          'Write the skill instructions in Markdown'\n                        }\n                      />\n                    </Suspense>\n                  </div>\n                  {errors?.instructions != null && (\n                    <ErrorText text={errors.instructions} />\n                  )}\n                </div>\n              </>\n            ) : (\n              selectedNode?.kind === SkillFileNodeKind.File &&\n              (supportingFileContent ?? (\n                <CaptionText\n                  text={\n                    t.supportingFileNote ??\n                    'This supporting file is included in the skill package as-is. Remove it from the Files panel to replace its content.'\n                  }\n                />\n              ))\n            )}\n          </div>\n        }\n      />\n\n      <SkillFileUploadDialog\n        isOpen={isUploadDialogOpen}\n        onClose={() => {\n          setIsUploadDialogOpen(false);\n          setDroppedFiles(undefined);\n        }}\n        fileActions={fileActions}\n        initialFiles={droppedFiles}\n        labels={labels}\n      />\n    </div>\n  );\n}",
+      "signature": "(props: SkillEditorProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "initialValues",
+          "optional": true,
+          "type": "Partial<SkillEditorValues> | undefined"
+        },
+        {
+          "name": "files",
+          "optional": false,
+          "type": "SkillFileTreeNode[]"
+        },
+        {
+          "name": "selectedPath",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "onSelectedPathChange",
+          "optional": true,
+          "type": "((path: string) => void) | undefined"
+        },
+        {
+          "name": "expandedPaths",
+          "optional": true,
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "onExpandedPathsChange",
+          "optional": true,
+          "type": "((paths: string[]) => void) | undefined"
+        },
+        {
+          "name": "isLoading",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "hasLoadError",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isSubmitting",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "errors",
+          "optional": true,
+          "type": "import(\"../..\").SkillEditorErrors | undefined"
+        },
+        {
+          "name": "submitError",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "conflict",
+          "optional": true,
+          "type": "import(\"../..\").SkillEditorConflict | undefined"
+        },
+        {
+          "name": "onReloadLatest",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "isNameReadOnly",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "onDirtyChange",
+          "optional": true,
+          "type": "((isDirty: boolean) => void) | undefined"
+        },
+        {
+          "name": "fileActions",
+          "optional": false,
+          "type": "import(\"../..\").SkillEditorFileActions"
+        },
+        {
+          "name": "onBack",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "backAriaLabel",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "supportingFileContent",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "onSubmit",
+          "optional": false,
+          "type": "(values: SkillEditorValues) => void"
+        },
+        {
+          "name": "onCancel",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onRetry",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").SkillEditorLabels | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").SkillEditorStyles | undefined"
+        },
+        {
+          "name": "dir",
+          "optional": true,
+          "type": "\"ltr\" | \"rtl\" | undefined"
+        },
+        {
+          "name": "instructionsEditorTheme",
+          "optional": true,
+          "type": "EditorThemes | undefined"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/skill-editor/src/hooks/tests/useSkillFileDropZone.spec.ts",
+      "assertions": [
+        "activates on drag-enter",
+        "does not flicker to inactive on a nested drag-leave while still over the zone",
+        "deactivates once the net enter count returns to zero",
+        "calls preventDefault on dragover for a file drag",
+        "ignores a non-file drag",
+        "calls onFilesDropped with the dropped files and resets drag state"
+      ]
+    },
+    {
+      "file": "libs/skill-editor/src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx",
+      "assertions": [
+        "renders nothing when not visible",
+        "shows the default title and subtitle when visible",
+        "renders host-supplied labels"
+      ]
+    },
+    {
+      "file": "libs/skill-editor/src/components/SkillEditor/tests/SkillEditor.spec.tsx",
+      "assertions": [
+        "seeds the fields from initialValues",
+        "updates local state when a field is edited and calls no external API",
+        "renders host-supplied errors inline",
+        "disables Cancel and Create while submitting",
+        "renders submitError in an alert region without clearing field values",
+        "submits the current field values",
+        "calls onCancel when Cancel is clicked",
+        "shows a loading state and no form when isLoading is true",
+        "shows a retry action when hasLoadError is true",
+        "applies an explicit dir override to the root element without reading i18n",
+        "exposes the Name field via an accessible role so keyboard users can reach it",
+        "disables the Name field when isNameReadOnly is set",
+        "calls onDirtyChange(true) on the first edit and onDirtyChange(false) when reverted",
+        "does not report a transient dirty state when initialValues are reseeded",
+        "renders a conflict message with a working Reload latest control",
+        "starts the mobile Files accordion collapsed so the Instructions editor stays above the fold",
+        "expands the mobile Files accordion once its header is activated",
+        "stamps the root surface",
+        "emits the same class under RTL"
+      ]
+    },
+    {
+      "file": "libs/skill-editor/src/components/SkillEditor/tests/SkillEditorFiles.spec.tsx",
+      "assertions": [
+        "selects SKILL.md by default and shows its form",
+        "exposes no remove action for the protected SKILL.md node",
+        "commits a staged file when the batch validates and the user confirms",
+        "shows the validation error and disables confirm for a rejected staged file",
+        "keeps the dialog open with the batch intact when commitBatch fails",
+        "cancel closes the dialog and commits nothing",
+        "removing a staged row removes only that row, with no confirmation",
+        "renders a manifest-kind staged row with distinct explanatory copy",
+        "opens the upload dialog and stages a file dropped anywhere on the editor surface, without clicking Upload from device first",
+        "shows a full-surface drop overlay while dragging over the editor, hidden once the dialog opens",
+        "removes a supporting entry immediately, with no confirmation",
+        "resets the selection to SKILL.md when the removed node was selected",
+        "updates the main-pane heading when a supporting file is selected",
+        "renders supportingFileContent for a selected supporting file",
+        "falls back to the default supportingFileNote when supportingFileContent is omitted",
+        "does not render supportingFileContent when SKILL.md is selected",
+        "does not render supportingFileContent when a folder is selected"
+      ]
+    },
+    {
+      "file": "libs/skill-editor/src/components/SkillFileUploadDialog/tests/SkillFileUploadDialog.spec.tsx",
+      "assertions": [
+        "renders nothing when closed",
+        "opens with an empty staged list",
+        "stages a file selected via the native picker",
+        "supports staging multiple files at once",
+        "disables confirm while any staged item is invalid",
+        "removing a staged row leaves other rows and calls no host callback",
+        "cancel closes without calling commitBatch",
+        "renders under an RTL ancestor with no dedicated dir prop",
+        "a successful commit closes the dialog via onClose"
+      ]
+    },
+    {
+      "file": "libs/skill-editor/src/utils/tests/file-tree.spec.ts",
+      "assertions": [
+        "returns a single root-level node for a flat file",
+        "synthesises intermediate folders implied by a deep file path",
+        "attaches an explicit folder node to its parent, even without files inside it yet",
+        "nests a file under its explicit folder node rather than duplicating it"
+      ]
+    },
+    {
+      "file": "libs/skill-editor/src/utils/tests/candidate-path.spec.ts",
+      "assertions": [
+        "falls back to File.name when webkitRelativePath is absent",
+        "falls back to File.name when webkitRelativePath is empty",
+        "normalizes backslash separators to forward slashes",
+        "leaves an already-forward-slash relative path unchanged"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "libs/chat-hooks/src/skill/skill.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 5,
+          "excerpt": "import {\n  SkillFileNodeKind,\n  type SkillFileTreeNode,\n} from '@epam/ai-dial-skill-editor';\nimport { unzipSync } from 'fflate';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/pages/SkillEditor/SkillEditor.tsx",
+      "matches": [
+        {
+          "start": 10,
+          "end": 20,
+          "excerpt": "  useSkillFileActions,\n  type SkillEditorLoadClient,\n  type SkillEditorSubmitClient,\n  type SkillEditorSubmitMessages,\n  type SkillFileActionsMessages,\n} from '@epam/ai-dial-chat-hooks';\nimport {\n  SkillEditor as SkillEditorForm,\n  type SkillEditorLabels,\n} from '@epam/ai-dial-skill-editor';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "libs/chat-hooks/src/skill/useSkillEditorSubmit.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 7,
+          "excerpt": "import type { SkillUploadResponseDto } from '@epam/ai-dial-chat-api-client';\nimport type {\n  SkillEditorErrors,\n  SkillEditorValues,\n  SkillFileTreeNode,\n} from '@epam/ai-dial-skill-editor';\nimport { NotificationVariant } from '@epam/ai-dial-ui-kit';"
+        }
+      ]
+    },
+    {
+      "file": "libs/chat-hooks/src/skill/useSkillEditorLoad.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 10,
+          "excerpt": "import type {\n  SkillFileListResponseDto,\n  SkillMetadataItemDto,\n} from '@epam/ai-dial-chat-api-client';\nimport {\n  SkillFileNodeKind,\n  type SkillEditorValues,\n  type SkillFileTreeNode,\n} from '@epam/ai-dial-skill-editor';\nimport type { Dispatch, SetStateAction } from 'react';"
+        }
+      ]
+    },
+    {
+      "file": "libs/chat-hooks/src/skill/useSkillFileActions.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 9,
+          "excerpt": "import { getUtf8ByteLength } from '@epam/ai-dial-chat-shared';\nimport {\n  SkillFileNodeKind,\n  type SkillEditorFileActions,\n  type SkillEditorValues,\n  type SkillFileTreeNode,\n  type SkillFileUploadCandidate,\n} from '@epam/ai-dial-skill-editor';\nimport type { Dispatch, SetStateAction } from 'react';"
+        }
+      ]
+    },
+    {
+      "file": "libs/chat-hooks/src/skill/skill-file-batch-validation.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 9,
+          "excerpt": "import { formatFileSize } from '@epam/ai-dial-chat-shared';\nimport {\n  SkillFileCandidateKind,\n  SkillFileValidationStatus,\n  type SkillFileBatchError,\n  type SkillFileUploadCandidate,\n  type SkillFileValidationResult,\n} from '@epam/ai-dial-skill-editor';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "libs/chat-hooks/src/skill/skill-file-preview.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 8,
+          "excerpt": "import type { Attachment } from '@epam/ai-dial-chat-shared';\nimport {\n  getAttachmentTypeFromMime,\n  inferMimeTypeFromPath,\n  RequestStatus,\n} from '@epam/ai-dial-chat-shared';\nimport type { SkillFileTreeNode } from '@epam/ai-dial-skill-editor';\n"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/CatalogView/SkillDetailsFilePreview.tsx",
+      "matches": [
+        {
+          "start": 5,
+          "end": 15,
+          "excerpt": "  useAttachmentCanvas,\n  useOpenAttachmentCanvas,\n} from '@epam/ai-dial-attachment-canvas';\nimport {\n  type SkillFileContent,\n  SkillPreviewErrorKind,\n  skillFileToAttachment,\n  useSkillFilePreview,\n} from '@epam/ai-dial-chat-hooks';\nimport { SkillFileNodeKind } from '@epam/ai-dial-skill-editor';\nimport { type FC, useEffect } from 'react';"
+        }
+      ]
+    }
+  ]
+}

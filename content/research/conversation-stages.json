@@ -1,0 +1,1347 @@
+{
+  "project": {
+    "id": "libs/conversation-stages",
+    "project": "@epam/ai-dial-conversation-stages",
+    "path": "libs/conversation-stages",
+    "package": "@epam/ai-dial-conversation-stages",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/conversation-stages/README.md",
+      "libs/conversation-stages/package.json",
+      "libs/conversation-stages/src/index.ts",
+      "libs/conversation-stages/src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx",
+      "libs/conversation-stages/src/components/StagesPanel/tests/StagesPanel.spec.tsx",
+      "libs/conversation-stages/src/components/StageIcon/tests/StageIcon.spec.tsx",
+      "libs/conversation-stages/src/components/StageItem/tests/StageItem.spec.tsx",
+      "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+      "apps/chat/src/components/ConversationView/tests/ConversationMessageItem.spec.tsx"
+    ],
+    "output": "decks/libs/conversation-stages.pptx",
+    "preview": "previews/libs/conversation-stages",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx",
+      "test-ci--src/components/StageIcon/tests/StageIcon.spec.tsx",
+      "test-ci--src/components/StageItem/tests/StageItem.spec.tsx",
+      "test-ci--src/components/StageMarkdownContent/tests/StageCodeBlock.spec.tsx",
+      "test-ci--src/components/StagesPanel/tests/StagesPanel.spec.tsx",
+      "test-ci--src/utils/tests/stage-name.spec.ts",
+      "test-ci--src/utils/tests/stage-progress.spec.ts",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-conversation-stages",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-conversation-stages",
+    "description": "Panel for displaying agent processing stages during LLM response streaming",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0"
+    },
+    "peerDependencies": {
+      "react": "^19.2.8",
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9"
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/conversation-stages",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/conversation-stages/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-conversation-stages --includeDependencies -- npx nx build-deps @epam/ai-dial-conversation-stages"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "vitest run src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/StageIcon/tests/StageIcon.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/StageIcon/tests/StageIcon.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/StageIcon/tests/StageIcon.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "vitest run src/components/StageIcon/tests/StageIcon.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/StageIcon/tests/StageIcon.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/StageItem/tests/StageItem.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/StageItem/tests/StageItem.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/StageItem/tests/StageItem.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "vitest run src/components/StageItem/tests/StageItem.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/StageItem/tests/StageItem.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/StageMarkdownContent/tests/StageCodeBlock.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/StageMarkdownContent/tests/StageCodeBlock.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/StageMarkdownContent/tests/StageCodeBlock.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "vitest run src/components/StageMarkdownContent/tests/StageCodeBlock.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/StageMarkdownContent/tests/StageCodeBlock.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/StagesPanel/tests/StagesPanel.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/StagesPanel/tests/StagesPanel.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/StagesPanel/tests/StagesPanel.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "vitest run src/components/StagesPanel/tests/StagesPanel.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/StagesPanel/tests/StagesPanel.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/stage-name.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/stage-name.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/stage-name.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "vitest run src/utils/tests/stage-name.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/stage-name.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/stage-progress.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/stage-progress.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/stage-progress.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-stages",
+          "command": "vitest run src/utils/tests/stage-progress.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/stage-progress.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/StageIcon/tests/StageIcon.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/StageItem/tests/StageItem.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/StageMarkdownContent/tests/StageCodeBlock.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/StagesPanel/tests/StagesPanel.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/stage-name.spec.ts",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/stage-progress.spec.ts"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx",
+          "test-ci--src/components/StageIcon/tests/StageIcon.spec.tsx",
+          "test-ci--src/components/StageItem/tests/StageItem.spec.tsx",
+          "test-ci--src/components/StageMarkdownContent/tests/StageCodeBlock.spec.tsx",
+          "test-ci--src/components/StagesPanel/tests/StagesPanel.spec.tsx",
+          "test-ci--src/utils/tests/stage-name.spec.ts",
+          "test-ci--src/utils/tests/stage-progress.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-conversation-stages --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx",
+          "test-ci--src/components/StageIcon/tests/StageIcon.spec.tsx",
+          "test-ci--src/components/StageItem/tests/StageItem.spec.tsx",
+          "test-ci--src/components/StageMarkdownContent/tests/StageCodeBlock.spec.tsx",
+          "test-ci--src/components/StagesPanel/tests/StagesPanel.spec.tsx",
+          "test-ci--src/utils/tests/stage-name.spec.ts",
+          "test-ci--src/utils/tests/stage-progress.spec.ts"
+        ]
+      },
+      "description": "Panel for displaying agent processing stages during LLM response streaming",
+      "js": {
+        "packageName": "@epam/ai-dial-conversation-stages",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-conversation-stages",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/conversation-stages/src/index.ts",
+    "libs/conversation-stages/src/vite-env.d.ts",
+    "libs/conversation-stages/src/components/CollapsedGroup/CollapsedGroup.tsx",
+    "libs/conversation-stages/src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx",
+    "libs/conversation-stages/src/components/CollapsedGroup/CollapsedGroup.module.scss",
+    "libs/conversation-stages/src/components/StagesPanel/StagesPanel.module.scss",
+    "libs/conversation-stages/src/components/StagesPanel/tests/StagesPanel.spec.tsx",
+    "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+    "libs/conversation-stages/src/components/StageIcon/StageIcon.tsx",
+    "libs/conversation-stages/src/components/StageIcon/tests/StageIcon.spec.tsx",
+    "libs/conversation-stages/src/components/StageItem/StageItem.tsx",
+    "libs/conversation-stages/src/components/StageItem/tests/StageItem.spec.tsx",
+    "libs/conversation-stages/src/components/StageMarkdownContent/StageMarkdownContent.tsx",
+    "libs/conversation-stages/src/components/StageMarkdownContent/tests/StageCodeBlock.spec.tsx",
+    "libs/conversation-stages/src/components/StageMarkdownContent/StageCodeBlock.tsx",
+    "libs/conversation-stages/src/models/stage-grouping.ts",
+    "libs/conversation-stages/src/models/stages-props.ts",
+    "libs/conversation-stages/src/models/collapsed-group.ts",
+    "libs/conversation-stages/src/utils/stage-name.ts",
+    "libs/conversation-stages/src/utils/stage-grouping.ts",
+    "libs/conversation-stages/src/utils/tests/stage-progress.spec.ts",
+    "libs/conversation-stages/src/utils/tests/stage-name.spec.ts",
+    "libs/conversation-stages/src/utils/stage-progress.ts",
+    "libs/conversation-stages/src/constants/public-class-names.ts",
+    "libs/conversation-stages/tsconfig.spec.json",
+    "libs/conversation-stages/eslint.config.mjs",
+    "libs/conversation-stages/postcss.config.js",
+    "libs/conversation-stages/tsconfig.lib.json",
+    "libs/conversation-stages/tsconfig.json",
+    "libs/conversation-stages/package.json",
+    "libs/conversation-stages/vite.config.mts",
+    "libs/conversation-stages/README.md",
+    "libs/conversation-stages/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/conversation-stages/src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx",
+    "libs/conversation-stages/src/components/StagesPanel/tests/StagesPanel.spec.tsx",
+    "libs/conversation-stages/src/components/StageIcon/tests/StageIcon.spec.tsx",
+    "libs/conversation-stages/src/components/StageItem/tests/StageItem.spec.tsx",
+    "libs/conversation-stages/src/components/StageMarkdownContent/tests/StageCodeBlock.spec.tsx",
+    "libs/conversation-stages/src/utils/tests/stage-progress.spec.ts",
+    "libs/conversation-stages/src/utils/tests/stage-name.spec.ts",
+    "libs/conversation-stages/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+    "apps/chat/src/components/ConversationView/tests/ConversationMessageItem.spec.tsx"
+  ],
+  "readme": "# @epam/ai-dial-conversation-stages\n\nPanel component for displaying the processing stages of an agent or LLM response during streaming.\n\n## Overview\n\n`@epam/ai-dial-conversation-stages` visualises the intermediate reasoning and execution steps that an AI agent or model produces while streaming a response. When a model performs tool calls, retrieval operations, or multi-step reasoning, users benefit from seeing the progress rather than staring at a blank loading state. This library renders that progress as a live list of labelled stages, each showing a running spinner, a completed check, or a failure icon, with expandable markdown content, per-stage copy buttons, and attempt/duration badges for retried steps. Related stages can be wrapped in a `CollapsedGroup` whose single summary line tracks the run, keeping the panel compact during long agentic runs. Use this library in any conversation view that consumes streamed agent responses; it takes the `Stage[]` array from `@epam/ai-dial-chat-shared` directly and handles all display transitions internally.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-conversation-stages\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-conversation-stages/styles.css';\n```\n\n## Peer Dependencies\n\n- `react`\n- `@epam/ai-dial-chat-shared`\n- `@epam/ai-dial-ui-kit`\n- `@epam/ai-dial-conversation-input`\n\n## Components\n\n### StagesPanel\n\nRenders the full list of stages for the current response. `stages` and `isStreaming` are both required \u2014 while `isStreaming` is `true`, every stage with `status: null` shows a live spinner. A completed check is rendered only after that stage explicitly receives `status: \"completed\"`.\n\n```tsx\nimport { StagesPanel } from '@epam/ai-dial-conversation-stages';\n\n<StagesPanel\n  stages={message.stages}\n  isStreaming={isStreaming}\n  labels={{\n    copyAriaLabel: 'Copy',\n    runningAriaLabel: 'Running',\n    failedAriaLabel: 'Failed',\n    attemptLabel: (n) => `Attempt ${n}`,\n  }}\n/>;\n```\n\n### CollapsedGroup\n\nWraps `StagesPanel` with a collapsible summary line whose text and default open/closed state track the run. Takes the same `stages` / `isStreaming` inputs; several labels are functions so the host controls plural rules.\n\n```tsx\nimport { CollapsedGroup } from '@epam/ai-dial-conversation-stages';\n\n<CollapsedGroup\n  stages={message.stages}\n  isStreaming={isStreaming}\n  labels={{\n    executedLabel: 'Executed',\n    stepsLabel: (count) => `${count} steps`,\n    failedCountLabel: (failedCount) => `${failedCount} failed`,\n    runningStepLabel: (current, total) => `Step ${current} of ${total}`,\n  }}\n  styles={{ panel: { stageTextColor: 'var(--text-secondary)' } }}\n/>;\n```\n\n`CollapsedGroupStyles.panel` is typed `StagesPanelColors` and is forwarded to the\ninner `StagesPanel`, so the group and the panel it wraps are themed from one\nplace.\n\nWhen finished stage names include duration metadata with a start timestamp,\nsuch as `(7.18s, Start: 11:21:38, End: 11:21:45)`, the summary reports the\nelapsed union of those intervals. Parallel stages therefore contribute time\nonly once. For legacy duration-only names such as `[3.99s]`, it falls back to\nsumming the available durations.\n\n## Types\n\n```tsx\nimport type {\n  StagesPanelProps,\n  StagesPanelColors,\n  StagesPanelStyles,\n  StagesPanelLabels,\n  StageTypography,\n  CollapsedGroupProps,\n  CollapsedGroupColors,\n  CollapsedGroupStyles,\n  CollapsedGroupTypography,\n  CollapsedGroupLabels,\n} from '@epam/ai-dial-conversation-stages';\n```\n\n### Stage\n\nThe stage shape itself is not defined here \u2014 both components accept\n`Stage[]` from `@epam/ai-dial-chat-shared`, which is the same type the chat\nstream delivers:\n\n```tsx\nimport type { Stage } from '@epam/ai-dial-chat-shared';\n```\n\nA stage with `status: null` is still executing; `isStreaming` controls whether\nthat unresolved state is animated with a live spinner.\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. Selected\nelements therefore carry a stable public class.\n\n| Key           | Class                                   | Element                                                       |\n| ------------- | --------------------------------------- | ------------------------------------------------------------- |\n| `panel`       | `dial-conversation-stages-panel`        | The stages panel root, which carries the themed CSS variables |\n| `group`       | `dial-conversation-stages-group`        | The root of a `CollapsedGroup`                                |\n| `groupToggle` | `dial-conversation-stages-group-toggle` | Its summary line, which expands and collapses the group       |\n\n```tsx\nimport { CONVERSATION_STAGES_CLASS } from '@epam/ai-dial-conversation-stages';\n\nCONVERSATION_STAGES_CLASS.groupToggle; // 'dial-conversation-stages-group-toggle'\n```\n\nThe retry-attempt row inside `StagesPanel` has its own collapse control and\ncarries no public class: it is an internal row of the panel rather than the\ngroup a host collapses.\n\nThe classes carry no declarations of their own: nothing in `styles.css`\nselects on them, so they change nothing until a host writes a rule. Renaming\none, or moving it to a different element, is a breaking change. The convention\nis in [`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/conversation-stages/src/index.ts": "export { CollapsedGroup } from './components/CollapsedGroup/CollapsedGroup';\nexport { StagesPanel } from './components/StagesPanel/StagesPanel';\nexport type {\n  CollapsedGroupColors,\n  CollapsedGroupLabels,\n  CollapsedGroupProps,\n  CollapsedGroupStyles,\n  CollapsedGroupTypography,\n} from './models/collapsed-group';\nexport type {\n  StagesPanelColors,\n  StagesPanelLabels,\n  StagesPanelProps,\n  StagesPanelStyles,\n  StageTypography,\n} from './models/stages-props';\nexport { CONVERSATION_STAGES_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/conversation-stages/src/index.ts": [
+      {
+        "name": "CollapsedGroup",
+        "file": "libs/conversation-stages/src/components/CollapsedGroup/CollapsedGroup.tsx",
+        "start": 31,
+        "end": 276,
+        "declaration": "CollapsedGroup: FC<CollapsedGroupProps> = ({\n  stages,\n  isStreaming,\n  labels,\n  className,\n  styles: groupStyles,\n}) => {\n  const {\n    executedLabel = 'Executed',\n    stepsLabel = () => 'steps',\n    failedCountLabel = (n: number) => `${n} failed`,\n    runningStepLabel = (current: number, total: number) =>\n      `Step ${current} of ${total}`,\n    runningAriaLabel = 'Running',\n    copyAriaLabel,\n    failedAriaLabel,\n    attemptLabel,\n  } = labels ?? {};\n\n  const [isOpen, setIsOpen] = useState(isStreaming);\n  const wasStreamingRef = useRef(isStreaming);\n  useEffect(() => {\n    if (wasStreamingRef.current && !isStreaming) {\n      // The run just finished \u2014 collapse to the one-line summary.\n      setIsOpen(false);\n    }\n    wasStreamingRef.current = isStreaming;\n  }, [isStreaming]);\n\n  const { colors, panel: panelColors } = groupStyles ?? {};\n\n  const summaryTypography = groupStyles?.typography ?? {\n    fontClassName: 'dial-small-text',\n  };\n  const cssVars = buildCssVars({\n    '--cs-cg-label': colors?.labelColor,\n    '--cs-cg-label-hover': colors?.labelHoverColor,\n    '--cs-cg-steps-count': colors?.stepsCountColor,\n    '--cs-cg-done': colors?.doneColor,\n    '--cs-cg-failed': colors?.failedColor,\n    '--cs-text': panelColors?.text,\n    '--cs-row-hover': panelColors?.rowHoverColor,\n    '--cs-button-bg': panelColors?.collapsedButtonBg,\n    '--cs-stage-text': panelColors?.stageTextColor,\n    '--cs-failed-text': panelColors?.failedColor,\n    '--cs-tag-text': panelColors?.tagTextColor,\n    '--cs-count-text': panelColors?.countTextColor,\n    '--cs-duration-text': panelColors?.durationTextColor,\n    '--cs-icon-secondary': panelColors?.iconSecondaryColor,\n    '--cs-icon-completed': panelColors?.iconCompletedColor,\n    '--cs-icon-error': panelColors?.iconErrorColor,\n    '--cs-code-bg': panelColors?.codeBg,\n    '--cs-code-border': panelColors?.codeBorderColor,\n    '--cs-code-text': panelColors?.codeTextColor,\n    '--cs-border': panelColors?.borderColor,\n  });\n\n  if (stages.length === 0) return null;\n\n  const panelLabels = {\n    copyAriaLabel,\n    runningAriaLabel,\n    failedAriaLabel,\n    attemptLabel,\n  };\n\n  if (stages.length === 1) {\n    return (\n      <StagesPanel\n        stages={stages}\n        isStreaming={isStreaming}\n        className={className}\n        styles={{ colors: panelColors, typography: groupStyles?.typography }}\n        labels={panelLabels}\n      />\n    );\n  }\n\n  const hasFailed = stages.some((s) => s.status === StageStatus.Failed);\n  const totalSeconds = calculateStagesDurationSeconds(\n    stages.map((stage) => stage.name),\n  );\n  const totalDurationLabel =\n    totalSeconds > 0 ? formatTotalDuration(totalSeconds) : undefined;\n\n  const liveStage = isStreaming ? findLiveStage(stages) : undefined;\n\n  let summary;\n  if (isStreaming) {\n    const position = liveStage\n      ? stagePosition(stages, liveStage)\n      : stages.length;\n    const liveName = liveStage ? cleanStageName(liveStage.name).name : '';\n    summary = (\n      <span\n        role=\"status\"\n        aria-live=\"polite\"\n        className=\"flex min-w-0 items-center gap-2\"\n      >\n        <span className=\"flex flex-none items-center\">\n          <Spinner size={14} ariaLabel={runningAriaLabel} />\n        </span>\n        <span\n          className={mergeClasses(\n            'flex-none whitespace-nowrap',\n            summaryTypography.fontClassName,\n            styles.liveName,\n          )}\n        >\n          {runningStepLabel(position, stages.length)}\n        </span>\n        {liveName && (\n          <span\n            className={mergeClasses(\n              'min-w-0 max-w-[22rem] truncate',\n              summaryTypography.fontClassName,\n              styles.executedLabel,\n            )}\n          >\n            <EllipsisTooltip text={liveName} />\n          </span>\n        )}\n      </span>\n    );\n  } else if (hasFailed) {\n    const failedCount = stages.filter(\n      (s) => s.status === StageStatus.Failed,\n    ).length;\n    summary = (\n      <span className=\"inline-flex items-center gap-1\">\n        <span\n          className={mergeClasses(\n            summaryTypography.fontClassName,\n            styles.executedLabel,\n          )}\n        >\n          {executedLabel} {stages.length} {stepsLabel(stages.length)}\n        </span>\n        <span\n          className={mergeClasses(\n            summaryTypography.fontClassName,\n            styles.failedText,\n          )}\n        >\n          {failedCountLabel(failedCount)}\n        </span>\n        {totalDurationLabel && (\n          <span\n            className={mergeClasses(\n              summaryTypography.fontClassName,\n              styles.stepsCount,\n            )}\n          >\n            {totalDurationLabel}\n          </span>\n        )}\n      </span>\n    );\n  } else {\n    summary = (\n      <span className=\"inline-flex items-center gap-1\">\n        <IconCheck\n          size={DIAL_ICON_SIZE.SM}\n          className={styles.doneIcon}\n          aria-hidden\n          stroke={DIAL_KIT_ICON_STROKE}\n        />\n        <span\n          className={mergeClasses(\n            summaryTypography.fontClassName,\n            styles.executedLabel,\n          )}\n        >\n          {executedLabel} {stages.length} {stepsLabel(stages.length)}\n        </span>\n        {totalDurationLabel && (\n          <span\n            className={mergeClasses(\n              summaryTypography.fontClassName,\n              styles.stepsCount,\n            )}\n          >\n            {totalDurationLabel}\n          </span>\n        )}\n      </span>\n    );\n  }\n\n  return (\n    <div\n      style={cssVars}\n      className={mergeClasses(\n        'flex w-full flex-col gap-1',\n        className,\n        CONVERSATION_STAGES_CLASS.group,\n      )}\n    >\n      <LinkButton\n        className={mergeClasses(\n          styles.toggleButton,\n          CONVERSATION_STAGES_CLASS.groupToggle,\n        )}\n        textClassName=\"min-w-0\"\n        onClick={() => setIsOpen((prev) => !prev)}\n        aria-expanded={isOpen}\n        iconAfter={\n          isOpen ? (\n            <IconChevronDown\n              size={12}\n              aria-hidden\n              stroke={DIAL_KIT_ICON_STROKE}\n            />\n          ) : (\n            <IconChevronRight\n              size={12}\n              className=\"rtl:scale-x-[-1]\"\n              aria-hidden\n              stroke={DIAL_KIT_ICON_STROKE}\n            />\n          )\n        }\n        label={summary}\n      />\n      <div\n        className={mergeClasses(\n          'grid transition-[grid-template-rows] duration-300 ease-in-out',\n          isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',\n        )}\n      >\n        <div className=\"overflow-hidden\">\n          <StagesPanel\n            stages={stages}\n            isStreaming={isStreaming}\n            styles={{\n              colors: panelColors,\n              typography: groupStyles?.typography,\n            }}\n            labels={panelLabels}\n            className=\"pt-1\"\n          />\n        </div>\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: CollapsedGroupProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "stages",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-chat-shared\").Stage[]"
+          },
+          {
+            "name": "isStreaming",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").CollapsedGroupLabels | undefined"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").CollapsedGroupStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "StagesPanel",
+        "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+        "start": 161,
+        "end": 229,
+        "declaration": "StagesPanel: FC<StagesPanelProps> = ({\n  stages,\n  isStreaming,\n  className,\n  styles: panelStyles,\n  labels,\n}) => {\n  const { colors, typography } = panelStyles ?? {};\n\n  const cssVars = buildCssVars({\n    '--cs-text': colors?.text,\n    '--cs-row-hover': colors?.rowHoverColor,\n    '--cs-button-bg': colors?.collapsedButtonBg,\n    '--cs-stage-text': colors?.stageTextColor,\n    '--cs-failed-text': colors?.failedColor,\n    '--cs-tag-text': colors?.tagTextColor,\n    '--cs-count-text': colors?.countTextColor,\n    '--cs-duration-text': colors?.durationTextColor,\n    '--cs-icon-secondary': colors?.iconSecondaryColor,\n    '--cs-icon-completed': colors?.iconCompletedColor,\n    '--cs-icon-error': colors?.iconErrorColor,\n    '--cs-code-bg': colors?.codeBg,\n    '--cs-code-border': colors?.codeBorderColor,\n    '--cs-code-text': colors?.codeTextColor,\n    '--cs-border': colors?.borderColor,\n  });\n\n  const rows = groupStagesByName(stages);\n\n  return (\n    <div\n      style={cssVars}\n      className={mergeClasses(\n        'w-full',\n        styles.panel,\n        className,\n        CONVERSATION_STAGES_CLASS.panel,\n      )}\n    >\n      <ul role=\"list\" className=\"flex w-full flex-col gap-0.5 ps-5\">\n        {rows.map((row) =>\n          row.stage ? (\n            <li key={row.key} role=\"listitem\">\n              <StageItem\n                stage={row.stage}\n                isLive={isStreaming && row.stage.status == null}\n                typography={typography}\n                labels={labels}\n              />\n            </li>\n          ) : (\n            <li key={row.key} role=\"listitem\">\n              <StageGroupRow\n                row={row}\n                isLive={\n                  isStreaming &&\n                  (row.attempts?.some((attempt) => attempt.status == null) ??\n                    false)\n                }\n                typography={typography}\n                labels={labels}\n              />\n            </li>\n          ),\n        )}\n      </ul>\n    </div>\n  );\n}",
+        "signature": "(props: StagesPanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "stages",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-chat-shared\").Stage[]"
+          },
+          {
+            "name": "isStreaming",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").StagesPanelStyles | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "StagesPanelLabels | undefined"
+          }
+        ]
+      },
+      {
+        "name": "CollapsedGroupColors",
+        "file": "libs/conversation-stages/src/models/collapsed-group.ts",
+        "start": 5,
+        "end": 16,
+        "declaration": "export interface CollapsedGroupColors {\n  /** Color of the toggle button label and icon. */\n  labelColor?: string;\n  /** Color of the toggle button label and icon on hover. */\n  labelHoverColor?: string;\n  /** Color of the execution time. */\n  stepsCountColor?: string;\n  /** Color of the leading check icon in the finished-and-successful summary. */\n  doneColor?: string;\n  /** Color of the \"N failed\" text in the failed summary. */\n  failedColor?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "CollapsedGroupLabels",
+        "file": "libs/conversation-stages/src/models/collapsed-group.ts",
+        "start": 35,
+        "end": 52,
+        "declaration": "export interface CollapsedGroupLabels {\n  /** Label shown before the steps count on the toggle button. Defaults to `'Executed'`. */\n  executedLabel?: string;\n  /** Returns the pluralized steps label. Defaults to `() => 'steps'`. */\n  stepsLabel?: (count: number) => string;\n  /** Returns the \"N failed\" text in the failed summary. Defaults to `(n) => \\`${n} failed\\``. */\n  failedCountLabel?: (failedCount: number) => string;\n  /** Returns the \"Step X of Y\" text in the running summary. Defaults to `(current, total) => \\`Step ${current} of ${total}\\``. */\n  runningStepLabel?: (current: number, total: number) => string;\n  /** Accessible label announced for the running summary's spinner. Defaults to `'Running'`. */\n  runningAriaLabel?: string;\n  /** Accessible label for the copy button on each stage's content. Defaults to `'Copy'`. */\n  copyAriaLabel?: string;\n  /** Visually-hidden label announced alongside a failed stage's icon. Defaults to `'Failed'`. */\n  failedAriaLabel?: string;\n  /** Returns the label for a single attempt inside a collapsed `\u00d7N` group. Defaults to `(n) => \\`Attempt ${n}\\``. */\n  attemptLabel?: (attemptNumber: number) => string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "CollapsedGroupProps",
+        "file": "libs/conversation-stages/src/models/collapsed-group.ts",
+        "start": 55,
+        "end": 66,
+        "declaration": "export interface CollapsedGroupProps {\n  /** Ordered list of stages to display. */\n  stages: Stage[];\n  /** When true, expands to a live progress line; collapses to a summary once streaming ends. */\n  isStreaming: boolean;\n  /** User-visible strings for the toggle button. */\n  labels?: CollapsedGroupLabels;\n  /** Extra class name(s) merged onto the outer wrapper. */\n  className?: string;\n  /** Color and typography overrides applied as CSS custom properties. */\n  styles?: CollapsedGroupStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "CollapsedGroupStyles",
+        "file": "libs/conversation-stages/src/models/collapsed-group.ts",
+        "start": 25,
+        "end": 32,
+        "declaration": "export interface CollapsedGroupStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: CollapsedGroupColors;\n  /** Typography for the toggle button label. */\n  typography?: CollapsedGroupTypography;\n  /** Color overrides forwarded to the inner `StagesPanel`. */\n  panel?: StagesPanelColors;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "CollapsedGroupTypography",
+        "file": "libs/conversation-stages/src/models/collapsed-group.ts",
+        "start": 19,
+        "end": 22,
+        "declaration": "export interface CollapsedGroupTypography {\n  /** CSS utility class applied to the toggle button label. Defaults to `'dial-small-text'`. */\n  fontClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "StagesPanelColors",
+        "file": "libs/conversation-stages/src/models/stages-props.ts",
+        "start": 24,
+        "end": 55,
+        "declaration": "export interface StagesPanelColors {\n  /** General text color. Defaults to `--text-primary`. */\n  text?: string;\n  /** Background tint on row hover. Defaults to `--bg-layer-sunken`. */\n  rowHoverColor?: string;\n  /** Text color of each stage name. Defaults to `--text-secondary`. */\n  stageTextColor?: string;\n  /** Text and icon color for a failed stage. Defaults to `--text-warning`. */\n  failedColor?: string;\n  /** Background color of the collapse button. Defaults to transparent. */\n  collapsedButtonBg?: string;\n  /** Text color of stage tag labels. Defaults to `--text-tertiary`. */\n  tagTextColor?: string;\n  /** Text color of the attempt count badge (e.g. `\u00d7N`). Defaults to `--text-tertiary`. */\n  countTextColor?: string;\n  /** Text color of the total-duration label. Defaults to `--text-tertiary`. */\n  durationTextColor?: string;\n  /** Color of secondary (non-status) icons. Defaults to `--text-secondary` at 70% opacity. */\n  iconSecondaryColor?: string;\n  /** Color of the completed-check icon. Defaults to `--text-tertiary`. */\n  iconCompletedColor?: string;\n  /** Color of the error/exception icon. Defaults to `--text-warning`. */\n  iconErrorColor?: string;\n  /** Background color of fenced code blocks and inline code. Defaults to `--bg-layer-raised`. */\n  codeBg?: string;\n  /** Border color of fenced code blocks and inline code. Defaults to `--stroke-secondary`. */\n  codeBorderColor?: string;\n  /** Text color inside code blocks. Defaults to `--text-primary`. */\n  codeTextColor?: string;\n  /** Border color used for table cells and blockquotes. Defaults to `--stroke-secondary`. */\n  borderColor?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "StagesPanelLabels",
+        "file": "libs/conversation-stages/src/models/stages-props.ts",
+        "start": 66,
+        "end": 75,
+        "declaration": "export interface StagesPanelLabels {\n  /** Accessible label for the copy button on each stage's content. Defaults to `'Copy'`. */\n  copyAriaLabel?: string;\n  /** Accessible label announced for a running stage's spinner. Defaults to `'Running'`. */\n  runningAriaLabel?: string;\n  /** Visually-hidden label announced alongside a failed stage's icon. Defaults to `'Failed'`. */\n  failedAriaLabel?: string;\n  /** Label for a single attempt given its 1-based number. Defaults to `(n) => \\`Attempt ${n}\\``. */\n  attemptLabel?: (attemptNumber: number) => string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "StagesPanelProps",
+        "file": "libs/conversation-stages/src/models/stages-props.ts",
+        "start": 78,
+        "end": 89,
+        "declaration": "export interface StagesPanelProps {\n  /** Ordered list of stages to display. */\n  stages: Stage[];\n  /** When `true`, every stage with `status: null` shows a live spinner. */\n  isStreaming: boolean;\n  /** Extra class name(s) merged onto the outer wrapper. */\n  className?: string;\n  /** Color and typography overrides applied as CSS custom properties. */\n  styles?: StagesPanelStyles;\n  /** User-visible strings. */\n  labels?: StagesPanelLabels;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "StagesPanelStyles",
+        "file": "libs/conversation-stages/src/models/stages-props.ts",
+        "start": 58,
+        "end": 63,
+        "declaration": "export interface StagesPanelStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: StagesPanelColors;\n  /** Typography applied to the stage name and expanded content. */\n  typography?: StageTypography;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "StageTypography",
+        "file": "libs/conversation-stages/src/models/stages-props.ts",
+        "start": 4,
+        "end": 21,
+        "declaration": "export interface StageTypography {\n  /** CSS utility class applied to the stage/step name. Defaults to `'dial-small-text'`. */\n  fontClassName?: string;\n  /** CSS utility class applied to expanded content text elements (paragraphs, lists, blockquotes, links, table cells). Defaults to `'dial-tiny-text'`. */\n  contentClassName?: string;\n  /** CSS utility class applied to `<strong>` (bold markdown) inside expanded content. Falls back to `contentClassName`, then `'dial-tiny-text'`. */\n  strongClassName?: string;\n  /** CSS utility class applied to every heading level (`h1`\u2013`h6`) inside expanded content. Defaults to `'dial-small-semi-text'`. */\n  headingClassName?: string;\n  /** CSS utility class applied to inline code elements. Defaults to `'dial-code-text rounded-md'`. */\n  codeClassName?: string;\n  /** CSS utility class applied to fenced code blocks (`<pre>`). Defaults to `'dial-code-text'`. */\n  codeBlockClassName?: string;\n  /** CSS utility class applied to count badges (e.g. `\u00d7N` collapsed group). Defaults to `'dial-tiny-text'`. */\n  countFontClassName?: string;\n  /** CSS utility class applied to a stage's tag label. Defaults to `'dial-tiny-lead-text'`, which uppercases the label itself. */\n  tagClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "CONVERSATION_STAGES_CLASS",
+        "file": "libs/conversation-stages/src/constants/public-class-names.ts",
+        "start": 11,
+        "end": 18,
+        "declaration": "CONVERSATION_STAGES_CLASS = {\n  /** The stages panel root, which carries the themed CSS variables. */\n  panel: 'dial-conversation-stages-panel',\n  /** The root of a `CollapsedGroup`, wrapping its summary line and the panel. */\n  group: 'dial-conversation-stages-group',\n  /** The summary line of a `CollapsedGroup`, which expands and collapses it. */\n  groupToggle: 'dial-conversation-stages-group-toggle',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "CollapsedGroup",
+      "file": "libs/conversation-stages/src/components/CollapsedGroup/CollapsedGroup.tsx",
+      "start": 31,
+      "end": 276,
+      "declaration": "CollapsedGroup: FC<CollapsedGroupProps> = ({\n  stages,\n  isStreaming,\n  labels,\n  className,\n  styles: groupStyles,\n}) => {\n  const {\n    executedLabel = 'Executed',\n    stepsLabel = () => 'steps',\n    failedCountLabel = (n: number) => `${n} failed`,\n    runningStepLabel = (current: number, total: number) =>\n      `Step ${current} of ${total}`,\n    runningAriaLabel = 'Running',\n    copyAriaLabel,\n    failedAriaLabel,\n    attemptLabel,\n  } = labels ?? {};\n\n  const [isOpen, setIsOpen] = useState(isStreaming);\n  const wasStreamingRef = useRef(isStreaming);\n  useEffect(() => {\n    if (wasStreamingRef.current && !isStreaming) {\n      // The run just finished \u2014 collapse to the one-line summary.\n      setIsOpen(false);\n    }\n    wasStreamingRef.current = isStreaming;\n  }, [isStreaming]);\n\n  const { colors, panel: panelColors } = groupStyles ?? {};\n\n  const summaryTypography = groupStyles?.typography ?? {\n    fontClassName: 'dial-small-text',\n  };\n  const cssVars = buildCssVars({\n    '--cs-cg-label': colors?.labelColor,\n    '--cs-cg-label-hover': colors?.labelHoverColor,\n    '--cs-cg-steps-count': colors?.stepsCountColor,\n    '--cs-cg-done': colors?.doneColor,\n    '--cs-cg-failed': colors?.failedColor,\n    '--cs-text': panelColors?.text,\n    '--cs-row-hover': panelColors?.rowHoverColor,\n    '--cs-button-bg': panelColors?.collapsedButtonBg,\n    '--cs-stage-text': panelColors?.stageTextColor,\n    '--cs-failed-text': panelColors?.failedColor,\n    '--cs-tag-text': panelColors?.tagTextColor,\n    '--cs-count-text': panelColors?.countTextColor,\n    '--cs-duration-text': panelColors?.durationTextColor,\n    '--cs-icon-secondary': panelColors?.iconSecondaryColor,\n    '--cs-icon-completed': panelColors?.iconCompletedColor,\n    '--cs-icon-error': panelColors?.iconErrorColor,\n    '--cs-code-bg': panelColors?.codeBg,\n    '--cs-code-border': panelColors?.codeBorderColor,\n    '--cs-code-text': panelColors?.codeTextColor,\n    '--cs-border': panelColors?.borderColor,\n  });\n\n  if (stages.length === 0) return null;\n\n  const panelLabels = {\n    copyAriaLabel,\n    runningAriaLabel,\n    failedAriaLabel,\n    attemptLabel,\n  };\n\n  if (stages.length === 1) {\n    return (\n      <StagesPanel\n        stages={stages}\n        isStreaming={isStreaming}\n        className={className}\n        styles={{ colors: panelColors, typography: groupStyles?.typography }}\n        labels={panelLabels}\n      />\n    );\n  }\n\n  const hasFailed = stages.some((s) => s.status === StageStatus.Failed);\n  const totalSeconds = calculateStagesDurationSeconds(\n    stages.map((stage) => stage.name),\n  );\n  const totalDurationLabel =\n    totalSeconds > 0 ? formatTotalDuration(totalSeconds) : undefined;\n\n  const liveStage = isStreaming ? findLiveStage(stages) : undefined;\n\n  let summary;\n  if (isStreaming) {\n    const position = liveStage\n      ? stagePosition(stages, liveStage)\n      : stages.length;\n    const liveName = liveStage ? cleanStageName(liveStage.name).name : '';\n    summary = (\n      <span\n        role=\"status\"\n        aria-live=\"polite\"\n        className=\"flex min-w-0 items-center gap-2\"\n      >\n        <span className=\"flex flex-none items-center\">\n          <Spinner size={14} ariaLabel={runningAriaLabel} />\n        </span>\n        <span\n          className={mergeClasses(\n            'flex-none whitespace-nowrap',\n            summaryTypography.fontClassName,\n            styles.liveName,\n          )}\n        >\n          {runningStepLabel(position, stages.length)}\n        </span>\n        {liveName && (\n          <span\n            className={mergeClasses(\n              'min-w-0 max-w-[22rem] truncate',\n              summaryTypography.fontClassName,\n              styles.executedLabel,\n            )}\n          >\n            <EllipsisTooltip text={liveName} />\n          </span>\n        )}\n      </span>\n    );\n  } else if (hasFailed) {\n    const failedCount = stages.filter(\n      (s) => s.status === StageStatus.Failed,\n    ).length;\n    summary = (\n      <span className=\"inline-flex items-center gap-1\">\n        <span\n          className={mergeClasses(\n            summaryTypography.fontClassName,\n            styles.executedLabel,\n          )}\n        >\n          {executedLabel} {stages.length} {stepsLabel(stages.length)}\n        </span>\n        <span\n          className={mergeClasses(\n            summaryTypography.fontClassName,\n            styles.failedText,\n          )}\n        >\n          {failedCountLabel(failedCount)}\n        </span>\n        {totalDurationLabel && (\n          <span\n            className={mergeClasses(\n              summaryTypography.fontClassName,\n              styles.stepsCount,\n            )}\n          >\n            {totalDurationLabel}\n          </span>\n        )}\n      </span>\n    );\n  } else {\n    summary = (\n      <span className=\"inline-flex items-center gap-1\">\n        <IconCheck\n          size={DIAL_ICON_SIZE.SM}\n          className={styles.doneIcon}\n          aria-hidden\n          stroke={DIAL_KIT_ICON_STROKE}\n        />\n        <span\n          className={mergeClasses(\n            summaryTypography.fontClassName,\n            styles.executedLabel,\n          )}\n        >\n          {executedLabel} {stages.length} {stepsLabel(stages.length)}\n        </span>\n        {totalDurationLabel && (\n          <span\n            className={mergeClasses(\n              summaryTypography.fontClassName,\n              styles.stepsCount,\n            )}\n          >\n            {totalDurationLabel}\n          </span>\n        )}\n      </span>\n    );\n  }\n\n  return (\n    <div\n      style={cssVars}\n      className={mergeClasses(\n        'flex w-full flex-col gap-1',\n        className,\n        CONVERSATION_STAGES_CLASS.group,\n      )}\n    >\n      <LinkButton\n        className={mergeClasses(\n          styles.toggleButton,\n          CONVERSATION_STAGES_CLASS.groupToggle,\n        )}\n        textClassName=\"min-w-0\"\n        onClick={() => setIsOpen((prev) => !prev)}\n        aria-expanded={isOpen}\n        iconAfter={\n          isOpen ? (\n            <IconChevronDown\n              size={12}\n              aria-hidden\n              stroke={DIAL_KIT_ICON_STROKE}\n            />\n          ) : (\n            <IconChevronRight\n              size={12}\n              className=\"rtl:scale-x-[-1]\"\n              aria-hidden\n              stroke={DIAL_KIT_ICON_STROKE}\n            />\n          )\n        }\n        label={summary}\n      />\n      <div\n        className={mergeClasses(\n          'grid transition-[grid-template-rows] duration-300 ease-in-out',\n          isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',\n        )}\n      >\n        <div className=\"overflow-hidden\">\n          <StagesPanel\n            stages={stages}\n            isStreaming={isStreaming}\n            styles={{\n              colors: panelColors,\n              typography: groupStyles?.typography,\n            }}\n            labels={panelLabels}\n            className=\"pt-1\"\n          />\n        </div>\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: CollapsedGroupProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "stages",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-chat-shared\").Stage[]"
+        },
+        {
+          "name": "isStreaming",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").CollapsedGroupLabels | undefined"
+        },
+        {
+          "name": "className",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").CollapsedGroupStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "StagesPanel",
+      "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+      "start": 161,
+      "end": 229,
+      "declaration": "StagesPanel: FC<StagesPanelProps> = ({\n  stages,\n  isStreaming,\n  className,\n  styles: panelStyles,\n  labels,\n}) => {\n  const { colors, typography } = panelStyles ?? {};\n\n  const cssVars = buildCssVars({\n    '--cs-text': colors?.text,\n    '--cs-row-hover': colors?.rowHoverColor,\n    '--cs-button-bg': colors?.collapsedButtonBg,\n    '--cs-stage-text': colors?.stageTextColor,\n    '--cs-failed-text': colors?.failedColor,\n    '--cs-tag-text': colors?.tagTextColor,\n    '--cs-count-text': colors?.countTextColor,\n    '--cs-duration-text': colors?.durationTextColor,\n    '--cs-icon-secondary': colors?.iconSecondaryColor,\n    '--cs-icon-completed': colors?.iconCompletedColor,\n    '--cs-icon-error': colors?.iconErrorColor,\n    '--cs-code-bg': colors?.codeBg,\n    '--cs-code-border': colors?.codeBorderColor,\n    '--cs-code-text': colors?.codeTextColor,\n    '--cs-border': colors?.borderColor,\n  });\n\n  const rows = groupStagesByName(stages);\n\n  return (\n    <div\n      style={cssVars}\n      className={mergeClasses(\n        'w-full',\n        styles.panel,\n        className,\n        CONVERSATION_STAGES_CLASS.panel,\n      )}\n    >\n      <ul role=\"list\" className=\"flex w-full flex-col gap-0.5 ps-5\">\n        {rows.map((row) =>\n          row.stage ? (\n            <li key={row.key} role=\"listitem\">\n              <StageItem\n                stage={row.stage}\n                isLive={isStreaming && row.stage.status == null}\n                typography={typography}\n                labels={labels}\n              />\n            </li>\n          ) : (\n            <li key={row.key} role=\"listitem\">\n              <StageGroupRow\n                row={row}\n                isLive={\n                  isStreaming &&\n                  (row.attempts?.some((attempt) => attempt.status == null) ??\n                    false)\n                }\n                typography={typography}\n                labels={labels}\n              />\n            </li>\n          ),\n        )}\n      </ul>\n    </div>\n  );\n}",
+      "signature": "(props: StagesPanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "stages",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-chat-shared\").Stage[]"
+        },
+        {
+          "name": "isStreaming",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "className",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").StagesPanelStyles | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "StagesPanelLabels | undefined"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/conversation-stages/src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx",
+      "assertions": [
+        "renders nothing for an empty stage list",
+        "renders a single stage directly, with no summary wrapper",
+        "collapses to a finished summary line by default once the run finishes",
+        "collapses to a failed summary with the failed count called out",
+        "shows elapsed time without double-counting parallel stages",
+        "is expanded by default while running, showing progress through the live step",
+        "keeps a long live stage name on one truncated line",
+        "announces the running summary via a polite live region",
+        "auto-collapses the moment a running group finishes",
+        "uses the supplied executedLabel/stepsLabel for the finished summary",
+        "stamps the panel root behind a collapsed group",
+        "stamps the group root and its summary toggle"
+      ]
+    },
+    {
+      "file": "libs/conversation-stages/src/components/StagesPanel/tests/StagesPanel.spec.tsx",
+      "assertions": [
+        "renders all stage rows",
+        "applies custom className and the new row-level CSS variable colors",
+        "applies typography.fontClassName to each stage row name",
+        "defaults the row name to dial-small-text and expanded content to dial-tiny-text",
+        "defaults every heading level in expanded content to dial-small-semi-text (14px, semibold)",
+        "applies typography.headingClassName to every heading level in expanded content",
+        "renders a stage with content as a disclosure button that toggles the content",
+        "renders a stage without expandable content as a plain row (no button)",
+        "does not show a running spinner for null-status stages when not streaming",
+        "keeps every null-status stage running until its completed status arrives",
+        "collapses repeated identical names into one \u00d7N row that expands to the individual attempts",
+        "keeps a repeated-stage group running while any attempt is unresolved",
+        "does not double-count overlapping attempts in a collapsed stage row"
+      ]
+    },
+    {
+      "file": "libs/conversation-stages/src/components/StageIcon/tests/StageIcon.spec.tsx",
+      "assertions": [
+        "shows the running spinner when isLive is true, regardless of status",
+        "uses the explicit settled status even when isLive is stale",
+        "shows the failed (exception) icon with a visually-hidden label when not live and failed",
+        "shows the quiet check icon for a completed stage",
+        "does not show a completed check for an unresolved stage that is not live",
+        "supports custom running and failed labels"
+      ]
+    },
+    {
+      "file": "libs/conversation-stages/src/components/StageItem/tests/StageItem.spec.tsx",
+      "assertions": [
+        "renders only the icon and name when no other field has data (minimum row)",
+        "renders the tag only when the stage carries one",
+        "renders the duration only when the name carries one",
+        "renders only the status icon svg (no chevron) when the stage has no expandable content",
+        "renders a second svg (the chevron) once the stage has expandable content",
+        "renders a chevron and becomes a disclosure button when content is present",
+        "strips the trailing colon from a raw identifier and never forces a casing change",
+        "does not re-case prose that already arrived Title Cased",
+        "renders a bare, whitespace-free identifier in monospace",
+        "gives a failed stage a danger-colored name and an accessible failed label",
+        "shows the running spinner for a live unresolved stage",
+        "displays the override name while still reading duration from the real stage name",
+        "never treats an override name as an identifier, even if it looks bare"
+      ]
+    },
+    {
+      "file": "libs/conversation-stages/src/components/StageMarkdownContent/tests/StageCodeBlock.spec.tsx",
+      "assertions": [
+        "renders the code content",
+        "renders the copy button with the provided aria-label",
+        "applies codeClassName to the code element",
+        "calls copyToClipboard with the code text when copy is clicked",
+        "shows the check icon immediately after clicking copy",
+        "reverts to the copy icon after 2 seconds"
+      ]
+    },
+    {
+      "file": "libs/conversation-stages/src/utils/tests/stage-progress.spec.ts",
+      "assertions": [
+        "returns the last stage with a null status",
+        "returns undefined when every stage has settled",
+        "returns undefined for an empty list",
+        "returns the 1-based position of a stage by its index field",
+        "returns 0 when the stage is not present in the list"
+      ]
+    },
+    {
+      "file": "libs/conversation-stages/src/utils/tests/stage-name.spec.ts",
+      "assertions": [
+        "strips a bracketed duration and leaves the rest of the name untouched",
+        "strips a parenthesized duration plus its accompanying timestamps as one group",
+        "strips a trailing colon when there is no duration",
+        "does not strip a colon that is not at the very end",
+        "returns an empty name instead of throwing when given null (DIAL Core \"stage opened\" chunk)",
+        "returns an empty name instead of throwing when given undefined",
+        "does not force Title Case or otherwise rewrite the remaining text",
+        "leaves an unrelated bracket (no duration inside) untouched",
+        "returns the name unchanged with no duration when none is present",
+        "collapses leftover double spaces after removing an embedded duration group",
+        "treats a whitespace-free underscored string as an identifier",
+        "does not treat prose with an embedded identifier as an identifier",
+        "does not treat ordinary prose as an identifier",
+        "does not treat a whitespace-free string with no underscore as an identifier",
+        "returns false for an empty string",
+        "formats sub-minute durations with one decimal place",
+        "formats durations of a minute or more as minutes and whole seconds",
+        "rounds the seconds component when formatting minutes",
+        "parses a duration label back into seconds",
+        "returns undefined for an absent or malformed label",
+        "counts parallel stages once",
+        "counts the union of partially overlapping and sequential stages",
+        "normalizes stages that overlap across midnight",
+        "does not infer a midnight rollover from a wide same-day time range",
+        "falls back to summing durations when a stage has no start timestamp"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+      "matches": [
+        {
+          "start": 33,
+          "end": 43,
+          "excerpt": "  type RequestSkill,\n  type StarterOption,\n  type UploadedAttachmentResult,\n} from '@epam/ai-dial-chat-shared';\nimport {\n  MessageBubble,\n  type MessageActionAriaLabels,\n  type MessageActionTooltips,\n} from '@epam/ai-dial-conversation-messages';\nimport { CollapsedGroup } from '@epam/ai-dial-conversation-stages';\nimport {"
+        }
+      ]
+    }
+  ]
+}

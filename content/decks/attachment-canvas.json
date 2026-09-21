@@ -1,0 +1,535 @@
+{
+  "id": "libs/attachment-canvas",
+  "shortTitle": "Attachment canvas",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-attachment-canvas-01",
+      "title": "Attachment canvas",
+      "layout": "cover",
+      "subtitle": "Preview heterogeneous content through one typed surface.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-attachment-canvas",
+      "notes": "This session explains preview heterogeneous content through one typed surface. The library is a local private workspace package at libs/attachment-canvas. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/attachment-canvas/README.md",
+          "start": 1,
+          "end": 615
+        },
+        {
+          "file": "libs/attachment-canvas/src/index.ts",
+          "start": 1,
+          "end": 89
+        },
+        {
+          "file": "libs/attachment-canvas/package.json",
+          "start": 1,
+          "end": 64
+        },
+        {
+          "file": "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+          "start": 445,
+          "end": 445,
+          "symbol": "AttachmentCanvas"
+        },
+        {
+          "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+          "start": 487,
+          "end": 542,
+          "symbol": "AttachmentCanvasProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-attachment-canvas-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Preview heterogeneous content through one typed surface.",
+      "cards": [
+        {
+          "title": "Inspect evidence",
+          "body": "Open a cited PDF or uploaded text beside a conversation."
+        },
+        {
+          "title": "Choose a renderer",
+          "body": "A content discriminator selects the appropriate view."
+        },
+        {
+          "title": "Extend a workspace",
+          "body": "Add visualizers or MCP content through explicit inputs."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Inspect evidence: Open a cited PDF or uploaded text beside a conversation. Choose a renderer: A content discriminator selects the appropriate view. Extend a workspace: Add visualizers or MCP content through explicit inputs. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/attachment-canvas/README.md",
+          "start": 1,
+          "end": 615
+        },
+        {
+          "file": "libs/attachment-canvas/src/index.ts",
+          "start": 1,
+          "end": 89
+        },
+        {
+          "file": "libs/attachment-canvas/package.json",
+          "start": 1,
+          "end": 64
+        },
+        {
+          "file": "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+          "start": 445,
+          "end": 445,
+          "symbol": "AttachmentCanvas"
+        },
+        {
+          "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+          "start": 487,
+          "end": 542,
+          "symbol": "AttachmentCanvasProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-attachment-canvas-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host resolver",
+          "body": "Content or access failure"
+        },
+        {
+          "title": "Typed content",
+          "body": "AttachmentContentType"
+        },
+        {
+          "title": "AttachmentCanvas",
+          "body": "Lazy viewer"
+        },
+        {
+          "title": "User action",
+          "body": "Close, copy or download"
+        }
+      ],
+      "takeaway": "Library: Viewer selection, panel layout, lazy renderer loading and optional canvas context.",
+      "notes": "The library owns Viewer selection, panel layout, lazy renderer loading and optional canvas context. The host owns File access, resolved content, authorization, deployment settings and download behavior. The direct AttachmentCanvas example is controlled and does not require a provider. The provider is needed for useAttachmentCanvas and the context-based opening flow. The host must supply authenticated loading rather than passing session knowledge into ordinary UI code. The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/attachment-canvas/README.md",
+          "start": 1,
+          "end": 615
+        },
+        {
+          "file": "libs/attachment-canvas/src/index.ts",
+          "start": 1,
+          "end": 89
+        },
+        {
+          "file": "libs/attachment-canvas/package.json",
+          "start": 1,
+          "end": 64
+        },
+        {
+          "file": "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+          "start": 445,
+          "end": 445,
+          "symbol": "AttachmentCanvas"
+        },
+        {
+          "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+          "start": 487,
+          "end": 542,
+          "symbol": "AttachmentCanvasProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-attachment-canvas-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "AttachmentCanvas \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "content",
+          "AttachmentCanvasContent"
+        ],
+        [
+          "isOpen",
+          "boolean"
+        ],
+        [
+          "onClose",
+          "() => void"
+        ],
+        [
+          "labels",
+          "AttachmentCanvasLabels"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. The direct AttachmentCanvas example is controlled and does not require a provider. The provider is needed for useAttachmentCanvas and the context-based opening flow. The host must supply authenticated loading rather than passing session knowledge into ordinary UI code.",
+      "sources": [
+        {
+          "file": "libs/attachment-canvas/README.md",
+          "start": 1,
+          "end": 615
+        },
+        {
+          "file": "libs/attachment-canvas/src/index.ts",
+          "start": 1,
+          "end": 89
+        },
+        {
+          "file": "libs/attachment-canvas/package.json",
+          "start": 1,
+          "end": 64
+        },
+        {
+          "file": "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+          "start": 445,
+          "end": 445,
+          "symbol": "AttachmentCanvas"
+        },
+        {
+          "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+          "start": 487,
+          "end": 542,
+          "symbol": "AttachmentCanvasProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-attachment-canvas-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "<AttachmentCanvas\n  isOpen={open}\n  onClose={() => setOpen(false)}\n  content={{\n    type: AttachmentContentType.PlainText,\n    text: 'Demo evidence',\n  }}\n  labels={{ ariaLabel: 'Demo preview' }}\n/>",
+      "caption": "Full example: examples/attachment-canvas.tsx \u00b7 uses @epam/ai-dial-attachment-canvas",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/attachment-canvas.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Open a cited PDF or uploaded text beside a conversation. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/attachment-canvas/README.md",
+          "start": 1,
+          "end": 615
+        },
+        {
+          "file": "libs/attachment-canvas/src/index.ts",
+          "start": 1,
+          "end": 89
+        },
+        {
+          "file": "libs/attachment-canvas/package.json",
+          "start": 1,
+          "end": 64
+        },
+        {
+          "file": "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+          "start": 445,
+          "end": 445,
+          "symbol": "AttachmentCanvas"
+        },
+        {
+          "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+          "start": 487,
+          "end": 542,
+          "symbol": "AttachmentCanvasProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-attachment-canvas-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep attachment canvas focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Resolve a file",
+          "body": "Fetch accessible content in the host and choose its content kind."
+        },
+        {
+          "title": "Open the preview",
+          "body": "Supply content, open state, labels and any renderer setup."
+        },
+        {
+          "title": "Handle an action",
+          "body": "Close locally or download through a host callback."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Resolve a file: Fetch accessible content in the host and choose its content kind. Open the preview: Supply content, open state, labels and any renderer setup. Handle an action: Close locally or download through a host callback. The complete typed module in examples/attachment-canvas.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/attachment-canvas/README.md",
+          "start": 1,
+          "end": 615
+        },
+        {
+          "file": "libs/attachment-canvas/src/index.ts",
+          "start": 1,
+          "end": 89
+        },
+        {
+          "file": "libs/attachment-canvas/package.json",
+          "start": 1,
+          "end": 64
+        },
+        {
+          "file": "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+          "start": 445,
+          "end": 445,
+          "symbol": "AttachmentCanvas"
+        },
+        {
+          "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+          "start": 487,
+          "end": 542,
+          "symbol": "AttachmentCanvasProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-attachment-canvas-10",
+      "title": "Context-based canvas control",
+      "layout": "code",
+      "kicker": "AttachmentCanvasProvider owns shared canvas state.",
+      "code": "import { AttachmentCanvasProvider }\n  from '@epam/ai-dial-attachment-canvas';\n\n<AttachmentCanvasProvider>\n  {children}\n</AttachmentCanvasProvider>",
+      "caption": "Focused source-backed example \u00b7 see examples/ and content/api-index.md.",
+      "notes": "The direct controlled example does not need this context. Use the provider when descendants call useAttachmentCanvas or the context-driven opening hook; supply host resolvers for access-dependent content.",
+      "sources": [
+        {
+          "file": "libs/attachment-canvas/README.md",
+          "start": 1,
+          "end": 615
+        },
+        {
+          "file": "libs/attachment-canvas/src/index.ts",
+          "start": 1,
+          "end": 89
+        },
+        {
+          "file": "libs/attachment-canvas/package.json",
+          "start": 1,
+          "end": 64
+        },
+        {
+          "file": "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+          "start": 445,
+          "end": 445,
+          "symbol": "AttachmentCanvas"
+        },
+        {
+          "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+          "start": 487,
+          "end": 542,
+          "symbol": "AttachmentCanvasProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-attachment-canvas-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Typed content variants",
+          "body": "Plain text, code, Markdown, PDF, OOXML, media, HTML and MCP views."
+        },
+        {
+          "title": "Optional shared context",
+          "body": "A canvas provider and its context hook coordinate shared preview state."
+        },
+        {
+          "title": "Host loading hooks",
+          "body": "loadPdf and configurePdfWorker support caller-controlled PDF setup."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Typed content variants: Plain text, code, Markdown, PDF, OOXML, media, HTML and MCP views. Optional shared context: AttachmentCanvasProvider and useAttachmentCanvas coordinate a canvas. Host loading hooks: loadPdf and configurePdfWorker support caller-controlled PDF setup. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/attachment-canvas/README.md",
+          "start": 1,
+          "end": 615
+        },
+        {
+          "file": "libs/attachment-canvas/src/index.ts",
+          "start": 1,
+          "end": 89
+        },
+        {
+          "file": "libs/attachment-canvas/package.json",
+          "start": 1,
+          "end": 64
+        },
+        {
+          "file": "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+          "start": 445,
+          "end": 445,
+          "symbol": "AttachmentCanvas"
+        },
+        {
+          "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+          "start": 487,
+          "end": 542,
+          "symbol": "AttachmentCanvasProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-attachment-canvas-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "mcp-apps/src/hooks/useMcpAppInlinePreview/useMcpAppInlinePreview.ts"
+        ],
+        [
+          "Test evidence",
+          "routes an OOXML attachment by extension when its MIME type is generic"
+        ],
+        [
+          "Test evidence",
+          "renders plain text immediately with no syntax highlighter for a plaintext language"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: libs/mcp-apps/src/hooks/useMcpAppInlinePreview/useMcpAppInlinePreview.ts; libs/quotations/src/models/office-highlight.ts; libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx; apps/chat/src/pages/SkillEditor/SkillEditor.tsx; apps/chat/src/hooks/attachment/useSkillFilePreviewSync.ts; apps/chat/src/hooks/attachment/useAttachmentCanvasResolvers.ts. Existing test evidence: [{\"file\": \"libs/attachment-canvas/src/hooks/useOpenAttachmentCanvas/tests/useOpenAttachmentCanvas.spec.ts\", \"assertions\": [\"useOpenAttachmentCanvas routing\", \"routes an OOXML attachment by extension when its MIME type is generic\", \"routes CSV by extension to the @silurus/ooxml resolver instead of the code renderer\", \"routes an OOXML attachment whose name has no extension by MIME type\", \"opens the unsupported panel when a recognized OOXML file cannot be resolved\", \"forwards a Forbidden error from the OOXML resolver to the canvas\", \"does not route legacy binary Office formats to the OOXML resolver\", \"routes .md attachments to the markdown resolver\", \"routes .markdown attachments to the markdown resolver\", \"routes .json attachments to the JSON resolver\", \"routes .jsonl attachments to the code resolver (not JSON)\", \"opens the canvas with the resolved content\", \"routes text/markdown MIME type to the markdown resolver (ignores .pdf extension in title)\", \"prefers a known text MIME type over an OOXML-looking title\", \"routes application/json MIME type to the JSON resolver\"]}, {\"file\": \"libs/attachment-canvas/src/components/CodeContent/tests/CodeContent.spec.tsx\", \"assertions\": [\"CodeContent\", \"renders plain text immediately with no syntax highlighter for a plaintext language\", \"renders plain text immediately with no syntax highlighter when no language is set\", \"shows the value via a plain fallback, then highlights it once the engine loads for a real language\", \"announces the pending state via role=\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-attachment-canvas:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/attachment-canvas/README.md",
+          "start": 1,
+          "end": 615
+        },
+        {
+          "file": "libs/attachment-canvas/src/index.ts",
+          "start": 1,
+          "end": 89
+        },
+        {
+          "file": "libs/attachment-canvas/package.json",
+          "start": 1,
+          "end": 64
+        },
+        {
+          "file": "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+          "start": 445,
+          "end": 445,
+          "symbol": "AttachmentCanvas"
+        },
+        {
+          "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+          "start": 487,
+          "end": 542,
+          "symbol": "AttachmentCanvasProps"
+        },
+        {
+          "file": "libs/mcp-apps/src/hooks/useMcpAppInlinePreview/useMcpAppInlinePreview.ts",
+          "start": 1,
+          "end": 154
+        },
+        {
+          "file": "libs/attachment-canvas/src/hooks/useOpenAttachmentCanvas/tests/useOpenAttachmentCanvas.spec.ts",
+          "start": 1,
+          "end": 1174
+        },
+        {
+          "file": "libs/attachment-canvas/src/components/CodeContent/tests/CodeContent.spec.tsx",
+          "start": 1,
+          "end": 85
+        }
+      ]
+    },
+    {
+      "id": "lib-attachment-canvas-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Heavy renderers",
+          "body": "PDF, Office, syntax and MCP dependencies affect packaging; several load lazily."
+        },
+        {
+          "title": "Content errors differ",
+          "body": "Unsupported, forbidden and failed loads have distinct display states."
+        },
+        {
+          "title": "Untrusted content",
+          "body": "HTML and MCP views require the documented sandbox and host settings."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Heavy renderers: PDF, Office, syntax and MCP dependencies affect packaging; several load lazily. Content errors differ: Unsupported, forbidden and failed loads have distinct display states. Untrusted content: HTML and MCP views require the documented sandbox and host settings. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/attachment-canvas/README.md",
+          "start": 1,
+          "end": 615
+        },
+        {
+          "file": "libs/attachment-canvas/src/index.ts",
+          "start": 1,
+          "end": 89
+        },
+        {
+          "file": "libs/attachment-canvas/package.json",
+          "start": 1,
+          "end": 64
+        },
+        {
+          "file": "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+          "start": 445,
+          "end": 445,
+          "symbol": "AttachmentCanvas"
+        },
+        {
+          "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+          "start": 487,
+          "end": 542,
+          "symbol": "AttachmentCanvasProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/attachment-canvas.pptx"
+}

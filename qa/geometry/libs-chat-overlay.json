@@ -1,0 +1,1225 @@
+[
+  {
+    "id": "lib-chat-overlay-01",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Chat overlay",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-chat-overlay-01",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Chat overlay",
+        "x": 0.65,
+        "y": 1.65,
+        "w": 11.7,
+        "h": 1.5,
+        "font": 48,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Embed a running chat with a typed message protocol.",
+        "x": 0.68,
+        "y": 3.44,
+        "w": 11.3,
+        "h": 1.15,
+        "font": 28,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Problem and boundary",
+        "x": 0.9,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "Public contract",
+        "x": 5,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "Working integration",
+        "x": 9.1,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "@epam/ai-dial-chat-overlay",
+        "x": 0.68,
+        "y": 6.22,
+        "w": 11.6,
+        "h": 0.32,
+        "font": 14,
+        "color": "BCC9DA"
+      }
+    ]
+  },
+  {
+    "id": "lib-chat-overlay-02",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Chat overlay",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-chat-overlay-02",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "When this library is useful",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Embed a running chat with a typed message protocol.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Embed a full experience",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Mount the chat iframe in a host-owned region.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Control conversations",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Set input, send requests and subscribe to events.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Offer floating widgets",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Use ChatOverlayManager for toggle/fullscreen chrome.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "lib-chat-overlay-03",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Chat overlay",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-chat-overlay-03",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Follow the ownership boundary",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Inputs and effects stay explicit.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.82,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Host page",
+        "x": 0.82,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Chat Overlay instance",
+        "x": 0.82,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 3.93,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Readiness handshake",
+        "x": 3.93,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Readiness event",
+        "x": 3.93,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 7.039999999999999,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Embedded chat",
+        "x": 7.039999999999999,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Handle typed requests",
+        "x": 7.039999999999999,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 10.15,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Events and results",
+        "x": 10.15,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Correlated host callbacks",
+        "x": 10.15,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "Library: Iframe lifecycle, protocol handshake, request correlation and optional widget chrome.",
+        "x": 0.66,
+        "y": 5.85,
+        "w": 11.95,
+        "h": 0.74,
+        "font": 24,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "lib-chat-overlay-04",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Chat overlay",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-chat-overlay-04",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "The public contract to start with",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "ChatOverlay · selected surface; full API index is in the bundle.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "lib-chat-overlay-05",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Chat overlay",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-chat-overlay-05",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "05",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "A minimal workspace integration",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "TypeScript / React example · imports and host setup abridged.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "const overlay = new ChatOverlay('#demo-chat', {\n  domain: 'https://chat.example.com',\n  theme: 'dark',\n});\nawait overlay.ready();\nawait overlay.setInputContent('Explain the architecture');\n// On host teardown:\noverlay.destroy();",
+        "x": 0.86,
+        "y": 3.06,
+        "w": 11.55,
+        "h": 3.2,
+        "font": 18,
+        "fontFace": "Courier New",
+        "breakLine": false,
+        "paraSpaceAfterPt": 0,
+        "lineSpacingMultiple": 1.04,
+        "color": "EDF2F7"
+      },
+      {
+        "type": "text",
+        "text": "Full example: examples/chat-overlay.ts · uses @epam/ai-dial-chat-overlay",
+        "x": 0.65,
+        "y": 6.58,
+        "w": 11.9,
+        "h": 0.24,
+        "font": 12,
+        "color": "BCC9DA"
+      }
+    ]
+  },
+  {
+    "id": "lib-chat-overlay-06",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Chat overlay",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-chat-overlay-06",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "06",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Wire a realistic host workflow",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Keep chat overlay focused on its public responsibility.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Mount the iframe",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Create ChatOverlay in an existing host-owned element.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Wait for readiness",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Await ready() before sending the initial input content.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Match host lifetime",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Subscribe to events; unsubscribe and destroy on teardown.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "lib-chat-overlay-10",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Chat overlay",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-chat-overlay-10",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "07",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Subscribe and clean up",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Match event ownership to the host page lifecycle.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "const unsubscribe = overlay.subscribe(\n  OverlayEventType.GptStartGenerating,\n  () => console.info('Demo generation started'),\n);\n\n// On host teardown:\nunsubscribe();\noverlay.destroy();",
+        "x": 0.86,
+        "y": 3.06,
+        "w": 11.55,
+        "h": 3.2,
+        "font": 18,
+        "fontFace": "Courier New",
+        "breakLine": false,
+        "paraSpaceAfterPt": 0,
+        "lineSpacingMultiple": 1.04,
+        "color": "EDF2F7"
+      },
+      {
+        "type": "text",
+        "text": "Focused source-backed example · see examples/ and content/api-index.md.",
+        "x": 0.65,
+        "y": 6.58,
+        "w": 11.9,
+        "h": 0.24,
+        "font": 12,
+        "color": "BCC9DA"
+      }
+    ]
+  },
+  {
+    "id": "lib-chat-overlay-07",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Chat overlay",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-chat-overlay-07",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "08",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Available customization",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Any browser framework",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The overlay implementation uses DOM/TypeScript rather than React.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Lifecycle contract",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Await ready, subscribe deliberately and destroy on unmount.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Two integration levels",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Direct overlay for a container; manager for floating widgets.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "lib-chat-overlay-08",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Chat overlay",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-chat-overlay-08",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "09",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Find the integration and its checks",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "lib-chat-overlay-09",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Chat overlay",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-chat-overlay-09",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "10",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Constraints that affect integration",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Embedding policy",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The server must allow the host origin in frame-ancestors.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Auth constraints",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Provider iframe behavior varies; configure supported login UI modes.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "No server replacement",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The overlay still needs a running chat and backend.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  }
+]

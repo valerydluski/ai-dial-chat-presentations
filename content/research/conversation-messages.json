@@ -1,0 +1,1929 @@
+{
+  "project": {
+    "id": "libs/conversation-messages",
+    "project": "@epam/ai-dial-conversation-messages",
+    "path": "libs/conversation-messages",
+    "package": "@epam/ai-dial-conversation-messages",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/conversation-messages/README.md",
+      "libs/conversation-messages/package.json",
+      "libs/conversation-messages/src/index.ts",
+      "libs/conversation-messages/src/components/MessageActions/tests/MessageActions.spec.tsx",
+      "libs/conversation-messages/src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx",
+      "libs/conversation-messages/src/components/MessageBubble/tests/MessageBubble.spec.tsx",
+      "libs/conversation-messages/tsconfig.spec.json",
+      "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+      "apps/chat/src/components/ConversationView/tests/ConversationMessageItem.spec.tsx",
+      "apps/chat/src/components/ConversationView/ConversationView.tsx",
+      "apps/chat/src/components/ConversationView/utils/build-message-actions.ts"
+    ],
+    "output": "decks/libs/conversation-messages.pptx",
+    "preview": "previews/libs/conversation-messages",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/MessageActions/tests/MessageActions.spec.tsx",
+      "test-ci--src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx",
+      "test-ci--src/components/MessageBubble/tests/MessageBubble.spec.tsx",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-conversation-messages",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-conversation-messages",
+        "target": "@epam/ai-dial-attachment-input",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-conversation-messages",
+    "description": "Message bubble components for rendering conversation history with actions and source citations",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0",
+      "react-markdown": "^10.1.0",
+      "@epam/ai-dial-attachment-input": "*"
+    },
+    "peerDependencies": {
+      "react": "^19.2.8",
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9"
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/conversation-messages",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/conversation-messages",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/conversation-messages/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-messages",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-messages",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-messages",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-messages",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-messages",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-conversation-messages --includeDependencies -- npx nx build-deps @epam/ai-dial-conversation-messages"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/conversation-messages",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/MessageActions/tests/MessageActions.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/MessageActions/tests/MessageActions.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/MessageActions/tests/MessageActions.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-messages",
+          "command": "vitest run src/components/MessageActions/tests/MessageActions.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/MessageActions/tests/MessageActions.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-messages",
+          "command": "vitest run src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/MessageBubble/tests/MessageBubble.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/MessageBubble/tests/MessageBubble.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/MessageBubble/tests/MessageBubble.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-messages",
+          "command": "vitest run src/components/MessageBubble/tests/MessageBubble.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/MessageBubble/tests/MessageBubble.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/MessageActions/tests/MessageActions.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/MessageBubble/tests/MessageBubble.spec.tsx"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/MessageActions/tests/MessageActions.spec.tsx",
+          "test-ci--src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx",
+          "test-ci--src/components/MessageBubble/tests/MessageBubble.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-conversation-messages --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/MessageActions/tests/MessageActions.spec.tsx",
+          "test-ci--src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx",
+          "test-ci--src/components/MessageBubble/tests/MessageBubble.spec.tsx"
+        ]
+      },
+      "description": "Message bubble components for rendering conversation history with actions and source citations",
+      "js": {
+        "packageName": "@epam/ai-dial-conversation-messages",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-conversation-messages",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/conversation-messages/src/index.ts",
+    "libs/conversation-messages/src/hooks/useInlineStartIndent/useInlineStartIndent.ts",
+    "libs/conversation-messages/src/vite-env.d.ts",
+    "libs/conversation-messages/src/components/MessageActions/MessageActions.module.scss",
+    "libs/conversation-messages/src/components/MessageActions/tests/MessageActions.spec.tsx",
+    "libs/conversation-messages/src/components/MessageActions/MessageActions.tsx",
+    "libs/conversation-messages/src/components/MessageBubble/UserMessageBubble.tsx",
+    "libs/conversation-messages/src/components/MessageBubble/MessageBubble.tsx",
+    "libs/conversation-messages/src/components/MessageBubble/StatusMessageBubble.tsx",
+    "libs/conversation-messages/src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx",
+    "libs/conversation-messages/src/components/MessageBubble/tests/MessageBubble.spec.tsx",
+    "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+    "libs/conversation-messages/src/components/MessageBubble/MessageBubble.module.scss",
+    "libs/conversation-messages/src/test-setup.ts",
+    "libs/conversation-messages/src/models/message-actions.ts",
+    "libs/conversation-messages/src/models/message-bubble.ts",
+    "libs/conversation-messages/src/models/message-source.ts",
+    "libs/conversation-messages/src/constants/public-class-names.ts",
+    "libs/conversation-messages/src/types/bubble-position.ts",
+    "libs/conversation-messages/tsconfig.spec.json",
+    "libs/conversation-messages/eslint.config.mjs",
+    "libs/conversation-messages/postcss.config.js",
+    "libs/conversation-messages/tsconfig.lib.json",
+    "libs/conversation-messages/tsconfig.json",
+    "libs/conversation-messages/package.json",
+    "libs/conversation-messages/vite.config.mts",
+    "libs/conversation-messages/README.md",
+    "libs/conversation-messages/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/conversation-messages/src/components/MessageActions/tests/MessageActions.spec.tsx",
+    "libs/conversation-messages/src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx",
+    "libs/conversation-messages/src/components/MessageBubble/tests/MessageBubble.spec.tsx",
+    "libs/conversation-messages/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+    "apps/chat/src/components/ConversationView/tests/ConversationMessageItem.spec.tsx",
+    "apps/chat/src/components/ConversationView/ConversationView.tsx",
+    "apps/chat/src/components/ConversationView/utils/build-message-actions.ts"
+  ],
+  "readme": "# @epam/ai-dial-conversation-messages\n\nMessage display components for rendering conversation history \u2014 user, assistant, and status bubbles with an actions bar and attachments.\n\n## Overview\n\n`@epam/ai-dial-conversation-messages` provides the visual building blocks for rendering a chat transcript. It solves the problem of consistently displaying messages from different roles \u2014 users, assistant, and system \u2014 without duplicating bubble layout, markdown rendering, or action toolbar logic across every view that needs a conversation thread. Each role has a dedicated bubble component: `UserMessageBubble` renders plain text with collapse-on-overflow and optional attachments, `AssistantMessageBubble` renders streaming markdown with code blocks, quick-reply starters, a deployment icon, and a slot for extra content such as a stages panel, and `StatusMessageBubble` renders a full-width info banner for in-timeline notices like a model switch. The `MessageActions` toolbar provides role-appropriate actions in a consistent position relative to any bubble \u2014 edit and delete for user messages, regenerate, copy, and like/dislike for assistant messages. All components accept `styles` overrides so host applications can theme the transcript area without forking the components.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-conversation-messages\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-conversation-messages/styles.css';\n```\n\n## Peer Dependencies\n\n- `react`\n- `@epam/ai-dial-chat-shared`\n- `@epam/ai-dial-ui-kit`\n\n## Components\n\n### UserMessageBubble\n\nRenders a user message with text content and optional attachments. Long messages collapse to `collapsedLineCount` lines (default `10`) behind a toggle. Pass `beforeContent` to render host-supplied content inline at the start of the first text line, which word-flows after it on the same line (e.g. a used-skill chip; pass inline-level content no taller than a text line \u2014 the slot participates in the bubble's content-sized width and the collapse line measurement); the bubble renders for the slot alone even when `text` is empty, and with no slot the rendering is unchanged.\n\n```tsx\nimport {\n  UserMessageBubble,\n  BubblePosition,\n} from '@epam/ai-dial-conversation-messages';\n\n<UserMessageBubble\n  text={message.content}\n  position={BubblePosition.Bottom}\n  attachments={message.attachments}\n  beforeContent={usedSkillChip}\n  onAttachmentClick={handleAttachmentClick}\n  actions={{ onEdit: handleEdit, onDelete: handleDelete }}\n/>;\n```\n\n### AssistantMessageBubble\n\nRenders an assistant message as markdown. Set `isStreaming` while the response is still arriving so newly appended text reveals smoothly. Use `markdownComponents` to inject custom renderers (for example citation markers from `@epam/ai-dial-quotations`), `markdownClassNames` to pick the markdown type scale (`COMPACT_MARKDOWN_CLASS_NAMES` from `@epam/ai-dial-chat-shared` drops the body copy one step for narrow viewports), `markdownUrlTransform` to rewrite markdown `href`/`src` values (for example mapping DIAL `files/{bucket}/{path}` ids to host download URLs), `afterContent` to place a stages panel between the text and the actions bar, and `beforeContent` to render host-supplied content overlaid at the inline-start of the first markdown block's first line, which indents past the measured slot width so the text word-flows after it (e.g. a used-skill chip); while there is no text \u2014 the streaming placeholder case \u2014 the slot renders in flow above it, and an assistant message with no text at all renders the slot on its own line.\n\nAssistant tables receive copy/download controls when their table action labels\n(`tableCopyLabel`, `tableCopiedLabel`, and `tableDownloadCsvLabel`) are\nsupplied; each control has a UI-kit tooltip with its localized label. The bubble forwards\n`labels.tableDownloadFilename` and `labels.tableScrollRegionAriaLabel` to the\nmarkdown viewer, and hides the table actions while `isStreaming` is true.\nSet `tableOnOpenInCanvas` together with `labels.tableOpenInCanvasLabel` to add\nan \"Open in Canvas\" action that receives the table serialized as Markdown\nwhen activated \u2014 omitting either one hides the action.\n\n```tsx\nimport { COMPACT_MARKDOWN_CLASS_NAMES } from '@epam/ai-dial-chat-shared';\nimport { AssistantMessageBubble } from '@epam/ai-dial-conversation-messages';\n\n<AssistantMessageBubble\n  text={message.content}\n  isStreaming={isStreaming}\n  markdownComponents={citationComponents}\n  markdownClassNames={COMPACT_MARKDOWN_CLASS_NAMES}\n  markdownUrlTransform={resolveMarkdownUrl}\n  afterContent={<StagesPanel stages={stages} isStreaming={isStreaming} />}\n  starters={starters}\n  onSelectStarter={handleSelectStarter}\n  deploymentIconUrl={deployment.iconUrl}\n  deploymentDisplayName={deployment.displayName}\n  labels={{\n    codeBlockCopyLabel: 'Copy code',\n    codeBlockCopiedLabel: 'Copied!',\n    tableCopyLabel: 'Copy',\n    tableCopiedLabel: 'Copied!',\n    tableDownloadCsvLabel: 'Download as CSV',\n    tableOpenInCanvasLabel: 'Open in canvas',\n    tableDownloadFilename: 'table.csv',\n    tableScrollRegionAriaLabel: 'Scrollable table',\n  }}\n  tableOnOpenInCanvas={handleTableOpenInCanvas}\n  actions={{\n    role: MessageRole.Assistant,\n    onRegenerate: handleRegenerate,\n    onCopy: handleCopy,\n    onLike: handleLike,\n    onDislike: handleDislike,\n    activeRating: message.rating,\n  }}\n/>;\n```\n\n### StatusMessageBubble\n\nFull-width info banner shown in the timeline when the active deployment changes. `labels.bodyText` is required; `labels.titleText` defaults to `'Model switched.'`.\n\n```tsx\nimport { StatusMessageBubble } from '@epam/ai-dial-conversation-messages';\n\n<StatusMessageBubble\n  labels={{ bodyText: 'The model has been switched from GPT to Imagen.' }}\n/>;\n```\n\n### MessageBubble\n\nRole-dispatching wrapper \u2014 `AssistantMessageBubbleProps` plus the user-only fields (`position`, `collapsedLineCount`) and a required `role`. Use it when the caller iterates a mixed transcript and does not want to branch itself; reach for the specialised bubbles when the role is already known. `beforeContent` is consumed for both `MessageRole.User` and `MessageRole.Assistant` messages (status messages ignore it).\n\n```tsx\nimport { MessageBubble } from '@epam/ai-dial-conversation-messages';\n\n<MessageBubble role={message.role} text={message.content} />;\n```\n\n### MessageActions\n\nToolbar with per-message actions. `role` selects the action set: `MessageRole.User` (the default) shows Edit/Delete, any other role shows Regenerate/Copy/Like/Dislike. Usually passed to a bubble through its `actions` prop rather than rendered directly.\n\n`isDisabled` disables every button in the toolbar \u2014 pass it while a response is generating so the actions cannot be triggered mid-stream.\n\n```tsx\nimport { MessageActions } from '@epam/ai-dial-conversation-messages';\n\n<MessageActions\n  role={MessageRole.Assistant}\n  onRegenerate={handleRegenerate}\n  onCopy={handleCopy}\n  onCopyMarkdown={handleCopyMarkdown}\n  onLike={handleLike}\n  onDislike={handleDislike}\n  activeRating={activeRating}\n  isAlwaysVisible={isMobile}\n  isDisabled={isStreaming}\n/>;\n```\n\n## Public class names\n\nThe bubbles carry stable `dial-cm-*` classes in addition to their internal\nclasses. Target those instead of hashed CSS-module names or ARIA attributes.\nThe names are exported so you never hardcode them:\n\n```tsx\nimport { CONVERSATION_MESSAGES_CLASS } from '@epam/ai-dial-conversation-messages';\n\nCONVERSATION_MESSAGES_CLASS.userBubble; // 'dial-cm-user-bubble'\n```\n\n| Class                       | Element                                         |\n| --------------------------- | ----------------------------------------------- |\n| `dial-cm-user-bubble`       | The user message's bubble                       |\n| `dial-cm-assistant-content` | The assistant message's streamed content region |\n\n`dial-cm-user-bubble` is emitted only when the bubble renders \u2014 a message with\nneither text nor `beforeContent` has no bubble at all. It is additive to\n`styles.bubbleClassName`, which keeps working exactly as before.\n\nThese classes carry no declarations of their own, so they change nothing until\nyou style them.\n\n### Replacing fragile selectors\n\n| Instead of                 | Use                              |\n| -------------------------- | -------------------------------- |\n| `[class*='userBubble']`    | `.dial-cm-user-bubble`           |\n| `[aria-live='polite']`     | `.dial-cm-assistant-content`     |\n| `[aria-live='polite'] pre` | `.dial-cm-assistant-content pre` |\n\n`aria-live` is an accessibility contract, not a styling one \u2014 using it as a\nselector pressures this package to keep an ARIA attribute frozen on a\nparticular element. Use the class.\n\n**Fenced code blocks have no class of their own.** They are rendered by\n`MarkdownCodeBlock` from `@epam/ai-dial-chat-shared`, which is outside this\npackage, so style them by descending from the content region:\n`.dial-cm-assistant-content pre`.\n\n### Stability\n\nA `dial-cm-*` class is public API: renaming it, removing it, or moving it to a\ndifferent element is a breaking change, announced in the release notes and\nrecorded here with its replacement. The element itself stays free \u2014 its Tailwind\nutilities, its CSS-module class, and its position in the DOM may all change.\n\nYour own overrides are responsible for direction: the class names are\ndirection-agnostic and identical under `dir=\"rtl\"`, so use CSS logical\nproperties (`border-start-start-radius`, `margin-inline-end`) rather than\nphysical ones.\n\nThe full convention is in\n[`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\n## Enums\n\n```tsx\nimport { BubblePosition } from '@epam/ai-dial-conversation-messages';\n\nBubblePosition.Bottom; // first bubble in a group \u2014 bottom-start corner squared\nBubblePosition.Top; // subsequent bubble in a group \u2014 top-start corner squared\n```\n\n## Types\n\n```tsx\nimport type {\n  MessageBubbleProps,\n  UserMessageBubbleProps,\n  AssistantMessageBubbleProps,\n  StatusMessageBubbleProps,\n  StatusMessageBubbleLabels,\n  MessageBubbleStyles,\n  MessageBubbleColors,\n  MessageBubbleTypography,\n  MessageBubbleLabels,\n  AssistantMessageBubbleLabels,\n  MessageActionsProps,\n  MessageActionLabels,\n  MessageActionColors,\n  MessageActionTooltips,\n  MessageActionAriaLabels,\n} from '@epam/ai-dial-conversation-messages';\n```\n\nAll user-visible strings \u2014 including every `aria-label` \u2014 arrive through the\n`labels` props with English defaults; the consuming app passes translated\nvalues in.\n",
+  "exports": {
+    "libs/conversation-messages/src/index.ts": "export { CONVERSATION_MESSAGES_CLASS } from './constants/public-class-names';\nexport { MessageBubble } from './components/MessageBubble/MessageBubble';\nexport { UserMessageBubble } from './components/MessageBubble/UserMessageBubble';\nexport { AssistantMessageBubble } from './components/MessageBubble/AssistantMessageBubble';\nexport { StatusMessageBubble } from './components/MessageBubble/StatusMessageBubble';\nexport { MessageActions } from './components/MessageActions/MessageActions';\nexport { BubblePosition } from './types/bubble-position';\nexport type {\n  MessageBubbleProps,\n  UserMessageBubbleProps,\n  AssistantMessageBubbleProps,\n  MessageBubbleStyles,\n  MessageBubbleColors,\n  MessageBubbleTypography,\n  MessageBubbleLabels,\n  AssistantMessageBubbleLabels,\n} from './models/message-bubble';\nexport type {\n  StatusMessageBubbleLabels,\n  StatusMessageBubbleProps,\n} from './components/MessageBubble/StatusMessageBubble';\nexport type {\n  MessageActionsProps,\n  MessageActionColors,\n  MessageActionLabels,\n  MessageActionTooltips,\n  MessageActionAriaLabels,\n} from './models/message-actions';\nexport type {\n  MessageSourceProps,\n  MessageSourceLabels,\n  MessageSourceStyles,\n  MessageSourceColors,\n  MessageSourceTypography,\n} from './models/message-source';\n"
+  },
+  "contracts": {
+    "libs/conversation-messages/src/index.ts": [
+      {
+        "name": "CONVERSATION_MESSAGES_CLASS",
+        "file": "libs/conversation-messages/src/constants/public-class-names.ts",
+        "start": 14,
+        "end": 19,
+        "declaration": "CONVERSATION_MESSAGES_CLASS = {\n  /** The user message's bubble element. */\n  userBubble: 'dial-cm-user-bubble',\n  /** The assistant message's streamed content region. */\n  assistantContent: 'dial-cm-assistant-content',\n} as const",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageBubble",
+        "file": "libs/conversation-messages/src/components/MessageBubble/MessageBubble.tsx",
+        "start": 9,
+        "end": 47,
+        "declaration": "MessageBubble: FC<MessageBubbleProps> = ({\n  role,\n  beforeContent,\n  onAttachmentClick,\n  markdownComponents,\n  markdownUrlTransform,\n  ...props\n}) => {\n  if (role === MessageRole.Status) {\n    return (\n      <StatusMessageBubble\n        labels={{\n          titleText: props.labels?.statusTitleText,\n          bodyText: props.labels?.statusBodyText ?? '',\n        }}\n      />\n    );\n  }\n\n  if (role === MessageRole.User) {\n    return (\n      <UserMessageBubble\n        {...props}\n        beforeContent={beforeContent}\n        onAttachmentClick={onAttachmentClick}\n      />\n    );\n  }\n\n  return (\n    <AssistantMessageBubble\n      {...props}\n      beforeContent={beforeContent}\n      markdownComponents={markdownComponents}\n      markdownUrlTransform={markdownUrlTransform}\n      onAttachmentClick={onAttachmentClick}\n    />\n  );\n}",
+        "signature": "(props: MessageBubbleProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "markdownComponents",
+            "optional": true,
+            "type": "import(\"../../../../../node_modules/react-markdown/lib\").Components | undefined"
+          },
+          {
+            "name": "markdownClassNames",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-chat-shared\").MarkdownRendererClassNames | undefined"
+          },
+          {
+            "name": "markdownUrlTransform",
+            "optional": true,
+            "type": "((url: string) => string) | undefined"
+          },
+          {
+            "name": "starters",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-chat-shared\").StarterOption[] | undefined"
+          },
+          {
+            "name": "onSelectStarter",
+            "optional": true,
+            "type": "((starter: import(\"@epam/ai-dial-chat-shared\").StarterOption) => void) | undefined"
+          },
+          {
+            "name": "afterContent",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "deploymentIconUrl",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "deploymentDisplayName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "codeBlockTheme",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-chat-shared\").CodeBlockTheme | undefined"
+          },
+          {
+            "name": "tableOnOpenInCanvas",
+            "optional": true,
+            "type": "((markdown: string) => void) | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").AssistantMessageBubbleLabels | undefined"
+          },
+          {
+            "name": "text",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").MessageBubbleStyles | undefined"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "type": "import(\"../..\").MessageActionsProps | undefined"
+          },
+          {
+            "name": "hasAlwaysVisibleActions",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isStreaming",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "attachments",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[] | undefined"
+          },
+          {
+            "name": "onAttachmentClick",
+            "optional": true,
+            "type": "((attachment: import(\"@epam/ai-dial-chat-shared\").DisplayAttachment) => void) | undefined"
+          },
+          {
+            "name": "onDownloadAll",
+            "optional": true,
+            "type": "((attachments: import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[]) => void) | undefined"
+          },
+          {
+            "name": "onAttachmentRetry",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "selectedAttachmentId",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "beforeContent",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "collapsedLineCount",
+            "optional": true,
+            "type": "number | undefined"
+          },
+          {
+            "name": "position",
+            "optional": true,
+            "type": "import(\"../..\").BubblePosition | undefined"
+          },
+          {
+            "name": "role",
+            "optional": false,
+            "type": "MessageRole"
+          }
+        ]
+      },
+      {
+        "name": "UserMessageBubble",
+        "file": "libs/conversation-messages/src/components/MessageBubble/UserMessageBubble.tsx",
+        "start": 21,
+        "end": 184,
+        "declaration": "UserMessageBubble: FC<UserMessageBubbleProps> = ({\n  text,\n  position = BubblePosition.Bottom,\n  styles: bubbleStyles,\n  actions,\n  hasAlwaysVisibleActions,\n  attachments,\n  collapsedLineCount = DEFAULT_COLLAPSED_LINE_COUNT,\n  labels,\n  beforeContent,\n  onAttachmentClick,\n  onDownloadAll,\n  onAttachmentRetry,\n  selectedAttachmentId,\n}) => {\n  const { colors, typography, className, bubbleClassName } = bubbleStyles ?? {};\n  const {\n    showMoreLabel = 'Show more',\n    showLessLabel = 'Show less',\n    showMoreAriaLabel,\n    showLessAriaLabel,\n    attachmentClickLabel,\n    attachmentRetryLabel,\n    attachmentOpenInNewTabLabel,\n    userMessageAriaLabel = 'User message',\n  } = labels ?? {};\n\n  const {\n    textRef,\n    isTextCollapsed,\n    isOverflowing,\n    collapsedMaxHeight,\n    expandedMaxHeight,\n    isCollapsed,\n    toggleCollapsed,\n  } = useCollapsedText<HTMLParagraphElement>({\n    text: text ?? '',\n    collapsedLineCount,\n  });\n\n  const cssVars = buildCssVars({\n    '--cm-bubble-user-bg': colors?.userBackground,\n    '--cm-bubble-user-border': colors?.userBorder,\n    '--cm-bubble-fade-start': colors?.fadeStart,\n    '--cm-bubble-text': colors?.text,\n    '--cm-bubble-collapsed-height': isOverflowing\n      ? `${collapsedMaxHeight}px`\n      : undefined,\n    '--cm-bubble-expanded-height': isOverflowing\n      ? `${expandedMaxHeight}px`\n      : undefined,\n  });\n\n  const positionRadius =\n    position === BubblePosition.Top\n      ? 'rounded-ee-md rounded-se-2xl'\n      : 'rounded-se-md rounded-ee-2xl';\n\n  const textClass = mergeClasses(styles.text, typography?.fontClassName);\n  const expandAriaLabel = showMoreAriaLabel ?? showMoreLabel;\n  const collapseAriaLabel = showLessAriaLabel ?? showLessLabel;\n  const toggleLabel = isCollapsed ? showMoreLabel : showLessLabel;\n  const toggleAriaLabel = isCollapsed ? expandAriaLabel : collapseAriaLabel;\n  const ToggleIcon = isCollapsed ? IconChevronDown : IconChevronUp;\n  const collapsibleTextId = useId();\n  return (\n    <div\n      role=\"group\"\n      aria-label={userMessageAriaLabel}\n      style={cssVars}\n      className={mergeClasses('flex w-full', className)}\n    >\n      <div className=\"ms-auto flex w-fit min-w-0 max-w-full flex-col items-end gap-4\">\n        <AttachmentGroup\n          attachments={attachments ?? []}\n          onAttachmentClick={(id) =>\n            onAttachmentClick?.(\n              attachments?.find((a) => a.id === id) as DisplayAttachment,\n            )\n          }\n          onDownloadAll={onDownloadAll}\n          onRetry={onAttachmentRetry}\n          labels={{\n            clickLabel: attachmentClickLabel,\n            retryLabel: attachmentRetryLabel,\n            openInNewTabLabel: attachmentOpenInNewTabLabel,\n          }}\n          styles={{ className: 'max-w-[640px]' }}\n          selectedAttachmentId={selectedAttachmentId}\n        />\n        {(text || beforeContent != null) && (\n          <div\n            className={mergeClasses(\n              styles.userBubble,\n              'flex w-fit items-center justify-end rounded-es-2xl rounded-ss-2xl border px-6 py-4',\n              positionRadius,\n              bubbleClassName,\n              CONVERSATION_MESSAGES_CLASS.userBubble,\n            )}\n          >\n            <div className=\"flex min-w-0 flex-col items-start\">\n              {text && (\n                <div\n                  id={collapsibleTextId}\n                  className={mergeClasses(\n                    'relative overflow-hidden',\n                    isOverflowing && styles.collapsibleText,\n                    isOverflowing && !isCollapsed && styles.expandedText,\n                    isTextCollapsed && styles.collapsedText,\n                  )}\n                >\n                  <p\n                    ref={textRef}\n                    className={mergeClasses(\n                      textClass,\n                      'whitespace-pre-wrap text-start [overflow-wrap:anywhere]',\n                    )}\n                  >\n                    {/*\n                     * The slot renders inline at the start of the text so the\n                     * text word-flows after it on the same line \u2014 the\n                     * conversation input's inline-start slot behaviour.\n                     * Inline placement keeps the bubble's content-sized width\n                     * and the collapse line measurement honest, which an\n                     * overlaid or floated slot would not; the wrapper supplies\n                     * the chip-to-text gap because generic slot content\n                     * carries no padding of its own. In flow when there is no\n                     * text: the bubble then renders for the slot alone and\n                     * needs its height.\n                     */}\n                    {beforeContent != null && (\n                      <span className=\"me-1\">{beforeContent}</span>\n                    )}\n                    {text}\n                  </p>\n                </div>\n              )}\n              {beforeContent != null && !text && <div>{beforeContent}</div>}\n              {isOverflowing && (\n                <LinkButton\n                  label={<>{toggleLabel}</>}\n                  iconBefore={\n                    <ToggleIcon size={DIAL_ICON_SIZE.SM} aria-hidden=\"true\" />\n                  }\n                  aria-label={toggleAriaLabel}\n                  aria-expanded={!isCollapsed}\n                  aria-controls={collapsibleTextId}\n                  className=\"mt-3\"\n                  onClick={toggleCollapsed}\n                  size={ElementSize.Small}\n                />\n              )}\n            </div>\n          </div>\n        )}\n        <MessageActions\n          {...actions}\n          isAlwaysVisible={hasAlwaysVisibleActions}\n          role={MessageRole.User}\n        />\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: UserMessageBubbleProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "position",
+            "optional": true,
+            "type": "BubblePosition | undefined"
+          },
+          {
+            "name": "collapsedLineCount",
+            "optional": true,
+            "type": "number | undefined"
+          },
+          {
+            "name": "text",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").MessageBubbleStyles | undefined"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "type": "import(\"../..\").MessageActionsProps | undefined"
+          },
+          {
+            "name": "hasAlwaysVisibleActions",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isStreaming",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "attachments",
+            "optional": true,
+            "type": "DisplayAttachment[] | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").MessageBubbleLabels | undefined"
+          },
+          {
+            "name": "onAttachmentClick",
+            "optional": true,
+            "type": "((attachment: DisplayAttachment) => void) | undefined"
+          },
+          {
+            "name": "onDownloadAll",
+            "optional": true,
+            "type": "((attachments: DisplayAttachment[]) => void) | undefined"
+          },
+          {
+            "name": "onAttachmentRetry",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "selectedAttachmentId",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "beforeContent",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          }
+        ]
+      },
+      {
+        "name": "AssistantMessageBubble",
+        "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+        "start": 28,
+        "end": 236,
+        "declaration": "AssistantMessageBubble: FC<AssistantMessageBubbleProps> = ({\n  text,\n  styles: bubbleStyles,\n  actions,\n  hasAlwaysVisibleActions,\n  isStreaming,\n  attachments,\n  beforeContent,\n  afterContent,\n  starters,\n  onSelectStarter,\n  deploymentIconUrl,\n  deploymentDisplayName,\n  markdownComponents,\n  markdownClassNames,\n  markdownUrlTransform,\n  onAttachmentClick,\n  onDownloadAll,\n  onAttachmentRetry,\n  codeBlockTheme,\n  tableOnOpenInCanvas,\n  labels,\n  selectedAttachmentId,\n}) => {\n  const { colors, typography, className, bubbleClassName } = bubbleStyles ?? {};\n  const {\n    attachmentClickLabel,\n    attachmentRetryLabel,\n    attachmentOpenInNewTabLabel,\n    startersAriaLabel = 'Quick reply buttons',\n    thinkingLabel,\n    codeBlockCopyLabel,\n    codeBlockCopiedLabel,\n    tableCopyLabel,\n    tableCopiedLabel,\n    tableDownloadCsvLabel,\n    tableOpenInCanvasLabel,\n    tableDownloadFilename,\n    tableScrollRegionAriaLabel,\n    assistantMessageAriaLabel = 'Assistant message',\n    deploymentIconFallbackLabel = 'AI',\n  } = labels ?? {};\n  const tableActionLabels = useMemo(\n    () => ({\n      copyLabel: tableCopyLabel,\n      copiedLabel: tableCopiedLabel,\n      downloadCsvLabel: tableDownloadCsvLabel,\n      openInCanvasLabel: tableOpenInCanvasLabel,\n    }),\n    [\n      tableCopyLabel,\n      tableCopiedLabel,\n      tableDownloadCsvLabel,\n      tableOpenInCanvasLabel,\n    ],\n  );\n  const visibleAttachments = isStreaming\n    ? (attachments ?? []).filter((a) => a.type !== AttachmentType.Audio)\n    : (attachments ?? []);\n  const { slotRef, firstLineIndent } = useInlineStartIndent(\n    beforeContent != null && !!text,\n  );\n  const cssVars = buildCssVars({\n    '--cm-bubble-text': colors?.text,\n    '--cm-starters-divider': colors?.startersDivider,\n    '--cm-bubble-first-line-indent': firstLineIndent,\n  });\n\n  const textClass = mergeClasses(styles.text, typography?.fontClassName);\n\n  const hasDeploymentIcon = !!(deploymentIconUrl || deploymentDisplayName);\n\n  return (\n    <div\n      role=\"group\"\n      aria-label={assistantMessageAriaLabel}\n      style={cssVars}\n      className={mergeClasses('flex w-full items-start gap-3', className)}\n    >\n      {hasDeploymentIcon && (\n        <DeploymentIcon\n          src={deploymentIconUrl}\n          size={28}\n          initialsName={deploymentDisplayName || deploymentIconFallbackLabel}\n          labels={{\n            tooltip: deploymentDisplayName ?? deploymentIconFallbackLabel,\n          }}\n        />\n      )}\n      <div className=\"flex w-full min-w-0 max-w-full flex-col items-start gap-5\">\n        <div\n          className={mergeClasses(\n            'flex w-full min-w-0 max-w-full flex-col items-start gap-4',\n            bubbleClassName,\n          )}\n        >\n          {/*\n           * The slot overlays the text's first line from inside the text\n           * container \u2014 absolutely positioned at the inline-start edge, the\n           * first markdown block's first line indented past it via\n           * `--cm-bubble-first-line-indent` (the measured slot width plus a\n           * gap) \u2014 so the text word-flows after it, the conversation input's\n           * inline-start slot behaviour. Markdown's first block cannot host\n           * the slot inline (it is react-markdown output), and this bubble is\n           * full-width, so the out-of-flow overlay costs nothing here. In\n           * flow whenever there is no text: on its own line when the message\n           * is empty, or above the streaming placeholder while the first\n           * token has not arrived yet.\n           */}\n          {beforeContent != null && !text && (\n            <div className=\"min-w-0\">{beforeContent}</div>\n          )}\n          {(text || isStreaming) && (\n            <div\n              aria-live=\"polite\"\n              aria-atomic=\"false\"\n              className={mergeClasses(\n                textClass,\n                'relative min-w-0 max-w-full text-start',\n                /*\n                 * `text-indent` inherits, so the indent targets the markdown\n                 * container's first block child (a leading list indents its\n                 * every item's first line \u2014 accepted edge) rather than the\n                 * text container, where it would reach every block. The\n                 * `cm-bubble-markdown` wrapper class scopes the selector to\n                 * the markdown container alone: the slot's overlay div is\n                 * also a direct child of the text container, and\n                 * host-supplied slot content of any element type must never\n                 * receive the indent.\n                 */\n                beforeContent != null && text && FIRST_LINE_INDENT_CLASS_NAME,\n                CONVERSATION_MESSAGES_CLASS.assistantContent,\n              )}\n            >\n              {beforeContent != null && text && (\n                <div ref={slotRef} className=\"absolute start-0 top-0\">\n                  {beforeContent}\n                </div>\n              )}\n              {/*\n               * The plain marker class (not a CSS-module hash) keeps the\n               * indent selector above a static string Tailwind can generate.\n               */}\n              <div className=\"cm-bubble-markdown min-w-0 max-w-full\">\n                <MDMessageViewer\n                  content={text ?? ''}\n                  isStreaming={isStreaming}\n                  thinkingLabel={thinkingLabel}\n                  components={markdownComponents}\n                  classNames={markdownClassNames}\n                  urlTransform={markdownUrlTransform}\n                  codeBlockCopyLabel={codeBlockCopyLabel}\n                  codeBlockCopiedLabel={codeBlockCopiedLabel}\n                  codeBlockTheme={codeBlockTheme}\n                  tableActionLabels={tableActionLabels}\n                  tableDownloadFilename={tableDownloadFilename}\n                  tableOnOpenInCanvas={tableOnOpenInCanvas}\n                  tableScrollRegionAriaLabel={tableScrollRegionAriaLabel}\n                />\n              </div>\n            </div>\n          )}\n          <AttachmentGroup\n            attachments={visibleAttachments}\n            onAttachmentClick={(id) =>\n              onAttachmentClick?.(\n                attachments?.find((a) => a.id === id) as DisplayAttachment,\n              )\n            }\n            onDownloadAll={onDownloadAll}\n            onRetry={onAttachmentRetry}\n            labels={{\n              clickLabel: attachmentClickLabel,\n              retryLabel: attachmentRetryLabel,\n              openInNewTabLabel: attachmentOpenInNewTabLabel,\n            }}\n            selectedAttachmentId={selectedAttachmentId}\n          />\n          {afterContent}\n          <MessageActions\n            {...actions}\n            isAlwaysVisible={hasAlwaysVisibleActions}\n            role={MessageRole.Assistant}\n          />\n        </div>\n        {starters && starters.length > 0 && onSelectStarter && (\n          <div\n            role=\"list\"\n            aria-label={startersAriaLabel}\n            className={mergeClasses(\n              'flex w-full flex-wrap gap-2 border-t pt-5',\n              styles.startersDivider,\n            )}\n          >\n            {starters.map((starter, index) => (\n              <div key={index} role=\"listitem\" className=\"min-w-[40px]\">\n                <NeutralButton\n                  label={starter.title}\n                  className=\"min-w-[40px]\"\n                  onClick={() => onSelectStarter(starter)}\n                />\n              </div>\n            ))}\n          </div>\n        )}\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: AssistantMessageBubbleProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "markdownComponents",
+            "optional": true,
+            "type": "import(\"../../../../../node_modules/react-markdown/lib\").Components | undefined"
+          },
+          {
+            "name": "markdownClassNames",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-chat-shared\").MarkdownRendererClassNames | undefined"
+          },
+          {
+            "name": "markdownUrlTransform",
+            "optional": true,
+            "type": "((url: string) => string) | undefined"
+          },
+          {
+            "name": "starters",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-chat-shared\").StarterOption[] | undefined"
+          },
+          {
+            "name": "onSelectStarter",
+            "optional": true,
+            "type": "((starter: import(\"@epam/ai-dial-chat-shared\").StarterOption) => void) | undefined"
+          },
+          {
+            "name": "afterContent",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "deploymentIconUrl",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "deploymentDisplayName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "codeBlockTheme",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-chat-shared\").CodeBlockTheme | undefined"
+          },
+          {
+            "name": "tableOnOpenInCanvas",
+            "optional": true,
+            "type": "((markdown: string) => void) | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").AssistantMessageBubbleLabels | undefined"
+          },
+          {
+            "name": "text",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").MessageBubbleStyles | undefined"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "type": "import(\"../..\").MessageActionsProps | undefined"
+          },
+          {
+            "name": "hasAlwaysVisibleActions",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isStreaming",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "attachments",
+            "optional": true,
+            "type": "DisplayAttachment[] | undefined"
+          },
+          {
+            "name": "onAttachmentClick",
+            "optional": true,
+            "type": "((attachment: DisplayAttachment) => void) | undefined"
+          },
+          {
+            "name": "onDownloadAll",
+            "optional": true,
+            "type": "((attachments: DisplayAttachment[]) => void) | undefined"
+          },
+          {
+            "name": "onAttachmentRetry",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "selectedAttachmentId",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "beforeContent",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          }
+        ]
+      },
+      {
+        "name": "StatusMessageBubble",
+        "file": "libs/conversation-messages/src/components/MessageBubble/StatusMessageBubble.tsx",
+        "start": 19,
+        "end": 31,
+        "declaration": "StatusMessageBubble: FC<StatusMessageBubbleProps> = ({\n  labels: { titleText = 'Model switched.', bodyText },\n}) => {\n  return (\n    <div role=\"status\" aria-live=\"polite\">\n      <InfoMessageNotification\n        title={titleText}\n        message={bodyText}\n        textClassName=\"flex-row flex-wrap gap-1\"\n      />\n    </div>\n  );\n}",
+        "signature": "(props: StatusMessageBubbleProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "StatusMessageBubbleLabels"
+          }
+        ]
+      },
+      {
+        "name": "MessageActions",
+        "file": "libs/conversation-messages/src/components/MessageActions/MessageActions.tsx",
+        "start": 31,
+        "end": 246,
+        "declaration": "MessageActions: FC<MessageActionsProps> = ({\n  role = MessageRole.User,\n  onEdit,\n  onEditHover,\n  onDelete,\n  onRegenerate,\n  onCopy,\n  onCopyMarkdown,\n  onLike,\n  onDislike,\n  activeRating,\n  isAlwaysVisible,\n  isDisabled = false,\n  className,\n  labels,\n  colors,\n}) => {\n  const { tooltips, ariaLabels } = labels ?? {};\n  const [copied, setCopied] = useState<'copy' | 'markdown' | null>(null);\n  const [copyStatus, setCopyStatus] = useState('');\n\n  const hasAnyAction =\n    onEdit != null ||\n    onDelete != null ||\n    onRegenerate != null ||\n    onCopy != null ||\n    onCopyMarkdown != null ||\n    onLike != null ||\n    onDislike != null;\n\n  const cssVars = buildCssVars({\n    '--ma-active-rating-text': colors?.activeRatingText,\n  });\n\n  const handleCopy = useCallback(() => {\n    onCopy?.();\n    setCopied('copy');\n    setCopyStatus(ariaLabels?.copiedStatus ?? 'Copied to clipboard');\n    setTimeout(() => setCopied(null), COPIED_RESET_MS);\n  }, [onCopy, ariaLabels?.copiedStatus]);\n\n  const handleCopyMarkdown = useCallback(() => {\n    onCopyMarkdown?.();\n    setCopied('markdown');\n    setCopyStatus(\n      ariaLabels?.copiedMarkdownStatus ?? 'Copied as Markdown to clipboard',\n    );\n    setTimeout(() => setCopied(null), COPIED_RESET_MS);\n  }, [onCopyMarkdown, ariaLabels?.copiedMarkdownStatus]);\n\n  /*\n   * No handler means a read-only message: an empty toolbar with a live region\n   * nothing ever populates is dead DOM, so render nothing at all.\n   */\n  if (!hasAnyAction) {\n    return null;\n  }\n\n  return (\n    <div\n      role=\"toolbar\"\n      aria-label={ariaLabels?.actionsGroup ?? 'Message actions'}\n      style={cssVars}\n      className={mergeClasses(\n        'flex gap-1',\n        !isAlwaysVisible && 'opacity-0 group-hover:opacity-100',\n        className,\n      )}\n    >\n      <span role=\"status\" aria-live=\"polite\" className=\"sr-only\">\n        {copyStatus}\n      </span>\n      {role === MessageRole.User ? (\n        <>\n          {onEdit && (\n            <ToggleIconButton\n              icon={\n                <IconPencilMinus\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              size={ElementSize.Small}\n              aria-label={ariaLabels?.editMessage ?? 'Edit message'}\n              tooltipProps={{ tooltip: tooltips?.edit ?? 'Edit' }}\n              onClick={onEdit}\n              onMouseEnter={onEditHover}\n              onFocus={onEditHover}\n              disabled={isDisabled}\n            />\n          )}\n          {onDelete && (\n            <ToggleIconButton\n              icon={\n                <IconTrashX\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              size={ElementSize.Small}\n              aria-label={ariaLabels?.deleteMessage ?? 'Delete message'}\n              tooltipProps={{ tooltip: tooltips?.delete ?? 'Delete' }}\n              onClick={onDelete}\n              disabled={isDisabled}\n            />\n          )}\n        </>\n      ) : (\n        <>\n          {onRegenerate && (\n            <ToggleIconButton\n              icon={\n                <IconRefresh\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              size={ElementSize.Small}\n              aria-label={\n                ariaLabels?.regenerateResponse ?? 'Regenerate response'\n              }\n              tooltipProps={{ tooltip: tooltips?.regenerate ?? 'Regenerate' }}\n              onClick={onRegenerate}\n              disabled={isDisabled}\n            />\n          )}\n          {onCopy && (\n            <CopyIconButton\n              iconSize={DIAL_ICON_SIZE.SM}\n              onClick={handleCopy}\n              size={ElementSize.Small}\n              isCopied={copied === 'copy'}\n              copyLabel={tooltips?.copy ?? 'Copy'}\n              copiedLabel={tooltips?.copied ?? 'Copied!'}\n              ariaLabel={ariaLabels?.copyResponse ?? 'Copy response'}\n              isDisabled={isDisabled}\n            />\n          )}\n          {onCopyMarkdown && (\n            <CopyIconButton\n              iconSize={DIAL_ICON_SIZE.SM}\n              onClick={handleCopyMarkdown}\n              size={ElementSize.Small}\n              isCopied={copied === 'markdown'}\n              iconCopy={\n                <IconMarkdown\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              copyLabel={tooltips?.copyMarkdown ?? 'Copy as Markdown'}\n              copiedLabel={tooltips?.copiedMarkdown ?? 'Copied!'}\n              ariaLabel={ariaLabels?.copyAsMarkdown ?? 'Copy as markdown'}\n              isDisabled={isDisabled}\n            />\n          )}\n\n          {onLike && (\n            <ToggleIconButton\n              icon={\n                activeRating === MessageRating.Like ? (\n                  <IconThumbUpFilled\n                    className={styles.activeRating}\n                    size={DIAL_ICON_SIZE.SM}\n                    aria-hidden\n                  />\n                ) : (\n                  <IconThumbUp\n                    size={DIAL_ICON_SIZE.SM}\n                    aria-hidden\n                    stroke={DIAL_KIT_ICON_STROKE}\n                  />\n                )\n              }\n              size={ElementSize.Small}\n              aria-label={ariaLabels?.likeResponse ?? 'Like response'}\n              aria-pressed={activeRating === MessageRating.Like}\n              tooltipProps={{ tooltip: tooltips?.like ?? 'Like' }}\n              onClick={onLike}\n              disabled={isDisabled}\n            />\n          )}\n          {onDislike && (\n            <ToggleIconButton\n              icon={\n                activeRating === MessageRating.Dislike ? (\n                  <IconThumbDownFilled\n                    className={styles.activeRating}\n                    size={DIAL_ICON_SIZE.SM}\n                    aria-hidden\n                  />\n                ) : (\n                  <IconThumbDown\n                    size={DIAL_ICON_SIZE.SM}\n                    aria-hidden\n                    stroke={DIAL_KIT_ICON_STROKE}\n                  />\n                )\n              }\n              size={ElementSize.Small}\n              aria-label={ariaLabels?.dislikeResponse ?? 'Dislike response'}\n              aria-pressed={activeRating === MessageRating.Dislike}\n              tooltipProps={{ tooltip: tooltips?.dislike ?? 'Dislike' }}\n              onClick={onDislike}\n              disabled={isDisabled}\n            />\n          )}\n        </>\n      )}\n    </div>\n  );\n}",
+        "signature": "(props: MessageActionsProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "role",
+            "optional": true,
+            "type": "MessageRole | undefined"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "isAlwaysVisible",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isDisabled",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").MessageActionLabels | undefined"
+          },
+          {
+            "name": "onEdit",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "onEditHover",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "onDelete",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "onRegenerate",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "onCopy",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "onCopyMarkdown",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "onLike",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "onDislike",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "activeRating",
+            "optional": true,
+            "type": "MessageRating | undefined"
+          },
+          {
+            "name": "colors",
+            "optional": true,
+            "type": "import(\"../..\").MessageActionColors | undefined"
+          }
+        ]
+      },
+      {
+        "name": "BubblePosition",
+        "file": "libs/conversation-messages/src/types/bubble-position.ts",
+        "start": 2,
+        "end": 7,
+        "declaration": "export enum BubblePosition {\n  /** First bubble in a group; bottom-start corner is squared. */\n  Bottom = 'Bottom',\n  /** Subsequent bubble in a group; top-start corner is squared. */\n  Top = 'Top',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageBubbleProps",
+        "file": "libs/conversation-messages/src/models/message-bubble.ts",
+        "start": 173,
+        "end": 177,
+        "declaration": "export type MessageBubbleProps = AssistantMessageBubbleProps &\n  Pick<UserMessageBubbleProps, 'position' | 'collapsedLineCount'> & {\n    /** Message author/type: user, assistant, or status banner. */\n    role: MessageRole;\n  };",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UserMessageBubbleProps",
+        "file": "libs/conversation-messages/src/models/message-bubble.ts",
+        "start": 135,
+        "end": 140,
+        "declaration": "export interface UserMessageBubbleProps extends BaseMessageBubbleProps {\n  /** Corner rounding position within a message group. Defaults to `BubblePosition.Bottom`. */\n  position?: BubblePosition;\n  /** Maximum number of text lines shown while a long user message is collapsed. Defaults to `10`. */\n  collapsedLineCount?: number;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AssistantMessageBubbleProps",
+        "file": "libs/conversation-messages/src/models/message-bubble.ts",
+        "start": 143,
+        "end": 170,
+        "declaration": "export interface AssistantMessageBubbleProps extends BaseMessageBubbleProps {\n  /** react-markdown component overrides. Use to inject custom renderers (e.g. citation markers) into markdown elements. */\n  markdownComponents?: Components;\n  /** Per-element markdown typography classes. Defaults to the renderer's full-size scale; pass `COMPACT_MARKDOWN_CLASS_NAMES` for the smaller body scale. */\n  markdownClassNames?: MarkdownRendererClassNames;\n  /**\n   * Rewrites markdown `href`/`src` values before they are rendered. Forwarded\n   * to `MDMessageViewer`. Hosts use this to map DIAL file ids to download URLs.\n   * Defaults to no extra rewrite.\n   */\n  markdownUrlTransform?: (url: string) => string;\n  /** Quick-reply buttons rendered below the message text when non-empty. */\n  starters?: StarterOption[];\n  /** Fires with the clicked `StarterOption`. */\n  onSelectStarter?: (starter: StarterOption) => void;\n  /** Content rendered between the message body and the actions bar (e.g. a stages panel). */\n  afterContent?: ReactNode;\n  /** Deployment icon URL. When absent, no icon is rendered. */\n  deploymentIconUrl?: string;\n  /** Deployment name used as the icon's accessible label. */\n  deploymentDisplayName?: string;\n  /** Syntax highlight theme for code blocks. Defaults to `'dark'`. */\n  codeBlockTheme?: CodeBlockTheme;\n  /** Opens serialized Markdown table content in the host canvas. */\n  tableOnOpenInCanvas?: (markdown: string) => void;\n  /** Localised labels for quick replies, the thinking indicator, and code block copy actions. */\n  labels?: AssistantMessageBubbleLabels;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageBubbleStyles",
+        "file": "libs/conversation-messages/src/models/message-bubble.ts",
+        "start": 34,
+        "end": 43,
+        "declaration": "export interface MessageBubbleStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: MessageBubbleColors;\n  /** Typography overrides applied via CSS custom properties. */\n  typography?: MessageBubbleTypography;\n  /** Extra class(es) on the row wrapper. */\n  className?: string;\n  /** Extra class(es) on the bubble element. */\n  bubbleClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageBubbleColors",
+        "file": "libs/conversation-messages/src/models/message-bubble.ts",
+        "start": 14,
+        "end": 25,
+        "declaration": "export interface MessageBubbleColors {\n  /** Background color of the user message bubble. */\n  userBackground?: string;\n  /** Border color of the user message bubble. */\n  userBorder?: string;\n  /** Gradient start color for a collapsed user message fade-out. Defaults to transparent. */\n  fadeStart?: string;\n  /** Text color applied to all message bubbles. */\n  text?: string;\n  /** Divider color above quick-reply buttons. Falls back to `--color-secondary`. */\n  startersDivider?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageBubbleTypography",
+        "file": "libs/conversation-messages/src/models/message-bubble.ts",
+        "start": 28,
+        "end": 31,
+        "declaration": "export interface MessageBubbleTypography {\n  /** Tailwind (or custom) class applied to message text. */\n  fontClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageBubbleLabels",
+        "file": "libs/conversation-messages/src/models/message-bubble.ts",
+        "start": 46,
+        "end": 69,
+        "declaration": "export interface MessageBubbleLabels {\n  /** Expand button label. Defaults to `\"Show more\"`. */\n  showMoreLabel?: string;\n  /** Collapse button label. Defaults to `\"Show less\"`. */\n  showLessLabel?: string;\n  /** aria-label for the expand button. Defaults to `showMoreLabel`. */\n  showMoreAriaLabel?: string;\n  /** aria-label for the collapse button. Defaults to `showLessLabel`. */\n  showLessAriaLabel?: string;\n  /** aria-label for the user message group. Defaults to `\"User message\"`. */\n  userMessageAriaLabel?: string;\n  /** aria-label for the assistant message group. Defaults to `\"Assistant message\"`. */\n  assistantMessageAriaLabel?: string;\n  /** aria-label for interactive attachment tiles. */\n  attachmentClickLabel?: string;\n  /** aria-label for the attachment retry button. */\n  attachmentRetryLabel?: string;\n  /** aria-label for the attachment open-in-new-tab button. */\n  attachmentOpenInNewTabLabel?: string;\n  /** Bold prefix for the status banner. Used when `role === MessageRole.Status`. Defaults to `\"Model switched.\"`. */\n  statusTitleText?: string;\n  /** Body text for the status banner. Required when `role === MessageRole.Status`. */\n  statusBodyText?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AssistantMessageBubbleLabels",
+        "file": "libs/conversation-messages/src/models/message-bubble.ts",
+        "start": 72,
+        "end": 95,
+        "declaration": "export interface AssistantMessageBubbleLabels extends MessageBubbleLabels {\n  /** aria-label for the quick-reply list. Defaults to `\"Quick reply buttons\"`. */\n  startersAriaLabel?: string;\n  /** Shimmer placeholder shown while streaming and message text is empty. Defaults to `'Thinking'`. */\n  thinkingLabel?: string;\n  /** aria-label for the code block copy button. */\n  codeBlockCopyLabel?: string;\n  /** aria-label for the code block copy button after copying. */\n  codeBlockCopiedLabel?: string;\n  /** Label for the copy action on a Markdown table (copies as Markdown format). */\n  tableCopyLabel?: string;\n  /** Status announced after a Markdown table has been copied. */\n  tableCopiedLabel?: string;\n  /** Label for downloading a Markdown table as CSV. */\n  tableDownloadCsvLabel?: string;\n  /** Label for opening a Markdown table in the canvas. */\n  tableOpenInCanvasLabel?: string;\n  /** Filename used when downloading a Markdown table as CSV. */\n  tableDownloadFilename?: string;\n  /** Accessible label for a Markdown table's scrollable region. */\n  tableScrollRegionAriaLabel?: string;\n  /** Fallback aria-label for the deployment icon. Defaults to `'AI'`. */\n  deploymentIconFallbackLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "StatusMessageBubbleLabels",
+        "file": "libs/conversation-messages/src/components/MessageBubble/StatusMessageBubble.tsx",
+        "start": 5,
+        "end": 10,
+        "declaration": "export interface StatusMessageBubbleLabels {\n  /** Bold prefix text displayed before the description. Defaults to `'Model switched.'`. */\n  titleText?: string;\n  /** Full description text, e.g. \"The model has been switched from GPT to Imagen.\" */\n  bodyText: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "StatusMessageBubbleProps",
+        "file": "libs/conversation-messages/src/components/MessageBubble/StatusMessageBubble.tsx",
+        "start": 13,
+        "end": 16,
+        "declaration": "export interface StatusMessageBubbleProps {\n  /** User-visible strings. */\n  labels: StatusMessageBubbleLabels;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageActionsProps",
+        "file": "libs/conversation-messages/src/models/message-actions.ts",
+        "start": 64,
+        "end": 95,
+        "declaration": "export interface MessageActionsProps {\n  /** Which actions are shown. `'User'` = Edit/Delete; `'Agent'` = Regenerate/Copy/Like/Dislike. Defaults to `'User'`. */\n  role?: MessageRole;\n  /** Extra class(es) on the root element. */\n  className?: string;\n  /** Shows actions permanently instead of on group hover only. */\n  isAlwaysVisible?: boolean;\n  /** Disables every action button in the toolbar. Defaults to `false`. */\n  isDisabled?: boolean;\n  /** Tooltip and aria-label overrides. */\n  labels?: MessageActionLabels;\n  /** Fires on Edit click. User role only. */\n  onEdit?: () => void;\n  /** Fires on Edit hover; useful for preloading the edit UI. User role only. */\n  onEditHover?: () => void;\n  /** Fires on Delete click. User role only. */\n  onDelete?: () => void;\n  /** Fires on Regenerate click. Agent role only. */\n  onRegenerate?: () => void;\n  /** Fires on Copy click. Agent role only. */\n  onCopy?: () => void;\n  /** Fires on Copy Markdown click. Agent role only. */\n  onCopyMarkdown?: () => void;\n  /** Fires on Like click. Agent role only. */\n  onLike?: () => void;\n  /** Fires on Dislike click. Agent role only. */\n  onDislike?: () => void;\n  /** Active rating; highlights the matching Like/Dislike button when set. */\n  activeRating?: MessageRating;\n  /** Color overrides. */\n  colors?: MessageActionColors;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageActionColors",
+        "file": "libs/conversation-messages/src/models/message-actions.ts",
+        "start": 58,
+        "end": 61,
+        "declaration": "export interface MessageActionColors {\n  /** Icon color of the active Like/Dislike button. Fallback: `--text-accent`. */\n  activeRatingText?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageActionLabels",
+        "file": "libs/conversation-messages/src/models/message-actions.ts",
+        "start": 50,
+        "end": 55,
+        "declaration": "export interface MessageActionLabels {\n  /** Tooltip overrides per button. */\n  tooltips?: MessageActionTooltips;\n  /** aria-label overrides per button. */\n  ariaLabels?: MessageActionAriaLabels;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageActionTooltips",
+        "file": "libs/conversation-messages/src/models/message-actions.ts",
+        "start": 4,
+        "end": 23,
+        "declaration": "export interface MessageActionTooltips {\n  /** Tooltip for the Edit button. */\n  edit?: string;\n  /** Tooltip for the Delete button. */\n  delete?: string;\n  /** Tooltip for the Regenerate button. */\n  regenerate?: string;\n  /** Tooltip for the Copy button in its default state. */\n  copy?: string;\n  /** Tooltip shown on the Copy button immediately after copying. */\n  copied?: string;\n  /** Tooltip for the Copy as Markdown button in its default state. */\n  copyMarkdown?: string;\n  /** Tooltip shown on the Copy as Markdown button immediately after copying. */\n  copiedMarkdown?: string;\n  /** Tooltip for the Like button. */\n  like?: string;\n  /** Tooltip for the Dislike button. */\n  dislike?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageActionAriaLabels",
+        "file": "libs/conversation-messages/src/models/message-actions.ts",
+        "start": 26,
+        "end": 47,
+        "declaration": "export interface MessageActionAriaLabels {\n  /** aria-label for the Edit button. */\n  editMessage?: string;\n  /** aria-label for the Delete button. */\n  deleteMessage?: string;\n  /** aria-label for the Regenerate button. */\n  regenerateResponse?: string;\n  /** aria-label for the Copy button. */\n  copyResponse?: string;\n  /** aria-label for the Copy as Markdown button. */\n  copyAsMarkdown?: string;\n  /** aria-label for the Like button. */\n  likeResponse?: string;\n  /** aria-label for the Dislike button. */\n  dislikeResponse?: string;\n  /** aria-label for the toolbar container. */\n  actionsGroup?: string;\n  /** Announced after copying the response text. */\n  copiedStatus?: string;\n  /** Announced after copying the response as Markdown. */\n  copiedMarkdownStatus?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageSourceProps",
+        "file": "libs/conversation-messages/src/models/message-source.ts",
+        "start": 38,
+        "end": 45,
+        "declaration": "export interface MessageSourceProps {\n  /** User-visible strings. */\n  labels: MessageSourceLabels;\n  /** Fires on click. */\n  onClick?: () => void;\n  /** Color and typography overrides applied as CSS custom properties. */\n  styles?: MessageSourceStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageSourceLabels",
+        "file": "libs/conversation-messages/src/models/message-source.ts",
+        "start": 32,
+        "end": 35,
+        "declaration": "export interface MessageSourceLabels {\n  /** Button label text. */\n  label: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageSourceStyles",
+        "file": "libs/conversation-messages/src/models/message-source.ts",
+        "start": 22,
+        "end": 29,
+        "declaration": "export interface MessageSourceStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: MessageSourceColors;\n  /** Typography overrides applied via CSS custom properties. */\n  typography?: MessageSourceTypography;\n  /** Extra class(es) on the button. */\n  className?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageSourceColors",
+        "file": "libs/conversation-messages/src/models/message-source.ts",
+        "start": 2,
+        "end": 13,
+        "declaration": "export interface MessageSourceColors {\n  /** Button background color in the default state. */\n  background?: string;\n  /** Button border color in the default state. */\n  border?: string;\n  /** Label text color. */\n  text?: string;\n  /** Button background color on hover and active. */\n  backgroundHover?: string;\n  /** Button border color on hover and active. */\n  borderHover?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MessageSourceTypography",
+        "file": "libs/conversation-messages/src/models/message-source.ts",
+        "start": 16,
+        "end": 19,
+        "declaration": "export interface MessageSourceTypography {\n  /** Tailwind (or custom) class applied to the button. */\n  fontClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "MessageBubble",
+      "file": "libs/conversation-messages/src/components/MessageBubble/MessageBubble.tsx",
+      "start": 9,
+      "end": 47,
+      "declaration": "MessageBubble: FC<MessageBubbleProps> = ({\n  role,\n  beforeContent,\n  onAttachmentClick,\n  markdownComponents,\n  markdownUrlTransform,\n  ...props\n}) => {\n  if (role === MessageRole.Status) {\n    return (\n      <StatusMessageBubble\n        labels={{\n          titleText: props.labels?.statusTitleText,\n          bodyText: props.labels?.statusBodyText ?? '',\n        }}\n      />\n    );\n  }\n\n  if (role === MessageRole.User) {\n    return (\n      <UserMessageBubble\n        {...props}\n        beforeContent={beforeContent}\n        onAttachmentClick={onAttachmentClick}\n      />\n    );\n  }\n\n  return (\n    <AssistantMessageBubble\n      {...props}\n      beforeContent={beforeContent}\n      markdownComponents={markdownComponents}\n      markdownUrlTransform={markdownUrlTransform}\n      onAttachmentClick={onAttachmentClick}\n    />\n  );\n}",
+      "signature": "(props: MessageBubbleProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "markdownComponents",
+          "optional": true,
+          "type": "import(\"../../../../../node_modules/react-markdown/lib\").Components | undefined"
+        },
+        {
+          "name": "markdownClassNames",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-chat-shared\").MarkdownRendererClassNames | undefined"
+        },
+        {
+          "name": "markdownUrlTransform",
+          "optional": true,
+          "type": "((url: string) => string) | undefined"
+        },
+        {
+          "name": "starters",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-chat-shared\").StarterOption[] | undefined"
+        },
+        {
+          "name": "onSelectStarter",
+          "optional": true,
+          "type": "((starter: import(\"@epam/ai-dial-chat-shared\").StarterOption) => void) | undefined"
+        },
+        {
+          "name": "afterContent",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "deploymentIconUrl",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "deploymentDisplayName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "codeBlockTheme",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-chat-shared\").CodeBlockTheme | undefined"
+        },
+        {
+          "name": "tableOnOpenInCanvas",
+          "optional": true,
+          "type": "((markdown: string) => void) | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").AssistantMessageBubbleLabels | undefined"
+        },
+        {
+          "name": "text",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").MessageBubbleStyles | undefined"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "type": "import(\"../..\").MessageActionsProps | undefined"
+        },
+        {
+          "name": "hasAlwaysVisibleActions",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isStreaming",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "attachments",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[] | undefined"
+        },
+        {
+          "name": "onAttachmentClick",
+          "optional": true,
+          "type": "((attachment: import(\"@epam/ai-dial-chat-shared\").DisplayAttachment) => void) | undefined"
+        },
+        {
+          "name": "onDownloadAll",
+          "optional": true,
+          "type": "((attachments: import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[]) => void) | undefined"
+        },
+        {
+          "name": "onAttachmentRetry",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "selectedAttachmentId",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "beforeContent",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "collapsedLineCount",
+          "optional": true,
+          "type": "number | undefined"
+        },
+        {
+          "name": "position",
+          "optional": true,
+          "type": "import(\"../..\").BubblePosition | undefined"
+        },
+        {
+          "name": "role",
+          "optional": false,
+          "type": "MessageRole"
+        }
+      ]
+    },
+    {
+      "name": "UserMessageBubble",
+      "file": "libs/conversation-messages/src/components/MessageBubble/UserMessageBubble.tsx",
+      "start": 21,
+      "end": 184,
+      "declaration": "UserMessageBubble: FC<UserMessageBubbleProps> = ({\n  text,\n  position = BubblePosition.Bottom,\n  styles: bubbleStyles,\n  actions,\n  hasAlwaysVisibleActions,\n  attachments,\n  collapsedLineCount = DEFAULT_COLLAPSED_LINE_COUNT,\n  labels,\n  beforeContent,\n  onAttachmentClick,\n  onDownloadAll,\n  onAttachmentRetry,\n  selectedAttachmentId,\n}) => {\n  const { colors, typography, className, bubbleClassName } = bubbleStyles ?? {};\n  const {\n    showMoreLabel = 'Show more',\n    showLessLabel = 'Show less',\n    showMoreAriaLabel,\n    showLessAriaLabel,\n    attachmentClickLabel,\n    attachmentRetryLabel,\n    attachmentOpenInNewTabLabel,\n    userMessageAriaLabel = 'User message',\n  } = labels ?? {};\n\n  const {\n    textRef,\n    isTextCollapsed,\n    isOverflowing,\n    collapsedMaxHeight,\n    expandedMaxHeight,\n    isCollapsed,\n    toggleCollapsed,\n  } = useCollapsedText<HTMLParagraphElement>({\n    text: text ?? '',\n    collapsedLineCount,\n  });\n\n  const cssVars = buildCssVars({\n    '--cm-bubble-user-bg': colors?.userBackground,\n    '--cm-bubble-user-border': colors?.userBorder,\n    '--cm-bubble-fade-start': colors?.fadeStart,\n    '--cm-bubble-text': colors?.text,\n    '--cm-bubble-collapsed-height': isOverflowing\n      ? `${collapsedMaxHeight}px`\n      : undefined,\n    '--cm-bubble-expanded-height': isOverflowing\n      ? `${expandedMaxHeight}px`\n      : undefined,\n  });\n\n  const positionRadius =\n    position === BubblePosition.Top\n      ? 'rounded-ee-md rounded-se-2xl'\n      : 'rounded-se-md rounded-ee-2xl';\n\n  const textClass = mergeClasses(styles.text, typography?.fontClassName);\n  const expandAriaLabel = showMoreAriaLabel ?? showMoreLabel;\n  const collapseAriaLabel = showLessAriaLabel ?? showLessLabel;\n  const toggleLabel = isCollapsed ? showMoreLabel : showLessLabel;\n  const toggleAriaLabel = isCollapsed ? expandAriaLabel : collapseAriaLabel;\n  const ToggleIcon = isCollapsed ? IconChevronDown : IconChevronUp;\n  const collapsibleTextId = useId();\n  return (\n    <div\n      role=\"group\"\n      aria-label={userMessageAriaLabel}\n      style={cssVars}\n      className={mergeClasses('flex w-full', className)}\n    >\n      <div className=\"ms-auto flex w-fit min-w-0 max-w-full flex-col items-end gap-4\">\n        <AttachmentGroup\n          attachments={attachments ?? []}\n          onAttachmentClick={(id) =>\n            onAttachmentClick?.(\n              attachments?.find((a) => a.id === id) as DisplayAttachment,\n            )\n          }\n          onDownloadAll={onDownloadAll}\n          onRetry={onAttachmentRetry}\n          labels={{\n            clickLabel: attachmentClickLabel,\n            retryLabel: attachmentRetryLabel,\n            openInNewTabLabel: attachmentOpenInNewTabLabel,\n          }}\n          styles={{ className: 'max-w-[640px]' }}\n          selectedAttachmentId={selectedAttachmentId}\n        />\n        {(text || beforeContent != null) && (\n          <div\n            className={mergeClasses(\n              styles.userBubble,\n              'flex w-fit items-center justify-end rounded-es-2xl rounded-ss-2xl border px-6 py-4',\n              positionRadius,\n              bubbleClassName,\n              CONVERSATION_MESSAGES_CLASS.userBubble,\n            )}\n          >\n            <div className=\"flex min-w-0 flex-col items-start\">\n              {text && (\n                <div\n                  id={collapsibleTextId}\n                  className={mergeClasses(\n                    'relative overflow-hidden',\n                    isOverflowing && styles.collapsibleText,\n                    isOverflowing && !isCollapsed && styles.expandedText,\n                    isTextCollapsed && styles.collapsedText,\n                  )}\n                >\n                  <p\n                    ref={textRef}\n                    className={mergeClasses(\n                      textClass,\n                      'whitespace-pre-wrap text-start [overflow-wrap:anywhere]',\n                    )}\n                  >\n                    {/*\n                     * The slot renders inline at the start of the text so the\n                     * text word-flows after it on the same line \u2014 the\n                     * conversation input's inline-start slot behaviour.\n                     * Inline placement keeps the bubble's content-sized width\n                     * and the collapse line measurement honest, which an\n                     * overlaid or floated slot would not; the wrapper supplies\n                     * the chip-to-text gap because generic slot content\n                     * carries no padding of its own. In flow when there is no\n                     * text: the bubble then renders for the slot alone and\n                     * needs its height.\n                     */}\n                    {beforeContent != null && (\n                      <span className=\"me-1\">{beforeContent}</span>\n                    )}\n                    {text}\n                  </p>\n                </div>\n              )}\n              {beforeContent != null && !text && <div>{beforeContent}</div>}\n              {isOverflowing && (\n                <LinkButton\n                  label={<>{toggleLabel}</>}\n                  iconBefore={\n                    <ToggleIcon size={DIAL_ICON_SIZE.SM} aria-hidden=\"true\" />\n                  }\n                  aria-label={toggleAriaLabel}\n                  aria-expanded={!isCollapsed}\n                  aria-controls={collapsibleTextId}\n                  className=\"mt-3\"\n                  onClick={toggleCollapsed}\n                  size={ElementSize.Small}\n                />\n              )}\n            </div>\n          </div>\n        )}\n        <MessageActions\n          {...actions}\n          isAlwaysVisible={hasAlwaysVisibleActions}\n          role={MessageRole.User}\n        />\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: UserMessageBubbleProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "position",
+          "optional": true,
+          "type": "BubblePosition | undefined"
+        },
+        {
+          "name": "collapsedLineCount",
+          "optional": true,
+          "type": "number | undefined"
+        },
+        {
+          "name": "text",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").MessageBubbleStyles | undefined"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "type": "import(\"../..\").MessageActionsProps | undefined"
+        },
+        {
+          "name": "hasAlwaysVisibleActions",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isStreaming",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "attachments",
+          "optional": true,
+          "type": "DisplayAttachment[] | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").MessageBubbleLabels | undefined"
+        },
+        {
+          "name": "onAttachmentClick",
+          "optional": true,
+          "type": "((attachment: DisplayAttachment) => void) | undefined"
+        },
+        {
+          "name": "onDownloadAll",
+          "optional": true,
+          "type": "((attachments: DisplayAttachment[]) => void) | undefined"
+        },
+        {
+          "name": "onAttachmentRetry",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "selectedAttachmentId",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "beforeContent",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "AssistantMessageBubble",
+      "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+      "start": 28,
+      "end": 236,
+      "declaration": "AssistantMessageBubble: FC<AssistantMessageBubbleProps> = ({\n  text,\n  styles: bubbleStyles,\n  actions,\n  hasAlwaysVisibleActions,\n  isStreaming,\n  attachments,\n  beforeContent,\n  afterContent,\n  starters,\n  onSelectStarter,\n  deploymentIconUrl,\n  deploymentDisplayName,\n  markdownComponents,\n  markdownClassNames,\n  markdownUrlTransform,\n  onAttachmentClick,\n  onDownloadAll,\n  onAttachmentRetry,\n  codeBlockTheme,\n  tableOnOpenInCanvas,\n  labels,\n  selectedAttachmentId,\n}) => {\n  const { colors, typography, className, bubbleClassName } = bubbleStyles ?? {};\n  const {\n    attachmentClickLabel,\n    attachmentRetryLabel,\n    attachmentOpenInNewTabLabel,\n    startersAriaLabel = 'Quick reply buttons',\n    thinkingLabel,\n    codeBlockCopyLabel,\n    codeBlockCopiedLabel,\n    tableCopyLabel,\n    tableCopiedLabel,\n    tableDownloadCsvLabel,\n    tableOpenInCanvasLabel,\n    tableDownloadFilename,\n    tableScrollRegionAriaLabel,\n    assistantMessageAriaLabel = 'Assistant message',\n    deploymentIconFallbackLabel = 'AI',\n  } = labels ?? {};\n  const tableActionLabels = useMemo(\n    () => ({\n      copyLabel: tableCopyLabel,\n      copiedLabel: tableCopiedLabel,\n      downloadCsvLabel: tableDownloadCsvLabel,\n      openInCanvasLabel: tableOpenInCanvasLabel,\n    }),\n    [\n      tableCopyLabel,\n      tableCopiedLabel,\n      tableDownloadCsvLabel,\n      tableOpenInCanvasLabel,\n    ],\n  );\n  const visibleAttachments = isStreaming\n    ? (attachments ?? []).filter((a) => a.type !== AttachmentType.Audio)\n    : (attachments ?? []);\n  const { slotRef, firstLineIndent } = useInlineStartIndent(\n    beforeContent != null && !!text,\n  );\n  const cssVars = buildCssVars({\n    '--cm-bubble-text': colors?.text,\n    '--cm-starters-divider': colors?.startersDivider,\n    '--cm-bubble-first-line-indent': firstLineIndent,\n  });\n\n  const textClass = mergeClasses(styles.text, typography?.fontClassName);\n\n  const hasDeploymentIcon = !!(deploymentIconUrl || deploymentDisplayName);\n\n  return (\n    <div\n      role=\"group\"\n      aria-label={assistantMessageAriaLabel}\n      style={cssVars}\n      className={mergeClasses('flex w-full items-start gap-3', className)}\n    >\n      {hasDeploymentIcon && (\n        <DeploymentIcon\n          src={deploymentIconUrl}\n          size={28}\n          initialsName={deploymentDisplayName || deploymentIconFallbackLabel}\n          labels={{\n            tooltip: deploymentDisplayName ?? deploymentIconFallbackLabel,\n          }}\n        />\n      )}\n      <div className=\"flex w-full min-w-0 max-w-full flex-col items-start gap-5\">\n        <div\n          className={mergeClasses(\n            'flex w-full min-w-0 max-w-full flex-col items-start gap-4',\n            bubbleClassName,\n          )}\n        >\n          {/*\n           * The slot overlays the text's first line from inside the text\n           * container \u2014 absolutely positioned at the inline-start edge, the\n           * first markdown block's first line indented past it via\n           * `--cm-bubble-first-line-indent` (the measured slot width plus a\n           * gap) \u2014 so the text word-flows after it, the conversation input's\n           * inline-start slot behaviour. Markdown's first block cannot host\n           * the slot inline (it is react-markdown output), and this bubble is\n           * full-width, so the out-of-flow overlay costs nothing here. In\n           * flow whenever there is no text: on its own line when the message\n           * is empty, or above the streaming placeholder while the first\n           * token has not arrived yet.\n           */}\n          {beforeContent != null && !text && (\n            <div className=\"min-w-0\">{beforeContent}</div>\n          )}\n          {(text || isStreaming) && (\n            <div\n              aria-live=\"polite\"\n              aria-atomic=\"false\"\n              className={mergeClasses(\n                textClass,\n                'relative min-w-0 max-w-full text-start',\n                /*\n                 * `text-indent` inherits, so the indent targets the markdown\n                 * container's first block child (a leading list indents its\n                 * every item's first line \u2014 accepted edge) rather than the\n                 * text container, where it would reach every block. The\n                 * `cm-bubble-markdown` wrapper class scopes the selector to\n                 * the markdown container alone: the slot's overlay div is\n                 * also a direct child of the text container, and\n                 * host-supplied slot content of any element type must never\n                 * receive the indent.\n                 */\n                beforeContent != null && text && FIRST_LINE_INDENT_CLASS_NAME,\n                CONVERSATION_MESSAGES_CLASS.assistantContent,\n              )}\n            >\n              {beforeContent != null && text && (\n                <div ref={slotRef} className=\"absolute start-0 top-0\">\n                  {beforeContent}\n                </div>\n              )}\n              {/*\n               * The plain marker class (not a CSS-module hash) keeps the\n               * indent selector above a static string Tailwind can generate.\n               */}\n              <div className=\"cm-bubble-markdown min-w-0 max-w-full\">\n                <MDMessageViewer\n                  content={text ?? ''}\n                  isStreaming={isStreaming}\n                  thinkingLabel={thinkingLabel}\n                  components={markdownComponents}\n                  classNames={markdownClassNames}\n                  urlTransform={markdownUrlTransform}\n                  codeBlockCopyLabel={codeBlockCopyLabel}\n                  codeBlockCopiedLabel={codeBlockCopiedLabel}\n                  codeBlockTheme={codeBlockTheme}\n                  tableActionLabels={tableActionLabels}\n                  tableDownloadFilename={tableDownloadFilename}\n                  tableOnOpenInCanvas={tableOnOpenInCanvas}\n                  tableScrollRegionAriaLabel={tableScrollRegionAriaLabel}\n                />\n              </div>\n            </div>\n          )}\n          <AttachmentGroup\n            attachments={visibleAttachments}\n            onAttachmentClick={(id) =>\n              onAttachmentClick?.(\n                attachments?.find((a) => a.id === id) as DisplayAttachment,\n              )\n            }\n            onDownloadAll={onDownloadAll}\n            onRetry={onAttachmentRetry}\n            labels={{\n              clickLabel: attachmentClickLabel,\n              retryLabel: attachmentRetryLabel,\n              openInNewTabLabel: attachmentOpenInNewTabLabel,\n            }}\n            selectedAttachmentId={selectedAttachmentId}\n          />\n          {afterContent}\n          <MessageActions\n            {...actions}\n            isAlwaysVisible={hasAlwaysVisibleActions}\n            role={MessageRole.Assistant}\n          />\n        </div>\n        {starters && starters.length > 0 && onSelectStarter && (\n          <div\n            role=\"list\"\n            aria-label={startersAriaLabel}\n            className={mergeClasses(\n              'flex w-full flex-wrap gap-2 border-t pt-5',\n              styles.startersDivider,\n            )}\n          >\n            {starters.map((starter, index) => (\n              <div key={index} role=\"listitem\" className=\"min-w-[40px]\">\n                <NeutralButton\n                  label={starter.title}\n                  className=\"min-w-[40px]\"\n                  onClick={() => onSelectStarter(starter)}\n                />\n              </div>\n            ))}\n          </div>\n        )}\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: AssistantMessageBubbleProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "markdownComponents",
+          "optional": true,
+          "type": "import(\"../../../../../node_modules/react-markdown/lib\").Components | undefined"
+        },
+        {
+          "name": "markdownClassNames",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-chat-shared\").MarkdownRendererClassNames | undefined"
+        },
+        {
+          "name": "markdownUrlTransform",
+          "optional": true,
+          "type": "((url: string) => string) | undefined"
+        },
+        {
+          "name": "starters",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-chat-shared\").StarterOption[] | undefined"
+        },
+        {
+          "name": "onSelectStarter",
+          "optional": true,
+          "type": "((starter: import(\"@epam/ai-dial-chat-shared\").StarterOption) => void) | undefined"
+        },
+        {
+          "name": "afterContent",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "deploymentIconUrl",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "deploymentDisplayName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "codeBlockTheme",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-chat-shared\").CodeBlockTheme | undefined"
+        },
+        {
+          "name": "tableOnOpenInCanvas",
+          "optional": true,
+          "type": "((markdown: string) => void) | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").AssistantMessageBubbleLabels | undefined"
+        },
+        {
+          "name": "text",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").MessageBubbleStyles | undefined"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "type": "import(\"../..\").MessageActionsProps | undefined"
+        },
+        {
+          "name": "hasAlwaysVisibleActions",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isStreaming",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "attachments",
+          "optional": true,
+          "type": "DisplayAttachment[] | undefined"
+        },
+        {
+          "name": "onAttachmentClick",
+          "optional": true,
+          "type": "((attachment: DisplayAttachment) => void) | undefined"
+        },
+        {
+          "name": "onDownloadAll",
+          "optional": true,
+          "type": "((attachments: DisplayAttachment[]) => void) | undefined"
+        },
+        {
+          "name": "onAttachmentRetry",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "selectedAttachmentId",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "beforeContent",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "StatusMessageBubble",
+      "file": "libs/conversation-messages/src/components/MessageBubble/StatusMessageBubble.tsx",
+      "start": 19,
+      "end": 31,
+      "declaration": "StatusMessageBubble: FC<StatusMessageBubbleProps> = ({\n  labels: { titleText = 'Model switched.', bodyText },\n}) => {\n  return (\n    <div role=\"status\" aria-live=\"polite\">\n      <InfoMessageNotification\n        title={titleText}\n        message={bodyText}\n        textClassName=\"flex-row flex-wrap gap-1\"\n      />\n    </div>\n  );\n}",
+      "signature": "(props: StatusMessageBubbleProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "StatusMessageBubbleLabels"
+        }
+      ]
+    },
+    {
+      "name": "MessageActions",
+      "file": "libs/conversation-messages/src/components/MessageActions/MessageActions.tsx",
+      "start": 31,
+      "end": 246,
+      "declaration": "MessageActions: FC<MessageActionsProps> = ({\n  role = MessageRole.User,\n  onEdit,\n  onEditHover,\n  onDelete,\n  onRegenerate,\n  onCopy,\n  onCopyMarkdown,\n  onLike,\n  onDislike,\n  activeRating,\n  isAlwaysVisible,\n  isDisabled = false,\n  className,\n  labels,\n  colors,\n}) => {\n  const { tooltips, ariaLabels } = labels ?? {};\n  const [copied, setCopied] = useState<'copy' | 'markdown' | null>(null);\n  const [copyStatus, setCopyStatus] = useState('');\n\n  const hasAnyAction =\n    onEdit != null ||\n    onDelete != null ||\n    onRegenerate != null ||\n    onCopy != null ||\n    onCopyMarkdown != null ||\n    onLike != null ||\n    onDislike != null;\n\n  const cssVars = buildCssVars({\n    '--ma-active-rating-text': colors?.activeRatingText,\n  });\n\n  const handleCopy = useCallback(() => {\n    onCopy?.();\n    setCopied('copy');\n    setCopyStatus(ariaLabels?.copiedStatus ?? 'Copied to clipboard');\n    setTimeout(() => setCopied(null), COPIED_RESET_MS);\n  }, [onCopy, ariaLabels?.copiedStatus]);\n\n  const handleCopyMarkdown = useCallback(() => {\n    onCopyMarkdown?.();\n    setCopied('markdown');\n    setCopyStatus(\n      ariaLabels?.copiedMarkdownStatus ?? 'Copied as Markdown to clipboard',\n    );\n    setTimeout(() => setCopied(null), COPIED_RESET_MS);\n  }, [onCopyMarkdown, ariaLabels?.copiedMarkdownStatus]);\n\n  /*\n   * No handler means a read-only message: an empty toolbar with a live region\n   * nothing ever populates is dead DOM, so render nothing at all.\n   */\n  if (!hasAnyAction) {\n    return null;\n  }\n\n  return (\n    <div\n      role=\"toolbar\"\n      aria-label={ariaLabels?.actionsGroup ?? 'Message actions'}\n      style={cssVars}\n      className={mergeClasses(\n        'flex gap-1',\n        !isAlwaysVisible && 'opacity-0 group-hover:opacity-100',\n        className,\n      )}\n    >\n      <span role=\"status\" aria-live=\"polite\" className=\"sr-only\">\n        {copyStatus}\n      </span>\n      {role === MessageRole.User ? (\n        <>\n          {onEdit && (\n            <ToggleIconButton\n              icon={\n                <IconPencilMinus\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              size={ElementSize.Small}\n              aria-label={ariaLabels?.editMessage ?? 'Edit message'}\n              tooltipProps={{ tooltip: tooltips?.edit ?? 'Edit' }}\n              onClick={onEdit}\n              onMouseEnter={onEditHover}\n              onFocus={onEditHover}\n              disabled={isDisabled}\n            />\n          )}\n          {onDelete && (\n            <ToggleIconButton\n              icon={\n                <IconTrashX\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              size={ElementSize.Small}\n              aria-label={ariaLabels?.deleteMessage ?? 'Delete message'}\n              tooltipProps={{ tooltip: tooltips?.delete ?? 'Delete' }}\n              onClick={onDelete}\n              disabled={isDisabled}\n            />\n          )}\n        </>\n      ) : (\n        <>\n          {onRegenerate && (\n            <ToggleIconButton\n              icon={\n                <IconRefresh\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              size={ElementSize.Small}\n              aria-label={\n                ariaLabels?.regenerateResponse ?? 'Regenerate response'\n              }\n              tooltipProps={{ tooltip: tooltips?.regenerate ?? 'Regenerate' }}\n              onClick={onRegenerate}\n              disabled={isDisabled}\n            />\n          )}\n          {onCopy && (\n            <CopyIconButton\n              iconSize={DIAL_ICON_SIZE.SM}\n              onClick={handleCopy}\n              size={ElementSize.Small}\n              isCopied={copied === 'copy'}\n              copyLabel={tooltips?.copy ?? 'Copy'}\n              copiedLabel={tooltips?.copied ?? 'Copied!'}\n              ariaLabel={ariaLabels?.copyResponse ?? 'Copy response'}\n              isDisabled={isDisabled}\n            />\n          )}\n          {onCopyMarkdown && (\n            <CopyIconButton\n              iconSize={DIAL_ICON_SIZE.SM}\n              onClick={handleCopyMarkdown}\n              size={ElementSize.Small}\n              isCopied={copied === 'markdown'}\n              iconCopy={\n                <IconMarkdown\n                  size={DIAL_ICON_SIZE.SM}\n                  aria-hidden\n                  stroke={DIAL_KIT_ICON_STROKE}\n                />\n              }\n              copyLabel={tooltips?.copyMarkdown ?? 'Copy as Markdown'}\n              copiedLabel={tooltips?.copiedMarkdown ?? 'Copied!'}\n              ariaLabel={ariaLabels?.copyAsMarkdown ?? 'Copy as markdown'}\n              isDisabled={isDisabled}\n            />\n          )}\n\n          {onLike && (\n            <ToggleIconButton\n              icon={\n                activeRating === MessageRating.Like ? (\n                  <IconThumbUpFilled\n                    className={styles.activeRating}\n                    size={DIAL_ICON_SIZE.SM}\n                    aria-hidden\n                  />\n                ) : (\n                  <IconThumbUp\n                    size={DIAL_ICON_SIZE.SM}\n                    aria-hidden\n                    stroke={DIAL_KIT_ICON_STROKE}\n                  />\n                )\n              }\n              size={ElementSize.Small}\n              aria-label={ariaLabels?.likeResponse ?? 'Like response'}\n              aria-pressed={activeRating === MessageRating.Like}\n              tooltipProps={{ tooltip: tooltips?.like ?? 'Like' }}\n              onClick={onLike}\n              disabled={isDisabled}\n            />\n          )}\n          {onDislike && (\n            <ToggleIconButton\n              icon={\n                activeRating === MessageRating.Dislike ? (\n                  <IconThumbDownFilled\n                    className={styles.activeRating}\n                    size={DIAL_ICON_SIZE.SM}\n                    aria-hidden\n                  />\n                ) : (\n                  <IconThumbDown\n                    size={DIAL_ICON_SIZE.SM}\n                    aria-hidden\n                    stroke={DIAL_KIT_ICON_STROKE}\n                  />\n                )\n              }\n              size={ElementSize.Small}\n              aria-label={ariaLabels?.dislikeResponse ?? 'Dislike response'}\n              aria-pressed={activeRating === MessageRating.Dislike}\n              tooltipProps={{ tooltip: tooltips?.dislike ?? 'Dislike' }}\n              onClick={onDislike}\n              disabled={isDisabled}\n            />\n          )}\n        </>\n      )}\n    </div>\n  );\n}",
+      "signature": "(props: MessageActionsProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "role",
+          "optional": true,
+          "type": "MessageRole | undefined"
+        },
+        {
+          "name": "className",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "isAlwaysVisible",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isDisabled",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").MessageActionLabels | undefined"
+        },
+        {
+          "name": "onEdit",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onEditHover",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onDelete",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onRegenerate",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onCopy",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onCopyMarkdown",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onLike",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onDislike",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "activeRating",
+          "optional": true,
+          "type": "MessageRating | undefined"
+        },
+        {
+          "name": "colors",
+          "optional": true,
+          "type": "import(\"../..\").MessageActionColors | undefined"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/conversation-messages/src/components/MessageActions/tests/MessageActions.spec.tsx",
+      "assertions": [
+        "renders Edit and Delete buttons",
+        "does not render Agent action buttons",
+        "calls onEdit when Edit button is clicked",
+        "calls onDelete when Delete button is clicked",
+        "renders Regenerate, Copy, Markdown, Like, and Dislike buttons",
+        "does not render User action buttons",
+        "calls onRegenerate when Regenerate button is clicked",
+        "calls onCopy when Copy button is clicked",
+        "calls onCopyMarkdown when Markdown button is clicked",
+        "calls onLike when Like button is clicked",
+        "calls onDislike when Dislike button is clicked",
+        "does not call onRegenerate when the disabled Regenerate button is clicked",
+        "does not call onLike when the disabled Like button is clicked",
+        "does not call onDislike when the disabled Dislike button is clicked",
+        "does not call onCopy when the disabled Copy button is clicked",
+        "leaves the assistant actions enabled by default",
+        "disables the user Edit and Delete buttons",
+        "renders nothing when no action handler is provided",
+        "merges additional className onto the wrapper element",
+        "hides actions by default (opacity-0)",
+        "does not apply opacity-0 when isAlwaysVisible is true"
+      ]
+    },
+    {
+      "file": "libs/conversation-messages/src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx",
+      "assertions": [
+        "marks the bubble that wraps the message text",
+        "emits no bubble class when there is no text or before-content",
+        "keeps a caller-supplied bubbleClassName alongside the public class",
+        "marks the live content region for a settled message",
+        "marks the live content region while streaming"
+      ]
+    },
+    {
+      "file": "libs/conversation-messages/src/components/MessageBubble/tests/MessageBubble.spec.tsx",
+      "assertions": [
+        "renders the provided text content",
+        "applies rounded-se-md with BubblePosition.Bottom (default)",
+        "applies rounded-ee-md with BubblePosition.Top",
+        "merges additional className onto the container",
+        "does not apply user rounded classes for assistant messages",
+        "renders no action buttons when no actions prop is given (read-only)",
+        "renders user actions from actions prop",
+        "renders assistant actions from actions prop",
+        "makes actions always visible when hasAlwaysVisibleActions is true",
+        "preserves line breaks in the message text",
+        "renders an attachment tray when attachments are provided",
+        "renders no attachment tray when attachments prop is absent",
+        "renders no attachment tray when attachments array is empty",
+        "renders the tray before the message text in the DOM",
+        "remove button does not trigger a callback (read-only tray)",
+        "tray cards are inert when onAttachmentClick is absent",
+        "collapses long user messages by default",
+        "expands and collapses a long user message",
+        "does not show the toggle button for short user messages",
+        "uses custom labels and aria labels for the toggle button",
+        "renders the slot inline inside the text paragraph, before the text",
+        "renders the bubble for the slot alone when there is no text",
+        "renders no slot wrapper inside the paragraph when beforeContent is absent",
+        "allows long unbroken markdown text to wrap inside the bubble",
+        "allows long unbroken code block lines to scroll horizontally inside the bubble",
+        "reveals appended streaming text gradually",
+        "renders remaining text immediately after streaming stops",
+        "does not reveal structural markdown blocks character by character",
+        "forwards table action labels to completed assistant tables",
+        "hides table actions while an assistant message is streaming",
+        "renders assistant tables without actions when labels are absent",
+        "forwards tableOnOpenInCanvas to the table, calling it with the serialized Markdown",
+        "does not render Open in Canvas when tableOnOpenInCanvas is absent",
+        "renders an attachment tray when attachments are provided",
+        "renders no attachment tray when attachments prop is absent",
+        "renders no attachment tray when attachments array is empty",
+        "renders the tray after the message text in the DOM",
+        "remove button does not trigger a callback (read-only tray)",
+        "rewrites markdown image src through markdownUrlTransform",
+        "renders an img when deploymentIconUrl is provided",
+        "renders no icon header when neither deploymentIconUrl nor deploymentDisplayName is provided",
+        "overlays the slot at the inline start of the first markdown block without entering it",
+        "renders the slot in flow above the streaming placeholder while no text has arrived",
+        "renders the slot on its own line for a message with no text at all",
+        "renders no slot and no indent class when beforeContent is absent",
+        "renders bodyText",
+        "renders default titleText when titleText prop is omitted",
+        "renders custom titleText when provided",
+        "renders an svg icon (IconInfoCircleFilled)"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+      "matches": [
+        {
+          "start": 32,
+          "end": 42,
+          "excerpt": "  type Message as MessageType,\n  type RequestSkill,\n  type StarterOption,\n  type UploadedAttachmentResult,\n} from '@epam/ai-dial-chat-shared';\nimport {\n  MessageBubble,\n  type MessageActionAriaLabels,\n  type MessageActionTooltips,\n} from '@epam/ai-dial-conversation-messages';\nimport { CollapsedGroup } from '@epam/ai-dial-conversation-stages';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/ConversationView/ConversationView.tsx",
+      "matches": [
+        {
+          "start": 42,
+          "end": 52,
+          "excerpt": "  type UploadedAttachmentResult,\n} from '@epam/ai-dial-chat-shared';\nimport type {\n  TextInsertion,\n  ToolsChipLabels,\n} from '@epam/ai-dial-conversation-input';\nimport type {\n  MessageActionAriaLabels,\n  MessageActionTooltips,\n} from '@epam/ai-dial-conversation-messages';\nimport { useMcpAppResponseCache } from '@epam/ai-dial-mcp-apps';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/ConversationView/utils/build-message-actions.ts",
+      "matches": [
+        {
+          "start": 3,
+          "end": 13,
+          "excerpt": "  MessageRole,\n  copyMarkdownAsRichText,\n  copyToClipboard,\n  type Message,\n} from '@epam/ai-dial-chat-shared';\nimport type {\n  MessageActionAriaLabels,\n  MessageActionTooltips,\n  MessageActionsProps,\n} from '@epam/ai-dial-conversation-messages';\n"
+        }
+      ]
+    }
+  ]
+}

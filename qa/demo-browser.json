@@ -1,0 +1,11 @@
+{
+  "url": "http://127.0.0.1:4388",
+  "browser": "153.0.8010.52",
+  "errors": [],
+  "viewport": [
+    1440,
+    710
+  ],
+  "data": "Synthetic local data; no backend calls",
+  "source": "demo/main.tsx"
+}

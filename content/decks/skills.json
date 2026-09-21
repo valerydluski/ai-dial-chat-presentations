@@ -1,0 +1,488 @@
+{
+  "id": "libs/skills",
+  "shortTitle": "Skills",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-skills-01",
+      "title": "Skills",
+      "layout": "cover",
+      "subtitle": "Select a reusable skill without coupling the picker to sending.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-skills",
+      "notes": "This session explains select a reusable skill without coupling the picker to sending. The library is a local private workspace package at libs/skills. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/skills/README.md",
+          "start": 1,
+          "end": 378
+        },
+        {
+          "file": "libs/skills/src/index.ts",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/skills/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+          "start": 37,
+          "end": 294,
+          "symbol": "FavoriteSkillsPanel"
+        },
+        {
+          "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+          "start": 34,
+          "end": 62,
+          "symbol": "FavoriteSkillsPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-skills-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Select a reusable skill without coupling the picker to sending.",
+      "cards": [
+        {
+          "title": "Choose a favorite",
+          "body": "Select a host-resolved favorite skill."
+        },
+        {
+          "title": "Inspect a skill",
+          "body": "Open a host-backed detail panel."
+        },
+        {
+          "title": "Attach context",
+          "body": "Display a selected skill chip next to the composer."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Choose a favorite: Select a host-resolved favorite skill. Inspect a skill: Open a host-backed detail panel. Attach context: Display a selected skill chip next to the composer. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/skills/README.md",
+          "start": 1,
+          "end": 378
+        },
+        {
+          "file": "libs/skills/src/index.ts",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/skills/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+          "start": 37,
+          "end": 294,
+          "symbol": "FavoriteSkillsPanel"
+        },
+        {
+          "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+          "start": 34,
+          "end": 62,
+          "symbol": "FavoriteSkillsPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-skills-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host listing",
+          "body": "FavoriteSkillItem[]"
+        },
+        {
+          "title": "Skills picker",
+          "body": "Select or inspect"
+        },
+        {
+          "title": "Selected skill",
+          "body": "Chip and detail state"
+        },
+        {
+          "title": "Host send",
+          "body": "Interpret the selection"
+        }
+      ],
+      "takeaway": "Library: Favorite list, chip, details composition and selection-overlay state.",
+      "notes": "The library owns Favorite list, chip, details composition and selection-overlay state. The host owns Skill listing, favorites persistence, capability flag and send-time semantics.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/skills/README.md",
+          "start": 1,
+          "end": 378
+        },
+        {
+          "file": "libs/skills/src/index.ts",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/skills/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+          "start": 37,
+          "end": 294,
+          "symbol": "FavoriteSkillsPanel"
+        },
+        {
+          "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+          "start": 34,
+          "end": 62,
+          "symbol": "FavoriteSkillsPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-skills-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "FavoriteSkillsPanel \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "favorites",
+          "FavoriteSkillItem[]"
+        ],
+        [
+          "onSelect",
+          "(item: FavoriteSkillItem) => void"
+        ],
+        [
+          "onViewDetails",
+          "(item: FavoriteSkillItem) => void"
+        ],
+        [
+          "onBrowse",
+          "() => void"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/skills/README.md",
+          "start": 1,
+          "end": 378
+        },
+        {
+          "file": "libs/skills/src/index.ts",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/skills/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+          "start": 37,
+          "end": 294,
+          "symbol": "FavoriteSkillsPanel"
+        },
+        {
+          "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+          "start": 34,
+          "end": 62,
+          "symbol": "FavoriteSkillsPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-skills-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "<FavoriteSkillsPanel\n  {...host}\n  favorites={[{\n    id: 'skills/demo/review',\n    name: 'Demo review',\n    description: 'Review demo content',\n  }]}\n/>\n// host supplies select, favorite, browse and detail callbacks.",
+      "caption": "Full example: examples/skills.tsx \u00b7 uses @epam/ai-dial-skills",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/skills.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Select a host-resolved favorite skill. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/skills/README.md",
+          "start": 1,
+          "end": 378
+        },
+        {
+          "file": "libs/skills/src/index.ts",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/skills/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+          "start": 37,
+          "end": 294,
+          "symbol": "FavoriteSkillsPanel"
+        },
+        {
+          "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+          "start": 34,
+          "end": 62,
+          "symbol": "FavoriteSkillsPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-skills-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep skills focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Load favorites",
+          "body": "Supply favorite skill records and localized labels."
+        },
+        {
+          "title": "Handle selection",
+          "body": "Use the selection callback to choose a skill in the host."
+        },
+        {
+          "title": "Connect discovery",
+          "body": "Browse and detail callbacks open host-owned surfaces."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Load favorites: Supply favorite skill records and localized labels. Handle selection: Use the selection callback to choose a skill in the host. Connect discovery: Browse and detail callbacks open host-owned surfaces. The complete typed module in examples/skills.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/skills/README.md",
+          "start": 1,
+          "end": 378
+        },
+        {
+          "file": "libs/skills/src/index.ts",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/skills/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+          "start": 37,
+          "end": 294,
+          "symbol": "FavoriteSkillsPanel"
+        },
+        {
+          "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+          "start": 34,
+          "end": 62,
+          "symbol": "FavoriteSkillsPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-skills-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Overlay state hook",
+          "body": "useSkillSelectorOverlay coordinates favorites, browse and details."
+        },
+        {
+          "title": "Capability input",
+          "body": "A plain support flag controls skill entry points."
+        },
+        {
+          "title": "Composable detail view",
+          "body": "SkillDetailsSidePanel uses the catalog DetailsPanel contract."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Overlay state hook: useSkillSelectorOverlay coordinates favorites, browse and details. Capability input: A plain support flag controls skill entry points. Composable detail view: SkillDetailsSidePanel uses the catalog DetailsPanel contract. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/skills/README.md",
+          "start": 1,
+          "end": 378
+        },
+        {
+          "file": "libs/skills/src/index.ts",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/skills/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+          "start": 37,
+          "end": 294,
+          "symbol": "FavoriteSkillsPanel"
+        },
+        {
+          "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+          "start": 34,
+          "end": 62,
+          "symbol": "FavoriteSkillsPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-skills-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat/components/SkillSelector/useSkillSelectorOverlay.tsx"
+        ],
+        [
+          "Test evidence",
+          "stamps the composer chip"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: apps/chat/src/components/SkillSelector/useSkillSelectorOverlay.tsx; apps/chat/src/components/SkillSelector/SkillDetailsPanelContainer.tsx. Existing test evidence: [{\"file\": \"libs/skills/src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx\", \"assertions\": [\"skills \\u2014 public class names\", \"stamps the composer chip\", \"keeps the chip class in the unsupported state\", \"stamps the favorites panel root\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-skills:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/skills/README.md",
+          "start": 1,
+          "end": 378
+        },
+        {
+          "file": "libs/skills/src/index.ts",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/skills/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+          "start": 37,
+          "end": 294,
+          "symbol": "FavoriteSkillsPanel"
+        },
+        {
+          "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+          "start": 34,
+          "end": 62,
+          "symbol": "FavoriteSkillsPanelProps"
+        },
+        {
+          "file": "apps/chat/src/components/SkillSelector/useSkillSelectorOverlay.tsx",
+          "start": 1,
+          "end": 120
+        },
+        {
+          "file": "libs/skills/src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx",
+          "start": 1,
+          "end": 72
+        }
+      ]
+    },
+    {
+      "id": "lib-skills-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Unsupported deployment",
+          "body": "A selected chip can remain visible in its error state."
+        },
+        {
+          "title": "No automatic attachment",
+          "body": "The host decides how a skill enters the request."
+        },
+        {
+          "title": "Keep identifiers intact",
+          "body": "The favorite item id is the resource identifier supplied by the host."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Unsupported deployment: A selected chip can remain visible in its error state. No automatic attachment: The host decides how a skill enters the request. Keep identifiers intact: The favorite item id is the resource identifier supplied by the host. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/skills/README.md",
+          "start": 1,
+          "end": 378
+        },
+        {
+          "file": "libs/skills/src/index.ts",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/skills/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+          "start": 37,
+          "end": 294,
+          "symbol": "FavoriteSkillsPanel"
+        },
+        {
+          "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+          "start": 34,
+          "end": 62,
+          "symbol": "FavoriteSkillsPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/skills.pptx"
+}

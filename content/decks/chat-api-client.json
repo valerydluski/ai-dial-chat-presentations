@@ -1,0 +1,461 @@
+{
+  "id": "libs/chat-api-client",
+  "shortTitle": "Chat API client",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-chat-api-client-01",
+      "title": "Chat API client",
+      "layout": "cover",
+      "subtitle": "Generate typed operations from the backend OpenAPI contract.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-chat-api-client",
+      "notes": "This session explains generate typed operations from the backend openapi contract. The library is a local private workspace package at libs/chat-api-client. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/chat-api-client/README.md",
+          "start": 1,
+          "end": 68
+        },
+        {
+          "file": "libs/chat-api-client/src/index.ts",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "file": "libs/chat-api-client/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/chat-api-client/src/generated/src/apis/DeploymentsApi.ts",
+          "start": 43,
+          "end": 250,
+          "symbol": "DeploymentsApi"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-api-client-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Generate typed operations from the backend OpenAPI contract.",
+      "cards": [
+        {
+          "title": "Call the BFF",
+          "body": "Use typed API classes from application adapters."
+        },
+        {
+          "title": "Evolve an endpoint",
+          "body": "Change Swagger/DTO sources, then regenerate."
+        },
+        {
+          "title": "Inspect transport details",
+          "body": "Use Raw operations when headers or the Response are needed."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Call the BFF: Use typed API classes from application adapters. Evolve an endpoint: Change Swagger/DTO sources, then regenerate. Inspect transport details: Use Raw operations when headers or the Response are needed. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/chat-api-client/README.md",
+          "start": 1,
+          "end": 68
+        },
+        {
+          "file": "libs/chat-api-client/src/index.ts",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "file": "libs/chat-api-client/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/chat-api-client/src/generated/src/apis/DeploymentsApi.ts",
+          "start": 43,
+          "end": 250,
+          "symbol": "DeploymentsApi"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-api-client-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Nest controllers",
+          "body": "Swagger and DTOs"
+        },
+        {
+          "title": "OpenAPI document",
+          "body": "Generator input"
+        },
+        {
+          "title": "Generated client",
+          "body": "Typed operations"
+        },
+        {
+          "title": "App adapter",
+          "body": "Configured calls"
+        }
+      ],
+      "takeaway": "Library: Generated endpoint paths, DTOs, serializers and Fetch transport runtime.",
+      "notes": "The library owns Generated endpoint paths, DTOs, serializers and Fetch transport runtime. The host owns Base URL, credentials, CSRF policy, middleware and application error presentation.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/chat-api-client/README.md",
+          "start": 1,
+          "end": 68
+        },
+        {
+          "file": "libs/chat-api-client/src/index.ts",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "file": "libs/chat-api-client/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/chat-api-client/src/generated/src/apis/DeploymentsApi.ts",
+          "start": 43,
+          "end": 250,
+          "symbol": "DeploymentsApi"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-api-client-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "DeploymentsApi \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "Configuration",
+          "basePath, credentials, middleware"
+        ],
+        [
+          "listDeployments()",
+          "Promise<DeploymentsResponseDto>"
+        ],
+        [
+          "listDeploymentsRaw({})",
+          "Raw response wrapper and value()"
+        ],
+        [
+          "Generation source",
+          "Nest Swagger + openapi.json"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/chat-api-client/README.md",
+          "start": 1,
+          "end": 68
+        },
+        {
+          "file": "libs/chat-api-client/src/index.ts",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "file": "libs/chat-api-client/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/chat-api-client/src/generated/src/apis/DeploymentsApi.ts",
+          "start": 43,
+          "end": 250,
+          "symbol": "DeploymentsApi"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-api-client-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "const api = new DeploymentsApi(\n  new Configuration({\n    basePath: '',\n    credentials: 'include',\n  }),\n);\nconst deployments = await api.listDeployments();",
+      "caption": "Full example: examples/chat-api-client.ts \u00b7 uses @epam/ai-dial-chat-api-client",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/chat-api-client.ts. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Use typed API classes from application adapters. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/chat-api-client/README.md",
+          "start": 1,
+          "end": 68
+        },
+        {
+          "file": "libs/chat-api-client/src/index.ts",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "file": "libs/chat-api-client/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/chat-api-client/src/generated/src/apis/DeploymentsApi.ts",
+          "start": 43,
+          "end": 250,
+          "symbol": "DeploymentsApi"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-api-client-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep chat api client focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Configure transport",
+          "body": "Create a stable Configuration with origin and middleware."
+        },
+        {
+          "title": "Call an operation",
+          "body": "Use listDeployments() for the parsed response DTO."
+        },
+        {
+          "title": "Handle the outcome",
+          "body": "Render the result or handle the rejected request in the host."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Configure transport: Create a stable Configuration with origin and middleware. Call an operation: Use listDeployments() for the parsed response DTO. Handle the outcome: Render the result or handle the rejected request in the host. The complete typed module in examples/chat-api-client.ts shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/chat-api-client/README.md",
+          "start": 1,
+          "end": 68
+        },
+        {
+          "file": "libs/chat-api-client/src/index.ts",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "file": "libs/chat-api-client/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/chat-api-client/src/generated/src/apis/DeploymentsApi.ts",
+          "start": 43,
+          "end": 250,
+          "symbol": "DeploymentsApi"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-api-client-10",
+      "title": "Preserve transport details when needed",
+      "layout": "code",
+      "kicker": "Raw operations keep the underlying Response available.",
+      "code": "const response = await api.listDeploymentsRaw({});\nconst status = response.raw.status;\nconst data = await response.value();",
+      "caption": "Focused source-backed example \u00b7 see examples/ and content/api-index.md.",
+      "notes": "The Raw signature requires the request object even when every query field is optional. The normal listDeployments method defaults that object. This distinction is enforced by the example TypeScript check.",
+      "sources": [
+        {
+          "file": "libs/chat-api-client/README.md",
+          "start": 1,
+          "end": 68
+        },
+        {
+          "file": "libs/chat-api-client/src/index.ts",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "file": "libs/chat-api-client/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/chat-api-client/src/generated/src/apis/DeploymentsApi.ts",
+          "start": 43,
+          "end": 250,
+          "symbol": "DeploymentsApi"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-api-client-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Normal vs Raw",
+          "body": "Normal methods resolve values; Raw methods expose the response wrapper."
+        },
+        {
+          "title": "Configurable transport",
+          "body": "Configuration accepts basePath, credentials and middleware."
+        },
+        {
+          "title": "Regeneration scripts",
+          "body": "npm run openapi and openapi:check maintain the checked-in artifacts."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Normal vs Raw: Normal methods resolve values; Raw methods expose the response wrapper. Configurable transport: Configuration accepts basePath, credentials and middleware. Regeneration scripts: npm run openapi and openapi:check maintain the checked-in artifacts. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/chat-api-client/README.md",
+          "start": 1,
+          "end": 68
+        },
+        {
+          "file": "libs/chat-api-client/src/index.ts",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "file": "libs/chat-api-client/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/chat-api-client/src/generated/src/apis/DeploymentsApi.ts",
+          "start": 43,
+          "end": 250,
+          "symbol": "DeploymentsApi"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-api-client-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "usage-dashboard/src/utils/map-user-usage-to-model-limits.ts"
+        ],
+        [
+          "Validation workflow",
+          "Regeneration, typecheck and downstream consumers"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: libs/usage-dashboard/src/utils/map-user-usage-to-model-limits.ts; libs/usage-dashboard/src/utils/map-usage-data-to-dashboard.ts; apps/chat/src/pages/Conversation/Conversation.tsx; apps/chat/src/pages/ToolsetAuthCallback/ToolsetAuthCallback.tsx; apps/chat/src/pages/ScheduledTaskDetailPage/ScheduledTaskDetailPage.tsx; libs/chat-hooks/src/conversation/create-chat-stream-api.ts. Existing test evidence: []. Reproduce project checks from the repository root with npm exec nx run chat-api-client:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/chat-api-client/README.md",
+          "start": 1,
+          "end": 68
+        },
+        {
+          "file": "libs/chat-api-client/src/index.ts",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "file": "libs/chat-api-client/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/chat-api-client/src/generated/src/apis/DeploymentsApi.ts",
+          "start": 43,
+          "end": 250,
+          "symbol": "DeploymentsApi"
+        },
+        {
+          "file": "libs/usage-dashboard/src/utils/map-user-usage-to-model-limits.ts",
+          "start": 1,
+          "end": 494
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-api-client-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Never hand-edit generated code",
+          "body": "Regeneration overwrites manual client edits."
+        },
+        {
+          "title": "Real API names",
+          "body": "Use DeploymentsApi; the README ModelsApi example is stale."
+        },
+        {
+          "title": "Streaming needs care",
+          "body": "Host adapters handle documented raw stream/DTO gaps."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Never hand-edit generated code: Regeneration overwrites manual client edits. Real API names: Use DeploymentsApi; the README ModelsApi example is stale. Streaming needs care: Host adapters handle documented raw stream/DTO gaps. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/chat-api-client/README.md",
+          "start": 1,
+          "end": 68
+        },
+        {
+          "file": "libs/chat-api-client/src/index.ts",
+          "start": 1,
+          "end": 1
+        },
+        {
+          "file": "libs/chat-api-client/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/chat-api-client/src/generated/src/apis/DeploymentsApi.ts",
+          "start": 43,
+          "end": 250,
+          "symbol": "DeploymentsApi"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/chat-api-client.pptx"
+}

@@ -1,0 +1,764 @@
+{
+  "project": {
+    "id": "libs/settings-panel",
+    "project": "@epam/ai-dial-settings-panel",
+    "path": "libs/settings-panel",
+    "package": "@epam/ai-dial-settings-panel",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/settings-panel/README.md",
+      "libs/settings-panel/package.json",
+      "libs/settings-panel/src/index.ts",
+      "libs/settings-panel/src/components/SettingsPanel/tests/SettingsPanel.spec.tsx",
+      "libs/settings-panel/tsconfig.spec.json",
+      "apps/chat/src/pages/SettingsPage/SettingsPage.tsx",
+      "apps/chat/src/hooks/useSettingsTabConfig.tsx"
+    ],
+    "output": "decks/libs/settings-panel.pptx",
+    "preview": "previews/libs/settings-panel",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/SettingsPanel/tests/SettingsPanel.spec.tsx",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-settings-panel",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-settings-panel",
+    "description": "Presentational vertical settings navigation panel with icon-labeled rows and active-row highlighting",
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9",
+      "react": "^19.2.8"
+    },
+    "nx": {
+      "tags": [
+        "type:ui",
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/settings-panel",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/settings-panel",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/settings-panel/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/settings-panel",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/settings-panel",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/settings-panel",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/settings-panel",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/settings-panel",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-settings-panel --includeDependencies -- npx nx build-deps @epam/ai-dial-settings-panel"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/settings-panel",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/SettingsPanel/tests/SettingsPanel.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SettingsPanel/tests/SettingsPanel.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/SettingsPanel/tests/SettingsPanel.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/settings-panel",
+          "command": "vitest run src/components/SettingsPanel/tests/SettingsPanel.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/SettingsPanel/tests/SettingsPanel.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SettingsPanel/tests/SettingsPanel.spec.tsx"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/SettingsPanel/tests/SettingsPanel.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-settings-panel --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/SettingsPanel/tests/SettingsPanel.spec.tsx"
+        ]
+      },
+      "description": "Presentational vertical settings navigation panel with icon-labeled rows and active-row highlighting",
+      "js": {
+        "packageName": "@epam/ai-dial-settings-panel",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-settings-panel",
+    "tags": [
+      "npm:private",
+      "type:ui",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/settings-panel/src/index.ts",
+    "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+    "libs/settings-panel/src/components/SettingsPanel/tests/SettingsPanel.spec.tsx",
+    "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.module.scss",
+    "libs/settings-panel/src/models/settings-panel-props.ts",
+    "libs/settings-panel/src/constants/public-class-names.ts",
+    "libs/settings-panel/tsconfig.spec.json",
+    "libs/settings-panel/eslint.config.mjs",
+    "libs/settings-panel/postcss.config.js",
+    "libs/settings-panel/tsconfig.lib.json",
+    "libs/settings-panel/tsconfig.json",
+    "libs/settings-panel/package.json",
+    "libs/settings-panel/vite.config.mts",
+    "libs/settings-panel/README.md",
+    "libs/settings-panel/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/settings-panel/src/components/SettingsPanel/tests/SettingsPanel.spec.tsx",
+    "libs/settings-panel/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat/src/pages/SettingsPage/SettingsPage.tsx",
+    "apps/chat/src/hooks/useSettingsTabConfig.tsx"
+  ],
+  "readme": "# @epam/ai-dial-settings-panel\n\n## Overview\n\nProvides `SettingsPanel`, a presentational vertical navigation panel: an optional 64px section\nheader followed by icon + label rows, with the active row highlighted. The panel uses the raised\nbackground token; its header uses `dial-h1-text` and the primary text token. The component is fully\nhost-agnostic \u2014 it takes already-localized labels, host-resolved icons, and the active/selected\nstate via props, and calls back via `onSelect`. It implements the ARIA \"automatic activation\"\ntabs pattern adapted to a vertical layout: roving `tabIndex`, `ArrowUp`/`ArrowDown` move focus and\nselection between enabled rows (wrapping at the ends), `Home`/`End` jump to the first/last enabled\nrow, and disabled rows are skipped entirely by keyboard navigation. A single row remains\nsemantically selected but uses the neutral visual state because there is no alternative tab to\ndistinguish it from.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-settings-panel\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-settings-panel/styles.css';\n```\n\n## Peer Dependencies\n\n- `react` ^19.2.8\n- `@epam/ai-dial-ui-kit`\n- `@epam/ai-dial-chat-shared`\n\n## Components\n\n### SettingsPanel\n\n```tsx\nimport { IconLayoutGrid, IconUser } from '@tabler/icons-react';\nimport { SettingsPanel } from '@epam/ai-dial-settings-panel';\n\n<SettingsPanel\n  sectionLabel=\"Settings\"\n  activeId=\"usage\"\n  onSelect={(id) => setActiveTab(id)}\n  items={[\n    {\n      id: 'general',\n      label: 'General',\n      icon: <IconUser size={18} />,\n      disabled: true,\n    },\n    { id: 'usage', label: 'Usage', icon: <IconLayoutGrid size={18} /> },\n  ]}\n/>;\n```\n\nPass `styles={{ typography, colors }}` to override the section-header/label typography classes or\nthe row background/text/focus colors (applied as CSS custom properties):\n\n```tsx\n<SettingsPanel\n  activeId=\"usage\"\n  onSelect={setActiveTab}\n  items={items}\n  styles={{\n    colors: {\n      activeRowBackground: '#e6f0ff',\n      rowFocusOutline: '#161b2d',\n    },\n  }}\n/>\n```\n\n## Types\n\n- `SettingsPanelItem` \u2014 `{ id, label, icon?, disabled? }`\n- `SettingsPanelProps` \u2014 `{ items, activeId, onSelect, sectionLabel?, styles?, className? }`\n- `SettingsPanelStyles` \u2014 `{ typography?, colors? }`\n- `SettingsPanelColors` \u2014 CSS-custom-property color overrides\n- `SettingsPanelTypography` \u2014 typography class overrides\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. Selected\nelements therefore carry a stable public class.\n\n| Key       | Class                          | Element                                                |\n| --------- | ------------------------------ | ------------------------------------------------------ |\n| `panel`   | `dial-settings-panel-panel`    | The panel root, which carries the themed CSS variables |\n| `tabList` | `dial-settings-panel-tab-list` | The vertical tab list holding the section rows         |\n| `tab`     | `dial-settings-panel-tab`      | Every section row, selected or not                     |\n\n```tsx\nimport { SETTINGS_PANEL_CLASS } from '@epam/ai-dial-settings-panel';\n\nSETTINGS_PANEL_CLASS.tab; // 'dial-settings-panel-tab'\n```\n\n`role=\"tablist\"` and `role=\"tab\"` stay accessibility contracts \u2014 these classes\nare what a host selects on instead.\n\nThe classes carry no declarations of their own: nothing in `styles.css`\nselects on them, so they change nothing until a host writes a rule. Renaming\none, or moving it to a different element, is a breaking change. The convention\nis in [`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/settings-panel/src/index.ts": "export { SettingsPanel } from './components/SettingsPanel/SettingsPanel';\nexport type {\n  SettingsPanelItem,\n  SettingsPanelProps,\n  SettingsPanelStyles,\n  SettingsPanelColors,\n  SettingsPanelTypography,\n} from './models/settings-panel-props';\nexport { SETTINGS_PANEL_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/settings-panel/src/index.ts": [
+      {
+        "name": "SettingsPanel",
+        "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+        "start": 34,
+        "end": 170,
+        "declaration": "SettingsPanel: FC<SettingsPanelProps> = ({\n  items,\n  activeId,\n  onSelect,\n  sectionLabel,\n  styles: settingsPanelStyles,\n  className,\n}) => {\n  const headerId = useId();\n  const rowRefs = useRef(new Map<string, HTMLButtonElement>());\n\n  const {\n    sectionLabelClassName = 'dial-h1-text',\n    itemLabelClassName = 'dial-small-text',\n    activeItemLabelClassName = 'dial-small-semi-text',\n  } = settingsPanelStyles?.typography ?? {};\n  const colors = settingsPanelStyles?.colors;\n  const cssVars = buildCssVars({\n    '--sp-section-label-text': colors?.sectionLabelText,\n    '--sp-row-text': colors?.rowText,\n    '--sp-row-bg-hover': colors?.rowBackgroundHover,\n    '--sp-active-row-bg': colors?.activeRowBackground,\n    '--sp-active-row-bg-hover': colors?.activeRowBackgroundHover,\n    '--sp-active-row-text': colors?.activeRowText,\n    '--sp-row-focus-outline': colors?.rowFocusOutline,\n  });\n\n  const activeIndex = items.findIndex((item) => item.id === activeId);\n\n  const focusAndSelect = (index: number) => {\n    if (index < 0 || index === activeIndex) return;\n    const item = items[index];\n    rowRefs.current.get(item.id)?.focus();\n    onSelect(item.id);\n  };\n\n  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {\n    switch (event.key) {\n      case 'ArrowDown':\n        event.preventDefault();\n        focusAndSelect(findEnabledIndex(items, activeIndex, 1));\n        break;\n      case 'ArrowUp':\n        event.preventDefault();\n        focusAndSelect(findEnabledIndex(items, activeIndex, -1));\n        break;\n      case 'Home':\n        event.preventDefault();\n        focusAndSelect(findFirstEnabledIndex(items));\n        break;\n      case 'End':\n        event.preventDefault();\n        focusAndSelect(findLastEnabledIndex(items));\n        break;\n      default:\n        break;\n    }\n  };\n\n  return (\n    <div\n      className={mergeClasses(\n        'flex flex-col gap-3 bg-layer-raised',\n        className,\n        SETTINGS_PANEL_CLASS.panel,\n      )}\n      style={cssVars}\n    >\n      {sectionLabel && (\n        <div className=\"flex h-16 shrink-0 items-center px-4\">\n          <span\n            id={headerId}\n            className={mergeClasses(styles.sectionLabel, sectionLabelClassName)}\n          >\n            {sectionLabel}\n          </span>\n        </div>\n      )}\n      <div\n        role=\"tablist\"\n        aria-orientation=\"vertical\"\n        aria-labelledby={sectionLabel ? headerId : undefined}\n        onKeyDown={handleKeyDown}\n        // Roving tabindex lives on the tab buttons; the list itself is never\n        // a tab stop, but jsx-a11y requires an interactive role to declare\n        // its own (non-reachable) focusability.\n        tabIndex={-1}\n        className={mergeClasses(\n          'flex flex-col gap-1 px-2',\n          SETTINGS_PANEL_CLASS.tabList,\n        )}\n      >\n        {items.map((item) => {\n          const isActive = item.id === activeId;\n          const isVisuallyActive = isActive && items.length > 1;\n          return (\n            <button\n              key={item.id}\n              ref={(element) => {\n                if (element) rowRefs.current.set(item.id, element);\n                else rowRefs.current.delete(item.id);\n              }}\n              type=\"button\"\n              role=\"tab\"\n              aria-selected={isActive}\n              aria-disabled={item.disabled || undefined}\n              disabled={item.disabled}\n              tabIndex={isActive ? 0 : -1}\n              onClick={() => {\n                if (!item.disabled && !isActive) onSelect(item.id);\n              }}\n              className={mergeClasses(\n                'flex h-11 w-full items-center gap-2 rounded-lg px-3 text-start desktop:h-10',\n                'focus-visible:outline focus-visible:-outline-offset-1',\n                styles.row,\n                isVisuallyActive && styles.rowActive,\n                SETTINGS_PANEL_CLASS.tab,\n              )}\n            >\n              {item.icon}\n              <span\n                className={mergeClasses(\n                  isVisuallyActive\n                    ? activeItemLabelClassName\n                    : itemLabelClassName,\n                  !isVisuallyActive && 'text-primary',\n                )}\n              >\n                {item.label}\n              </span>\n            </button>\n          );\n        })}\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: SettingsPanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "items",
+            "optional": false,
+            "type": "SettingsPanelItem[]"
+          },
+          {
+            "name": "activeId",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "onSelect",
+            "optional": false,
+            "type": "(id: string) => void"
+          },
+          {
+            "name": "sectionLabel",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").SettingsPanelStyles | undefined"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "SettingsPanelItem",
+        "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+        "start": 4,
+        "end": 13,
+        "declaration": "export interface SettingsPanelItem {\n  /** Stable identifier, matched against `SettingsPanelProps.activeId`. */\n  id: string;\n  /** Already-localized row label. */\n  label: string;\n  /** Row icon, rendered before the label. */\n  icon?: ReactNode;\n  /** Disabled rows cannot become active, render with a `not-allowed` cursor, and are skipped by keyboard navigation. Defaults to `false`. */\n  disabled?: boolean;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SettingsPanelProps",
+        "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+        "start": 52,
+        "end": 65,
+        "declaration": "export interface SettingsPanelProps {\n  /** Rows to render, top to bottom. */\n  items: SettingsPanelItem[];\n  /** `id` of the currently selected item. */\n  activeId: string;\n  /** Fired with an item's `id` when the user selects an enabled row that is not already active. */\n  onSelect: (id: string) => void;\n  /** Already-localized header text rendered above the item list. Omit to render no header. */\n  sectionLabel?: string;\n  /** Style overrides. */\n  styles?: SettingsPanelStyles;\n  /** Additional CSS class applied to the root element. */\n  className?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SettingsPanelStyles",
+        "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+        "start": 44,
+        "end": 49,
+        "declaration": "export interface SettingsPanelStyles {\n  /** Typography overrides. */\n  typography?: SettingsPanelTypography;\n  /** Color overrides applied as CSS custom properties. */\n  colors?: SettingsPanelColors;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SettingsPanelColors",
+        "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+        "start": 26,
+        "end": 41,
+        "declaration": "export interface SettingsPanelColors {\n  /** Label color of the section header. Defaults to `--text-primary`. */\n  sectionLabelText?: string;\n  /** Label and icon color of an inactive row (enabled or disabled). Defaults to `--text-secondary`. */\n  rowText?: string;\n  /** Background color of an enabled, inactive row on hover. Defaults to `--bg-control-accent-alpha-hover`. */\n  rowBackgroundHover?: string;\n  /** Background color of the active row. Defaults to `--bg-control-accent-alpha`. */\n  activeRowBackground?: string;\n  /** Background color of the active row on hover. Defaults to `--bg-control-accent-alpha-hover`. */\n  activeRowBackgroundHover?: string;\n  /** Label and icon color of the active row. Defaults to `--text-accent`. */\n  activeRowText?: string;\n  /** Keyboard focus ring color. Defaults to `--stroke-focus-black`. */\n  rowFocusOutline?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SettingsPanelTypography",
+        "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+        "start": 16,
+        "end": 23,
+        "declaration": "export interface SettingsPanelTypography {\n  /** Typography class applied to the section header. Defaults to `'dial-h1-text'`. */\n  sectionLabelClassName?: string;\n  /** Typography class applied to an inactive row's label. Defaults to `'dial-small-text'`. */\n  itemLabelClassName?: string;\n  /** Typography class applied to the active row's label. Defaults to `'dial-small-semi-text'`. */\n  activeItemLabelClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SETTINGS_PANEL_CLASS",
+        "file": "libs/settings-panel/src/constants/public-class-names.ts",
+        "start": 12,
+        "end": 19,
+        "declaration": "SETTINGS_PANEL_CLASS = {\n  /** The panel root, which carries the themed CSS variables. */\n  panel: 'dial-settings-panel-panel',\n  /** The vertical tab list holding the section rows. */\n  tabList: 'dial-settings-panel-tab-list',\n  /** Every section row, selected or not. */\n  tab: 'dial-settings-panel-tab',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "SettingsPanel",
+      "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+      "start": 34,
+      "end": 170,
+      "declaration": "SettingsPanel: FC<SettingsPanelProps> = ({\n  items,\n  activeId,\n  onSelect,\n  sectionLabel,\n  styles: settingsPanelStyles,\n  className,\n}) => {\n  const headerId = useId();\n  const rowRefs = useRef(new Map<string, HTMLButtonElement>());\n\n  const {\n    sectionLabelClassName = 'dial-h1-text',\n    itemLabelClassName = 'dial-small-text',\n    activeItemLabelClassName = 'dial-small-semi-text',\n  } = settingsPanelStyles?.typography ?? {};\n  const colors = settingsPanelStyles?.colors;\n  const cssVars = buildCssVars({\n    '--sp-section-label-text': colors?.sectionLabelText,\n    '--sp-row-text': colors?.rowText,\n    '--sp-row-bg-hover': colors?.rowBackgroundHover,\n    '--sp-active-row-bg': colors?.activeRowBackground,\n    '--sp-active-row-bg-hover': colors?.activeRowBackgroundHover,\n    '--sp-active-row-text': colors?.activeRowText,\n    '--sp-row-focus-outline': colors?.rowFocusOutline,\n  });\n\n  const activeIndex = items.findIndex((item) => item.id === activeId);\n\n  const focusAndSelect = (index: number) => {\n    if (index < 0 || index === activeIndex) return;\n    const item = items[index];\n    rowRefs.current.get(item.id)?.focus();\n    onSelect(item.id);\n  };\n\n  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {\n    switch (event.key) {\n      case 'ArrowDown':\n        event.preventDefault();\n        focusAndSelect(findEnabledIndex(items, activeIndex, 1));\n        break;\n      case 'ArrowUp':\n        event.preventDefault();\n        focusAndSelect(findEnabledIndex(items, activeIndex, -1));\n        break;\n      case 'Home':\n        event.preventDefault();\n        focusAndSelect(findFirstEnabledIndex(items));\n        break;\n      case 'End':\n        event.preventDefault();\n        focusAndSelect(findLastEnabledIndex(items));\n        break;\n      default:\n        break;\n    }\n  };\n\n  return (\n    <div\n      className={mergeClasses(\n        'flex flex-col gap-3 bg-layer-raised',\n        className,\n        SETTINGS_PANEL_CLASS.panel,\n      )}\n      style={cssVars}\n    >\n      {sectionLabel && (\n        <div className=\"flex h-16 shrink-0 items-center px-4\">\n          <span\n            id={headerId}\n            className={mergeClasses(styles.sectionLabel, sectionLabelClassName)}\n          >\n            {sectionLabel}\n          </span>\n        </div>\n      )}\n      <div\n        role=\"tablist\"\n        aria-orientation=\"vertical\"\n        aria-labelledby={sectionLabel ? headerId : undefined}\n        onKeyDown={handleKeyDown}\n        // Roving tabindex lives on the tab buttons; the list itself is never\n        // a tab stop, but jsx-a11y requires an interactive role to declare\n        // its own (non-reachable) focusability.\n        tabIndex={-1}\n        className={mergeClasses(\n          'flex flex-col gap-1 px-2',\n          SETTINGS_PANEL_CLASS.tabList,\n        )}\n      >\n        {items.map((item) => {\n          const isActive = item.id === activeId;\n          const isVisuallyActive = isActive && items.length > 1;\n          return (\n            <button\n              key={item.id}\n              ref={(element) => {\n                if (element) rowRefs.current.set(item.id, element);\n                else rowRefs.current.delete(item.id);\n              }}\n              type=\"button\"\n              role=\"tab\"\n              aria-selected={isActive}\n              aria-disabled={item.disabled || undefined}\n              disabled={item.disabled}\n              tabIndex={isActive ? 0 : -1}\n              onClick={() => {\n                if (!item.disabled && !isActive) onSelect(item.id);\n              }}\n              className={mergeClasses(\n                'flex h-11 w-full items-center gap-2 rounded-lg px-3 text-start desktop:h-10',\n                'focus-visible:outline focus-visible:-outline-offset-1',\n                styles.row,\n                isVisuallyActive && styles.rowActive,\n                SETTINGS_PANEL_CLASS.tab,\n              )}\n            >\n              {item.icon}\n              <span\n                className={mergeClasses(\n                  isVisuallyActive\n                    ? activeItemLabelClassName\n                    : itemLabelClassName,\n                  !isVisuallyActive && 'text-primary',\n                )}\n              >\n                {item.label}\n              </span>\n            </button>\n          );\n        })}\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: SettingsPanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "items",
+          "optional": false,
+          "type": "SettingsPanelItem[]"
+        },
+        {
+          "name": "activeId",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "onSelect",
+          "optional": false,
+          "type": "(id: string) => void"
+        },
+        {
+          "name": "sectionLabel",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").SettingsPanelStyles | undefined"
+        },
+        {
+          "name": "className",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/settings-panel/src/components/SettingsPanel/tests/SettingsPanel.spec.tsx",
+      "assertions": [
+        "renders one tab per item",
+        "marks the active item as selected",
+        "calls onSelect when an enabled, inactive row is clicked",
+        "does not call onSelect when a disabled row is clicked",
+        "only the active row is in the tab order",
+        "ArrowDown skips a disabled row",
+        "ArrowDown wraps from the last enabled row to the first",
+        "ArrowUp skips a disabled row and wraps at the start",
+        "Home jumps to the first enabled row",
+        "End jumps to the last enabled row",
+        "renders the section label when provided",
+        "renders no section label by default",
+        "applies a custom row focus outline color",
+        "stamps the panel, the tab list and every tab",
+        "keeps the tab class on a disabled row"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat/src/pages/SettingsPage/SettingsPage.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { SettingsPanel } from '@epam/ai-dial-settings-panel';\nimport { memo, useState, type FC } from 'react';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/hooks/useSettingsTabConfig.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import type { SettingsPanelItem } from '@epam/ai-dial-settings-panel';\nimport { DIAL_ICON_SIZE, DIAL_KIT_ICON_STROKE } from '@epam/ai-dial-ui-kit';"
+        }
+      ]
+    }
+  ]
+}

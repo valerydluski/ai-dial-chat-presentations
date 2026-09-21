@@ -1,0 +1,488 @@
+{
+  "id": "libs/mcp-apps",
+  "shortTitle": "MCP Apps",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-mcp-apps-01",
+      "title": "MCP Apps",
+      "layout": "cover",
+      "subtitle": "Connect tool-result UI resources to an inline interactive preview.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-mcp-apps",
+      "notes": "This session explains connect tool-result ui resources to an inline interactive preview. The library is a local private workspace package at libs/mcp-apps. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/mcp-apps/README.md",
+          "start": 1,
+          "end": 148
+        },
+        {
+          "file": "libs/mcp-apps/src/index.ts",
+          "start": 1,
+          "end": 31
+        },
+        {
+          "file": "libs/mcp-apps/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 247,
+          "end": 247,
+          "symbol": "McpAppInlinePreview"
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 33,
+          "end": 65,
+          "symbol": "McpAppInlinePreviewProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-mcp-apps-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Connect tool-result UI resources to an inline interactive preview.",
+      "cards": [
+        {
+          "title": "Find a tool UI",
+          "body": "Match a message to an MCP tool resource."
+        },
+        {
+          "title": "Reuse the result",
+          "body": "Seed the preview from the original tool call."
+        },
+        {
+          "title": "Expand the UI",
+          "body": "Open the matched application in the attachment canvas."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Find a tool UI: Match a message to an MCP tool resource. Reuse the result: Seed the preview from the original tool call. Expand the UI: Open the matched application in the attachment canvas. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/mcp-apps/README.md",
+          "start": 1,
+          "end": 148
+        },
+        {
+          "file": "libs/mcp-apps/src/index.ts",
+          "start": 1,
+          "end": 31
+        },
+        {
+          "file": "libs/mcp-apps/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 247,
+          "end": 247,
+          "symbol": "McpAppInlinePreview"
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 33,
+          "end": 65,
+          "symbol": "McpAppInlinePreviewProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-mcp-apps-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Tool evidence",
+          "body": "Match and call seed"
+        },
+        {
+          "title": "Response cache",
+          "body": "Resource HTML + result"
+        },
+        {
+          "title": "Inline preview",
+          "body": "Sandboxed MCP renderer"
+        },
+        {
+          "title": "Host adapter",
+          "body": "Calls and expansion"
+        }
+      ],
+      "takeaway": "Library: Preview state, matching/seed helpers and a per-conversation response cache.",
+      "notes": "The library owns Preview state, matching/seed helpers and a per-conversation response cache. The host owns Configured resource/tool calls, sandbox URL, host context and expansion behavior.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/mcp-apps/README.md",
+          "start": 1,
+          "end": 148
+        },
+        {
+          "file": "libs/mcp-apps/src/index.ts",
+          "start": 1,
+          "end": 31
+        },
+        {
+          "file": "libs/mcp-apps/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 247,
+          "end": 247,
+          "symbol": "McpAppInlinePreview"
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 33,
+          "end": 65,
+          "symbol": "McpAppInlinePreviewProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-mcp-apps-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "McpAppInlinePreview \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "match",
+          "McpAppToolRef"
+        ],
+        [
+          "cache",
+          "McpAppResponseCache"
+        ],
+        [
+          "hostAdapter",
+          "McpAppHostAdapter"
+        ],
+        [
+          "toolCall (optional)",
+          "McpAppToolCallSeed"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/mcp-apps/README.md",
+          "start": 1,
+          "end": 148
+        },
+        {
+          "file": "libs/mcp-apps/src/index.ts",
+          "start": 1,
+          "end": 31
+        },
+        {
+          "file": "libs/mcp-apps/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 247,
+          "end": 247,
+          "symbol": "McpAppInlinePreview"
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 33,
+          "end": 65,
+          "symbol": "McpAppInlinePreviewProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-mcp-apps-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "const cache = useMcpAppResponseCache('demo-conversation');\n<McpAppInlinePreview\n  match={match} cache={cache} cacheKey=\"demo-message\"\n  hostAdapter={adapter} onExpand={onExpand}\n  expandAriaLabel=\"Expand demo app\"\n  reloadAriaLabel=\"Reload\"\n  loadErrorLabel=\"Could not load demo app\"\n  openedInCanvasLabel=\"Open in preview\"\n/>",
+      "caption": "Full example: examples/mcp-apps.tsx \u00b7 uses @epam/ai-dial-mcp-apps",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/mcp-apps.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Match a message to an MCP tool resource. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/mcp-apps/README.md",
+          "start": 1,
+          "end": 148
+        },
+        {
+          "file": "libs/mcp-apps/src/index.ts",
+          "start": 1,
+          "end": 31
+        },
+        {
+          "file": "libs/mcp-apps/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 247,
+          "end": 247,
+          "symbol": "McpAppInlinePreview"
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 33,
+          "end": 65,
+          "symbol": "McpAppInlinePreviewProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-mcp-apps-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep mcp apps focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Match tool evidence",
+          "body": "Provide the resource match and a stable cache key."
+        },
+        {
+          "title": "Inject the host adapter",
+          "body": "The host fetches resources and handles tool calls."
+        },
+        {
+          "title": "Reuse cached state",
+          "body": "Keep response caching scoped to the conversation lifetime."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Match tool evidence: Provide the resource match and a stable cache key. Inject the host adapter: The host fetches resources and handles tool calls. Reuse cached state: Keep response caching scoped to the conversation lifetime. The complete typed module in examples/mcp-apps.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/mcp-apps/README.md",
+          "start": 1,
+          "end": 148
+        },
+        {
+          "file": "libs/mcp-apps/src/index.ts",
+          "start": 1,
+          "end": 31
+        },
+        {
+          "file": "libs/mcp-apps/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 247,
+          "end": 247,
+          "symbol": "McpAppInlinePreview"
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 33,
+          "end": 65,
+          "symbol": "McpAppInlinePreviewProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-mcp-apps-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Explicit host adapter",
+          "body": "Inject fetchResourceHtml, callTool, hostInfo and sandboxUrl."
+        },
+        {
+          "title": "Cache identity",
+          "body": "Entries are checked against seed identity and expiry."
+        },
+        {
+          "title": "Lifecycle state",
+          "body": "Loading, Ready, Error and Unavailable are distinct enum values."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Explicit host adapter: Inject fetchResourceHtml, callTool, hostInfo and sandboxUrl. Cache identity: Entries are checked against seed identity and expiry. Lifecycle state: Loading, Ready, Error and Unavailable are distinct enum values. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/mcp-apps/README.md",
+          "start": 1,
+          "end": 148
+        },
+        {
+          "file": "libs/mcp-apps/src/index.ts",
+          "start": 1,
+          "end": 31
+        },
+        {
+          "file": "libs/mcp-apps/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 247,
+          "end": 247,
+          "symbol": "McpAppInlinePreview"
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 33,
+          "end": 65,
+          "symbol": "McpAppInlinePreviewProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-mcp-apps-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat-hooks/src/mcp-apps/useMcpAppTools/useMcpAppTools.ts"
+        ],
+        [
+          "Test evidence",
+          "stamps the preview card and its header"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: libs/chat-hooks/src/mcp-apps/useMcpAppTools/useMcpAppTools.ts; libs/chat-hooks/src/mcp-apps/mcp-apps-api-client.ts; libs/chat-hooks/src/mcp-apps/useMcpAppHostAdapter/useMcpAppHostAdapter.ts; libs/chat-hooks/src/mcp-apps/useOpenMcpAppCanvas/useOpenMcpAppCanvas.ts; apps/chat/src/components/ConversationView/ConversationMessageItem.tsx; apps/chat/src/components/ConversationView/ConversationView.tsx. Existing test evidence: [{\"file\": \"libs/mcp-apps/src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx\", \"assertions\": [\"McpAppInlinePreview \\u2014 public class names\", \"stamps the preview card and its header\", \"forwards every colour override as a CSS custom property\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-mcp-apps:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/mcp-apps/README.md",
+          "start": 1,
+          "end": 148
+        },
+        {
+          "file": "libs/mcp-apps/src/index.ts",
+          "start": 1,
+          "end": 31
+        },
+        {
+          "file": "libs/mcp-apps/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 247,
+          "end": 247,
+          "symbol": "McpAppInlinePreview"
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 33,
+          "end": 65,
+          "symbol": "McpAppInlinePreviewProps"
+        },
+        {
+          "file": "libs/chat-hooks/src/mcp-apps/useMcpAppTools/useMcpAppTools.ts",
+          "start": 1,
+          "end": 118
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx",
+          "start": 1,
+          "end": 141
+        }
+      ]
+    },
+    {
+      "id": "lib-mcp-apps-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Origin isolation required",
+          "body": "Configure the separate MCP sandbox deployment."
+        },
+        {
+          "title": "Avoid duplicate side effects",
+          "body": "Indirectly discovered tools are not safe to re-call blindly."
+        },
+        {
+          "title": "Not a general API client",
+          "body": "Backend operations enter through the host adapter."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Origin isolation required: Configure the separate MCP sandbox deployment. Avoid duplicate side effects: Indirectly discovered tools are not safe to re-call blindly. Not a general API client: Backend operations enter through the host adapter. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/mcp-apps/README.md",
+          "start": 1,
+          "end": 148
+        },
+        {
+          "file": "libs/mcp-apps/src/index.ts",
+          "start": 1,
+          "end": 31
+        },
+        {
+          "file": "libs/mcp-apps/package.json",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 247,
+          "end": 247,
+          "symbol": "McpAppInlinePreview"
+        },
+        {
+          "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+          "start": 33,
+          "end": 65,
+          "symbol": "McpAppInlinePreviewProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/mcp-apps.pptx"
+}

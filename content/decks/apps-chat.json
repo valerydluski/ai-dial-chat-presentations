@@ -1,0 +1,501 @@
+{
+  "id": "apps/chat",
+  "shortTitle": "Chat frontend",
+  "series": "Application deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "apps-chat-01",
+      "title": "Chat frontend",
+      "layout": "cover",
+      "sources": [
+        {
+          "file": "apps/chat/src/main.tsx",
+          "start": 1,
+          "end": 108
+        },
+        {
+          "file": "apps/chat/src/app/app.tsx",
+          "start": 1,
+          "end": 582
+        }
+      ],
+      "notes": "This application owns integration, including providers, routing, language, theme, configured API clients and feature availability. Its role is broader than any one component library.",
+      "subtitle": "The React application that assembles reusable features into a coherent workspace.",
+      "chips": [
+        "React SPA",
+        "Application adapters",
+        "Port 4207"
+      ],
+      "caption": "apps/chat \u00b7 @epam/chat"
+    },
+    {
+      "id": "apps-chat-02",
+      "title": "The frontend owns the user workflow",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/chat/src/types/routes.ts",
+          "start": 1,
+          "end": 30
+        }
+      ],
+      "notes": "The route enum and app route registration are the current scope. User-visible capabilities can be gated by server configuration and deployment support.",
+      "cards": [
+        {
+          "title": "Conversation workspace",
+          "body": "Send messages, resume history and inspect sources."
+        },
+        {
+          "title": "Knowledge workflows",
+          "body": "Browse and edit prompts, skills, apps and toolsets."
+        },
+        {
+          "title": "Operations for users",
+          "body": "Inspect usage, manage files and work with scheduled tasks."
+        }
+      ]
+    },
+    {
+      "id": "apps-chat-03",
+      "title": "Bootstrap the application once",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "apps/chat/src/main.tsx",
+          "start": 1,
+          "end": 108
+        },
+        {
+          "file": "apps/chat/src/app/app.tsx",
+          "start": 1,
+          "end": 582
+        }
+      ],
+      "notes": "main.tsx imports base styles and i18n, creates the tooltip portal, and nests providers before rendering App. RequireAuth guards the main workspace. Login and overlay-close routes are mounted at the higher routing layer.",
+      "nodes": [
+        {
+          "title": "main.tsx",
+          "body": "React root and imports"
+        },
+        {
+          "title": "BrowserRouter",
+          "body": "App-owned routes"
+        },
+        {
+          "title": "Providers",
+          "body": "User, theme and config"
+        },
+        {
+          "title": "App",
+          "body": "Feature route composition"
+        }
+      ],
+      "takeaway": "AttachmentCanvasProvider sits above the routed workspace."
+    },
+    {
+      "id": "apps-chat-04",
+      "title": "Providers define state ownership",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/chat/src/main.tsx",
+          "start": 1,
+          "end": 108
+        }
+      ],
+      "notes": "These are actual provider names from the entry point. Do not move them into libraries to simplify imports. When reusing a component independently, replace the relevant application adapter with explicitly supplied data and callbacks.",
+      "cards": [
+        {
+          "title": "Identity and configuration",
+          "body": "UserProvider, AppConfigProvider and UiFeaturesProvider."
+        },
+        {
+          "title": "Conversation state",
+          "body": "ConversationsProvider, GenerationProvider and ClientChannelProvider."
+        },
+        {
+          "title": "Workspace presentation",
+          "body": "Theme, sources-sidebar and attachment-canvas providers."
+        }
+      ]
+    },
+    {
+      "id": "apps-chat-05",
+      "title": "Routes connect reusable screens",
+      "layout": "table",
+      "sources": [
+        {
+          "file": "apps/chat/src/types/routes.ts",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "apps/chat/src/app/app.tsx",
+          "start": 1,
+          "end": 582
+        }
+      ],
+      "notes": "ROUTES declares more specific variants for edit/detail/callback and invitations. Many route components use React.lazy and Suspense; the conversation page is eagerly prefetched before its lazy wrapper. Do not document every route as loaded in the same way.",
+      "headers": [
+        "Route family",
+        "Host responsibility"
+      ],
+      "rows": [
+        [
+          "/conversations",
+          "Active conversation and history"
+        ],
+        [
+          "/catalog, /files",
+          "Discovery and file operations"
+        ],
+        [
+          "/prompt-editor, /skill-editor",
+          "Load, validate and save authored entities"
+        ],
+        [
+          "/scheduled-tasks, /settings",
+          "Scheduling and usage/settings views"
+        ]
+      ]
+    },
+    {
+      "id": "apps-chat-06",
+      "title": "Trace a message from UI intent",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "apps/chat/src/pages/Conversation/Conversation.tsx",
+          "start": 1,
+          "end": 757
+        },
+        {
+          "file": "apps/chat/src/server-api/chat-stream.api.ts",
+          "start": 1,
+          "end": 17
+        },
+        {
+          "file": "libs/chat-hooks/src/conversation/useConversationStream/useConversationStream.ts",
+          "start": 1,
+          "end": 606
+        }
+      ],
+      "notes": "The page supplies the stream hook and input components with state derived from app contexts. createChatStreamApi receives host paths and CSRF callbacks from the app adapter. Generation result updates flow back into the message components, while persistence remains in the BFF. The stream-hook node is useConversationStream; the concise node label avoids excessive wrapping.",
+      "nodes": [
+        {
+          "title": "Composer",
+          "body": "Message and attachments"
+        },
+        {
+          "title": "ConversationPage",
+          "body": "Host handlers"
+        },
+        {
+          "title": "Stream hook",
+          "body": "State and updates"
+        },
+        {
+          "title": "chat-stream adapter",
+          "body": "Transport dependencies"
+        }
+      ],
+      "takeaway": "The backend owns persistent conversation writes."
+    },
+    {
+      "id": "apps-chat-07",
+      "title": "Configure the generated client at the edge",
+      "layout": "code",
+      "sources": [
+        {
+          "file": "apps/chat/src/server-api/api-client.ts",
+          "start": 1,
+          "end": 106
+        }
+      ],
+      "notes": "The middleware variables are defined in the source file, not globals. CSRF and unauthorized behavior are supplied through callback-based factories from chat-hooks, with browser/session state remaining app-owned. Full source-linked contract information is in the bundle index.",
+      "kicker": "Source excerpt \u00b7 createApiConfiguration in server-api/api-client.ts.",
+      "code": "new Configuration({\n  basePath: '',\n  credentials: 'include',\n  middleware: [\n    csrfMiddleware,\n    unauthorizedMiddleware,\n    telemetryMiddleware,\n  ],\n});"
+    },
+    {
+      "id": "apps-chat-08",
+      "title": "Assemble evidence around each message",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+          "start": 1,
+          "end": 898
+        },
+        {
+          "file": "apps/chat/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+          "start": 1,
+          "end": 354
+        },
+        {
+          "file": "apps/chat/src/app/app.tsx",
+          "start": 1,
+          "end": 582
+        }
+      ],
+      "notes": "These application containers connect source-derived message data to generic display components. URL resolution, PDF worker setup and feature flags should be inspected at this edge rather than inferred from the presentation component alone.",
+      "cards": [
+        {
+          "title": "Transcript",
+          "body": "The app message container composes bubbles and stages."
+        },
+        {
+          "title": "Sources",
+          "body": "The app sources container adapts evidence data and open actions."
+        },
+        {
+          "title": "Canvas",
+          "body": "The app resolves files and passes renderer dependencies."
+        }
+      ]
+    },
+    {
+      "id": "apps-chat-09",
+      "title": "Theme, locale and viewport are host concerns",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/chat/src/context/ThemeContext.tsx",
+          "start": 1,
+          "end": 171
+        },
+        {
+          "file": "apps/chat/src/i18n/config.ts",
+          "start": 1,
+          "end": 32
+        },
+        {
+          "file": "apps/chat/src/hooks/breakpoint/useBreakpoint.ts",
+          "start": 1,
+          "end": 89
+        }
+      ],
+      "notes": "The frontend currently registers only English translations. RTL direction switching exists for four base language codes. This is support infrastructure, not a claim of complete translated Arabic UI. Component demos in this bundle use English and clearly identified synthetic data.",
+      "cards": [
+        {
+          "title": "ThemeProvider",
+          "body": "Loads theme configuration and writes CSS variables."
+        },
+        {
+          "title": "i18n initialization",
+          "body": "Registers English and updates html direction on language changes."
+        },
+        {
+          "title": "Responsive branches",
+          "body": "App hooks provide mobile/desktop decisions to feature surfaces."
+        }
+      ]
+    },
+    {
+      "id": "apps-chat-10",
+      "title": "A concrete extension: message content slots",
+      "layout": "code",
+      "sources": [
+        {
+          "file": "libs/conversation-messages/src/models/message-bubble.ts",
+          "start": 1,
+          "end": 177
+        },
+        {
+          "file": "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+          "start": 1,
+          "end": 898
+        }
+      ],
+      "notes": "The complete checked example imports both components and stylesheets. afterContent renders between the message body and actions. Replace the empty demo stages with the host message stages; no backend code change is required to use the slot.",
+      "kicker": "Runnable composition pattern from examples/conversation-messages.tsx.",
+      "code": "<AssistantMessageBubble\n  text=\"**Demo:** evidence collected.\"\n  isStreaming={false}\n  deploymentDisplayName=\"Demo assistant\"\n  afterContent={\n    <StagesPanel stages={[]} isStreaming={false} />\n  }\n/>"
+    },
+    {
+      "id": "apps-chat-15",
+      "title": "Inspect the reusable pieces in isolation",
+      "layout": "image",
+      "kicker": "Reproducible demo \u00b7 actual workspace source components",
+      "image": "assets/component-demo.png",
+      "sideTitle": "A focused demo",
+      "body": "Use a small host to inspect component contracts before wiring application state and backend behavior.",
+      "notes": "This is a real browser screenshot of the standalone demo in demo/main.tsx, captured by src/capture-demo.mjs. It renders SettingsPanel, UsageLimitCard and StagesPanel directly from the recorded source snapshot with local stylesheet dependencies. It is an illustrative host, not a screenshot of a deployed DIAL product. All data is synthetic and no backend request is made. Run the Vite command in examples/README.md, then the capture script. Expected behavior: Usage starts selected; selecting Profile updates the controlled active row. The amount and stage remain demo data. The host explicitly supplies dark-theme color overrides. Desktop and phone captures are retained under assets/.",
+      "sources": [
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 1,
+          "end": 170
+        },
+        {
+          "file": "libs/usage-dashboard/src/components/UsageLimitCard/UsageLimitCard.tsx",
+          "start": 1,
+          "end": 191
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 1,
+          "end": 229
+        }
+      ]
+    },
+    {
+      "id": "apps-chat-11",
+      "title": "Run and build the frontend",
+      "layout": "code",
+      "sources": [
+        {
+          "file": "package.json",
+          "start": 1,
+          "end": 199
+        },
+        {
+          "file": "apps/chat/vite.config.mts",
+          "start": 1,
+          "end": 267
+        }
+      ],
+      "notes": "Nx resolves the application name as @epam/chat. npm start uses the supported chat alias. These commands are provided for the reader; no source build or application dependency installation was performed for this documentation task. Vite configuration and the graph, rather than an old README project count, determine the targets.",
+      "kicker": "Commands run from the repository root.",
+      "code": "npm start\n# Vite: http://localhost:4207\n# /api is proxied to http://localhost:5000\n\nnpm exec nx run @epam/chat:build\nnpm exec nx run @epam/chat:typecheck\nnpm exec nx run @epam/chat:test"
+    },
+    {
+      "id": "apps-chat-12",
+      "title": "Inspect behavior through existing tests",
+      "layout": "table",
+      "sources": [
+        {
+          "file": "apps/chat/src/pages/ConversationRoute/ConversationRoute.integration.spec.tsx",
+          "start": 1,
+          "end": 332
+        },
+        {
+          "file": "apps/chat/src/components/ConversationView/tests/ConversationMessageItem.spec.tsx",
+          "start": 1,
+          "end": 1491
+        },
+        {
+          "file": "apps/chat/src/context/overlay/tests/OverlayContext.spec.tsx",
+          "start": 1,
+          "end": 1443
+        }
+      ],
+      "notes": "Tests are inspected evidence, not newly executed application suite results. For a future code change, select the relevant Nx test target or npm run test:file. Presentation example modules were checked independently with strict TypeScript against the same source exports.",
+      "headers": [
+        "Test area",
+        "Evidence"
+      ],
+      "rows": [
+        [
+          "Conversation route",
+          "ConversationRoute integration and unit specs"
+        ],
+        [
+          "Message composition",
+          "ConversationMessageItem specs"
+        ],
+        [
+          "Provider behavior",
+          "OverlayContext and app-level context specs"
+        ],
+        [
+          "API adapters",
+          "server-api tests for transport integration"
+        ]
+      ]
+    },
+    {
+      "id": "apps-chat-13",
+      "title": "Integration limits are part of the design",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/chat/src/main.tsx",
+          "start": 1,
+          "end": 108
+        },
+        {
+          "file": "apps/chat/src/server-api/chat.api.ts",
+          "start": 1,
+          "end": 42
+        },
+        {
+          "file": "apps/chat-api/README.md",
+          "start": 1,
+          "end": 1047
+        }
+      ],
+      "notes": "The raw transcription wrapper documents the customContent versus custom_content schema collision. Do not claim every HTTP call is generated. For a smaller host, adopt a component or focused hook entry before copying the entire provider tree.",
+      "cards": [
+        {
+          "title": "Providers are coupled",
+          "body": "The full app composition has many coordinated state owners."
+        },
+        {
+          "title": "Backend required",
+          "body": "A running UI alone cannot authenticate or complete conversations."
+        },
+        {
+          "title": "Some adapter gaps remain",
+          "body": "Audio transcription retains a documented raw DTO wrapper."
+        }
+      ]
+    },
+    {
+      "id": "apps-chat-14",
+      "title": "Follow one feature end to end",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "apps/chat/src/pages/PromptEditor/PromptEditor.tsx",
+          "start": 1,
+          "end": 282
+        },
+        {
+          "file": "apps/chat/src/server-api/api-client.ts",
+          "start": 1,
+          "end": 106
+        },
+        {
+          "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+          "start": 1,
+          "end": 162
+        }
+      ],
+      "notes": "PromptEditor is a manageable example: the app loads and saves the entity while the library owns the fields. The same tracing method scales to conversations. Consult each library deck for the exact exported prop and callback contract.",
+      "nodes": [
+        {
+          "title": "Route",
+          "body": "Choose a user workflow"
+        },
+        {
+          "title": "Container",
+          "body": "Resolve context and data"
+        },
+        {
+          "title": "Library contract",
+          "body": "Render and emit intent"
+        },
+        {
+          "title": "Server adapter",
+          "body": "Perform the operation"
+        }
+      ],
+      "takeaway": "Start in apps/chat/src/pages, then follow imports into libs and server-api."
+    }
+  ],
+  "output": "decks/apps/chat.pptx"
+}

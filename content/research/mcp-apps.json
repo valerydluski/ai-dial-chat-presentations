@@ -1,0 +1,2287 @@
+{
+  "project": {
+    "id": "libs/mcp-apps",
+    "project": "@epam/ai-dial-mcp-apps",
+    "path": "libs/mcp-apps",
+    "package": "@epam/ai-dial-mcp-apps",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/mcp-apps/README.md",
+      "libs/mcp-apps/package.json",
+      "libs/mcp-apps/src/index.ts",
+      "libs/mcp-apps/src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx",
+      "libs/mcp-apps/tsconfig.spec.json",
+      "libs/chat-hooks/src/mcp-apps/useMcpAppTools/useMcpAppTools.ts",
+      "libs/chat-hooks/src/mcp-apps/mcp-apps-api-client.ts",
+      "libs/chat-hooks/src/mcp-apps/useMcpAppHostAdapter/useMcpAppHostAdapter.ts",
+      "libs/chat-hooks/src/mcp-apps/useOpenMcpAppCanvas/useOpenMcpAppCanvas.ts"
+    ],
+    "output": "decks/libs/mcp-apps.pptx",
+    "preview": "previews/libs/mcp-apps",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-mcp-apps",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-mcp-apps",
+        "target": "@epam/ai-dial-attachment-canvas",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-mcp-apps",
+    "description": "Host-agnostic MCP Apps building blocks \u2014 tool-call/message matching, the response cache, and the inline preview hook/component shared by the full-width canvas and inline surfaces",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0",
+      "@mcp-ui/client": "^7.1.1",
+      "@modelcontextprotocol/sdk": "^1.29.0",
+      "@epam/ai-dial-attachment-canvas": "*"
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9",
+      "react": "^19.2.8"
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/mcp-apps",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/mcp-apps",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/mcp-apps/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/mcp-apps",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/mcp-apps",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/mcp-apps",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/mcp-apps",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/mcp-apps",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-mcp-apps --includeDependencies -- npx nx build-deps @epam/ai-dial-mcp-apps"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/mcp-apps",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/mcp-apps",
+          "command": "vitest run src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-mcp-apps --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx"
+        ]
+      },
+      "description": "Host-agnostic MCP Apps building blocks \u2014 tool-call/message matching, the response cache, and the inline preview hook/component shared by the full-width canvas and inline surfaces",
+      "js": {
+        "packageName": "@epam/ai-dial-mcp-apps",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-mcp-apps",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/mcp-apps/src/index.ts",
+    "libs/mcp-apps/src/hooks/useMcpAppInlinePreview/useMcpAppInlinePreview.ts",
+    "libs/mcp-apps/src/hooks/useMcpAppResponseCache/useMcpAppResponseCache.ts",
+    "libs/mcp-apps/src/vite-env.d.ts",
+    "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+    "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.module.scss",
+    "libs/mcp-apps/src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx",
+    "libs/mcp-apps/src/models/mcp-apps.ts",
+    "libs/mcp-apps/src/utils/mcp-app.ts",
+    "libs/mcp-apps/src/constants/public-class-names.ts",
+    "libs/mcp-apps/tsconfig.spec.json",
+    "libs/mcp-apps/eslint.config.mjs",
+    "libs/mcp-apps/tsconfig.lib.json",
+    "libs/mcp-apps/tsconfig.json",
+    "libs/mcp-apps/package.json",
+    "libs/mcp-apps/vite.config.mts",
+    "libs/mcp-apps/README.md"
+  ],
+  "tests": [
+    "libs/mcp-apps/src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx",
+    "libs/mcp-apps/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "libs/chat-hooks/src/mcp-apps/useMcpAppTools/useMcpAppTools.ts",
+    "libs/chat-hooks/src/mcp-apps/mcp-apps-api-client.ts",
+    "libs/chat-hooks/src/mcp-apps/useMcpAppHostAdapter/useMcpAppHostAdapter.ts",
+    "libs/chat-hooks/src/mcp-apps/useOpenMcpAppCanvas/useOpenMcpAppCanvas.ts",
+    "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+    "apps/chat/src/components/ConversationView/ConversationView.tsx",
+    "apps/chat/src/hooks/attachment/useMcpAppHostAdapter.ts"
+  ],
+  "readme": "# @epam/ai-dial-mcp-apps\n\nHost-agnostic MCP Apps building blocks shared between a message's inline preview and a full-width attachment canvas.\n\n## Overview\n\n`@epam/ai-dial-mcp-apps` centralizes the logic that is identical whether an MCP App is rendered inline under a message or opened full-width in a canvas: matching a message's real tool call against a discovered MCP App tool, resolving the tool result it should be seeded with, and caching a fetched resource/tool-result pair so switching between the two surfaces for the same message doesn't repeat the fetch or re-invoke the tool. It also ships `useMcpAppInlinePreview` and `McpAppInlinePreview`, the compact inline surface itself.\n\nEverything that requires host context \u2014 the current theme/locale, the configured API client, routing to the operator's sandbox-proxy \u2014 is intentionally left out of this library. Callers inject it through `McpAppHostAdapter`. Use this library whenever a host renders MCP Apps and needs the message-matching/caching logic, or the inline preview, without re-implementing it per surface.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-mcp-apps\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-mcp-apps/styles.css';\n```\n\n## Peer Dependencies\n\n- `react`\n- `@epam/ai-dial-chat-shared`\n- `@epam/ai-dial-ui-kit`\n\n## Hooks\n\n### `useMcpAppResponseCache`\n\nIn-memory, per-conversation cache of a fetched MCP App resource plus its resolved tool result, keyed by a caller-supplied key and the seed it was resolved from.\n\n```tsx\nimport { useMcpAppResponseCache } from '@epam/ai-dial-mcp-apps';\n\nconst cache = useMcpAppResponseCache(conversationId);\n```\n\n### `useMcpAppInlinePreview`\n\nFetches an MCP App's `ui://` resource and resolves its seeded tool result for a compact inline preview. The optional sixth argument is forwarded to the mounted app's `ui/request-display-mode` handler \u2014 this hook has no opinion on surface switching, so the host decides what a mode request does.\n\n```tsx\nimport { useMcpAppInlinePreview } from '@epam/ai-dial-mcp-apps';\n\nconst { status, content, reload } = useMcpAppInlinePreview(\n  match,\n  toolCall,\n  cache,\n  cacheKey,\n  hostAdapter,\n  onRequestDisplayMode,\n);\n```\n\n## Components\n\n### `McpAppInlinePreview`\n\nRenders a compact, always-visible preview of a message's matched MCP App, with a header strip above the preview frame (styled like the code block header in `@epam/ai-dial-chat-shared`'s Markdown renderer \u2014 a bordered `min-h-10` header) showing the matched tool's `mcpToolName` on the start side, wrapped in `@epam/ai-dial-ui-kit`'s `EllipsisTooltip`, and appending the mounted app's own declared name and version (version smaller) \u2014 separated by a vertical divider, not a text character \u2014 once its `ui/initialize` handshake completes. With small ghost icon buttons, the end side carries a reload button and an expand-to-canvas button. An app's `ui/request-display-mode` request for `'fullscreen'` expands into the canvas via `onExpand` \u2014 the same surface the expand button opens; any other requested mode keeps the preview, and the app is answered with `'inline'`. While `isOpenedInCanvas` is `true`, the header stays but the body shows `openedInCanvasLabel` centered instead of mounting the app.\n\n```tsx\nimport { McpAppInlinePreview } from '@epam/ai-dial-mcp-apps';\n\n<McpAppInlinePreview\n  match={match}\n  toolCall={toolCall}\n  cache={cache}\n  cacheKey={cacheKey}\n  hostAdapter={hostAdapter}\n  onExpand={handleExpand}\n  expandAriaLabel=\"Open in full view\"\n  reloadAriaLabel=\"Reload\"\n  actionsGroupAriaLabel=\"MCP app actions\"\n  loadErrorLabel=\"Failed to load app\"\n  openedInCanvasLabel=\"Opened in canvas\"\n/>;\n```\n\n#### Colors\n\nThe preview's surface and its two borders are themable through\n`McpAppInlinePreviewColors`, applied as CSS custom properties on the preview's\nroot. Each falls back to this design system's token, and then to the light\nliteral, so passing nothing keeps the stock look:\n\n```tsx\nimport type { McpAppInlinePreviewColors } from '@epam/ai-dial-mcp-apps';\n\nconst colors: McpAppInlinePreviewColors = {\n  previewBackground: 'var(--my-surface)', // --bg-layer-raised\n  previewBorder: 'var(--my-border)', // --stroke-tertiary\n  previewHeaderBorder: 'var(--my-border-soft)', // --stroke-tertiary\n};\n\n<McpAppInlinePreview {...props} colors={colors} />;\n```\n\n## Utilities\n\n- `findMcpAppForMessage(message, mcpAppTools)` \u2014 matches a message to the MCP App tool it called, or the deployment's first discovered tool.\n- `resolveMcpAppToolCallSeed(message, toolName)` \u2014 extracts a message's real tool-call arguments/result as an `McpAppToolCallSeed`.\n- `resolveMcpAppToolResult(match, seed, callTool)` \u2014 resolves the tool result an app should be seeded with, live-re-calling `callTool` when the match is unambiguous.\n- `computeMcpAppSeedKey(toolCall)` \u2014 identifies which seed a cache entry was resolved from.\n- `collectToolCallNames(messages)` \u2014 collects every real tool-call name seen across a conversation's messages.\n- `mcpAppCanvasKey(messageIndex)` \u2014 stable per-message cache/canvas key.\n\n## Types\n\n- `McpAppToolRef`, `McpAppToolCallSeed`, `McpDeploymentKind`\n- `McpAppHostAdapter`, `FetchMcpAppResourceHtml`, `CallMcpAppTool`\n- `McpAppResponseCache`, `CachedMcpAppResponse`\n- `McpAppInlinePreviewStatus`, `McpAppInlinePreviewState`, `McpAppInlinePreviewProps`\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. Selected\nelements therefore carry a stable public class.\n\n| Key             | Class                          | Element                                                     |\n| --------------- | ------------------------------ | ----------------------------------------------------------- |\n| `preview`       | `dial-mcp-apps-preview`        | The preview's bordered outer card                           |\n| `previewHeader` | `dial-mcp-apps-preview-header` | The header strip above the mounted app, holding its actions |\n\n```tsx\nimport { MCP_APPS_CLASS } from '@epam/ai-dial-mcp-apps';\n\nMCP_APPS_CLASS.previewHeader; // 'dial-mcp-apps-preview-header'\n```\n\nThe header sits outside the mounted app's own content, so restyling it never\noverlaps whatever the app draws.\n\nThe classes carry no declarations of their own: nothing in `styles.css`\nselects on them, so they change nothing until a host writes a rule. Renaming\none, or moving it to a different element, is a breaking change. The convention\nis in [`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/mcp-apps/src/index.ts": "export {\n  McpAppInlinePreview,\n  type McpAppInlinePreviewProps,\n} from './components/McpAppInlinePreview/McpAppInlinePreview';\nexport {\n  useMcpAppInlinePreview,\n  type McpAppInlinePreviewState,\n} from './hooks/useMcpAppInlinePreview/useMcpAppInlinePreview';\nexport { useMcpAppResponseCache } from './hooks/useMcpAppResponseCache/useMcpAppResponseCache';\nexport type {\n  McpDeploymentKind,\n  McpAppToolDiscovery,\n  McpAppToolRef,\n  McpAppToolCallSeed,\n  FetchMcpAppResourceHtml,\n  CallMcpAppTool,\n  CachedMcpAppResponse,\n  McpAppResponseCache,\n  McpAppHostAdapter,\n} from './models/mcp-apps';\nexport { McpAppInlinePreviewStatus } from './models/mcp-apps';\nexport {\n  collectToolCallNames,\n  findMcpAppForMessage,\n  mcpAppCanvasKey,\n  computeMcpAppSeedKey,\n  resolveMcpAppToolCallSeed,\n  resolveMcpAppToolResult,\n} from './utils/mcp-app';\nexport { MCP_APPS_CLASS } from './constants/public-class-names';\nexport type { McpAppInlinePreviewColors } from './models/mcp-apps';\n"
+  },
+  "contracts": {
+    "libs/mcp-apps/src/index.ts": [
+      {
+        "name": "McpAppInlinePreview",
+        "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+        "start": 247,
+        "end": 247,
+        "declaration": "McpAppInlinePreview = memo(McpAppInlinePreviewBase)",
+        "signature": "(props: McpAppInlinePreviewProps): import(\"react\").ReactNode",
+        "props": [
+          {
+            "name": "match",
+            "optional": false,
+            "type": "McpAppToolRef"
+          },
+          {
+            "name": "toolCall",
+            "optional": true,
+            "type": "McpAppToolCallSeed | undefined"
+          },
+          {
+            "name": "cache",
+            "optional": false,
+            "type": "McpAppResponseCache"
+          },
+          {
+            "name": "cacheKey",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "hostAdapter",
+            "optional": false,
+            "type": "McpAppHostAdapter"
+          },
+          {
+            "name": "onExpand",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "expandAriaLabel",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "reloadAriaLabel",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "actionsGroupAriaLabel",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "loadErrorLabel",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "isOpenedInCanvas",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "openedInCanvasLabel",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "colors",
+            "optional": true,
+            "type": "McpAppInlinePreviewColors | undefined"
+          }
+        ]
+      },
+      {
+        "name": "McpAppInlinePreviewProps",
+        "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+        "start": 33,
+        "end": 65,
+        "declaration": "export interface McpAppInlinePreviewProps {\n  /** Matched MCP App tool to preview. */\n  match: McpAppToolRef;\n  /** Original tool call's arguments/result, seeding the mounted app's initial state. */\n  toolCall?: McpAppToolCallSeed;\n  /** Shared cache (with a full-width canvas) so switching to it for this message reuses this preview's fetch instead of repeating it. */\n  cache: McpAppResponseCache;\n  /** This message's cache key (e.g. `mcpAppCanvasKey(index)`). */\n  cacheKey: string;\n  /** Host-supplied dependencies \u2014 display context, sandbox URL, and the resource-fetch/tool-call functions. */\n  hostAdapter: McpAppHostAdapter;\n  /** Called when the user activates the expand-to-canvas button. */\n  onExpand: () => void;\n  /** Accessible label for the expand-to-canvas button. */\n  expandAriaLabel: string;\n  /** Accessible label for the reload button. */\n  reloadAriaLabel: string;\n  /** Accessible name for the header's actions group. Defaults to `'MCP app actions'`. */\n  actionsGroupAriaLabel?: string;\n  /** Message shown when the resource fails to load or the app fails to initialize. */\n  loadErrorLabel: string;\n  /**\n   * Whether this message's MCP App is currently open in the full-width\n   * canvas. When `true`, the header stays (so the tool/app identity is still\n   * visible) but the body shows `openedInCanvasLabel` centered instead of\n   * mounting the app \u2014 only one live app instance exists at a time.\n   */\n  isOpenedInCanvas?: boolean;\n  /** Message shown centered in the body when `isOpenedInCanvas` is `true`. */\n  openedInCanvasLabel: string;\n  /** Color overrides applied as CSS custom properties on the preview's root. */\n  colors?: McpAppInlinePreviewColors;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "useMcpAppInlinePreview",
+        "file": "libs/mcp-apps/src/hooks/useMcpAppInlinePreview/useMcpAppInlinePreview.ts",
+        "start": 49,
+        "end": 154,
+        "declaration": "useMcpAppInlinePreview = (\n  match: McpAppToolRef | undefined,\n  toolCall: McpAppToolCallSeed | undefined,\n  cache: McpAppResponseCache,\n  cacheKey: string,\n  hostAdapter: McpAppHostAdapter,\n  onRequestDisplayMode?: (mode: McpAppDisplayMode) => McpAppDisplayMode | void,\n): McpAppInlinePreviewState => {\n  const { hostContext, hostInfo, sandboxUrl, fetchResourceHtml, callTool } =\n    hostAdapter;\n  const [html, setHtml] = useState<string>();\n  const [toolResult, setToolResult] = useState<CallToolResult>();\n  /*\n   * Lazy-initialized so an unconfigured sandbox never renders the loading\n   * spinner for a frame before the effect below flips it to `Unavailable` \u2014\n   * `useEffect` runs after the browser paints, so seeding `Loading`\n   * unconditionally here would flash the preview box even though it's about\n   * to disappear.\n   */\n  const [status, setStatus] = useState<McpAppInlinePreviewStatus>(() =>\n    match == null || sandboxUrl == null\n      ? McpAppInlinePreviewStatus.Unavailable\n      : McpAppInlinePreviewStatus.Loading,\n  );\n  const [reloadToken, setReloadToken] = useState(0);\n\n  const reload = useCallback(() => {\n    cache.invalidate(cacheKey);\n    setReloadToken((n) => n + 1);\n  }, [cache, cacheKey]);\n\n  const loadPreview = useCallback(\n    async (isCancelled: () => boolean) => {\n      if (match == null || sandboxUrl == null) return;\n\n      try {\n        const seedKey = computeMcpAppSeedKey(toolCall);\n        const { html: fetchedHtml, toolResult: resolvedResult } =\n          await cache.getOrFetch(cacheKey, seedKey, async () => {\n            const [html, toolResult] = await Promise.all([\n              fetchResourceHtml(match.toolsetId, match.resourceUri),\n              resolveMcpAppToolResult(match, toolCall, callTool),\n            ]);\n            return { html, toolResult };\n          });\n        if (isCancelled()) return;\n        setHtml(fetchedHtml);\n        setToolResult(resolvedResult);\n        setStatus(McpAppInlinePreviewStatus.Ready);\n      } catch {\n        if (!isCancelled()) setStatus(McpAppInlinePreviewStatus.Error);\n      }\n    },\n    [match, toolCall, sandboxUrl, cache, cacheKey, fetchResourceHtml, callTool],\n  );\n\n  useEffect(() => {\n    if (match == null || sandboxUrl == null) {\n      setStatus(McpAppInlinePreviewStatus.Unavailable);\n      return;\n    }\n\n    let cancelled = false;\n    setStatus(McpAppInlinePreviewStatus.Loading);\n    void loadPreview(() => cancelled);\n\n    return () => {\n      cancelled = true;\n    };\n  }, [match, sandboxUrl, loadPreview, reloadToken]);\n\n  const onToolCall = useCallback(\n    async (name: string, args: unknown): Promise<CallToolResult> => {\n      if (match == null) {\n        throw new Error(`Tool call \"${name}\" failed: no matching MCP App`);\n      }\n      return callTool(match.toolsetId, name, args, match.kind);\n    },\n    [match, callTool],\n  );\n\n  if (\n    status !== McpAppInlinePreviewStatus.Ready ||\n    match == null ||\n    sandboxUrl == null ||\n    html == null\n  ) {\n    return { status, reload };\n  }\n\n  return {\n    status,\n    reload,\n    content: {\n      type: AttachmentContentType.McpApp,\n      html,\n      sandboxUrl,\n      toolInput: toolCall?.toolInput,\n      toolResult,\n      hostContext,\n      hostInfo,\n      onToolCall,\n      onRequestDisplayMode,\n    },\n  };\n}",
+        "signature": "(match: McpAppToolRef | undefined, toolCall: McpAppToolCallSeed | undefined, cache: McpAppResponseCache, cacheKey: string, hostAdapter: McpAppHostAdapter, onRequestDisplayMode?: (mode: McpAppDisplayMode) => McpAppDisplayMode | void): McpAppInlinePreviewState",
+        "props": []
+      },
+      {
+        "name": "McpAppInlinePreviewState",
+        "file": "libs/mcp-apps/src/hooks/useMcpAppInlinePreview/useMcpAppInlinePreview.ts",
+        "start": 21,
+        "end": 28,
+        "declaration": "export interface McpAppInlinePreviewState {\n  /** Current load state of the preview's fetch. */\n  status: McpAppInlinePreviewStatus;\n  /** Present only when `status` is `Ready`. */\n  content?: McpAppCanvasContent;\n  /** Re-fetches the resource and re-resolves the tool result from scratch, bypassing `cache`. */\n  reload: () => void;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "useMcpAppResponseCache",
+        "file": "libs/mcp-apps/src/hooks/useMcpAppResponseCache/useMcpAppResponseCache.ts",
+        "start": 39,
+        "end": 114,
+        "declaration": "useMcpAppResponseCache = (\n  conversationId: string,\n): McpAppResponseCache => {\n  const mapRef = useRef<Map<string, CacheEntry>>(new Map());\n  const pendingRef = useRef<Map<string, Promise<CachedMcpAppResponse>>>(\n    new Map(),\n  );\n\n  return useMemo<McpAppResponseCache>(() => {\n    const namespacedKey = (key: string) => `${conversationId}:${key}`;\n    const pendingKey = (key: string, seedKey: string | undefined) =>\n      `${namespacedKey(key)}::${seedKey ?? ''}`;\n\n    const get: McpAppResponseCache['get'] = (key, seedKey) => {\n      const entry = mapRef.current.get(namespacedKey(key));\n      if (entry == null) return undefined;\n      if (entry.seedKey !== seedKey) return undefined;\n      if (Date.now() - entry.cachedAt > CACHE_TTL_MS) return undefined;\n      return { html: entry.html, toolResult: entry.toolResult };\n    };\n\n    const set: McpAppResponseCache['set'] = (key, value, seedKey) => {\n      const now = Date.now();\n      for (const [existingKey, existingEntry] of mapRef.current) {\n        if (now - existingEntry.cachedAt > CACHE_TTL_MS) {\n          mapRef.current.delete(existingKey);\n        }\n      }\n      mapRef.current.set(namespacedKey(key), {\n        ...value,\n        seedKey,\n        cachedAt: now,\n      });\n    };\n\n    return {\n      get,\n      set,\n      invalidate: (key) => {\n        mapRef.current.delete(namespacedKey(key));\n        const prefix = `${namespacedKey(key)}::`;\n        for (const existingPendingKey of pendingRef.current.keys()) {\n          if (existingPendingKey.startsWith(prefix)) {\n            pendingRef.current.delete(existingPendingKey);\n          }\n        }\n      },\n      getOrFetch: (key, seedKey, fetchFn) => {\n        const cached = get(key, seedKey);\n        if (cached) return Promise.resolve(cached);\n\n        const pKey = pendingKey(key, seedKey);\n        let pending = pendingRef.current.get(pKey);\n        if (!pending) {\n          pending = fetchFn().then((result) => {\n            set(key, result, seedKey);\n            return result;\n          });\n          pendingRef.current.set(pKey, pending);\n          /*\n           * Chained on `pending` itself (not a separate `.catch`/`.then`), so\n           * this runs only after the `set()` above has already happened on\n           * success \u2014 closing the window between \"fetch settled\" and \"cache\n           * updated\" during which a call arriving right then would find\n           * neither the cache entry nor the (already-deleted) pending\n           * promise and start a third, redundant fetch.\n           */\n          pending.finally(() => {\n            pendingRef.current.delete(pKey);\n          });\n        }\n        return pending;\n      },\n    };\n  }, [conversationId]);\n}",
+        "signature": "(conversationId: string): McpAppResponseCache",
+        "props": [
+          {
+            "name": "toString",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "charAt",
+            "optional": false,
+            "type": "(pos: number) => string"
+          },
+          {
+            "name": "charCodeAt",
+            "optional": false,
+            "type": "(index: number) => number"
+          },
+          {
+            "name": "concat",
+            "optional": false,
+            "type": "(...strings: string[]) => string"
+          },
+          {
+            "name": "indexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "lastIndexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "localeCompare",
+            "optional": false,
+            "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+          },
+          {
+            "name": "match",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+          },
+          {
+            "name": "replace",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "search",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+          },
+          {
+            "name": "slice",
+            "optional": false,
+            "type": "(start?: number, end?: number) => string"
+          },
+          {
+            "name": "split",
+            "optional": false,
+            "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+          },
+          {
+            "name": "substring",
+            "optional": false,
+            "type": "(start: number, end?: number) => string"
+          },
+          {
+            "name": "toLowerCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleLowerCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "toUpperCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleUpperCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "trim",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "length",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "substr",
+            "optional": false,
+            "type": "(from: number, length?: number) => string"
+          },
+          {
+            "name": "valueOf",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "codePointAt",
+            "optional": false,
+            "type": "(pos: number) => number | undefined"
+          },
+          {
+            "name": "includes",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "endsWith",
+            "optional": false,
+            "type": "(searchString: string, endPosition?: number) => boolean"
+          },
+          {
+            "name": "normalize",
+            "optional": false,
+            "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+          },
+          {
+            "name": "repeat",
+            "optional": false,
+            "type": "(count: number) => string"
+          },
+          {
+            "name": "startsWith",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "anchor",
+            "optional": false,
+            "type": "(name: string) => string"
+          },
+          {
+            "name": "big",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "blink",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "bold",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fixed",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fontcolor",
+            "optional": false,
+            "type": "(color: string) => string"
+          },
+          {
+            "name": "fontsize",
+            "optional": false,
+            "type": "{ (size: number): string; (size: string): string; }"
+          },
+          {
+            "name": "italics",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "link",
+            "optional": false,
+            "type": "(url: string) => string"
+          },
+          {
+            "name": "small",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "strike",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sub",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sup",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "padStart",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "padEnd",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "trimEnd",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimStart",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimLeft",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimRight",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "matchAll",
+            "optional": false,
+            "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+          },
+          {
+            "name": "replaceAll",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "at",
+            "optional": false,
+            "type": "(index: number) => string | undefined"
+          },
+          {
+            "name": "__@iterator@21491",
+            "optional": false,
+            "type": "() => StringIterator<string>"
+          }
+        ]
+      },
+      {
+        "name": "McpDeploymentKind",
+        "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+        "start": 8,
+        "end": 8,
+        "declaration": "export type McpDeploymentKind = 'toolset' | 'application';",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "McpAppToolDiscovery",
+        "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+        "start": 25,
+        "end": 25,
+        "declaration": "export type McpAppToolDiscovery = 'direct' | 'indirect';",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "McpAppToolRef",
+        "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+        "start": 28,
+        "end": 41,
+        "declaration": "export interface McpAppToolRef {\n  /** Id of the toolset/application this tool was discovered on. */\n  toolsetId: string;\n  /** The tool's declared `ui://` resource. */\n  resourceUri: string;\n  /** Name used to correlate this ref against a message's real tool-call data (`resolveMcpAppToolCallSeed`/`findMcpAppForMessage`). */\n  toolName: string;\n  /** The tool's real name as declared by its owning toolset's `tools/list` \u2014 what must be passed to the mounted app/`onToolCall`. */\n  mcpToolName: string;\n  /** Deployment kind \u2014 determines which host MCP proxy route resolves `tools/call` for this tool. */\n  kind: McpDeploymentKind;\n  /** How this tool was discovered \u2014 see `McpAppToolDiscovery`. */\n  discovery: McpAppToolDiscovery;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "McpAppToolCallSeed",
+        "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+        "start": 44,
+        "end": 49,
+        "declaration": "export interface McpAppToolCallSeed {\n  /** The tool call's real structured arguments. */\n  toolInput?: Record<string, unknown>;\n  /** The tool call's result, if already known. */\n  toolResult?: CallToolResult;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FetchMcpAppResourceHtml",
+        "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+        "start": 52,
+        "end": 55,
+        "declaration": "export type FetchMcpAppResourceHtml = (\n  toolsetId: string,\n  resourceUri: string,\n) => Promise<string>;",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "CallMcpAppTool",
+        "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+        "start": 58,
+        "end": 63,
+        "declaration": "export type CallMcpAppTool = (\n  toolsetId: string,\n  toolName: string,\n  args: unknown,\n  kind: McpDeploymentKind,\n) => Promise<CallToolResult>;",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "CachedMcpAppResponse",
+        "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+        "start": 66,
+        "end": 71,
+        "declaration": "export interface CachedMcpAppResponse {\n  /** The fetched resource's HTML body. */\n  html: string;\n  /** The tool call's resolved result, if any. */\n  toolResult?: CallToolResult;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "McpAppResponseCache",
+        "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+        "start": 74,
+        "end": 108,
+        "declaration": "export interface McpAppResponseCache {\n  /**\n   * Returns the cached entry only if it was written for this exact\n   * `seedKey` (`computeMcpAppSeedKey`) and is younger than the cache's TTL;\n   * otherwise `undefined` (a miss), so a stale or seed-mismatched entry is\n   * never served.\n   */\n  get: (\n    key: string,\n    seedKey: string | undefined,\n  ) => CachedMcpAppResponse | undefined;\n  /** Writes an entry for `key`, tagged with the seed it was resolved from. */\n  set: (\n    key: string,\n    value: CachedMcpAppResponse,\n    seedKey: string | undefined,\n  ) => void;\n  /** Removes the cached entry for `key`, if any. */\n  invalidate: (key: string) => void;\n  /**\n   * Returns the fresh cached entry for `(key, seedKey)` if one exists\n   * (same rules as `get`); otherwise runs `fetchFn` and caches its result.\n   * Concurrent calls for the same `(key, seedKey)` before `fetchFn` settles\n   * are coalesced onto the same in-flight promise instead of each starting\n   * their own \u2014 without this, a component re-rendered before its first\n   * fetch resolves (e.g. React StrictMode's dev-only double effect\n   * invocation) would race two independent fetches/live tool re-calls for\n   * the same message.\n   */\n  getOrFetch: (\n    key: string,\n    seedKey: string | undefined,\n    fetchFn: () => Promise<CachedMcpAppResponse>,\n  ) => Promise<CachedMcpAppResponse>;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "McpAppHostAdapter",
+        "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+        "start": 124,
+        "end": 135,
+        "declaration": "export interface McpAppHostAdapter {\n  /** `McpUiHostContext` to deliver to the mounted app's `ui/initialize` handshake. */\n  hostContext: McpUiHostContext;\n  /** Host identity (`name`/`version`) to deliver to the mounted app's `ui/initialize` handshake. */\n  hostInfo: Implementation;\n  /** Operator-configured MCP Apps sandbox-proxy URL, or `null` when unconfigured. */\n  sandboxUrl: string | null;\n  /** Fetches the matched tool's MCP Apps `ui://` resource. */\n  fetchResourceHtml: FetchMcpAppResourceHtml;\n  /** Forwards a tool call the mounted app makes on its own (`onToolCall`) or the live re-call `resolveMcpAppToolResult` performs. */\n  callTool: CallMcpAppTool;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "McpAppInlinePreviewStatus",
+        "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+        "start": 111,
+        "end": 116,
+        "declaration": "export enum McpAppInlinePreviewStatus {\n  Loading = 'loading',\n  Ready = 'ready',\n  Error = 'error',\n  Unavailable = 'unavailable',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "collectToolCallNames",
+        "file": "libs/mcp-apps/src/utils/mcp-app.ts",
+        "start": 75,
+        "end": 85,
+        "declaration": "collectToolCallNames = (messages: Message[]): Set<string> => {\n  const names = new Set<string>();\n  for (const message of messages) {\n    for (const call of resolveToolCalls(\n      message.custom_content?.state,\n    ).values()) {\n      names.add(call.name);\n    }\n  }\n  return names;\n}",
+        "signature": "(messages: Message[]): Set<string>",
+        "props": [
+          {
+            "name": "length",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "toString",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleString",
+            "optional": false,
+            "type": "{ (): string; (locales: string | string[], options?: Intl.NumberFormatOptions & Intl.DateTimeFormatOptions): string; }"
+          },
+          {
+            "name": "pop",
+            "optional": false,
+            "type": "() => Message | undefined"
+          },
+          {
+            "name": "push",
+            "optional": false,
+            "type": "(...items: Message[]) => number"
+          },
+          {
+            "name": "concat",
+            "optional": false,
+            "type": "{ (...items: ConcatArray<Message>[]): Message[]; (...items: (Message | ConcatArray<Message>)[]): Message[]; }"
+          },
+          {
+            "name": "join",
+            "optional": false,
+            "type": "(separator?: string) => string"
+          },
+          {
+            "name": "reverse",
+            "optional": false,
+            "type": "() => Message[]"
+          },
+          {
+            "name": "shift",
+            "optional": false,
+            "type": "() => Message | undefined"
+          },
+          {
+            "name": "slice",
+            "optional": false,
+            "type": "(start?: number, end?: number) => Message[]"
+          },
+          {
+            "name": "sort",
+            "optional": false,
+            "type": "(compareFn?: ((a: Message, b: Message) => number) | undefined) => Message[]"
+          },
+          {
+            "name": "splice",
+            "optional": false,
+            "type": "{ (start: number, deleteCount?: number): Message[]; (start: number, deleteCount: number, ...items: Message[]): Message[]; }"
+          },
+          {
+            "name": "unshift",
+            "optional": false,
+            "type": "(...items: Message[]) => number"
+          },
+          {
+            "name": "indexOf",
+            "optional": false,
+            "type": "(searchElement: Message, fromIndex?: number) => number"
+          },
+          {
+            "name": "lastIndexOf",
+            "optional": false,
+            "type": "(searchElement: Message, fromIndex?: number) => number"
+          },
+          {
+            "name": "every",
+            "optional": false,
+            "type": "{ <S extends Message>(predicate: (value: Message, index: number, array: Message[]) => value is S, thisArg?: any): this is S[]; (predicate: (value: Message, index: number, array: Message[]) => unknown, thisArg?: any): boolean; }"
+          },
+          {
+            "name": "some",
+            "optional": false,
+            "type": "(predicate: (value: Message, index: number, array: Message[]) => unknown, thisArg?: any) => boolean"
+          },
+          {
+            "name": "forEach",
+            "optional": false,
+            "type": "(callbackfn: (value: Message, index: number, array: Message[]) => void, thisArg?: any) => void"
+          },
+          {
+            "name": "map",
+            "optional": false,
+            "type": "<U>(callbackfn: (value: Message, index: number, array: Message[]) => U, thisArg?: any) => U[]"
+          },
+          {
+            "name": "filter",
+            "optional": false,
+            "type": "{ <S extends Message>(predicate: (value: Message, index: number, array: Message[]) => value is S, thisArg?: any): S[]; (predicate: (value: Message, index: number, array: Message[]) => unknown, thisArg?: any): Message[]; }"
+          },
+          {
+            "name": "reduce",
+            "optional": false,
+            "type": "{ (callbackfn: (previousValue: Message, currentValue: Message, currentIndex: number, array: Message[]) => Message): Message; (callbackfn: (previousValue: Message, currentValue: Message, currentIndex: number, array: Message[]) => Message, initialValue: Message): Message; <U>(callbackfn: (previousValue: U, currentValue: Message, currentIndex: number, array: Message[]) => U, initialValue: U): U; }"
+          },
+          {
+            "name": "reduceRight",
+            "optional": false,
+            "type": "{ (callbackfn: (previousValue: Message, currentValue: Message, currentIndex: number, array: Message[]) => Message): Message; (callbackfn: (previousValue: Message, currentValue: Message, currentIndex: number, array: Message[]) => Message, initialValue: Message): Message; <U>(callbackfn: (previousValue: U, currentValue: Message, currentIndex: number, array: Message[]) => U, initialValue: U): U; }"
+          },
+          {
+            "name": "find",
+            "optional": false,
+            "type": "{ <S extends Message>(predicate: (value: Message, index: number, obj: Message[]) => value is S, thisArg?: any): S | undefined; (predicate: (value: Message, index: number, obj: Message[]) => unknown, thisArg?: any): Message | undefined; }"
+          },
+          {
+            "name": "findIndex",
+            "optional": false,
+            "type": "(predicate: (value: Message, index: number, obj: Message[]) => unknown, thisArg?: any) => number"
+          },
+          {
+            "name": "fill",
+            "optional": false,
+            "type": "(value: Message, start?: number, end?: number) => Message[]"
+          },
+          {
+            "name": "copyWithin",
+            "optional": false,
+            "type": "(target: number, start: number, end?: number) => Message[]"
+          },
+          {
+            "name": "entries",
+            "optional": false,
+            "type": "() => ArrayIterator<[number, Message]>"
+          },
+          {
+            "name": "keys",
+            "optional": false,
+            "type": "() => ArrayIterator<number>"
+          },
+          {
+            "name": "values",
+            "optional": false,
+            "type": "() => ArrayIterator<Message>"
+          },
+          {
+            "name": "includes",
+            "optional": false,
+            "type": "(searchElement: Message, fromIndex?: number) => boolean"
+          },
+          {
+            "name": "flatMap",
+            "optional": false,
+            "type": "<U, This = undefined>(callback: (this: This, value: Message, index: number, array: Message[]) => U | readonly U[], thisArg?: This | undefined) => U[]"
+          },
+          {
+            "name": "flat",
+            "optional": false,
+            "type": "<A, D extends number = 1>(this: A, depth?: D | undefined) => FlatArray<A, D>[]"
+          },
+          {
+            "name": "at",
+            "optional": false,
+            "type": "(index: number) => Message | undefined"
+          },
+          {
+            "name": "__@iterator@21491",
+            "optional": false,
+            "type": "() => ArrayIterator<Message>"
+          },
+          {
+            "name": "__@unscopables@21517",
+            "optional": false,
+            "type": "{ [x: number]: boolean | undefined; length?: boolean | undefined; toString?: boolean | undefined; toLocaleString?: boolean | undefined; pop?: boolean | undefined; push?: boolean | undefined; concat?: boolean | undefined; join?: boolean | undefined; reverse?: boolean | undefined; shift?: boolean | undefined; slice?: boolean | undefined; sort?: boolean | undefined; splice?: boolean | undefined; unshift?: boolean | undefined; indexOf?: boolean | undefined; lastIndexOf?: boolean | undefined; every?: boolean | undefined; some?: boolean | undefined; forEach?: boolean | undefined; map?: boolean | undefined; filter?: boolean | undefined; reduce?: boolean | undefined; reduceRight?: boolean | undefined; find?: boolean | undefined; findIndex?: boolean | undefined; fill?: boolean | undefined; copyWithin?: boolean | undefined; entries?: boolean | undefined; keys?: boolean | undefined; values?: boolean | undefined; includes?: boolean | undefined; flatMap?: boolean | undefined; flat?: boolean | undefined; at?: boolean | undefined; [Symbol.iterator]?: boolean | undefined; readonly [Symbol.unscopables]?: boolean | undefined; }"
+          }
+        ]
+      },
+      {
+        "name": "findMcpAppForMessage",
+        "file": "libs/mcp-apps/src/utils/mcp-app.ts",
+        "start": 114,
+        "end": 132,
+        "declaration": "findMcpAppForMessage = (\n  message: Message,\n  mcpAppTools: McpAppToolRef[],\n  isStreaming: boolean,\n): McpAppToolRef | undefined => {\n  if (mcpAppTools.length === 0 || message.role !== MessageRole.Assistant) {\n    return undefined;\n  }\n  const calledNames = new Set(\n    [...resolveToolCalls(message.custom_content?.state).values()].map(\n      (call) => call.name,\n    ),\n  );\n  const matched = mcpAppTools.find((tool) => calledNames.has(tool.toolName));\n  if (matched) return matched;\n  const selfHosted = mcpAppTools.find((tool) => tool.discovery === 'direct');\n  if (selfHosted) return selfHosted;\n  return isStreaming ? mcpAppTools[0] : undefined;\n}",
+        "signature": "(message: Message, mcpAppTools: McpAppToolRef[], isStreaming: boolean): McpAppToolRef | undefined",
+        "props": [
+          {
+            "name": "role",
+            "optional": false,
+            "type": "MessageRole"
+          },
+          {
+            "name": "content",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "responseId",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "custom_content",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-chat-shared\").MessageCustomContent | undefined"
+          },
+          {
+            "name": "rating",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-chat-shared\").MessageRating | undefined"
+          },
+          {
+            "name": "deploymentId",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "streamErrorMessage",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "wasStoppedByUser",
+            "optional": true,
+            "type": "boolean | undefined"
+          }
+        ]
+      },
+      {
+        "name": "mcpAppCanvasKey",
+        "file": "libs/mcp-apps/src/utils/mcp-app.ts",
+        "start": 135,
+        "end": 136,
+        "declaration": "mcpAppCanvasKey = (messageIndex: number): string =>\n  `${messageIndex}:mcp-app`",
+        "signature": "(messageIndex: number): string",
+        "props": [
+          {
+            "name": "toString",
+            "optional": false,
+            "type": "(radix?: number) => string"
+          },
+          {
+            "name": "toFixed",
+            "optional": false,
+            "type": "(fractionDigits?: number) => string"
+          },
+          {
+            "name": "toExponential",
+            "optional": false,
+            "type": "(fractionDigits?: number) => string"
+          },
+          {
+            "name": "toPrecision",
+            "optional": false,
+            "type": "(precision?: number) => string"
+          },
+          {
+            "name": "valueOf",
+            "optional": false,
+            "type": "() => number"
+          },
+          {
+            "name": "toLocaleString",
+            "optional": false,
+            "type": "{ (locales?: string | string[], options?: Intl.NumberFormatOptions): string; (locales?: Intl.LocalesArgument, options?: Intl.NumberFormatOptions): string; }"
+          }
+        ]
+      },
+      {
+        "name": "computeMcpAppSeedKey",
+        "file": "libs/mcp-apps/src/utils/mcp-app.ts",
+        "start": 143,
+        "end": 146,
+        "declaration": "computeMcpAppSeedKey = (\n  toolCall: McpAppToolCallSeed | undefined,\n): string | undefined =>\n  toolCall == null ? undefined : JSON.stringify(toolCall.toolInput ?? null)",
+        "signature": "(toolCall: McpAppToolCallSeed | undefined): string | undefined",
+        "props": []
+      },
+      {
+        "name": "resolveMcpAppToolCallSeed",
+        "file": "libs/mcp-apps/src/utils/mcp-app.ts",
+        "start": 161,
+        "end": 180,
+        "declaration": "resolveMcpAppToolCallSeed = (\n  message: Message,\n  toolName: string,\n): McpAppToolCallSeed | undefined => {\n  const state = message.custom_content?.state;\n  if (!state) return undefined;\n\n  const matched = [...resolveToolCalls(state).values()]\n    .reverse()\n    .find((call) => call.name === toolName);\n  if (!matched) return undefined;\n\n  return {\n    toolInput: matched.args,\n    toolResult:\n      matched.result != null\n        ? { content: [{ type: 'text', text: matched.result }] }\n        : undefined,\n  };\n}",
+        "signature": "(message: Message, toolName: string): McpAppToolCallSeed | undefined",
+        "props": [
+          {
+            "name": "role",
+            "optional": false,
+            "type": "MessageRole"
+          },
+          {
+            "name": "content",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "responseId",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "custom_content",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-chat-shared\").MessageCustomContent | undefined"
+          },
+          {
+            "name": "rating",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-chat-shared\").MessageRating | undefined"
+          },
+          {
+            "name": "deploymentId",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "streamErrorMessage",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "wasStoppedByUser",
+            "optional": true,
+            "type": "boolean | undefined"
+          }
+        ]
+      },
+      {
+        "name": "resolveMcpAppToolResult",
+        "file": "libs/mcp-apps/src/utils/mcp-app.ts",
+        "start": 214,
+        "end": 234,
+        "declaration": "resolveMcpAppToolResult = async (\n  match: McpAppToolRef,\n  seed: McpAppToolCallSeed | undefined,\n  callTool: CallMcpAppTool,\n): Promise<CallToolResult | undefined> => {\n  const isConfirmed = match.discovery === 'direct' || seed?.toolInput != null;\n  if (!isConfirmed) {\n    return seed?.toolResult;\n  }\n\n  try {\n    return await callTool(\n      match.toolsetId,\n      match.mcpToolName,\n      seed?.toolInput ?? {},\n      match.kind,\n    );\n  } catch {\n    return seed?.toolResult;\n  }\n}",
+        "signature": "(match: McpAppToolRef, seed: McpAppToolCallSeed | undefined, callTool: CallMcpAppTool): Promise<CallToolResult | undefined>",
+        "props": [
+          {
+            "name": "toolsetId",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "resourceUri",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "toolName",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "mcpToolName",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "kind",
+            "optional": false,
+            "type": "import(\"..\").McpDeploymentKind"
+          },
+          {
+            "name": "discovery",
+            "optional": false,
+            "type": "import(\"..\").McpAppToolDiscovery"
+          }
+        ]
+      },
+      {
+        "name": "MCP_APPS_CLASS",
+        "file": "libs/mcp-apps/src/constants/public-class-names.ts",
+        "start": 11,
+        "end": 20,
+        "declaration": "MCP_APPS_CLASS = {\n  /** The preview's bordered outer card. */\n  preview: 'dial-mcp-apps-preview',\n  /**\n   * The header strip above the mounted app, holding the reload and\n   * expand-to-canvas actions. It sits outside the app's own content, so a host\n   * restyling it never overlaps what the app draws.\n   */\n  previewHeader: 'dial-mcp-apps-preview-header',\n} as const",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "McpAppInlinePreviewColors",
+        "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+        "start": 141,
+        "end": 148,
+        "declaration": "export interface McpAppInlinePreviewColors {\n  /** Surface the mounted app sits on. Fallback: `--bg-layer-raised`. */\n  previewBackground?: string;\n  /** Border around the preview card. Fallback: `--stroke-tertiary`. */\n  previewBorder?: string;\n  /** Divider under the header strip. Fallback: `--stroke-tertiary`. */\n  previewHeaderBorder?: string;\n}",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "McpAppInlinePreview",
+      "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+      "start": 247,
+      "end": 247,
+      "declaration": "McpAppInlinePreview = memo(McpAppInlinePreviewBase)",
+      "signature": "(props: McpAppInlinePreviewProps): import(\"react\").ReactNode",
+      "props": [
+        {
+          "name": "match",
+          "optional": false,
+          "type": "McpAppToolRef"
+        },
+        {
+          "name": "toolCall",
+          "optional": true,
+          "type": "McpAppToolCallSeed | undefined"
+        },
+        {
+          "name": "cache",
+          "optional": false,
+          "type": "McpAppResponseCache"
+        },
+        {
+          "name": "cacheKey",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "hostAdapter",
+          "optional": false,
+          "type": "McpAppHostAdapter"
+        },
+        {
+          "name": "onExpand",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "expandAriaLabel",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "reloadAriaLabel",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "actionsGroupAriaLabel",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "loadErrorLabel",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "isOpenedInCanvas",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "openedInCanvasLabel",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "colors",
+          "optional": true,
+          "type": "McpAppInlinePreviewColors | undefined"
+        }
+      ]
+    },
+    {
+      "name": "useMcpAppInlinePreview",
+      "file": "libs/mcp-apps/src/hooks/useMcpAppInlinePreview/useMcpAppInlinePreview.ts",
+      "start": 49,
+      "end": 154,
+      "declaration": "useMcpAppInlinePreview = (\n  match: McpAppToolRef | undefined,\n  toolCall: McpAppToolCallSeed | undefined,\n  cache: McpAppResponseCache,\n  cacheKey: string,\n  hostAdapter: McpAppHostAdapter,\n  onRequestDisplayMode?: (mode: McpAppDisplayMode) => McpAppDisplayMode | void,\n): McpAppInlinePreviewState => {\n  const { hostContext, hostInfo, sandboxUrl, fetchResourceHtml, callTool } =\n    hostAdapter;\n  const [html, setHtml] = useState<string>();\n  const [toolResult, setToolResult] = useState<CallToolResult>();\n  /*\n   * Lazy-initialized so an unconfigured sandbox never renders the loading\n   * spinner for a frame before the effect below flips it to `Unavailable` \u2014\n   * `useEffect` runs after the browser paints, so seeding `Loading`\n   * unconditionally here would flash the preview box even though it's about\n   * to disappear.\n   */\n  const [status, setStatus] = useState<McpAppInlinePreviewStatus>(() =>\n    match == null || sandboxUrl == null\n      ? McpAppInlinePreviewStatus.Unavailable\n      : McpAppInlinePreviewStatus.Loading,\n  );\n  const [reloadToken, setReloadToken] = useState(0);\n\n  const reload = useCallback(() => {\n    cache.invalidate(cacheKey);\n    setReloadToken((n) => n + 1);\n  }, [cache, cacheKey]);\n\n  const loadPreview = useCallback(\n    async (isCancelled: () => boolean) => {\n      if (match == null || sandboxUrl == null) return;\n\n      try {\n        const seedKey = computeMcpAppSeedKey(toolCall);\n        const { html: fetchedHtml, toolResult: resolvedResult } =\n          await cache.getOrFetch(cacheKey, seedKey, async () => {\n            const [html, toolResult] = await Promise.all([\n              fetchResourceHtml(match.toolsetId, match.resourceUri),\n              resolveMcpAppToolResult(match, toolCall, callTool),\n            ]);\n            return { html, toolResult };\n          });\n        if (isCancelled()) return;\n        setHtml(fetchedHtml);\n        setToolResult(resolvedResult);\n        setStatus(McpAppInlinePreviewStatus.Ready);\n      } catch {\n        if (!isCancelled()) setStatus(McpAppInlinePreviewStatus.Error);\n      }\n    },\n    [match, toolCall, sandboxUrl, cache, cacheKey, fetchResourceHtml, callTool],\n  );\n\n  useEffect(() => {\n    if (match == null || sandboxUrl == null) {\n      setStatus(McpAppInlinePreviewStatus.Unavailable);\n      return;\n    }\n\n    let cancelled = false;\n    setStatus(McpAppInlinePreviewStatus.Loading);\n    void loadPreview(() => cancelled);\n\n    return () => {\n      cancelled = true;\n    };\n  }, [match, sandboxUrl, loadPreview, reloadToken]);\n\n  const onToolCall = useCallback(\n    async (name: string, args: unknown): Promise<CallToolResult> => {\n      if (match == null) {\n        throw new Error(`Tool call \"${name}\" failed: no matching MCP App`);\n      }\n      return callTool(match.toolsetId, name, args, match.kind);\n    },\n    [match, callTool],\n  );\n\n  if (\n    status !== McpAppInlinePreviewStatus.Ready ||\n    match == null ||\n    sandboxUrl == null ||\n    html == null\n  ) {\n    return { status, reload };\n  }\n\n  return {\n    status,\n    reload,\n    content: {\n      type: AttachmentContentType.McpApp,\n      html,\n      sandboxUrl,\n      toolInput: toolCall?.toolInput,\n      toolResult,\n      hostContext,\n      hostInfo,\n      onToolCall,\n      onRequestDisplayMode,\n    },\n  };\n}",
+      "signature": "(match: McpAppToolRef | undefined, toolCall: McpAppToolCallSeed | undefined, cache: McpAppResponseCache, cacheKey: string, hostAdapter: McpAppHostAdapter, onRequestDisplayMode?: (mode: McpAppDisplayMode) => McpAppDisplayMode | void): McpAppInlinePreviewState",
+      "props": []
+    },
+    {
+      "name": "useMcpAppResponseCache",
+      "file": "libs/mcp-apps/src/hooks/useMcpAppResponseCache/useMcpAppResponseCache.ts",
+      "start": 39,
+      "end": 114,
+      "declaration": "useMcpAppResponseCache = (\n  conversationId: string,\n): McpAppResponseCache => {\n  const mapRef = useRef<Map<string, CacheEntry>>(new Map());\n  const pendingRef = useRef<Map<string, Promise<CachedMcpAppResponse>>>(\n    new Map(),\n  );\n\n  return useMemo<McpAppResponseCache>(() => {\n    const namespacedKey = (key: string) => `${conversationId}:${key}`;\n    const pendingKey = (key: string, seedKey: string | undefined) =>\n      `${namespacedKey(key)}::${seedKey ?? ''}`;\n\n    const get: McpAppResponseCache['get'] = (key, seedKey) => {\n      const entry = mapRef.current.get(namespacedKey(key));\n      if (entry == null) return undefined;\n      if (entry.seedKey !== seedKey) return undefined;\n      if (Date.now() - entry.cachedAt > CACHE_TTL_MS) return undefined;\n      return { html: entry.html, toolResult: entry.toolResult };\n    };\n\n    const set: McpAppResponseCache['set'] = (key, value, seedKey) => {\n      const now = Date.now();\n      for (const [existingKey, existingEntry] of mapRef.current) {\n        if (now - existingEntry.cachedAt > CACHE_TTL_MS) {\n          mapRef.current.delete(existingKey);\n        }\n      }\n      mapRef.current.set(namespacedKey(key), {\n        ...value,\n        seedKey,\n        cachedAt: now,\n      });\n    };\n\n    return {\n      get,\n      set,\n      invalidate: (key) => {\n        mapRef.current.delete(namespacedKey(key));\n        const prefix = `${namespacedKey(key)}::`;\n        for (const existingPendingKey of pendingRef.current.keys()) {\n          if (existingPendingKey.startsWith(prefix)) {\n            pendingRef.current.delete(existingPendingKey);\n          }\n        }\n      },\n      getOrFetch: (key, seedKey, fetchFn) => {\n        const cached = get(key, seedKey);\n        if (cached) return Promise.resolve(cached);\n\n        const pKey = pendingKey(key, seedKey);\n        let pending = pendingRef.current.get(pKey);\n        if (!pending) {\n          pending = fetchFn().then((result) => {\n            set(key, result, seedKey);\n            return result;\n          });\n          pendingRef.current.set(pKey, pending);\n          /*\n           * Chained on `pending` itself (not a separate `.catch`/`.then`), so\n           * this runs only after the `set()` above has already happened on\n           * success \u2014 closing the window between \"fetch settled\" and \"cache\n           * updated\" during which a call arriving right then would find\n           * neither the cache entry nor the (already-deleted) pending\n           * promise and start a third, redundant fetch.\n           */\n          pending.finally(() => {\n            pendingRef.current.delete(pKey);\n          });\n        }\n        return pending;\n      },\n    };\n  }, [conversationId]);\n}",
+      "signature": "(conversationId: string): McpAppResponseCache",
+      "props": [
+        {
+          "name": "toString",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "charAt",
+          "optional": false,
+          "type": "(pos: number) => string"
+        },
+        {
+          "name": "charCodeAt",
+          "optional": false,
+          "type": "(index: number) => number"
+        },
+        {
+          "name": "concat",
+          "optional": false,
+          "type": "(...strings: string[]) => string"
+        },
+        {
+          "name": "indexOf",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => number"
+        },
+        {
+          "name": "lastIndexOf",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => number"
+        },
+        {
+          "name": "localeCompare",
+          "optional": false,
+          "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+        },
+        {
+          "name": "match",
+          "optional": false,
+          "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+        },
+        {
+          "name": "replace",
+          "optional": false,
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+        },
+        {
+          "name": "search",
+          "optional": false,
+          "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+        },
+        {
+          "name": "slice",
+          "optional": false,
+          "type": "(start?: number, end?: number) => string"
+        },
+        {
+          "name": "split",
+          "optional": false,
+          "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+        },
+        {
+          "name": "substring",
+          "optional": false,
+          "type": "(start: number, end?: number) => string"
+        },
+        {
+          "name": "toLowerCase",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleLowerCase",
+          "optional": false,
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+        },
+        {
+          "name": "toUpperCase",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleUpperCase",
+          "optional": false,
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+        },
+        {
+          "name": "trim",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "length",
+          "optional": false,
+          "type": "number"
+        },
+        {
+          "name": "substr",
+          "optional": false,
+          "type": "(from: number, length?: number) => string"
+        },
+        {
+          "name": "valueOf",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "codePointAt",
+          "optional": false,
+          "type": "(pos: number) => number | undefined"
+        },
+        {
+          "name": "includes",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => boolean"
+        },
+        {
+          "name": "endsWith",
+          "optional": false,
+          "type": "(searchString: string, endPosition?: number) => boolean"
+        },
+        {
+          "name": "normalize",
+          "optional": false,
+          "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+        },
+        {
+          "name": "repeat",
+          "optional": false,
+          "type": "(count: number) => string"
+        },
+        {
+          "name": "startsWith",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => boolean"
+        },
+        {
+          "name": "anchor",
+          "optional": false,
+          "type": "(name: string) => string"
+        },
+        {
+          "name": "big",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "blink",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "bold",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "fixed",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "fontcolor",
+          "optional": false,
+          "type": "(color: string) => string"
+        },
+        {
+          "name": "fontsize",
+          "optional": false,
+          "type": "{ (size: number): string; (size: string): string; }"
+        },
+        {
+          "name": "italics",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "link",
+          "optional": false,
+          "type": "(url: string) => string"
+        },
+        {
+          "name": "small",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "strike",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "sub",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "sup",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "padStart",
+          "optional": false,
+          "type": "(maxLength: number, fillString?: string) => string"
+        },
+        {
+          "name": "padEnd",
+          "optional": false,
+          "type": "(maxLength: number, fillString?: string) => string"
+        },
+        {
+          "name": "trimEnd",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimStart",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimLeft",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimRight",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "matchAll",
+          "optional": false,
+          "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+        },
+        {
+          "name": "replaceAll",
+          "optional": false,
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+        },
+        {
+          "name": "at",
+          "optional": false,
+          "type": "(index: number) => string | undefined"
+        },
+        {
+          "name": "__@iterator@21491",
+          "optional": false,
+          "type": "() => StringIterator<string>"
+        }
+      ]
+    },
+    {
+      "name": "collectToolCallNames",
+      "file": "libs/mcp-apps/src/utils/mcp-app.ts",
+      "start": 75,
+      "end": 85,
+      "declaration": "collectToolCallNames = (messages: Message[]): Set<string> => {\n  const names = new Set<string>();\n  for (const message of messages) {\n    for (const call of resolveToolCalls(\n      message.custom_content?.state,\n    ).values()) {\n      names.add(call.name);\n    }\n  }\n  return names;\n}",
+      "signature": "(messages: Message[]): Set<string>",
+      "props": [
+        {
+          "name": "length",
+          "optional": false,
+          "type": "number"
+        },
+        {
+          "name": "toString",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleString",
+          "optional": false,
+          "type": "{ (): string; (locales: string | string[], options?: Intl.NumberFormatOptions & Intl.DateTimeFormatOptions): string; }"
+        },
+        {
+          "name": "pop",
+          "optional": false,
+          "type": "() => Message | undefined"
+        },
+        {
+          "name": "push",
+          "optional": false,
+          "type": "(...items: Message[]) => number"
+        },
+        {
+          "name": "concat",
+          "optional": false,
+          "type": "{ (...items: ConcatArray<Message>[]): Message[]; (...items: (Message | ConcatArray<Message>)[]): Message[]; }"
+        },
+        {
+          "name": "join",
+          "optional": false,
+          "type": "(separator?: string) => string"
+        },
+        {
+          "name": "reverse",
+          "optional": false,
+          "type": "() => Message[]"
+        },
+        {
+          "name": "shift",
+          "optional": false,
+          "type": "() => Message | undefined"
+        },
+        {
+          "name": "slice",
+          "optional": false,
+          "type": "(start?: number, end?: number) => Message[]"
+        },
+        {
+          "name": "sort",
+          "optional": false,
+          "type": "(compareFn?: ((a: Message, b: Message) => number) | undefined) => Message[]"
+        },
+        {
+          "name": "splice",
+          "optional": false,
+          "type": "{ (start: number, deleteCount?: number): Message[]; (start: number, deleteCount: number, ...items: Message[]): Message[]; }"
+        },
+        {
+          "name": "unshift",
+          "optional": false,
+          "type": "(...items: Message[]) => number"
+        },
+        {
+          "name": "indexOf",
+          "optional": false,
+          "type": "(searchElement: Message, fromIndex?: number) => number"
+        },
+        {
+          "name": "lastIndexOf",
+          "optional": false,
+          "type": "(searchElement: Message, fromIndex?: number) => number"
+        },
+        {
+          "name": "every",
+          "optional": false,
+          "type": "{ <S extends Message>(predicate: (value: Message, index: number, array: Message[]) => value is S, thisArg?: any): this is S[]; (predicate: (value: Message, index: number, array: Message[]) => unknown, thisArg?: any): boolean; }"
+        },
+        {
+          "name": "some",
+          "optional": false,
+          "type": "(predicate: (value: Message, index: number, array: Message[]) => unknown, thisArg?: any) => boolean"
+        },
+        {
+          "name": "forEach",
+          "optional": false,
+          "type": "(callbackfn: (value: Message, index: number, array: Message[]) => void, thisArg?: any) => void"
+        },
+        {
+          "name": "map",
+          "optional": false,
+          "type": "<U>(callbackfn: (value: Message, index: number, array: Message[]) => U, thisArg?: any) => U[]"
+        },
+        {
+          "name": "filter",
+          "optional": false,
+          "type": "{ <S extends Message>(predicate: (value: Message, index: number, array: Message[]) => value is S, thisArg?: any): S[]; (predicate: (value: Message, index: number, array: Message[]) => unknown, thisArg?: any): Message[]; }"
+        },
+        {
+          "name": "reduce",
+          "optional": false,
+          "type": "{ (callbackfn: (previousValue: Message, currentValue: Message, currentIndex: number, array: Message[]) => Message): Message; (callbackfn: (previousValue: Message, currentValue: Message, currentIndex: number, array: Message[]) => Message, initialValue: Message): Message; <U>(callbackfn: (previousValue: U, currentValue: Message, currentIndex: number, array: Message[]) => U, initialValue: U): U; }"
+        },
+        {
+          "name": "reduceRight",
+          "optional": false,
+          "type": "{ (callbackfn: (previousValue: Message, currentValue: Message, currentIndex: number, array: Message[]) => Message): Message; (callbackfn: (previousValue: Message, currentValue: Message, currentIndex: number, array: Message[]) => Message, initialValue: Message): Message; <U>(callbackfn: (previousValue: U, currentValue: Message, currentIndex: number, array: Message[]) => U, initialValue: U): U; }"
+        },
+        {
+          "name": "find",
+          "optional": false,
+          "type": "{ <S extends Message>(predicate: (value: Message, index: number, obj: Message[]) => value is S, thisArg?: any): S | undefined; (predicate: (value: Message, index: number, obj: Message[]) => unknown, thisArg?: any): Message | undefined; }"
+        },
+        {
+          "name": "findIndex",
+          "optional": false,
+          "type": "(predicate: (value: Message, index: number, obj: Message[]) => unknown, thisArg?: any) => number"
+        },
+        {
+          "name": "fill",
+          "optional": false,
+          "type": "(value: Message, start?: number, end?: number) => Message[]"
+        },
+        {
+          "name": "copyWithin",
+          "optional": false,
+          "type": "(target: number, start: number, end?: number) => Message[]"
+        },
+        {
+          "name": "entries",
+          "optional": false,
+          "type": "() => ArrayIterator<[number, Message]>"
+        },
+        {
+          "name": "keys",
+          "optional": false,
+          "type": "() => ArrayIterator<number>"
+        },
+        {
+          "name": "values",
+          "optional": false,
+          "type": "() => ArrayIterator<Message>"
+        },
+        {
+          "name": "includes",
+          "optional": false,
+          "type": "(searchElement: Message, fromIndex?: number) => boolean"
+        },
+        {
+          "name": "flatMap",
+          "optional": false,
+          "type": "<U, This = undefined>(callback: (this: This, value: Message, index: number, array: Message[]) => U | readonly U[], thisArg?: This | undefined) => U[]"
+        },
+        {
+          "name": "flat",
+          "optional": false,
+          "type": "<A, D extends number = 1>(this: A, depth?: D | undefined) => FlatArray<A, D>[]"
+        },
+        {
+          "name": "at",
+          "optional": false,
+          "type": "(index: number) => Message | undefined"
+        },
+        {
+          "name": "__@iterator@21491",
+          "optional": false,
+          "type": "() => ArrayIterator<Message>"
+        },
+        {
+          "name": "__@unscopables@21517",
+          "optional": false,
+          "type": "{ [x: number]: boolean | undefined; length?: boolean | undefined; toString?: boolean | undefined; toLocaleString?: boolean | undefined; pop?: boolean | undefined; push?: boolean | undefined; concat?: boolean | undefined; join?: boolean | undefined; reverse?: boolean | undefined; shift?: boolean | undefined; slice?: boolean | undefined; sort?: boolean | undefined; splice?: boolean | undefined; unshift?: boolean | undefined; indexOf?: boolean | undefined; lastIndexOf?: boolean | undefined; every?: boolean | undefined; some?: boolean | undefined; forEach?: boolean | undefined; map?: boolean | undefined; filter?: boolean | undefined; reduce?: boolean | undefined; reduceRight?: boolean | undefined; find?: boolean | undefined; findIndex?: boolean | undefined; fill?: boolean | undefined; copyWithin?: boolean | undefined; entries?: boolean | undefined; keys?: boolean | undefined; values?: boolean | undefined; includes?: boolean | undefined; flatMap?: boolean | undefined; flat?: boolean | undefined; at?: boolean | undefined; [Symbol.iterator]?: boolean | undefined; readonly [Symbol.unscopables]?: boolean | undefined; }"
+        }
+      ]
+    },
+    {
+      "name": "findMcpAppForMessage",
+      "file": "libs/mcp-apps/src/utils/mcp-app.ts",
+      "start": 114,
+      "end": 132,
+      "declaration": "findMcpAppForMessage = (\n  message: Message,\n  mcpAppTools: McpAppToolRef[],\n  isStreaming: boolean,\n): McpAppToolRef | undefined => {\n  if (mcpAppTools.length === 0 || message.role !== MessageRole.Assistant) {\n    return undefined;\n  }\n  const calledNames = new Set(\n    [...resolveToolCalls(message.custom_content?.state).values()].map(\n      (call) => call.name,\n    ),\n  );\n  const matched = mcpAppTools.find((tool) => calledNames.has(tool.toolName));\n  if (matched) return matched;\n  const selfHosted = mcpAppTools.find((tool) => tool.discovery === 'direct');\n  if (selfHosted) return selfHosted;\n  return isStreaming ? mcpAppTools[0] : undefined;\n}",
+      "signature": "(message: Message, mcpAppTools: McpAppToolRef[], isStreaming: boolean): McpAppToolRef | undefined",
+      "props": [
+        {
+          "name": "role",
+          "optional": false,
+          "type": "MessageRole"
+        },
+        {
+          "name": "content",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "timestamp",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "responseId",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "custom_content",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-chat-shared\").MessageCustomContent | undefined"
+        },
+        {
+          "name": "rating",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-chat-shared\").MessageRating | undefined"
+        },
+        {
+          "name": "deploymentId",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "streamErrorMessage",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "wasStoppedByUser",
+          "optional": true,
+          "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
+      "name": "mcpAppCanvasKey",
+      "file": "libs/mcp-apps/src/utils/mcp-app.ts",
+      "start": 135,
+      "end": 136,
+      "declaration": "mcpAppCanvasKey = (messageIndex: number): string =>\n  `${messageIndex}:mcp-app`",
+      "signature": "(messageIndex: number): string",
+      "props": [
+        {
+          "name": "toString",
+          "optional": false,
+          "type": "(radix?: number) => string"
+        },
+        {
+          "name": "toFixed",
+          "optional": false,
+          "type": "(fractionDigits?: number) => string"
+        },
+        {
+          "name": "toExponential",
+          "optional": false,
+          "type": "(fractionDigits?: number) => string"
+        },
+        {
+          "name": "toPrecision",
+          "optional": false,
+          "type": "(precision?: number) => string"
+        },
+        {
+          "name": "valueOf",
+          "optional": false,
+          "type": "() => number"
+        },
+        {
+          "name": "toLocaleString",
+          "optional": false,
+          "type": "{ (locales?: string | string[], options?: Intl.NumberFormatOptions): string; (locales?: Intl.LocalesArgument, options?: Intl.NumberFormatOptions): string; }"
+        }
+      ]
+    },
+    {
+      "name": "computeMcpAppSeedKey",
+      "file": "libs/mcp-apps/src/utils/mcp-app.ts",
+      "start": 143,
+      "end": 146,
+      "declaration": "computeMcpAppSeedKey = (\n  toolCall: McpAppToolCallSeed | undefined,\n): string | undefined =>\n  toolCall == null ? undefined : JSON.stringify(toolCall.toolInput ?? null)",
+      "signature": "(toolCall: McpAppToolCallSeed | undefined): string | undefined",
+      "props": []
+    },
+    {
+      "name": "resolveMcpAppToolCallSeed",
+      "file": "libs/mcp-apps/src/utils/mcp-app.ts",
+      "start": 161,
+      "end": 180,
+      "declaration": "resolveMcpAppToolCallSeed = (\n  message: Message,\n  toolName: string,\n): McpAppToolCallSeed | undefined => {\n  const state = message.custom_content?.state;\n  if (!state) return undefined;\n\n  const matched = [...resolveToolCalls(state).values()]\n    .reverse()\n    .find((call) => call.name === toolName);\n  if (!matched) return undefined;\n\n  return {\n    toolInput: matched.args,\n    toolResult:\n      matched.result != null\n        ? { content: [{ type: 'text', text: matched.result }] }\n        : undefined,\n  };\n}",
+      "signature": "(message: Message, toolName: string): McpAppToolCallSeed | undefined",
+      "props": [
+        {
+          "name": "role",
+          "optional": false,
+          "type": "MessageRole"
+        },
+        {
+          "name": "content",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "timestamp",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "responseId",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "custom_content",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-chat-shared\").MessageCustomContent | undefined"
+        },
+        {
+          "name": "rating",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-chat-shared\").MessageRating | undefined"
+        },
+        {
+          "name": "deploymentId",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "streamErrorMessage",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "wasStoppedByUser",
+          "optional": true,
+          "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
+      "name": "resolveMcpAppToolResult",
+      "file": "libs/mcp-apps/src/utils/mcp-app.ts",
+      "start": 214,
+      "end": 234,
+      "declaration": "resolveMcpAppToolResult = async (\n  match: McpAppToolRef,\n  seed: McpAppToolCallSeed | undefined,\n  callTool: CallMcpAppTool,\n): Promise<CallToolResult | undefined> => {\n  const isConfirmed = match.discovery === 'direct' || seed?.toolInput != null;\n  if (!isConfirmed) {\n    return seed?.toolResult;\n  }\n\n  try {\n    return await callTool(\n      match.toolsetId,\n      match.mcpToolName,\n      seed?.toolInput ?? {},\n      match.kind,\n    );\n  } catch {\n    return seed?.toolResult;\n  }\n}",
+      "signature": "(match: McpAppToolRef, seed: McpAppToolCallSeed | undefined, callTool: CallMcpAppTool): Promise<CallToolResult | undefined>",
+      "props": [
+        {
+          "name": "toolsetId",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "resourceUri",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "toolName",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "mcpToolName",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "kind",
+          "optional": false,
+          "type": "import(\"..\").McpDeploymentKind"
+        },
+        {
+          "name": "discovery",
+          "optional": false,
+          "type": "import(\"..\").McpAppToolDiscovery"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/mcp-apps/src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx",
+      "assertions": [
+        "stamps the preview card and its header",
+        "forwards every colour override as a CSS custom property"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "libs/chat-hooks/src/mcp-apps/useMcpAppTools/useMcpAppTools.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 11,
+          "excerpt": "import type {\n  DeploymentItemDto,\n  DialToolsetDto,\n} from '@epam/ai-dial-chat-api-client';\nimport type { Message } from '@epam/ai-dial-chat-shared';\nimport {\n  collectToolCallNames,\n  type McpAppToolRef,\n  type McpDeploymentKind,\n} from '@epam/ai-dial-mcp-apps';\nimport { useEffect, useMemo, useRef, useState } from 'react';"
+        }
+      ]
+    },
+    {
+      "file": "libs/chat-hooks/src/mcp-apps/mcp-apps-api-client.ts",
+      "matches": [
+        {
+          "start": 3,
+          "end": 13,
+          "excerpt": "  ResponseError,\n  type ListMcpToolNamesKindEnum,\n  type McpAppToolSummaryDto,\n  type ToolsetsApi,\n} from '@epam/ai-dial-chat-api-client';\nimport type {\n  CallMcpAppTool,\n  FetchMcpAppResourceHtml,\n  McpDeploymentKind,\n} from '@epam/ai-dial-mcp-apps';\nimport type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';"
+        },
+        {
+          "start": 21,
+          "end": 31,
+          "excerpt": "  constructor(public readonly status: number) {\n    super(`Failed to fetch MCP app resource: HTTP ${status}`);\n  }\n}\n\n/** The MCP Apps API surface produced by {@link createMcpAppsApiClient}. */\nexport interface McpAppsApiClient {\n  /** Fetches a toolset's MCP Apps `ui://` resource and resolves to its HTML body. Throws `McpAppResourceFetchError` on a non-OK response. */\n  fetchResourceHtml: FetchMcpAppResourceHtml;\n  /** Forwards an MCP App's tool call (self-initiated, or `@epam/ai-dial-mcp-apps`'s live re-call) through chat-api. */\n  callTool: CallMcpAppTool;"
+        },
+        {
+          "start": 37,
+          "end": 47,
+          "excerpt": "  /** Lists every tool name exposed by an MCP-capable deployment's `tools/list`, unfiltered. */\n  listToolNames: (\n    deploymentId: string,\n    kind: McpDeploymentKind,\n  ) => Promise<string[]>;\n}\n\n/**\n * Wraps the generated `ToolsetsApi` in the surface `useMcpAppTools`,\n * `useOpenMcpAppCanvas`, and `@epam/ai-dial-mcp-apps`'s hooks/utilities call,\n * so a host app configures one `ToolsetsApi` instance (base URL, auth"
+        }
+      ]
+    },
+    {
+      "file": "libs/chat-hooks/src/mcp-apps/useMcpAppHostAdapter/useMcpAppHostAdapter.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import type { CallMcpAppTool, McpAppHostAdapter } from '@epam/ai-dial-mcp-apps';\nimport type { Implementation } from '@modelcontextprotocol/sdk/types.js';"
+        },
+        {
+          "start": 3,
+          "end": 13,
+          "excerpt": "import { useMemo } from 'react';\nimport { getApiErrorMessage } from '../../api-error/api-error';\nimport type { McpAppsApiClient } from '../mcp-apps-api-client';\nimport {\n  useMcpAppHostContext,\n  type McpAppHostContextParams,\n} from '../useMcpAppHostContext/useMcpAppHostContext';\n\n/**\n * Builds the `McpAppHostAdapter` a host injects into `@epam/ai-dial-mcp-apps`'s\n * hooks/components, wiring the library's host-context/tool-call/resource-fetch"
+        }
+      ]
+    },
+    {
+      "file": "libs/chat-hooks/src/mcp-apps/useOpenMcpAppCanvas/useOpenMcpAppCanvas.ts",
+      "matches": [
+        {
+          "start": 5,
+          "end": 15,
+          "excerpt": "} from '@epam/ai-dial-attachment-canvas';\nimport type { McpAppDisplayMode } from '@epam/ai-dial-attachment-canvas';\nimport {\n  computeMcpAppSeedKey,\n  resolveMcpAppToolResult,\n  type McpAppHostAdapter,\n  type McpAppResponseCache,\n  type McpAppToolCallSeed,\n  type McpAppToolRef,\n} from '@epam/ai-dial-mcp-apps';\nimport type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';"
+        },
+        {
+          "start": 28,
+          "end": 38,
+          "excerpt": " * Returns `openMcpAppCanvas`, an async function that opens the attachment\n * canvas for a discovered MCP App tool. `canvasKey`, when passed, is\n * forwarded as the canvas's `attachmentId` (and as the key into `cache`) so\n * callers can compare it against `useAttachmentCanvas().attachmentId` to\n * know whether this exact canvas is the one currently open. `toolCall`, when\n * passed, seeds the mounted app's initial `toolInput`/`toolResult`. Returns\n * `true` if the canvas was opened, `false` if `hostAdapter.sandboxUrl` isn't\n * configured or the resource failed to load.\n *\n * `cache` (shared with `@epam/ai-dial-mcp-apps`'s `useMcpAppInlinePreview` via\n * the same cache instance) is checked before fetching the resource or"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+      "matches": [
+        {
+          "start": 42,
+          "end": 52,
+          "excerpt": "import { CollapsedGroup } from '@epam/ai-dial-conversation-stages';\nimport {\n  McpAppInlinePreview,\n  findMcpAppForMessage,\n  mcpAppCanvasKey,\n  resolveMcpAppToolCallSeed,\n  type McpAppResponseCache,\n  type McpAppToolCallSeed,\n  type McpAppToolRef,\n} from '@epam/ai-dial-mcp-apps';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/ConversationView/ConversationView.tsx",
+      "matches": [
+        {
+          "start": 43,
+          "end": 53,
+          "excerpt": "} from '@epam/ai-dial-chat-shared';\nimport type {\n  TextInsertion,\n  ToolsChipLabels,\n} from '@epam/ai-dial-conversation-input';\nimport type {\n  MessageActionAriaLabels,\n  MessageActionTooltips,\n} from '@epam/ai-dial-conversation-messages';\nimport { useMcpAppResponseCache } from '@epam/ai-dial-mcp-apps';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/hooks/attachment/useMcpAppHostAdapter.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 3,
+          "excerpt": "import { useMcpAppHostAdapter as useMcpAppHostAdapterBase } from '@epam/ai-dial-chat-hooks/mcp-apps';\nimport type { McpAppHostAdapter } from '@epam/ai-dial-mcp-apps';\nimport { useTranslation } from 'react-i18next';"
+        }
+      ]
+    }
+  ]
+}

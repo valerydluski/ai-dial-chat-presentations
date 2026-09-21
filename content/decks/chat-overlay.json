@@ -1,0 +1,475 @@
+{
+  "id": "libs/chat-overlay",
+  "shortTitle": "Chat overlay",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-chat-overlay-01",
+      "title": "Chat overlay",
+      "layout": "cover",
+      "subtitle": "Embed a running chat with a typed message protocol.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-chat-overlay",
+      "notes": "This session explains embed a running chat with a typed message protocol. The library is a local private workspace package at libs/chat-overlay. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/chat-overlay/README.md",
+          "start": 1,
+          "end": 307
+        },
+        {
+          "file": "libs/chat-overlay/src/index.ts",
+          "start": 1,
+          "end": 4
+        },
+        {
+          "file": "libs/chat-overlay/package.json",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 110,
+          "end": 494,
+          "symbol": "ChatOverlay"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-overlay-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Embed a running chat with a typed message protocol.",
+      "cards": [
+        {
+          "title": "Embed a full experience",
+          "body": "Mount the chat iframe in a host-owned region."
+        },
+        {
+          "title": "Control conversations",
+          "body": "Set input, send requests and subscribe to events."
+        },
+        {
+          "title": "Offer floating widgets",
+          "body": "Use ChatOverlayManager for toggle/fullscreen chrome."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Embed a full experience: Mount the chat iframe in a host-owned region. Control conversations: Set input, send requests and subscribe to events. Offer floating widgets: Use ChatOverlayManager for toggle/fullscreen chrome. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/chat-overlay/README.md",
+          "start": 1,
+          "end": 307
+        },
+        {
+          "file": "libs/chat-overlay/src/index.ts",
+          "start": 1,
+          "end": 4
+        },
+        {
+          "file": "libs/chat-overlay/package.json",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 110,
+          "end": 494,
+          "symbol": "ChatOverlay"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-overlay-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host page",
+          "body": "ChatOverlay instance"
+        },
+        {
+          "title": "Readiness handshake",
+          "body": "Readiness event"
+        },
+        {
+          "title": "Embedded chat",
+          "body": "Handle typed requests"
+        },
+        {
+          "title": "Events and results",
+          "body": "Correlated host callbacks"
+        }
+      ],
+      "takeaway": "Library: Iframe lifecycle, protocol handshake, request correlation and optional widget chrome.",
+      "notes": "The library owns Iframe lifecycle, protocol handshake, request correlation and optional widget chrome. The host owns Chat deployment, allowed origins, identity-provider policy and host page lifecycle.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/chat-overlay/README.md",
+          "start": 1,
+          "end": 307
+        },
+        {
+          "file": "libs/chat-overlay/src/index.ts",
+          "start": 1,
+          "end": 4
+        },
+        {
+          "file": "libs/chat-overlay/package.json",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 110,
+          "end": 494,
+          "symbol": "ChatOverlay"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-overlay-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "ChatOverlay \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "new ChatOverlay(root, options)",
+          "Mount and configure one iframe"
+        ],
+        [
+          "ready()",
+          "Promise for the readiness handshake"
+        ],
+        [
+          "setInputContent(text)",
+          "Request to the embedded chat"
+        ],
+        [
+          "subscribe / destroy",
+          "Event lifecycle and cleanup"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/chat-overlay/README.md",
+          "start": 1,
+          "end": 307
+        },
+        {
+          "file": "libs/chat-overlay/src/index.ts",
+          "start": 1,
+          "end": 4
+        },
+        {
+          "file": "libs/chat-overlay/package.json",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 110,
+          "end": 494,
+          "symbol": "ChatOverlay"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-overlay-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "const overlay = new ChatOverlay('#demo-chat', {\n  domain: 'https://chat.example.com',\n  theme: 'dark',\n});\nawait overlay.ready();\nawait overlay.setInputContent('Explain the architecture');\n// On host teardown:\noverlay.destroy();",
+      "caption": "Full example: examples/chat-overlay.ts \u00b7 uses @epam/ai-dial-chat-overlay",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/chat-overlay.ts. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Mount the chat iframe in a host-owned region. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/chat-overlay/README.md",
+          "start": 1,
+          "end": 307
+        },
+        {
+          "file": "libs/chat-overlay/src/index.ts",
+          "start": 1,
+          "end": 4
+        },
+        {
+          "file": "libs/chat-overlay/package.json",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 110,
+          "end": 494,
+          "symbol": "ChatOverlay"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-overlay-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep chat overlay focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Mount the iframe",
+          "body": "Create ChatOverlay in an existing host-owned element."
+        },
+        {
+          "title": "Wait for readiness",
+          "body": "Await ready() before sending the initial input content."
+        },
+        {
+          "title": "Match host lifetime",
+          "body": "Subscribe to events; unsubscribe and destroy on teardown."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Mount the iframe: Create ChatOverlay in an existing host-owned element. Wait for readiness: Await ready() before sending the initial input content. Match host lifetime: Subscribe to events; unsubscribe and destroy on teardown. The complete typed module in examples/chat-overlay.ts shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/chat-overlay/README.md",
+          "start": 1,
+          "end": 307
+        },
+        {
+          "file": "libs/chat-overlay/src/index.ts",
+          "start": 1,
+          "end": 4
+        },
+        {
+          "file": "libs/chat-overlay/package.json",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 110,
+          "end": 494,
+          "symbol": "ChatOverlay"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-overlay-10",
+      "title": "Subscribe and clean up",
+      "layout": "code",
+      "kicker": "Match event ownership to the host page lifecycle.",
+      "code": "const unsubscribe = overlay.subscribe(\n  OverlayEventType.GptStartGenerating,\n  () => console.info('Demo generation started'),\n);\n\n// On host teardown:\nunsubscribe();\noverlay.destroy();",
+      "caption": "Focused source-backed example \u00b7 see examples/ and content/api-index.md.",
+      "notes": "The full mountDemoOverlay function returns the teardown callback. Await the handshake before issuing normal requests. Destroy the overlay when its host container is no longer valid.",
+      "sources": [
+        {
+          "file": "libs/chat-overlay/README.md",
+          "start": 1,
+          "end": 307
+        },
+        {
+          "file": "libs/chat-overlay/src/index.ts",
+          "start": 1,
+          "end": 4
+        },
+        {
+          "file": "libs/chat-overlay/package.json",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 110,
+          "end": 494,
+          "symbol": "ChatOverlay"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-overlay-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Any browser framework",
+          "body": "The overlay implementation uses DOM/TypeScript rather than React."
+        },
+        {
+          "title": "Lifecycle contract",
+          "body": "Await ready, subscribe deliberately and destroy on unmount."
+        },
+        {
+          "title": "Two integration levels",
+          "body": "Direct overlay for a container; manager for floating widgets."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Framework-independent: The overlay implementation uses DOM/TypeScript rather than React. Lifecycle contract: Await ready, subscribe deliberately and destroy on unmount. Two integration levels: Direct overlay for a container; manager for floating widgets. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/chat-overlay/README.md",
+          "start": 1,
+          "end": 307
+        },
+        {
+          "file": "libs/chat-overlay/src/index.ts",
+          "start": 1,
+          "end": 4
+        },
+        {
+          "file": "libs/chat-overlay/package.json",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 110,
+          "end": 494,
+          "symbol": "ChatOverlay"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-overlay-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "apps/chat-overlay-sandbox/src/cases/ConversationListCase/ConversationListCase.tsx"
+        ],
+        [
+          "Test evidence",
+          "throws a descriptive error when the root selector matches nothing"
+        ],
+        [
+          "Test evidence",
+          "throws a descriptive error for an unknown overlayId"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: apps/chat-overlay-sandbox/src/cases/ConversationListCase/ConversationListCase.tsx; apps/chat-overlay-sandbox/src/cases/EnabledFeaturesCase/EnabledFeaturesCase.tsx; apps/chat-overlay-sandbox/src/cases/ManagerOverlayCase/ManagerOverlayCase.tsx; apps/chat-overlay-sandbox/src/cases/DirectOverlayCase/DirectOverlayCase.tsx; apps/chat/src/components/CatalogView/CatalogView.tsx; apps/chat/src/pages/SettingsPage/PreferencesTab/PreferencesTab.tsx. Existing test evidence: [{\"file\": \"libs/chat-overlay/src/lib/tests/ChatOverlay.spec.ts\", \"assertions\": [\"ChatOverlay\", \"throws a descriptive error when the root selector matches nothing\", \"creates an iframe with a non-empty accessible name\", \"allows auth popups to open outside the iframe sandbox\", \"styles the root, iframe, and loader from an injected stylesheet instead of inline styles\", \"injects the stylesheet once per document\", \"keeps a host loaderClass alongside the default loader class\", \"does not add the positioning class to a root with existing non-static positioning\", \"does not request microphone permission by default\", \"requests microphone permission when voice input is enabled\", \"hides the default loader on READY when loaderHideEvent is unset\", \"keeps the loader visible until the configured loaderHideEvent\", \"hides the loader even when loaderStyles pins an inline display\", \"keeps non-display loaderStyles entries after the loader hides\", \"reads the loader palette from themable custom properties\"]}, {\"file\": \"libs/chat-overlay/src/lib/tests/ChatOverlayManager.spec.ts\", \"assertions\": [\"ChatOverlayManager\", \"throws a descriptive error for an unknown overlayId\", \"creates a toggle button with a non-empty accessible name\", \"makes toggle, close, and fullscreen buttons keyboard-focusable in DOM order\", \"grants fullscreen permission to the iframe when allowFullscreen is set\", \"forwards ready() to the requested overlay\", \"shows the panel and hides the toggle button on showOverlay\", \"removes the container and toggle button on removeOverlay, and further calls throw\", \"destroys all overlays and stops recomputing layout on resize\", \"conversation-list method forwarding\", \"throws a descriptive error for an unknown overlayId for each new method\", \"forwards each new method to the underlying ChatOverlay instance with the same arguments\", \"forwards setOverlayOptions with enabledFeatures unchanged to the underlying ChatOverlay instance\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-chat-overlay:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/chat-overlay/README.md",
+          "start": 1,
+          "end": 307
+        },
+        {
+          "file": "libs/chat-overlay/src/index.ts",
+          "start": 1,
+          "end": 4
+        },
+        {
+          "file": "libs/chat-overlay/package.json",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 110,
+          "end": 494,
+          "symbol": "ChatOverlay"
+        },
+        {
+          "file": "apps/chat-overlay-sandbox/src/cases/ConversationListCase/ConversationListCase.tsx",
+          "start": 1,
+          "end": 317
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/tests/ChatOverlay.spec.ts",
+          "start": 1,
+          "end": 1060
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/tests/ChatOverlayManager.spec.ts",
+          "start": 1,
+          "end": 229
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-overlay-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Embedding policy",
+          "body": "The server must allow the host origin in frame-ancestors."
+        },
+        {
+          "title": "Auth constraints",
+          "body": "Provider iframe behavior varies; configure supported login UI modes."
+        },
+        {
+          "title": "No server replacement",
+          "body": "The overlay still needs a running chat and backend."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Embedding policy: The server must allow the host origin in frame-ancestors. Auth constraints: Provider iframe behavior varies; configure supported login UI modes. No server replacement: The overlay still needs a running chat and backend. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/chat-overlay/README.md",
+          "start": 1,
+          "end": 307
+        },
+        {
+          "file": "libs/chat-overlay/src/index.ts",
+          "start": 1,
+          "end": 4
+        },
+        {
+          "file": "libs/chat-overlay/package.json",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+          "start": 110,
+          "end": 494,
+          "symbol": "ChatOverlay"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/chat-overlay.pptx"
+}

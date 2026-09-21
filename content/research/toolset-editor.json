@@ -1,0 +1,2971 @@
+{
+  "project": {
+    "id": "libs/toolset-editor",
+    "project": "@epam/ai-dial-toolset-editor",
+    "path": "libs/toolset-editor",
+    "package": "@epam/ai-dial-toolset-editor",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/toolset-editor/README.md",
+      "libs/toolset-editor/package.json",
+      "libs/toolset-editor/src/index.ts",
+      "libs/toolset-editor/src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx",
+      "libs/toolset-editor/src/components/AuthSection/tests/AuthSection.spec.tsx",
+      "libs/toolset-editor/src/components/GeneralForm/tests/GeneralForm.spec.tsx",
+      "libs/toolset-editor/src/components/SettingsForm/tests/SettingsForm.spec.tsx",
+      "apps/chat/src/pages/ToolsetEditor/tests/ToolsetEditor.spec.tsx",
+      "apps/chat/src/pages/ToolsetEditor/tests/CustomAppEditor.spec.tsx",
+      "apps/chat/src/pages/ToolsetEditor/ToolsetEditor.tsx",
+      "apps/chat/src/pages/ToolsetEditor/CustomAppEditorView.tsx"
+    ],
+    "output": "decks/libs/toolset-editor.pptx",
+    "preview": "previews/libs/toolset-editor",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/AuthSection/tests/AuthSection.spec.tsx",
+      "test-ci--src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx",
+      "test-ci--src/components/GeneralForm/tests/GeneralForm.spec.tsx",
+      "test-ci--src/components/SettingsForm/tests/SettingsForm.spec.tsx",
+      "test-ci--src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx",
+      "test-ci--src/utils/tests/toolsets.spec.ts",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-toolset-editor",
+        "target": "@epam/ai-dial-chat-hooks",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-toolset-editor",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-toolset-editor",
+        "target": "@epam/ai-dial-builder-form",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-toolset-editor",
+    "description": "Host-agnostic form for authoring and editing a DIAL MCP toolset",
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0",
+      "@epam/ai-dial-builder-form": "*"
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-hooks": "*",
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9",
+      "react": "^19.2.8"
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/toolset-editor",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/toolset-editor/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-toolset-editor --includeDependencies -- npx nx build-deps @epam/ai-dial-toolset-editor"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/AuthSection/tests/AuthSection.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/AuthSection/tests/AuthSection.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/AuthSection/tests/AuthSection.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "vitest run src/components/AuthSection/tests/AuthSection.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/AuthSection/tests/AuthSection.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "vitest run src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/GeneralForm/tests/GeneralForm.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/GeneralForm/tests/GeneralForm.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/GeneralForm/tests/GeneralForm.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "vitest run src/components/GeneralForm/tests/GeneralForm.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/GeneralForm/tests/GeneralForm.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/SettingsForm/tests/SettingsForm.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SettingsForm/tests/SettingsForm.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/SettingsForm/tests/SettingsForm.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "vitest run src/components/SettingsForm/tests/SettingsForm.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/SettingsForm/tests/SettingsForm.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "vitest run src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/toolsets.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/toolsets.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/toolsets.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/toolset-editor",
+          "command": "vitest run src/utils/tests/toolsets.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/toolsets.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/AuthSection/tests/AuthSection.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/GeneralForm/tests/GeneralForm.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/SettingsForm/tests/SettingsForm.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/toolsets.spec.ts"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/AuthSection/tests/AuthSection.spec.tsx",
+          "test-ci--src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx",
+          "test-ci--src/components/GeneralForm/tests/GeneralForm.spec.tsx",
+          "test-ci--src/components/SettingsForm/tests/SettingsForm.spec.tsx",
+          "test-ci--src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx",
+          "test-ci--src/utils/tests/toolsets.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-toolset-editor --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/AuthSection/tests/AuthSection.spec.tsx",
+          "test-ci--src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx",
+          "test-ci--src/components/GeneralForm/tests/GeneralForm.spec.tsx",
+          "test-ci--src/components/SettingsForm/tests/SettingsForm.spec.tsx",
+          "test-ci--src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx",
+          "test-ci--src/utils/tests/toolsets.spec.ts"
+        ]
+      },
+      "description": "Host-agnostic form for authoring and editing a DIAL MCP toolset",
+      "js": {
+        "packageName": "@epam/ai-dial-toolset-editor",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-toolset-editor",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/toolset-editor/src/index.ts",
+    "libs/toolset-editor/src/vite-env.d.ts",
+    "libs/toolset-editor/src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx",
+    "libs/toolset-editor/src/components/ConnectMcpUrlContent/ConnectMcpUrlContent.tsx",
+    "libs/toolset-editor/src/components/AuthSection/tests/AuthSection.spec.tsx",
+    "libs/toolset-editor/src/components/AuthSection/AuthSection.tsx",
+    "libs/toolset-editor/src/components/GeneralForm/GeneralForm.tsx",
+    "libs/toolset-editor/src/components/GeneralForm/tests/GeneralForm.spec.tsx",
+    "libs/toolset-editor/src/components/SettingsForm/tests/SettingsForm.spec.tsx",
+    "libs/toolset-editor/src/components/SettingsForm/SettingsForm.tsx",
+    "libs/toolset-editor/src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx",
+    "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+    "libs/toolset-editor/src/test-setup.ts",
+    "libs/toolset-editor/src/models/toolset-editor-props.ts",
+    "libs/toolset-editor/src/models/general-form-props.ts",
+    "libs/toolset-editor/src/models/auth-section-props.ts",
+    "libs/toolset-editor/src/models/settings-form-props.ts",
+    "libs/toolset-editor/src/models/toolset-form.ts",
+    "libs/toolset-editor/src/models/toolset-oauth-login.ts",
+    "libs/toolset-editor/src/utils/toolsets.ts",
+    "libs/toolset-editor/src/utils/tests/toolsets.spec.ts",
+    "libs/toolset-editor/src/constants/public-class-names.ts",
+    "libs/toolset-editor/src/constants/toolsets.ts",
+    "libs/toolset-editor/tsconfig.spec.json",
+    "libs/toolset-editor/eslint.config.mjs",
+    "libs/toolset-editor/postcss.config.js",
+    "libs/toolset-editor/tsconfig.lib.json",
+    "libs/toolset-editor/tsconfig.json",
+    "libs/toolset-editor/package.json",
+    "libs/toolset-editor/vite.config.mts",
+    "libs/toolset-editor/README.md",
+    "libs/toolset-editor/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/toolset-editor/src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx",
+    "libs/toolset-editor/src/components/AuthSection/tests/AuthSection.spec.tsx",
+    "libs/toolset-editor/src/components/GeneralForm/tests/GeneralForm.spec.tsx",
+    "libs/toolset-editor/src/components/SettingsForm/tests/SettingsForm.spec.tsx",
+    "libs/toolset-editor/src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx",
+    "libs/toolset-editor/src/utils/tests/toolsets.spec.ts",
+    "libs/toolset-editor/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat/src/pages/ToolsetEditor/tests/ToolsetEditor.spec.tsx",
+    "apps/chat/src/pages/ToolsetEditor/tests/CustomAppEditor.spec.tsx",
+    "apps/chat/src/pages/ToolsetEditor/ToolsetEditor.tsx",
+    "apps/chat/src/pages/ToolsetEditor/CustomAppEditorView.tsx",
+    "apps/chat/src/hooks/toolsets/useToolsetEditorOAuthLogin.ts",
+    "apps/chat/src/models/custom-apps.ts",
+    "apps/chat/src/hooks/toolsets/tests/useToolsetEditorOAuthLogin.spec.ts",
+    "apps/chat/src/utils/toolsets.ts",
+    "apps/chat/src/utils/tests/toolsets.spec.ts"
+  ],
+  "readme": "# @epam/ai-dial-toolset-editor\n\nHost-agnostic form for authoring and editing a DIAL MCP toolset: the composed\n`ToolsetEditor` (Metadata + Setup two-column layout, validation, save/persist\norchestration, and the API-key login flow) plus the shared `GeneralForm`\nmetadata field set that the Custom App editor also consumes.\n\nThe lib is deliberately passive about everything a host owns. It holds the form\nstate, the dirty-field/error state, and the draft toolset id created by the\nfirst persist of a create session \u2014 and nothing else: it never calls an API\n(persistence, login, logout, and auth-settings reads arrive through\n`onPersist`/`onPostSaveLogin`/`authActions`), never runs the OAuth flow\n(`onOAuthLogin` hands the whole flow \u2014 popup, callback route, credentials\nlevel, redirect coordination \u2014 to the host and gets back a\n`ToolsetOAuthLoginResult`), never reads a route or context (navigation is\n`onBack`/`onSaveComplete`), never constructs the MCP connect URL\n(`buildMcpUrl` is a host resolver, because the URL depends on the draft id the\nlib itself creates), and never resolves a translation (every string arrives via\noptional `labels` groups with English defaults). Validation delegates the\nname/version checks to `@epam/ai-dial-builder-form`'s\n`validateDeploymentCreationFields`, so the toolset editor and the Quick/Custom\nApp editors share one field contract.\n\n`SettingsForm`, `AuthSection`, and `ConnectMcpUrlContent` are internal \u2014 they\nare rendered by `ToolsetEditor` and are not exported. Only their `*Labels`\ntypes are exported so a host can type the label groups it threads into\n`ToolsetEditorProps.labels`.\n\nThis library depends on `@epam/ai-dial-chat-hooks` for shared form vocabulary\nonly \u2014 `ToolsetAuthTypes`, `WithLogin`, `ToolsetCredentialsLevel` and\n`getApiErrorDetails`. The OAuth transport helpers live on the host side of\n`onOAuthLogin`. The dependency is root-barrel only \u2014 never import a\n`@epam/ai-dial-chat-hooks/` subpath.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-toolset-editor\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-toolset-editor/styles.css';\n```\n\n## Peer Dependencies\n\n- `react` `^19.2.8`\n- `@epam/ai-dial-ui-kit` `^0.15.0-dev.9`\n- `@epam/ai-dial-chat-shared` `*`\n- `@epam/ai-dial-chat-hooks` `*`\n\n## Components\n\n### `ToolsetEditor`\n\n```tsx\nimport { ToolsetAuthTypes } from '@epam/ai-dial-chat-hooks';\nimport {\n  getDefaultToolsetForm,\n  ToolsetEditor,\n} from '@epam/ai-dial-toolset-editor';\nimport type {\n  ToolsetAuthActions,\n  ToolsetFormData,\n} from '@epam/ai-dial-toolset-editor';\n\nconst ToolsetEditorPage = () => {\n  // Loaded before the editor renders; a new object identity re-seeds the editor.\n  const [initialForm, setInitialForm] = useState<ToolsetFormData | undefined>();\n\n  const authActions: ToolsetAuthActions = {\n    login: (toolsetId, body) => api.loginToolset(toolsetId, body),\n    logout: (toolsetId, body) => api.logoutToolset(toolsetId, body),\n    fetchAuthSettings: (toolsetId) => api.fetchToolsetAuthSettings(toolsetId),\n  };\n\n  if (!initialForm) return <Loading />;\n\n  return (\n    <ToolsetEditor\n      initialForm={initialForm}\n      toolsetId={routeToolsetId}\n      onPersist={async (form, toolsetId) => {\n        const body = mapFormToRequestBody(form);\n        const saved = toolsetId\n          ? await api.updateToolset(toolsetId, body)\n          : await api.createToolset(body);\n        return saved.id;\n      }}\n      onPostSaveLogin={async (toolsetId, auth) => {\n        if (auth.authenticationType === ToolsetAuthTypes.ApiKey) {\n          await api.loginToolset(toolsetId, buildLoginBody(auth));\n        }\n      }}\n      onToolsetsChanged={() => refetchToolsets()}\n      onSaveSuccess={(form) => toast(`${form.name} saved`)}\n      onSaveComplete={() => navigate(returnUrl)}\n      onBack={() => navigate(returnUrl)}\n      buildMcpUrl={\n        externalCoreUrl &&\n        ((toolsetId) => `${externalCoreUrl}/mcp/${toolsetId}`)\n      }\n      listToolNames={(toolsetId) => api.listMcpToolNames(toolsetId)}\n      authActions={authActions}\n      onOAuthLogin={runOAuthLogin}\n      onNotifySuccess={(message) => toast(message)}\n      onNotifyError={(message, requestId) => showError(message, requestId)}\n      bucket={user.bucket}\n      FileManagerModal={FileManagerModal}\n      resolveIconUrl={(url) => resolveIconUrl(url)}\n      allowedMimeTypes={['image/png', 'image/jpeg', 'image/svg+xml']}\n      maxFileSizeBytes={1024 * 1024}\n      availableLocaleOptions={localeOptions}\n      labels={labels}\n    />\n  );\n};\n```\n\n`initialForm` re-seeds the editor whenever its object identity changes, so a\nhost that loads asynchronously should memoize it and produce a new object only\nonce the data has arrived. Create mode passes `toolsetId=\"\"`; the editor then\nowns the draft id returned by the first `onPersist` and uses it for the\nauth flows, the allowed-tools fetch, and the Connect section.\n\n`onPersist` returns the persisted toolset id, or `null` when the request\nfailed (the host surfaces its own failure notification \u2014 the editor stays\nopen with the user's input). Save ordering is: `onPersist` \u2192\n`onToolsetsChanged` \u2192 `onSaveSuccess` \u2192 `onPostSaveLogin` \u2192\n`onSaveComplete`; a rejected `onPostSaveLogin` shows a login-failure error\nand does not navigate. The Log In flow persists unsaved changes first\n(`buildMcpUrl`'s and every subsequent call in that attempt use the id the\npersist resolved) and skips the request entirely when the form is unchanged\nsince the last persist.\n\nThe Connect toolset section renders only when `buildMcpUrl` is supplied and a\npersisted id exists; omit `buildMcpUrl` (e.g. no external core URL\nconfigured) and the section stays hidden in every mode. When `listToolNames`\nis omitted, the \"Allowed tools\" field falls back from the Select to a\nfree-text tag input.\n\n`labels` is a nested `ToolsetEditorLabels` object whose `layout`, `general`,\n`settings`, and `validation` groups are each optional and replaced as a\nwhole; an omitted group falls back to the library's English defaults.\n\n### `GeneralForm`\n\nThe Metadata field set on its own, for editors that need it without the\ntoolset Setup section (the Custom App editor's General step is the in-repo\nconsumer). It wraps `DeploymentCreationForm` and the `AvatarPickerModal` from\n`@epam/ai-dial-builder-form`.\n\n```tsx\nimport { GeneralForm } from '@epam/ai-dial-toolset-editor';\nimport type {\n  DeploymentGeneralFormData,\n  ToolsetFormErrors,\n} from '@epam/ai-dial-toolset-editor';\n\nconst GeneralStep = ({\n  form,\n  errors,\n  onChange,\n}: {\n  form: DeploymentGeneralFormData;\n  errors: ToolsetFormErrors;\n  onChange: (patch: Partial<DeploymentGeneralFormData>) => void;\n}) => (\n  <GeneralForm\n    form={form}\n    errors={errors}\n    bucket={user.bucket}\n    FileManagerModal={FileManagerModal}\n    resolveIconUrl={(url) => resolveIconUrl(url)}\n    allowedMimeTypes={['image/png', 'image/jpeg', 'image/svg+xml']}\n    maxFileSizeBytes={1024 * 1024}\n    availableLocaleOptions={localeOptions}\n    onChange={onChange}\n    onNameBlur={() => setErrors(validateName(form))}\n    labels={labels}\n  />\n);\n```\n\nState is fully controlled: every edit reports a `Partial<DeploymentGeneralFormData>`\npatch through `onChange`, and the avatar picker reports\n`onChange({ iconUrl })` after resolving the picked file through the host's\n`FileManagerModal` and `bucket`. `onNameBlur`/`onVersionBlur` let the host\nsurface errors at blur time. `GeneralFormLabels.form` and\n`GeneralFormLabels.avatarPicker` are each optional and replaced as a whole.\n\n## Utilities\n\n### `getDefaultToolsetForm`\n\n```ts\nimport { getDefaultToolsetForm } from '@epam/ai-dial-toolset-editor';\n\nconst form = getDefaultToolsetForm(existingToolsetNames);\n// \u2192 name 'New toolset' (suffixed when it collides), version '0.0.1',\n//   protocol HTTP, auth: None / WithoutLogin / not logged in\n```\n\nReturns the form state a brand-new toolset editor opens with; pass the\nuser's existing toolset names so the seeded default name is conflict-free.\n\n### `getStorageSafeUniqueToolsetName`\n\n```ts\nimport { getStorageSafeUniqueToolsetName } from '@epam/ai-dial-toolset-editor';\n\ngetStorageSafeUniqueToolsetName({ existingNames: ['New toolset'] });\n// \u2192 'New toolset 1'\n```\n\nReturns a storage-safe name that does not collide with any existing name,\nappending a numeric suffix when the candidate is taken.\n\n### `isValidEndpointUrl`\n\n```ts\nimport { isValidEndpointUrl } from '@epam/ai-dial-toolset-editor';\n\nisValidEndpointUrl('https://mcp.example.com/sse'); // true\nisValidEndpointUrl('sse://mcp.example.com'); // false\nisValidEndpointUrl('ftp://mcp.example.com'); // false\n```\n\nValidates a toolset endpoint URL: `http(s)` scheme, parseable, no trailing `.`\nor `//`. An `sse://` URL is invalid \u2014 DIAL Core stores only `http`/`https`\nendpoints, and the SSE transport is selected through the form's `protocol`\nfield, not through the URL scheme.\n\n### `normalizeReturnedEndpointUrl`\n\n```ts\nimport { normalizeReturnedEndpointUrl } from '@epam/ai-dial-toolset-editor';\n\nnormalizeReturnedEndpointUrl('https:/mcp.example.com'); // 'https://mcp.example.com'\n```\n\nNormalizes an endpoint URL as returned by the backend: repairs a\nsingle-slash scheme and decodes percent-encoding when either produces a\nvalid URL; otherwise returns the trimmed value unchanged.\n\n### `isToolsetAuthValid`\n\n```ts\nimport { isToolsetAuthValid } from '@epam/ai-dial-toolset-editor';\n\nisToolsetAuthValid(form.auth, isEditMode);\n```\n\nReturns whether the auth form state can be saved without surfacing\nvalidation errors. `isEditMode` relaxes the OAuth `clientSecret`\nrequirement \u2014 the backend never returns a stored secret, so an existing\nOAuth-with-config toolset stays saveable without retyping it.\n\n### `isToolsetFormValid`\n\n```ts\nimport { isToolsetFormValid } from '@epam/ai-dial-toolset-editor';\n\nisToolsetFormValid(form, isEditMode);\n```\n\nReturns whether the whole editor form can be saved (name/version via\n`builder-form`'s shared validation, endpoint URL, and auth block).\n\n## Constants\n\n- `DEFAULT_TOOLSET_NAME` \u2014 `'New toolset'`, the display name seeded into a\n  new form.\n- `DEFAULT_TOOLSET_VERSION` \u2014 `'0.0.1'`, the display version seeded into a\n  new form.\n- `AUTH_TYPE_ICONS` \u2014 icon per `ToolsetAuthTypes` segment; segment labels\n  arrive through the auth labels, not this map.\n\n## Enums\n\n### `ToolsetTransportType`\n\n| Member | Value    | Meaning                          |\n| ------ | -------- | -------------------------------- |\n| `Http` | `'HTTP'` | Streamable HTTP MCP transport    |\n| `Sse`  | `'SSE'`  | Server-sent events MCP transport |\n\n### `ToolsetOAuthLoginStatus`\n\nHow the host's OAuth flow settled, returned from `onOAuthLogin`.\n\n| Member          | Value              | The editor's reaction                             |\n| --------------- | ------------------ | ------------------------------------------------- |\n| `Success`       | `'success'`        | Marks the toolset logged in, success notification |\n| `Cancelled`     | `'cancelled'`      | Silent \u2014 nothing failed                           |\n| `PopupBlocked`  | `'popup-blocked'`  | `labels.errorPopupBlocked` notification           |\n| `InvalidConfig` | `'invalid-config'` | `labels.errorOAuthConfigMissing` notification     |\n| `Failed`        | `'failed'`         | `labels.errorLoginFailed` notification            |\n\nThe auth enums the form model uses (`ToolsetAuthTypes`, `WithLogin`,\n`ToolsetCredentialsLevel`) are owned by `@epam/ai-dial-chat-hooks` and are\nimported from there \u2014 this lib never re-declares them.\n\n## Types\n\nAll types reachable through the public props are exported from the barrel:\n`ToolsetEditorProps`, `ToolsetEditorLabels` (with its `layout`, `general`,\n`settings`, `validation` groups), `GeneralFormProps`, `GeneralFormLabels`,\n`SettingsFormLabels`, `AuthSectionLabels`, `ConnectMcpUrlContentLabels`,\n`ToolsetFormData`, `ToolsetAuthFormData`, `DeploymentGeneralFormData`,\n`ToolsetFormErrors`, `ToolsetLoginRequest`, `ToolsetLogoutRequest`,\n`ToolsetAuthActions`, `ToolsetOAuthLoginHandler`, `ToolsetOAuthLoginRequest`,\nand `ToolsetOAuthLoginResult`.\n\n`ToolsetLoginRequest`/`ToolsetLogoutRequest` are structural shapes for the\ncredentials bodies; a host with a generated API client maps them onto its own\nDTOs at the app edge, field by field.\n\n`onOAuthLogin` is a `ToolsetOAuthLoginHandler`. It receives the current `auth`\nstate and an `ensureSaved` continuation that persists the form and resolves\nthe toolset id (or `false`), and it returns a `ToolsetOAuthLoginResult` \u2014 a\n`status`, plus optional `auth` fields the flow resolved (dynamic client\nregistration) and a `traceId` for a failure notification. The editor calls it\nsynchronously from the click, before any `await`, so the host can open a popup\ninside the user gesture.\n\n```tsx\nconst runOAuthLogin: ToolsetOAuthLoginHandler = async ({\n  auth,\n  ensureSaved,\n}) => {\n  const popup = window.open('', '_blank');\n  if (!popup) return { status: ToolsetOAuthLoginStatus.PopupBlocked };\n\n  const toolsetId = await ensureSaved();\n  if (!toolsetId) {\n    popup.close();\n    return { status: ToolsetOAuthLoginStatus.Cancelled };\n  }\n\n  const isLoggedIn = await authorize(popup, auth, toolsetId);\n  return {\n    status: isLoggedIn\n      ? ToolsetOAuthLoginStatus.Success\n      : ToolsetOAuthLoginStatus.Failed,\n  };\n};\n```\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. Selected\nelements therefore carry a stable public class.\n\n| Key               | Class                                  | Element                                                           |\n| ----------------- | -------------------------------------- | ----------------------------------------------------------------- |\n| `metadataSection` | `dial-toolset-editor-metadata-section` | The metadata column, inside the shared editor layout              |\n| `setupSection`    | `dial-toolset-editor-setup-section`    | The setup column beside it, holding the connection and auth forms |\n\n```tsx\nimport { TOOLSET_EDITOR_CLASS } from '@epam/ai-dial-toolset-editor';\n\nTOOLSET_EDITOR_CLASS.setupSection; // 'dial-toolset-editor-setup-section'\n```\n\n`GeneralForm` renders a fragment rather than an element of its own, so it\ncarries no class \u2014 style the column it sits in.\n\nThe classes carry no declarations of their own: nothing in `styles.css`\nselects on them, so they change nothing until a host writes a rule. Renaming\none, or moving it to a different element, is a breaking change. The convention\nis in [`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/toolset-editor/src/index.ts": "export { ToolsetEditor } from './components/ToolsetEditor/ToolsetEditor';\nexport { GeneralForm } from './components/GeneralForm/GeneralForm';\nexport type {\n  ToolsetEditorLabels,\n  ToolsetEditorLayoutLabels,\n  ToolsetEditorProps,\n  ToolsetEditorValidationLabels,\n} from './models/toolset-editor-props';\nexport type {\n  GeneralFormLabels,\n  GeneralFormProps,\n} from './models/general-form-props';\nexport type {\n  ConnectMcpUrlContentLabels,\n  SettingsFormLabels,\n} from './models/settings-form-props';\nexport type { AuthSectionLabels } from './models/auth-section-props';\nexport { ToolsetOAuthLoginStatus } from './models/toolset-oauth-login';\nexport type {\n  ToolsetOAuthLoginHandler,\n  ToolsetOAuthLoginRequest,\n  ToolsetOAuthLoginResult,\n} from './models/toolset-oauth-login';\nexport type {\n  DeploymentGeneralFormData,\n  ToolsetAuthActions,\n  ToolsetAuthFormData,\n  ToolsetFormData,\n  ToolsetFormErrors,\n  ToolsetLoginRequest,\n  ToolsetLogoutRequest,\n} from './models/toolset-form';\nexport {\n  AUTH_TYPE_ICONS,\n  DEFAULT_TOOLSET_NAME,\n  DEFAULT_TOOLSET_VERSION,\n  ToolsetTransportType,\n} from './constants/toolsets';\nexport {\n  getDefaultToolsetForm,\n  getStorageSafeUniqueToolsetName,\n  isToolsetAuthValid,\n  isToolsetFormValid,\n  isValidEndpointUrl,\n  normalizeReturnedEndpointUrl,\n} from './utils/toolsets';\nexport { TOOLSET_EDITOR_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/toolset-editor/src/index.ts": [
+      {
+        "name": "ToolsetEditor",
+        "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+        "start": 58,
+        "end": 425,
+        "declaration": "ToolsetEditor: FC<ToolsetEditorProps> = ({\n  initialForm,\n  toolsetId,\n  onPersist,\n  onPostSaveLogin,\n  onToolsetsChanged,\n  onSaveSuccess,\n  onSaveComplete,\n  onBack,\n  buildMcpUrl,\n  listToolNames,\n  authActions,\n  onOAuthLogin,\n  onNotifySuccess,\n  onNotifyError,\n  bucket,\n  FileManagerModal,\n  resolveIconUrl,\n  allowedMimeTypes,\n  maxFileSizeBytes,\n  availableLocaleOptions,\n  labels,\n}) => {\n  const isEditMode = Boolean(toolsetId);\n  const [draftToolsetId, setDraftToolsetId] = useState('');\n  const persistedToolsetId = toolsetId || draftToolsetId;\n\n  const [form, setForm] = useState<ToolsetFormData>(initialForm);\n  const [isSaving, setIsSaving] = useState(false);\n  const [errors, setErrors] = useState<ToolsetFormErrors>({});\n  const [dirtyFields, setDirtyFields] = useState<ToolsetDirtyFields>({});\n  const lastPersistedFormRef = useRef<ToolsetFormData | null>(null);\n\n  /*\n   * Re-seeds the editor whenever the host supplies a differently-identified\n   * `initialForm` (a new load), resetting every piece of edit-session state\n   * so a reused mount behaves like a fresh one.\n   */\n  useEffect(() => {\n    setForm(initialForm);\n    lastPersistedFormRef.current = initialForm;\n    setErrors({});\n    setDirtyFields({});\n    setDraftToolsetId('');\n  }, [initialForm]);\n\n  const handleChange = useCallback((patch: Partial<ToolsetFormData>) => {\n    setForm((prev) => ({ ...prev, ...patch }));\n    setDirtyFields((prev) => ({\n      ...prev,\n      ...getDirtyFieldsFromPatch(patch),\n    }));\n    setErrors((prev) => {\n      const next = { ...prev };\n      for (const key of Object.keys(patch)) {\n        delete next[key as keyof ToolsetFormErrors];\n      }\n      return next;\n    });\n  }, []);\n\n  const handleAuthChange = useCallback(\n    (patch: Partial<ToolsetAuthFormData>) => {\n      setForm((prev) => ({ ...prev, auth: { ...prev.auth, ...patch } }));\n      setDirtyFields((prev) => ({\n        ...prev,\n        ...getDirtyFieldsFromPatch(patch),\n      }));\n      setErrors((prev) => {\n        const next = { ...prev };\n        const shouldClearAllAuthErrors =\n          'authenticationType' in patch ||\n          'withLogin' in patch ||\n          'isLoggedIn' in patch;\n\n        if (shouldClearAllAuthErrors) {\n          for (const key of AUTH_ERROR_FIELDS) delete next[key];\n        } else {\n          for (const key of Object.keys(patch)) {\n            delete next[key as keyof ToolsetFormErrors];\n          }\n        }\n        return next;\n      });\n\n      /*\n       * The auth block only includes isLoggedIn in a patch after a login or\n       * logout request has actually resolved (or a successful OAuth login\n       * has been recovered) \u2014 never speculatively. Keep the shared toolset\n       * list in sync with that confirmed status in either direction so\n       * returning to the Catalog never shows a stale pre-change snapshot.\n       */\n      if ('isLoggedIn' in patch) {\n        void onToolsetsChanged();\n      }\n    },\n    [onToolsetsChanged],\n  );\n\n  /**\n   * Persists the form (if it has no id yet: creates it; if the form has\n   * changed since it was last persisted: updates it), so the backend\n   * reflects whatever the user has typed so far. Returns the toolset id on\n   * success \u2014 including when nothing needed to be sent \u2014 or `null` if a\n   * create/update call failed (the host surfaces the failure). Used by\n   * Log In (which must not authenticate against stale endpoint/auth\n   * settings).\n   */\n  const persistFormIfChanged = useCallback(async (): Promise<string | null> => {\n    const isUnchangedSincePersist =\n      persistedToolsetId &&\n      lastPersistedFormRef.current != null &&\n      JSON.stringify(lastPersistedFormRef.current) === JSON.stringify(form);\n    if (isUnchangedSincePersist) return persistedToolsetId;\n\n    setIsSaving(true);\n    try {\n      const id = await onPersist(form, persistedToolsetId);\n      if (!id) return null;\n      if (!persistedToolsetId) {\n        setDraftToolsetId(id);\n      }\n      lastPersistedFormRef.current = form;\n      await onToolsetsChanged();\n      return id;\n    } catch {\n      // The host adapter already surfaced the failure notification.\n      return null;\n    } finally {\n      setIsSaving(false);\n    }\n  }, [form, persistedToolsetId, onPersist, onToolsetsChanged]);\n\n  const handleEnsureSaved = useCallback(\n    async () => (await persistFormIfChanged()) ?? false,\n    [persistFormIfChanged],\n  );\n\n  const validate = useCallback(\n    (data: ToolsetFormData): ToolsetFormErrors => {\n      const validationLabels = labels?.validation;\n      const nextErrors: ToolsetFormErrors = {};\n      const generalCodes = validateDeploymentCreationFields(data, {\n        validateVersionPattern: true,\n      });\n      if (generalCodes.name === DeploymentCreationFieldErrorCode.Required) {\n        nextErrors.name = validationLabels?.nameRequired ?? 'Name is required';\n      }\n      if (\n        generalCodes.version === DeploymentCreationFieldErrorCode.InvalidFormat\n      ) {\n        nextErrors.version =\n          validationLabels?.versionInvalid ??\n          'Version may only contain letters, digits, dots, underscores, and dashes';\n      }\n      if (!data.endpoint.trim()) {\n        nextErrors.endpoint =\n          validationLabels?.endpointRequired ?? 'Endpoint is required';\n      } else if (!isValidEndpointUrl(data.endpoint)) {\n        nextErrors.endpoint =\n          validationLabels?.endpointInvalid ?? 'Enter a valid http(s) URL';\n      }\n      if (!data.auth.isLoggedIn) {\n        if (data.auth.authenticationType === ToolsetAuthTypes.ApiKey) {\n          if (!data.auth.keyHeader?.trim()) {\n            nextErrors.keyHeader =\n              validationLabels?.keyHeaderRequired ?? 'Key name is required';\n          }\n          if (\n            data.auth.withLogin === WithLogin.WithLogin &&\n            !data.auth.apiKey?.trim()\n          ) {\n            nextErrors.apiKey =\n              validationLabels?.apiKeyRequired ?? 'API key is required';\n          }\n        }\n        if (\n          data.auth.authenticationType === ToolsetAuthTypes.OAuth &&\n          data.auth.withLogin === WithLogin.WithConfig\n        ) {\n          if (!data.auth.clientId?.trim()) {\n            nextErrors.clientId =\n              validationLabels?.clientIdRequired ?? 'Client ID is required';\n          }\n          if (!isEditMode && !data.auth.clientSecret?.trim()) {\n            nextErrors.clientSecret =\n              validationLabels?.clientSecretRequired ??\n              'Client secret is required';\n          }\n          if (\n            data.auth.authorizationEndpoint?.trim() &&\n            !isValidEndpointUrl(data.auth.authorizationEndpoint)\n          ) {\n            nextErrors.authorizationEndpoint =\n              validationLabels?.endpointInvalid ?? 'Enter a valid http(s) URL';\n          }\n          if (\n            data.auth.tokenEndpoint?.trim() &&\n            !isValidEndpointUrl(data.auth.tokenEndpoint)\n          ) {\n            nextErrors.tokenEndpoint =\n              validationLabels?.endpointInvalid ?? 'Enter a valid http(s) URL';\n          }\n        }\n      }\n      return nextErrors;\n    },\n    [labels, isEditMode],\n  );\n\n  const handleSave = useCallback(async () => {\n    const nextErrors = validate(form);\n    if (Object.keys(nextErrors).length > 0) {\n      setErrors(nextErrors);\n      return;\n    }\n\n    setErrors({});\n    setIsSaving(true);\n    try {\n      const id = await onPersist(form, persistedToolsetId);\n      if (!id) return;\n      await onToolsetsChanged();\n      /*\n       * Reported before the post-save auth attempt: the toolset is persisted at this\n       * point, so a failing connection must not read as a failed save. The\n       * operation follows edit mode, not the request kind \u2014 a toolset authored\n       * in this session is saved through an update once its draft exists, but\n       * the user created it.\n       */\n      onSaveSuccess(form);\n      try {\n        await onPostSaveLogin(id, form.auth);\n        onSaveComplete();\n      } catch (error) {\n        const { traceId } = await getApiErrorDetails(error);\n        onNotifyError(\n          labels?.settings?.auth?.errorLoginFailed ??\n            'Failed to log in. Please check your credentials and try again.',\n          traceId,\n        );\n      }\n    } catch {\n      // The host adapter already surfaced the failure notification.\n    } finally {\n      setIsSaving(false);\n    }\n  }, [\n    form,\n    validate,\n    persistedToolsetId,\n    onPersist,\n    onToolsetsChanged,\n    onSaveSuccess,\n    onSaveComplete,\n    onPostSaveLogin,\n    onNotifyError,\n    labels,\n  ]);\n\n  const isSaveDisabled = useMemo(\n    () => !isToolsetFormValid(form, isEditMode),\n    [form, isEditMode],\n  );\n\n  const visibleErrors = useMemo(() => {\n    const validationErrors = validate(form);\n    const nextErrors = { ...errors };\n    for (const key of ERROR_FIELDS) {\n      if (!dirtyFields[key]) continue;\n\n      const message = validationErrors[key];\n      if (message) {\n        nextErrors[key] = message;\n      } else {\n        delete nextErrors[key];\n      }\n    }\n    return nextErrors;\n  }, [dirtyFields, errors, form, validate]);\n\n  const connectUrl =\n    buildMcpUrl && persistedToolsetId\n      ? buildMcpUrl(persistedToolsetId)\n      : undefined;\n\n  return (\n    <EditorLayout\n      title={\n        isEditMode\n          ? (labels?.layout?.editTitle ?? 'Edit toolset')\n          : (labels?.layout?.createTitle ?? 'Create toolset')\n      }\n      onBack={onBack}\n      backAriaLabel={labels?.layout?.backAriaLabel ?? 'Back to catalog'}\n      isSaving={isSaving}\n      labels={{\n        savingStatusLabel: labels?.layout?.savingStatusLabel ?? 'Saving',\n      }}\n      actions={\n        <>\n          <NeutralButton\n            label={labels?.layout?.cancelLabel ?? 'Cancel'}\n            onClick={onBack}\n          />\n          <PrimaryButton\n            label={\n              isEditMode\n                ? (labels?.layout?.saveLabel ?? 'Save')\n                : (labels?.layout?.createLabel ?? 'Create')\n            }\n            disabled={isSaveDisabled}\n            onClick={handleSave}\n          />\n        </>\n      }\n      leftContent={\n        <EditorSection\n          title={labels?.layout?.metadataSectionTitle ?? 'Metadata'}\n          className={mergeClasses(\n            'border-0 p-4 desktop:p-6',\n            TOOLSET_EDITOR_CLASS.metadataSection,\n          )}\n        >\n          <GeneralForm\n            form={form}\n            errors={visibleErrors}\n            bucket={bucket}\n            FileManagerModal={FileManagerModal}\n            resolveIconUrl={resolveIconUrl}\n            allowedMimeTypes={allowedMimeTypes}\n            maxFileSizeBytes={maxFileSizeBytes}\n            availableLocaleOptions={availableLocaleOptions}\n            onChange={handleChange}\n            labels={labels?.general}\n          />\n        </EditorSection>\n      }\n      rightContent={\n        <EditorSection\n          title={labels?.layout?.setupSectionTitle ?? 'Setup'}\n          className={mergeClasses(\n            'border-0 p-4 desktop:p-6',\n            TOOLSET_EDITOR_CLASS.setupSection,\n          )}\n        >\n          <SettingsForm\n            form={form}\n            errors={visibleErrors}\n            isSaving={isSaving}\n            toolsetId={persistedToolsetId}\n            isEditMode={isEditMode}\n            connectUrl={connectUrl}\n            listToolNames={listToolNames}\n            authActions={authActions}\n            onOAuthLogin={onOAuthLogin}\n            onNotifySuccess={onNotifySuccess}\n            onNotifyError={onNotifyError}\n            onChange={handleChange}\n            onAuthChange={handleAuthChange}\n            onEnsureSaved={handleEnsureSaved}\n            labels={labels?.settings}\n          />\n        </EditorSection>\n      }\n    />\n  );\n}",
+        "signature": "(props: ToolsetEditorProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "initialForm",
+            "optional": false,
+            "type": "ToolsetFormData"
+          },
+          {
+            "name": "toolsetId",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "onPersist",
+            "optional": false,
+            "type": "(form: ToolsetFormData, toolsetId: string) => Promise<string | null>"
+          },
+          {
+            "name": "onPostSaveLogin",
+            "optional": false,
+            "type": "(toolsetId: string, auth: ToolsetAuthFormData) => Promise<void>"
+          },
+          {
+            "name": "onToolsetsChanged",
+            "optional": false,
+            "type": "() => Promise<void> | void"
+          },
+          {
+            "name": "onSaveSuccess",
+            "optional": false,
+            "type": "(form: ToolsetFormData) => void"
+          },
+          {
+            "name": "onSaveComplete",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onBack",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "buildMcpUrl",
+            "optional": true,
+            "type": "((toolsetId: string) => string) | undefined"
+          },
+          {
+            "name": "listToolNames",
+            "optional": true,
+            "type": "((toolsetId: string) => Promise<string[]>) | undefined"
+          },
+          {
+            "name": "authActions",
+            "optional": false,
+            "type": "import(\"../..\").ToolsetAuthActions"
+          },
+          {
+            "name": "onOAuthLogin",
+            "optional": false,
+            "type": "import(\"../..\").ToolsetOAuthLoginHandler"
+          },
+          {
+            "name": "onNotifySuccess",
+            "optional": false,
+            "type": "(message: string) => void"
+          },
+          {
+            "name": "onNotifyError",
+            "optional": false,
+            "type": "(message: string, requestId?: string) => void"
+          },
+          {
+            "name": "bucket",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "FileManagerModal",
+            "optional": false,
+            "type": "import(\"react\").ComponentType<import(\"@epam/ai-dial-builder-form\").AvatarPickerFileManagerModalProps>"
+          },
+          {
+            "name": "resolveIconUrl",
+            "optional": false,
+            "type": "(url: string) => string"
+          },
+          {
+            "name": "allowedMimeTypes",
+            "optional": false,
+            "type": "string[]"
+          },
+          {
+            "name": "maxFileSizeBytes",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "availableLocaleOptions",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-builder-form\").DeploymentCreationFormLocaleOption[]"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").ToolsetEditorLabels | undefined"
+          }
+        ]
+      },
+      {
+        "name": "GeneralForm",
+        "file": "libs/toolset-editor/src/components/GeneralForm/GeneralForm.tsx",
+        "start": 80,
+        "end": 151,
+        "declaration": "GeneralForm: FC<GeneralFormProps> = ({\n  form,\n  errors,\n  bucket,\n  FileManagerModal,\n  resolveIconUrl,\n  allowedMimeTypes,\n  maxFileSizeBytes,\n  availableLocaleOptions,\n  onChange,\n  onNameBlur,\n  onVersionBlur,\n  labels,\n}) => {\n  const [isAvatarPickerOpen, setIsAvatarPickerOpen] = useState(false);\n\n  const formLabels: DeploymentCreationFormLabels =\n    labels?.form ?? DEFAULT_FORM_LABELS;\n  const avatarPickerLabels: AvatarPickerModalLabels =\n    labels?.avatarPicker ?? DEFAULT_AVATAR_PICKER_LABELS;\n\n  const iconPreviewUrl = useMemo(\n    () => resolveIconUrl(form.iconUrl),\n    [form.iconUrl, resolveIconUrl],\n  );\n\n  const values: DeploymentCreationFormValues = {\n    name: form.name,\n    description: form.description,\n    iconUrl: form.iconUrl,\n    version: form.version,\n    topics: form.topics,\n    otherLocales: form.otherLocales,\n  };\n\n  return (\n    <>\n      <DeploymentCreationForm\n        values={values}\n        errors={errors}\n        onChange={onChange}\n        onNameBlur={onNameBlur}\n        onVersionBlur={onVersionBlur}\n        iconPreviewUrl={iconPreviewUrl}\n        onAddAvatarClick={() => setIsAvatarPickerOpen(true)}\n        labels={formLabels}\n        availableLocaleOptions={availableLocaleOptions}\n      />\n      <AvatarPickerModal\n        isOpen={isAvatarPickerOpen}\n        onClose={() => setIsAvatarPickerOpen(false)}\n        onAttach={(result: AttachResult) => {\n          const [file] = result.files;\n          const attachment = file\n            ? dialFileToAttachment(file, bucket, {\n                resolvePreviewUrl: resolveIconUrl,\n              })\n            : null;\n          if (attachment?.url) {\n            onChange({ iconUrl: attachment.url });\n          }\n          setIsAvatarPickerOpen(false);\n        }}\n        bucket={bucket}\n        FileManagerModal={FileManagerModal}\n        allowedMimeTypes={allowedMimeTypes}\n        maxFileSizeBytes={maxFileSizeBytes}\n        labels={avatarPickerLabels}\n      />\n    </>\n  );\n}",
+        "signature": "(props: GeneralFormProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "form",
+            "optional": false,
+            "type": "import(\"../..\").DeploymentGeneralFormData"
+          },
+          {
+            "name": "errors",
+            "optional": false,
+            "type": "import(\"../..\").ToolsetFormErrors"
+          },
+          {
+            "name": "bucket",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "FileManagerModal",
+            "optional": false,
+            "type": "import(\"react\").ComponentType<import(\"@epam/ai-dial-builder-form\").AvatarPickerFileManagerModalProps>"
+          },
+          {
+            "name": "resolveIconUrl",
+            "optional": false,
+            "type": "(url: string) => string"
+          },
+          {
+            "name": "allowedMimeTypes",
+            "optional": false,
+            "type": "string[]"
+          },
+          {
+            "name": "maxFileSizeBytes",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "availableLocaleOptions",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-builder-form\").DeploymentCreationFormLocaleOption[]"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "type": "(patch: Partial<import(\"../..\").DeploymentGeneralFormData>) => void"
+          },
+          {
+            "name": "onNameBlur",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "onVersionBlur",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").GeneralFormLabels | undefined"
+          }
+        ]
+      },
+      {
+        "name": "ToolsetEditorLabels",
+        "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+        "start": 62,
+        "end": 71,
+        "declaration": "export interface ToolsetEditorLabels {\n  /** Header/action/section labels. */\n  layout?: ToolsetEditorLayoutLabels;\n  /** Labels threaded to the embedded general (metadata) form. */\n  general?: GeneralFormLabels;\n  /** Labels threaded to the embedded Setup section form. */\n  settings?: SettingsFormLabels;\n  /** Validation messages keyed by field. */\n  validation?: ToolsetEditorValidationLabels;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetEditorLayoutLabels",
+        "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+        "start": 36,
+        "end": 55,
+        "declaration": "export interface ToolsetEditorLayoutLabels {\n  /** Header title in create mode. Defaults to `'Create toolset'`. */\n  createTitle?: string;\n  /** Header title in edit mode. Defaults to `'Edit toolset'`. */\n  editTitle?: string;\n  /** Accessible name of the header back button. Defaults to `'Back to catalog'`. */\n  backAriaLabel?: string;\n  /** Saving status text shown in the header. Defaults to `'Saving'`. */\n  savingStatusLabel?: string;\n  /** Title of the Metadata (general) section. Defaults to `'Metadata'`. */\n  metadataSectionTitle?: string;\n  /** Title of the Setup section. Defaults to `'Setup'`. */\n  setupSectionTitle?: string;\n  /** Label of the cancel action. Defaults to `'Cancel'`. */\n  cancelLabel?: string;\n  /** Label of the save action in edit mode. Defaults to `'Save'`. */\n  saveLabel?: string;\n  /** Label of the save action in create mode. Defaults to `'Create'`. */\n  createLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetEditorProps",
+        "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+        "start": 74,
+        "end": 150,
+        "declaration": "export interface ToolsetEditorProps {\n  /**\n   * Initial form state, loaded by the host. The editor re-seeds its internal\n   * state (form, errors, dirty fields, draft id) whenever this prop's\n   * identity changes, so the host must memoize it per loaded entity.\n   */\n  initialForm: ToolsetFormData;\n  /** Toolset id from the host route; empty in create mode. */\n  toolsetId: string;\n  /**\n   * Persists the form \u2014 creating the toolset when `toolsetId` is empty,\n   * updating it otherwise. The host owns the request mapping and its own\n   * failure notification; resolves the persisted toolset id, or `null` when\n   * the request failed.\n   */\n  onPersist: (\n    form: ToolsetFormData,\n    toolsetId: string,\n  ) => Promise<string | null>;\n  /**\n   * Runs the post-save automatic login for an API-key toolset configured\n   * \"With login\". Rejections are surfaced by the editor as a login failure\n   * without blocking navigation-independent state.\n   */\n  onPostSaveLogin: (\n    toolsetId: string,\n    auth: ToolsetAuthFormData,\n  ) => Promise<void>;\n  /**\n   * Re-syncs the host's shared toolset list. Called after every successful\n   * persist and whenever the logged-in status changes.\n   */\n  onToolsetsChanged: () => Promise<void> | void;\n  /**\n   * Called with the saved form once persistence succeeded, before the\n   * post-save login attempt \u2014 the host raises its success toast here.\n   */\n  onSaveSuccess: (form: ToolsetFormData) => void;\n  /** Called after the save and the post-save login both succeeded \u2014 the host navigates away. */\n  onSaveComplete: () => void;\n  /** Called for the Cancel button and the header back action. */\n  onBack: () => void;\n  /**\n   * Builds the MCP endpoint URL shown in the Connect section for a toolset\n   * id. Omit when the host has no external core URL configured \u2014 the\n   * section stays hidden.\n   */\n  buildMcpUrl?: (toolsetId: string) => string;\n  /**\n   * Resolves the tool names offered by the \"Allowed tools\" picker from the\n   * toolset's own MCP `tools/list`. When omitted, the free-text tag input\n   * renders instead.\n   */\n  listToolNames?: (toolsetId: string) => Promise<string[]>;\n  /** Backend calls for login/logout/auth-settings reads, injected by the host. */\n  authActions: ToolsetAuthActions;\n  /** Runs the host's OAuth login flow and reports how it settled. */\n  onOAuthLogin: ToolsetOAuthLoginHandler;\n  /** Shows a success notification with the given message. */\n  onNotifySuccess: (message: string) => void;\n  /** Shows an error notification with the given message and optional trace id. */\n  onNotifyError: (message: string, requestId?: string) => void;\n  /** Storage bucket whose files the avatar picker browses. */\n  bucket: string;\n  /** Host file-manager modal rendered inside the avatar picker. */\n  FileManagerModal: ComponentType<AvatarPickerFileManagerModalProps>;\n  /** Resolves an icon URL into the previewable URL the form renders. */\n  resolveIconUrl: (url: string) => string;\n  /** MIME types the avatar picker accepts. */\n  allowedMimeTypes: string[];\n  /** Maximum avatar file size in bytes. */\n  maxFileSizeBytes: number;\n  /** Locale options offered by the \"Add locale\" popup. */\n  availableLocaleOptions: DeploymentCreationFormLocaleOption[];\n  /** Pre-translated labels; each group falls back to English defaults. */\n  labels?: ToolsetEditorLabels;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetEditorValidationLabels",
+        "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+        "start": 16,
+        "end": 33,
+        "declaration": "export interface ToolsetEditorValidationLabels {\n  /** Message for a missing name. Defaults to `'Name is required'`. */\n  nameRequired?: string;\n  /** Message for a malformed version. Defaults to `'Version may only contain letters, digits, dots, underscores, and dashes'`. */\n  versionInvalid?: string;\n  /** Message for a missing endpoint. Defaults to `'Endpoint is required'`. */\n  endpointRequired?: string;\n  /** Message for a malformed endpoint. Defaults to `'Enter a valid http(s) URL'`. */\n  endpointInvalid?: string;\n  /** Message for a missing API key parameter name. Defaults to `'Key name is required'`. */\n  keyHeaderRequired?: string;\n  /** Message for a missing API key value. Defaults to `'API key is required'`. */\n  apiKeyRequired?: string;\n  /** Message for a missing OAuth client id. Defaults to `'Client ID is required'`. */\n  clientIdRequired?: string;\n  /** Message for a missing OAuth client secret in create mode. Defaults to `'Client secret is required'`. */\n  clientSecretRequired?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "GeneralFormLabels",
+        "file": "libs/toolset-editor/src/models/general-form-props.ts",
+        "start": 18,
+        "end": 23,
+        "declaration": "export interface GeneralFormLabels {\n  /** Labels for the embedded `DeploymentCreationForm` fields. */\n  form?: DeploymentCreationFormLabels;\n  /** Labels for the avatar picker modal. */\n  avatarPicker?: AvatarPickerModalLabels;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "GeneralFormProps",
+        "file": "libs/toolset-editor/src/models/general-form-props.ts",
+        "start": 26,
+        "end": 51,
+        "declaration": "export interface GeneralFormProps {\n  /** Current general form values. */\n  form: DeploymentGeneralFormData;\n  /** Field error messages keyed by field name; only `name` and `version` are read. */\n  errors: ToolsetFormErrors;\n  /** Storage bucket whose files the avatar picker browses. */\n  bucket: string;\n  /** Host file-manager modal rendered inside the avatar picker. */\n  FileManagerModal: ComponentType<AvatarPickerFileManagerModalProps>;\n  /** Resolves an icon URL into the previewable URL the form renders. */\n  resolveIconUrl: (url: string) => string;\n  /** MIME types the avatar picker accepts. */\n  allowedMimeTypes: string[];\n  /** Maximum avatar file size in bytes. */\n  maxFileSizeBytes: number;\n  /** Locale options offered by the \"Add locale\" popup. */\n  availableLocaleOptions: DeploymentCreationFormLocaleOption[];\n  /** Called with the changed subset of general form values. */\n  onChange: (patch: Partial<DeploymentGeneralFormData>) => void;\n  /** Called when the Name field loses focus. */\n  onNameBlur?: () => void;\n  /** Called when the Version field loses focus. */\n  onVersionBlur?: () => void;\n  /** Pre-translated labels; each group falls back to English defaults. */\n  labels?: GeneralFormLabels;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ConnectMcpUrlContentLabels",
+        "file": "libs/toolset-editor/src/models/settings-form-props.ts",
+        "start": 11,
+        "end": 20,
+        "declaration": "export interface ConnectMcpUrlContentLabels {\n  /** Section title. Defaults to `'Connect toolset'`. */\n  title?: string;\n  /** Section description. Defaults to `'Copy endpoint URL to easily integrate toolset into your workflows'`. */\n  description?: string;\n  /** Label for the copy action. Defaults to `'Copy URL'`. */\n  copyLabel?: string;\n  /** Transient feedback shown after copying. Defaults to `'Copied!'`. */\n  copiedLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SettingsFormLabels",
+        "file": "libs/toolset-editor/src/models/settings-form-props.ts",
+        "start": 23,
+        "end": 42,
+        "declaration": "export interface SettingsFormLabels {\n  /** Label for the endpoint field. Defaults to `'Endpoint'`. */\n  endpointLabel?: string;\n  /** Caption under the endpoint field. Defaults to `'The HTTPS address where the server accepts MCP requests. Choose the transport under Protocol below.'`. */\n  endpointCaption?: string;\n  /** Placeholder for the endpoint field. Defaults to `'https://...'`. */\n  endpointPlaceholder?: string;\n  /** Label for the protocol radio group. Defaults to `'Protocol'`. */\n  protocolLabel?: string;\n  /** Label for the allowed tools field. Defaults to `'Allowed tools'`. */\n  allowedToolsLabel?: string;\n  /** Placeholder for the allowed tools tag input. Defaults to `'Add tools, comma separated'`. */\n  allowedToolsPlaceholder?: string;\n  /** Placeholder for the allowed tools select. Defaults to `'Select allowed tools'`. */\n  allowedToolsSelectPlaceholder?: string;\n  /** Labels threaded to the embedded Connect section. */\n  connect?: ConnectMcpUrlContentLabels;\n  /** Labels threaded to the embedded auth block. */\n  auth?: AuthSectionLabels;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AuthSectionLabels",
+        "file": "libs/toolset-editor/src/models/auth-section-props.ts",
+        "start": 9,
+        "end": 86,
+        "declaration": "export interface AuthSectionLabels {\n  /** Heading of the authentication section. Defaults to `'Authentication'`. */\n  sectionTitle?: string;\n  /** Segment label for OAuth authentication. Defaults to `'OAuth'`. */\n  typeOAuth?: string;\n  /** Segment label for API-key authentication. Defaults to `'API Key'`. */\n  typeApiKey?: string;\n  /** Segment label for no authentication. Defaults to `'Open access'`. */\n  typeNone?: string;\n  /** Radio label for the API-key \"with login\" mode. Defaults to `'With login'`. */\n  withLoginLabel?: string;\n  /** Radio label for the API-key \"without login\" mode. Defaults to `'Without login'`. */\n  withoutLoginLabel?: string;\n  /** Radio label for the OAuth standard-login mode. Defaults to `'Standard login'`. */\n  withLoginOAuthLabel?: string;\n  /** Radio label for the OAuth custom-config mode. Defaults to `'Custom login'`. */\n  withConfigOAuthLabel?: string;\n  /** Text shown when no authentication is selected. Defaults to `'Open endpoint, no credentials'`. */\n  openAccessDescription?: string;\n  /** Label for the API key parameter name field. Defaults to `'API Key parameter name'`. */\n  keyHeaderLabel?: string;\n  /** Placeholder for the API key parameter name field. Defaults to `'Enter API key parameter name'`. */\n  keyHeaderPlaceholder?: string;\n  /** Label for the API key value field. Defaults to `'API key'`. */\n  apiKeyLabel?: string;\n  /** Placeholder for the API key value field. Defaults to `'Enter API key'`. */\n  apiKeyPlaceholder?: string;\n  /** Accessible name of the API key reveal toggle while the value is masked. Defaults to `'Show API key'`. */\n  showApiKeyLabel?: string;\n  /** Accessible name of the API key reveal toggle while the value is visible. Defaults to `'Hide API key'`. */\n  hideApiKeyLabel?: string;\n  /** Label for the OAuth client id field. Defaults to `'Client ID'`. */\n  clientIdLabel?: string;\n  /** Placeholder for the OAuth client id field. Defaults to `'Enter client ID'`. */\n  clientIdPlaceholder?: string;\n  /** Label for the OAuth client secret field. Defaults to `'Client secret'`. */\n  clientSecretLabel?: string;\n  /** Placeholder for the OAuth client secret field. Defaults to `'Enter client secret'`. */\n  clientSecretPlaceholder?: string;\n  /** Accessible name of the client secret reveal toggle while the value is masked. Defaults to `'Show client secret'`. */\n  showClientSecretLabel?: string;\n  /** Accessible name of the client secret reveal toggle while the value is visible. Defaults to `'Hide client secret'`. */\n  hideClientSecretLabel?: string;\n  /** Label for the OAuth authorization endpoint field. Defaults to `'Authorization endpoint'`. */\n  authorizationEndpointLabel?: string;\n  /** Placeholder for the OAuth authorization endpoint field. Defaults to `'Enter authorization endpoint'`. */\n  authorizationEndpointPlaceholder?: string;\n  /** Label for the OAuth token endpoint field. Defaults to `'Token endpoint'`. */\n  tokenEndpointLabel?: string;\n  /** Placeholder for the OAuth token endpoint field. Defaults to `'Enter token endpoint'`. */\n  tokenEndpointPlaceholder?: string;\n  /** Label for the OAuth scopes field. Defaults to `'Scopes'`. */\n  scopesLabel?: string;\n  /** Placeholder for the OAuth scopes field. Defaults to `'Enter scopes'`. */\n  scopesPlaceholder?: string;\n  /** Label for the log-in action. Defaults to `'Log in'`. */\n  logInLabel?: string;\n  /** Label for the log-out action. Defaults to `'Log out'`. */\n  logOutLabel?: string;\n  /** Label for the logout confirmation cancel action. Defaults to `'Cancel'`. */\n  cancelLabel?: string;\n  /** Success message shown after a login. Defaults to `'Successfully logged in.'`. */\n  loginSuccessMessage?: string;\n  /** Success message shown after a logout. Defaults to `'Successfully logged out.'`. */\n  logoutSuccessMessage?: string;\n  /** Title of the logout confirmation popup. Defaults to `'Log out?'`. */\n  logoutConfirmTitle?: string;\n  /** Body of the logout confirmation popup. Defaults to `'Are you sure you want to log out? You will need to re-enter your credentials to use this toolset again.'`. */\n  logoutConfirmDescription?: string;\n  /** Error message for a failed login. Defaults to `'Failed to log in. Please check your credentials and try again.'`. */\n  errorLoginFailed?: string;\n  /** Error message for a failed logout. Defaults to `'Failed to log out. Please try again.'`. */\n  errorLogoutFailed?: string;\n  /** Error message for a browser-blocked login popup. Defaults to `'The login popup was blocked by your browser. Please allow popups for this site and try again.'`. */\n  errorPopupBlocked?: string;\n  /** Error message for an unusable OAuth client configuration. Defaults to `'The OAuth provider did not return a valid client configuration. Please check the endpoint or contact your administrator.'`. */\n  errorOAuthConfigMissing?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetOAuthLoginStatus",
+        "file": "libs/toolset-editor/src/models/toolset-oauth-login.ts",
+        "start": 12,
+        "end": 26,
+        "declaration": "export enum ToolsetOAuthLoginStatus {\n  /** The user is logged in; the form switches to its logged-in state. */\n  Success = 'success',\n  /**\n   * The user (or the host) abandoned the flow \u2014 a closed popup, an\n   * abandoned save. Deliberately silent: nothing failed.\n   */\n  Cancelled = 'cancelled',\n  /** The browser blocked the login popup before the flow could start. */\n  PopupBlocked = 'popup-blocked',\n  /** The provider returned no usable client configuration to authorize against. */\n  InvalidConfig = 'invalid-config',\n  /** The flow started but did not produce a session. */\n  Failed = 'failed',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetOAuthLoginHandler",
+        "file": "libs/toolset-editor/src/models/toolset-oauth-login.ts",
+        "start": 63,
+        "end": 65,
+        "declaration": "export type ToolsetOAuthLoginHandler = (\n  request: ToolsetOAuthLoginRequest,\n) => Promise<ToolsetOAuthLoginResult>;",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetOAuthLoginRequest",
+        "file": "libs/toolset-editor/src/models/toolset-oauth-login.ts",
+        "start": 44,
+        "end": 54,
+        "declaration": "export interface ToolsetOAuthLoginRequest {\n  /** Current auth form state, including any unsaved edits. */\n  auth: ToolsetAuthFormData;\n  /**\n   * Persists the form when it changed since the last save and resolves the\n   * toolset id, or `false` when persisting failed or was abandoned. The host\n   * must call this before authorizing: an unsaved toolset has no id to\n   * attach credentials to.\n   */\n  ensureSaved: () => Promise<string | false>;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetOAuthLoginResult",
+        "file": "libs/toolset-editor/src/models/toolset-oauth-login.ts",
+        "start": 29,
+        "end": 41,
+        "declaration": "export interface ToolsetOAuthLoginResult {\n  /** Which of the five outcomes the flow reached. */\n  status: ToolsetOAuthLoginStatus;\n  /**\n   * Auth fields the host resolved while running the flow, merged into the\n   * form before the status is applied. Dynamic client registration assigns\n   * `clientId`/`authorizationEndpoint` only once the toolset exists, so the\n   * host is the first to see them.\n   */\n  auth?: Partial<ToolsetAuthFormData>;\n  /** Trace id of the failed request, shown alongside an error notification. */\n  traceId?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentGeneralFormData",
+        "file": "libs/toolset-editor/src/models/toolset-form.ts",
+        "start": 36,
+        "end": 49,
+        "declaration": "export interface DeploymentGeneralFormData {\n  /** Display name of the entity in its primary locale. */\n  name: string;\n  /** Display version of the entity. */\n  version: string;\n  /** URL of the entity's avatar image, or empty for the placeholder. */\n  iconUrl: string;\n  /** Description of the entity in its primary locale. */\n  description: string;\n  /** Topic tags describing the entity. */\n  topics: string[];\n  /** Additional (non-primary) locale entries for name/description, edited via the \"Add locale\" popup. */\n  otherLocales: DeploymentCreationFormLocaleEntry[];\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetAuthActions",
+        "file": "libs/toolset-editor/src/models/toolset-form.ts",
+        "start": 115,
+        "end": 122,
+        "declaration": "export interface ToolsetAuthActions {\n  /** Submits credentials for one toolset at one credentials level. */\n  login: (toolsetId: string, body: ToolsetLoginRequest) => Promise<unknown>;\n  /** Clears stored credentials for one toolset at one credentials level. */\n  logout: (toolsetId: string, body: ToolsetLogoutRequest) => Promise<unknown>;\n  /** Re-reads a toolset's stored auth settings, mapped into auth form state. */\n  fetchAuthSettings: (toolsetId: string) => Promise<ToolsetAuthFormData>;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetAuthFormData",
+        "file": "libs/toolset-editor/src/models/toolset-form.ts",
+        "start": 9,
+        "end": 34,
+        "declaration": "export interface ToolsetAuthFormData {\n  /** Selected authentication mechanism for the toolset. */\n  authenticationType: ToolsetAuthTypes;\n  /** Whether credentials are sent per login, embedded in the config, or not at all. */\n  withLogin: WithLogin;\n  /** Whether the user is currently authenticated against the toolset. */\n  isLoggedIn: boolean;\n  /** API_KEY: header/parameter name the API key is sent under. */\n  keyHeader?: string;\n  /** API_KEY: the key value, submitted on login. */\n  apiKey?: string;\n  /** OAUTH: registered client id. */\n  clientId?: string;\n  /** OAUTH: client secret, never returned by the backend on read. */\n  clientSecret?: string;\n  /** OAUTH: authorization endpoint URL. */\n  authorizationEndpoint?: string;\n  /** OAUTH: token endpoint URL. */\n  tokenEndpoint?: string;\n  /** OAUTH: scopes requested during login. */\n  scopes?: string[];\n  /** OAUTH: PKCE code challenge value, when the backend supplied one. */\n  codeChallenge?: string;\n  /** OAUTH: PKCE code challenge method, when the backend supplied one. */\n  codeChallengeMethod?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetFormData",
+        "file": "libs/toolset-editor/src/models/toolset-form.ts",
+        "start": 51,
+        "end": 62,
+        "declaration": "export interface ToolsetFormData extends DeploymentGeneralFormData {\n  /** MCP server endpoint URL. */\n  endpoint: string;\n  /** MCP transport protocol used to reach the endpoint. */\n  protocol: ToolsetTransportType;\n  /** Tool names the toolset is restricted to, or empty for all tools. */\n  allowedTools: string[];\n  /** Backend-assigned immutable reference, present only in edit mode. */\n  reference?: string;\n  /** Authentication form state for the toolset. */\n  auth: ToolsetAuthFormData;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetFormErrors",
+        "file": "libs/toolset-editor/src/models/toolset-form.ts",
+        "start": 64,
+        "end": 83,
+        "declaration": "export interface ToolsetFormErrors {\n  /** Validation message for the Metadata name field. */\n  name?: string;\n  /** Validation message for the Metadata version field. */\n  version?: string;\n  /** Validation message for the Setup endpoint field. */\n  endpoint?: string;\n  /** Validation message for the API-key header field. */\n  keyHeader?: string;\n  /** Validation message for the API-key value field. */\n  apiKey?: string;\n  /** Validation message for the OAuth client id field. */\n  clientId?: string;\n  /** Validation message for the OAuth client secret field. */\n  clientSecret?: string;\n  /** Validation message for the OAuth authorization endpoint field. */\n  authorizationEndpoint?: string;\n  /** Validation message for the OAuth token endpoint field. */\n  tokenEndpoint?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetLoginRequest",
+        "file": "libs/toolset-editor/src/models/toolset-form.ts",
+        "start": 89,
+        "end": 98,
+        "declaration": "export interface ToolsetLoginRequest {\n  /** Already-encoded toolset id/url the credentials apply to. */\n  url: string;\n  /** Credentials level the submitted credentials apply to. */\n  credentialsLevel: ToolsetCredentialsLevel;\n  /** Authentication mechanism the toolset requires. */\n  authenticationType: ToolsetAuthTypes;\n  /** API key value, required for `ToolsetAuthTypes.ApiKey` logins. */\n  apiKey?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetLogoutRequest",
+        "file": "libs/toolset-editor/src/models/toolset-form.ts",
+        "start": 105,
+        "end": 112,
+        "declaration": "export interface ToolsetLogoutRequest {\n  /** Already-encoded toolset id/url the credentials apply to. */\n  url: string;\n  /** Credentials level being logged out. */\n  credentialsLevel: ToolsetCredentialsLevel;\n  /** Authentication mechanism the toolset uses. */\n  authenticationType: ToolsetAuthTypes;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AUTH_TYPE_ICONS",
+        "file": "libs/toolset-editor/src/constants/toolsets.ts",
+        "start": 19,
+        "end": 23,
+        "declaration": "AUTH_TYPE_ICONS: Record<ToolsetAuthTypes, TablerIcon> = {\n  [ToolsetAuthTypes.OAuth]: IconBrandOauth,\n  [ToolsetAuthTypes.ApiKey]: IconKey,\n  [ToolsetAuthTypes.None]: IconLockOff,\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DEFAULT_TOOLSET_NAME",
+        "file": "libs/toolset-editor/src/constants/toolsets.ts",
+        "start": 13,
+        "end": 13,
+        "declaration": "DEFAULT_TOOLSET_NAME = 'New toolset'",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DEFAULT_TOOLSET_VERSION",
+        "file": "libs/toolset-editor/src/constants/toolsets.ts",
+        "start": 16,
+        "end": 16,
+        "declaration": "DEFAULT_TOOLSET_VERSION = '0.0.1'",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ToolsetTransportType",
+        "file": "libs/toolset-editor/src/constants/toolsets.ts",
+        "start": 5,
+        "end": 10,
+        "declaration": "export enum ToolsetTransportType {\n  /** Streamable HTTP MCP transport. */\n  Http = 'HTTP',\n  /** Server-sent events MCP transport. */\n  Sse = 'SSE',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "getDefaultToolsetForm",
+        "file": "libs/toolset-editor/src/utils/toolsets.ts",
+        "start": 41,
+        "end": 54,
+        "declaration": "getDefaultToolsetForm = (\n  existingNames: string[] = [],\n): ToolsetFormData => ({\n  name: getStorageSafeUniqueToolsetName({ existingNames }),\n  version: DEFAULT_TOOLSET_VERSION,\n  iconUrl: '',\n  description: '',\n  topics: [],\n  otherLocales: [],\n  endpoint: '',\n  protocol: ToolsetTransportType.Http,\n  allowedTools: [],\n  auth: getDefaultAuthFormData(),\n})",
+        "signature": "(existingNames?: string[]): ToolsetFormData",
+        "props": [
+          {
+            "name": "length",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "toString",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleString",
+            "optional": false,
+            "type": "{ (): string; (locales: string | string[], options?: Intl.NumberFormatOptions & Intl.DateTimeFormatOptions): string; }"
+          },
+          {
+            "name": "pop",
+            "optional": false,
+            "type": "() => string | undefined"
+          },
+          {
+            "name": "push",
+            "optional": false,
+            "type": "(...items: string[]) => number"
+          },
+          {
+            "name": "concat",
+            "optional": false,
+            "type": "{ (...items: ConcatArray<string>[]): string[]; (...items: (string | ConcatArray<string>)[]): string[]; }"
+          },
+          {
+            "name": "join",
+            "optional": false,
+            "type": "(separator?: string) => string"
+          },
+          {
+            "name": "reverse",
+            "optional": false,
+            "type": "() => string[]"
+          },
+          {
+            "name": "shift",
+            "optional": false,
+            "type": "() => string | undefined"
+          },
+          {
+            "name": "slice",
+            "optional": false,
+            "type": "(start?: number, end?: number) => string[]"
+          },
+          {
+            "name": "sort",
+            "optional": false,
+            "type": "(compareFn?: ((a: string, b: string) => number) | undefined) => string[]"
+          },
+          {
+            "name": "splice",
+            "optional": false,
+            "type": "{ (start: number, deleteCount?: number): string[]; (start: number, deleteCount: number, ...items: string[]): string[]; }"
+          },
+          {
+            "name": "unshift",
+            "optional": false,
+            "type": "(...items: string[]) => number"
+          },
+          {
+            "name": "indexOf",
+            "optional": false,
+            "type": "(searchElement: string, fromIndex?: number) => number"
+          },
+          {
+            "name": "lastIndexOf",
+            "optional": false,
+            "type": "(searchElement: string, fromIndex?: number) => number"
+          },
+          {
+            "name": "every",
+            "optional": false,
+            "type": "{ <S extends string>(predicate: (value: string, index: number, array: string[]) => value is S, thisArg?: any): this is S[]; (predicate: (value: string, index: number, array: string[]) => unknown, thisArg?: any): boolean; }"
+          },
+          {
+            "name": "some",
+            "optional": false,
+            "type": "(predicate: (value: string, index: number, array: string[]) => unknown, thisArg?: any) => boolean"
+          },
+          {
+            "name": "forEach",
+            "optional": false,
+            "type": "(callbackfn: (value: string, index: number, array: string[]) => void, thisArg?: any) => void"
+          },
+          {
+            "name": "map",
+            "optional": false,
+            "type": "<U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]"
+          },
+          {
+            "name": "filter",
+            "optional": false,
+            "type": "{ <S extends string>(predicate: (value: string, index: number, array: string[]) => value is S, thisArg?: any): S[]; (predicate: (value: string, index: number, array: string[]) => unknown, thisArg?: any): string[]; }"
+          },
+          {
+            "name": "reduce",
+            "optional": false,
+            "type": "{ (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string): string; (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string, initialValue: string): string; <U>(callbackfn: (previousValue: U, currentValue: string, currentIndex: number, array: string[]) => U, initialValue: U): U; }"
+          },
+          {
+            "name": "reduceRight",
+            "optional": false,
+            "type": "{ (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string): string; (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string, initialValue: string): string; <U>(callbackfn: (previousValue: U, currentValue: string, currentIndex: number, array: string[]) => U, initialValue: U): U; }"
+          },
+          {
+            "name": "find",
+            "optional": false,
+            "type": "{ <S extends string>(predicate: (value: string, index: number, obj: string[]) => value is S, thisArg?: any): S | undefined; (predicate: (value: string, index: number, obj: string[]) => unknown, thisArg?: any): string | undefined; }"
+          },
+          {
+            "name": "findIndex",
+            "optional": false,
+            "type": "(predicate: (value: string, index: number, obj: string[]) => unknown, thisArg?: any) => number"
+          },
+          {
+            "name": "fill",
+            "optional": false,
+            "type": "(value: string, start?: number, end?: number) => string[]"
+          },
+          {
+            "name": "copyWithin",
+            "optional": false,
+            "type": "(target: number, start: number, end?: number) => string[]"
+          },
+          {
+            "name": "entries",
+            "optional": false,
+            "type": "() => ArrayIterator<[number, string]>"
+          },
+          {
+            "name": "keys",
+            "optional": false,
+            "type": "() => ArrayIterator<number>"
+          },
+          {
+            "name": "values",
+            "optional": false,
+            "type": "() => ArrayIterator<string>"
+          },
+          {
+            "name": "includes",
+            "optional": false,
+            "type": "(searchElement: string, fromIndex?: number) => boolean"
+          },
+          {
+            "name": "flatMap",
+            "optional": false,
+            "type": "<U, This = undefined>(callback: (this: This, value: string, index: number, array: string[]) => U | readonly U[], thisArg?: This | undefined) => U[]"
+          },
+          {
+            "name": "flat",
+            "optional": false,
+            "type": "<A, D extends number = 1>(this: A, depth?: D | undefined) => FlatArray<A, D>[]"
+          },
+          {
+            "name": "at",
+            "optional": false,
+            "type": "(index: number) => string | undefined"
+          },
+          {
+            "name": "__@iterator@21491",
+            "optional": false,
+            "type": "() => ArrayIterator<string>"
+          },
+          {
+            "name": "__@unscopables@21517",
+            "optional": false,
+            "type": "{ [x: number]: boolean | undefined; length?: boolean | undefined; toString?: boolean | undefined; toLocaleString?: boolean | undefined; pop?: boolean | undefined; push?: boolean | undefined; concat?: boolean | undefined; join?: boolean | undefined; reverse?: boolean | undefined; shift?: boolean | undefined; slice?: boolean | undefined; sort?: boolean | undefined; splice?: boolean | undefined; unshift?: boolean | undefined; indexOf?: boolean | undefined; lastIndexOf?: boolean | undefined; every?: boolean | undefined; some?: boolean | undefined; forEach?: boolean | undefined; map?: boolean | undefined; filter?: boolean | undefined; reduce?: boolean | undefined; reduceRight?: boolean | undefined; find?: boolean | undefined; findIndex?: boolean | undefined; fill?: boolean | undefined; copyWithin?: boolean | undefined; entries?: boolean | undefined; keys?: boolean | undefined; values?: boolean | undefined; includes?: boolean | undefined; flatMap?: boolean | undefined; flat?: boolean | undefined; at?: boolean | undefined; [Symbol.iterator]?: boolean | undefined; readonly [Symbol.unscopables]?: boolean | undefined; }"
+          }
+        ]
+      },
+      {
+        "name": "getStorageSafeUniqueToolsetName",
+        "file": "libs/toolset-editor/src/utils/toolsets.ts",
+        "start": 17,
+        "end": 32,
+        "declaration": "getStorageSafeUniqueToolsetName = ({\n  defaultName = DEFAULT_TOOLSET_NAME,\n  existingNames,\n}: {\n  /** Candidate name to make unique. Defaults to `DEFAULT_TOOLSET_NAME`. */\n  defaultName?: string;\n  /** Names already taken by the user's toolsets. */\n  existingNames: string[];\n}): string => {\n  const taken = new Set(existingNames);\n  if (!taken.has(defaultName)) return defaultName;\n\n  let suffix = 1;\n  while (taken.has(`${defaultName} ${suffix}`)) suffix += 1;\n  return `${defaultName} ${suffix}`;\n}",
+        "signature": "({ defaultName, existingNames, }: { defaultName?: string; existingNames: string[]; }): string",
+        "props": [
+          {
+            "name": "defaultName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "existingNames",
+            "optional": false,
+            "type": "string[]"
+          }
+        ]
+      },
+      {
+        "name": "isToolsetAuthValid",
+        "file": "libs/toolset-editor/src/utils/toolsets.ts",
+        "start": 116,
+        "end": 138,
+        "declaration": "isToolsetAuthValid = (\n  auth: ToolsetAuthFormData,\n  isEditMode = false,\n): boolean => {\n  if (auth.isLoggedIn) return true;\n  if (auth.authenticationType === ToolsetAuthTypes.ApiKey) {\n    if (!auth.keyHeader?.trim()) return false;\n    if (auth.withLogin === WithLogin.WithoutLogin) return true;\n    return Boolean(auth.keyHeader?.trim() && auth.apiKey?.trim());\n  }\n  if (\n    auth.authenticationType === ToolsetAuthTypes.OAuth &&\n    auth.withLogin === WithLogin.WithConfig\n  ) {\n    return (\n      Boolean(auth.clientId?.trim()) &&\n      (isEditMode || Boolean(auth.clientSecret?.trim())) &&\n      isOptionalValidEndpointUrl(auth.authorizationEndpoint) &&\n      isOptionalValidEndpointUrl(auth.tokenEndpoint)\n    );\n  }\n  return true;\n}",
+        "signature": "(auth: ToolsetAuthFormData, isEditMode?: boolean): boolean",
+        "props": [
+          {
+            "name": "authenticationType",
+            "optional": false,
+            "type": "ToolsetAuthTypes"
+          },
+          {
+            "name": "withLogin",
+            "optional": false,
+            "type": "WithLogin"
+          },
+          {
+            "name": "isLoggedIn",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "keyHeader",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "apiKey",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "clientId",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "clientSecret",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "authorizationEndpoint",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "tokenEndpoint",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "scopes",
+            "optional": true,
+            "type": "string[] | undefined"
+          },
+          {
+            "name": "codeChallenge",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "codeChallengeMethod",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "isToolsetFormValid",
+        "file": "libs/toolset-editor/src/utils/toolsets.ts",
+        "start": 141,
+        "end": 149,
+        "declaration": "isToolsetFormValid = (\n  form: ToolsetFormData,\n  isEditMode = false,\n): boolean =>\n  Object.keys(\n    validateDeploymentCreationFields(form, { validateVersionPattern: true }),\n  ).length === 0 &&\n  isValidEndpointUrl(form.endpoint) &&\n  isToolsetAuthValid(form.auth, isEditMode)",
+        "signature": "(form: ToolsetFormData, isEditMode?: boolean): boolean",
+        "props": [
+          {
+            "name": "endpoint",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "protocol",
+            "optional": false,
+            "type": "ToolsetTransportType"
+          },
+          {
+            "name": "allowedTools",
+            "optional": false,
+            "type": "string[]"
+          },
+          {
+            "name": "reference",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "auth",
+            "optional": false,
+            "type": "ToolsetAuthFormData"
+          },
+          {
+            "name": "name",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "iconUrl",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "topics",
+            "optional": false,
+            "type": "string[]"
+          },
+          {
+            "name": "otherLocales",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-builder-form\").DeploymentCreationFormLocaleEntry[]"
+          }
+        ]
+      },
+      {
+        "name": "isValidEndpointUrl",
+        "file": "libs/toolset-editor/src/utils/toolsets.ts",
+        "start": 74,
+        "end": 75,
+        "declaration": "isValidEndpointUrl = (value: string): boolean =>\n  isValidEndpointUrlCandidate(value.trim())",
+        "signature": "(value: string): boolean",
+        "props": [
+          {
+            "name": "toString",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "charAt",
+            "optional": false,
+            "type": "(pos: number) => string"
+          },
+          {
+            "name": "charCodeAt",
+            "optional": false,
+            "type": "(index: number) => number"
+          },
+          {
+            "name": "concat",
+            "optional": false,
+            "type": "(...strings: string[]) => string"
+          },
+          {
+            "name": "indexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "lastIndexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "localeCompare",
+            "optional": false,
+            "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+          },
+          {
+            "name": "match",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+          },
+          {
+            "name": "replace",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "search",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+          },
+          {
+            "name": "slice",
+            "optional": false,
+            "type": "(start?: number, end?: number) => string"
+          },
+          {
+            "name": "split",
+            "optional": false,
+            "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+          },
+          {
+            "name": "substring",
+            "optional": false,
+            "type": "(start: number, end?: number) => string"
+          },
+          {
+            "name": "toLowerCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleLowerCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "toUpperCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleUpperCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "trim",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "length",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "substr",
+            "optional": false,
+            "type": "(from: number, length?: number) => string"
+          },
+          {
+            "name": "valueOf",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "codePointAt",
+            "optional": false,
+            "type": "(pos: number) => number | undefined"
+          },
+          {
+            "name": "includes",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "endsWith",
+            "optional": false,
+            "type": "(searchString: string, endPosition?: number) => boolean"
+          },
+          {
+            "name": "normalize",
+            "optional": false,
+            "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+          },
+          {
+            "name": "repeat",
+            "optional": false,
+            "type": "(count: number) => string"
+          },
+          {
+            "name": "startsWith",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "anchor",
+            "optional": false,
+            "type": "(name: string) => string"
+          },
+          {
+            "name": "big",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "blink",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "bold",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fixed",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fontcolor",
+            "optional": false,
+            "type": "(color: string) => string"
+          },
+          {
+            "name": "fontsize",
+            "optional": false,
+            "type": "{ (size: number): string; (size: string): string; }"
+          },
+          {
+            "name": "italics",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "link",
+            "optional": false,
+            "type": "(url: string) => string"
+          },
+          {
+            "name": "small",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "strike",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sub",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sup",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "padStart",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "padEnd",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "trimEnd",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimStart",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimLeft",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimRight",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "matchAll",
+            "optional": false,
+            "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+          },
+          {
+            "name": "replaceAll",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "at",
+            "optional": false,
+            "type": "(index: number) => string | undefined"
+          },
+          {
+            "name": "__@iterator@21491",
+            "optional": false,
+            "type": "() => StringIterator<string>"
+          }
+        ]
+      },
+      {
+        "name": "normalizeReturnedEndpointUrl",
+        "file": "libs/toolset-editor/src/utils/toolsets.ts",
+        "start": 85,
+        "end": 103,
+        "declaration": "normalizeReturnedEndpointUrl = (value?: string): string => {\n  const trimmed = value?.trim() ?? '';\n  if (!trimmed || isValidEndpointUrlCandidate(trimmed)) return trimmed;\n\n  const candidates = [trimmed];\n  try {\n    const decoded = decodeURIComponent(trimmed);\n    if (decoded !== trimmed) candidates.push(decoded);\n  } catch {\n    // Leave malformed percent-encoded values unchanged.\n  }\n\n  for (const candidate of candidates) {\n    const repaired = repairSingleSlashUrlScheme(candidate);\n    if (isValidEndpointUrlCandidate(repaired)) return repaired;\n  }\n\n  return trimmed;\n}",
+        "signature": "(value?: string): string",
+        "props": []
+      },
+      {
+        "name": "TOOLSET_EDITOR_CLASS",
+        "file": "libs/toolset-editor/src/constants/public-class-names.ts",
+        "start": 11,
+        "end": 16,
+        "declaration": "TOOLSET_EDITOR_CLASS = {\n  /** The metadata column of the editor, inside the shared editor layout. */\n  metadataSection: 'dial-toolset-editor-metadata-section',\n  /** The setup column beside it, holding the connection and auth forms. */\n  setupSection: 'dial-toolset-editor-setup-section',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "ToolsetEditor",
+      "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+      "start": 58,
+      "end": 425,
+      "declaration": "ToolsetEditor: FC<ToolsetEditorProps> = ({\n  initialForm,\n  toolsetId,\n  onPersist,\n  onPostSaveLogin,\n  onToolsetsChanged,\n  onSaveSuccess,\n  onSaveComplete,\n  onBack,\n  buildMcpUrl,\n  listToolNames,\n  authActions,\n  onOAuthLogin,\n  onNotifySuccess,\n  onNotifyError,\n  bucket,\n  FileManagerModal,\n  resolveIconUrl,\n  allowedMimeTypes,\n  maxFileSizeBytes,\n  availableLocaleOptions,\n  labels,\n}) => {\n  const isEditMode = Boolean(toolsetId);\n  const [draftToolsetId, setDraftToolsetId] = useState('');\n  const persistedToolsetId = toolsetId || draftToolsetId;\n\n  const [form, setForm] = useState<ToolsetFormData>(initialForm);\n  const [isSaving, setIsSaving] = useState(false);\n  const [errors, setErrors] = useState<ToolsetFormErrors>({});\n  const [dirtyFields, setDirtyFields] = useState<ToolsetDirtyFields>({});\n  const lastPersistedFormRef = useRef<ToolsetFormData | null>(null);\n\n  /*\n   * Re-seeds the editor whenever the host supplies a differently-identified\n   * `initialForm` (a new load), resetting every piece of edit-session state\n   * so a reused mount behaves like a fresh one.\n   */\n  useEffect(() => {\n    setForm(initialForm);\n    lastPersistedFormRef.current = initialForm;\n    setErrors({});\n    setDirtyFields({});\n    setDraftToolsetId('');\n  }, [initialForm]);\n\n  const handleChange = useCallback((patch: Partial<ToolsetFormData>) => {\n    setForm((prev) => ({ ...prev, ...patch }));\n    setDirtyFields((prev) => ({\n      ...prev,\n      ...getDirtyFieldsFromPatch(patch),\n    }));\n    setErrors((prev) => {\n      const next = { ...prev };\n      for (const key of Object.keys(patch)) {\n        delete next[key as keyof ToolsetFormErrors];\n      }\n      return next;\n    });\n  }, []);\n\n  const handleAuthChange = useCallback(\n    (patch: Partial<ToolsetAuthFormData>) => {\n      setForm((prev) => ({ ...prev, auth: { ...prev.auth, ...patch } }));\n      setDirtyFields((prev) => ({\n        ...prev,\n        ...getDirtyFieldsFromPatch(patch),\n      }));\n      setErrors((prev) => {\n        const next = { ...prev };\n        const shouldClearAllAuthErrors =\n          'authenticationType' in patch ||\n          'withLogin' in patch ||\n          'isLoggedIn' in patch;\n\n        if (shouldClearAllAuthErrors) {\n          for (const key of AUTH_ERROR_FIELDS) delete next[key];\n        } else {\n          for (const key of Object.keys(patch)) {\n            delete next[key as keyof ToolsetFormErrors];\n          }\n        }\n        return next;\n      });\n\n      /*\n       * The auth block only includes isLoggedIn in a patch after a login or\n       * logout request has actually resolved (or a successful OAuth login\n       * has been recovered) \u2014 never speculatively. Keep the shared toolset\n       * list in sync with that confirmed status in either direction so\n       * returning to the Catalog never shows a stale pre-change snapshot.\n       */\n      if ('isLoggedIn' in patch) {\n        void onToolsetsChanged();\n      }\n    },\n    [onToolsetsChanged],\n  );\n\n  /**\n   * Persists the form (if it has no id yet: creates it; if the form has\n   * changed since it was last persisted: updates it), so the backend\n   * reflects whatever the user has typed so far. Returns the toolset id on\n   * success \u2014 including when nothing needed to be sent \u2014 or `null` if a\n   * create/update call failed (the host surfaces the failure). Used by\n   * Log In (which must not authenticate against stale endpoint/auth\n   * settings).\n   */\n  const persistFormIfChanged = useCallback(async (): Promise<string | null> => {\n    const isUnchangedSincePersist =\n      persistedToolsetId &&\n      lastPersistedFormRef.current != null &&\n      JSON.stringify(lastPersistedFormRef.current) === JSON.stringify(form);\n    if (isUnchangedSincePersist) return persistedToolsetId;\n\n    setIsSaving(true);\n    try {\n      const id = await onPersist(form, persistedToolsetId);\n      if (!id) return null;\n      if (!persistedToolsetId) {\n        setDraftToolsetId(id);\n      }\n      lastPersistedFormRef.current = form;\n      await onToolsetsChanged();\n      return id;\n    } catch {\n      // The host adapter already surfaced the failure notification.\n      return null;\n    } finally {\n      setIsSaving(false);\n    }\n  }, [form, persistedToolsetId, onPersist, onToolsetsChanged]);\n\n  const handleEnsureSaved = useCallback(\n    async () => (await persistFormIfChanged()) ?? false,\n    [persistFormIfChanged],\n  );\n\n  const validate = useCallback(\n    (data: ToolsetFormData): ToolsetFormErrors => {\n      const validationLabels = labels?.validation;\n      const nextErrors: ToolsetFormErrors = {};\n      const generalCodes = validateDeploymentCreationFields(data, {\n        validateVersionPattern: true,\n      });\n      if (generalCodes.name === DeploymentCreationFieldErrorCode.Required) {\n        nextErrors.name = validationLabels?.nameRequired ?? 'Name is required';\n      }\n      if (\n        generalCodes.version === DeploymentCreationFieldErrorCode.InvalidFormat\n      ) {\n        nextErrors.version =\n          validationLabels?.versionInvalid ??\n          'Version may only contain letters, digits, dots, underscores, and dashes';\n      }\n      if (!data.endpoint.trim()) {\n        nextErrors.endpoint =\n          validationLabels?.endpointRequired ?? 'Endpoint is required';\n      } else if (!isValidEndpointUrl(data.endpoint)) {\n        nextErrors.endpoint =\n          validationLabels?.endpointInvalid ?? 'Enter a valid http(s) URL';\n      }\n      if (!data.auth.isLoggedIn) {\n        if (data.auth.authenticationType === ToolsetAuthTypes.ApiKey) {\n          if (!data.auth.keyHeader?.trim()) {\n            nextErrors.keyHeader =\n              validationLabels?.keyHeaderRequired ?? 'Key name is required';\n          }\n          if (\n            data.auth.withLogin === WithLogin.WithLogin &&\n            !data.auth.apiKey?.trim()\n          ) {\n            nextErrors.apiKey =\n              validationLabels?.apiKeyRequired ?? 'API key is required';\n          }\n        }\n        if (\n          data.auth.authenticationType === ToolsetAuthTypes.OAuth &&\n          data.auth.withLogin === WithLogin.WithConfig\n        ) {\n          if (!data.auth.clientId?.trim()) {\n            nextErrors.clientId =\n              validationLabels?.clientIdRequired ?? 'Client ID is required';\n          }\n          if (!isEditMode && !data.auth.clientSecret?.trim()) {\n            nextErrors.clientSecret =\n              validationLabels?.clientSecretRequired ??\n              'Client secret is required';\n          }\n          if (\n            data.auth.authorizationEndpoint?.trim() &&\n            !isValidEndpointUrl(data.auth.authorizationEndpoint)\n          ) {\n            nextErrors.authorizationEndpoint =\n              validationLabels?.endpointInvalid ?? 'Enter a valid http(s) URL';\n          }\n          if (\n            data.auth.tokenEndpoint?.trim() &&\n            !isValidEndpointUrl(data.auth.tokenEndpoint)\n          ) {\n            nextErrors.tokenEndpoint =\n              validationLabels?.endpointInvalid ?? 'Enter a valid http(s) URL';\n          }\n        }\n      }\n      return nextErrors;\n    },\n    [labels, isEditMode],\n  );\n\n  const handleSave = useCallback(async () => {\n    const nextErrors = validate(form);\n    if (Object.keys(nextErrors).length > 0) {\n      setErrors(nextErrors);\n      return;\n    }\n\n    setErrors({});\n    setIsSaving(true);\n    try {\n      const id = await onPersist(form, persistedToolsetId);\n      if (!id) return;\n      await onToolsetsChanged();\n      /*\n       * Reported before the post-save auth attempt: the toolset is persisted at this\n       * point, so a failing connection must not read as a failed save. The\n       * operation follows edit mode, not the request kind \u2014 a toolset authored\n       * in this session is saved through an update once its draft exists, but\n       * the user created it.\n       */\n      onSaveSuccess(form);\n      try {\n        await onPostSaveLogin(id, form.auth);\n        onSaveComplete();\n      } catch (error) {\n        const { traceId } = await getApiErrorDetails(error);\n        onNotifyError(\n          labels?.settings?.auth?.errorLoginFailed ??\n            'Failed to log in. Please check your credentials and try again.',\n          traceId,\n        );\n      }\n    } catch {\n      // The host adapter already surfaced the failure notification.\n    } finally {\n      setIsSaving(false);\n    }\n  }, [\n    form,\n    validate,\n    persistedToolsetId,\n    onPersist,\n    onToolsetsChanged,\n    onSaveSuccess,\n    onSaveComplete,\n    onPostSaveLogin,\n    onNotifyError,\n    labels,\n  ]);\n\n  const isSaveDisabled = useMemo(\n    () => !isToolsetFormValid(form, isEditMode),\n    [form, isEditMode],\n  );\n\n  const visibleErrors = useMemo(() => {\n    const validationErrors = validate(form);\n    const nextErrors = { ...errors };\n    for (const key of ERROR_FIELDS) {\n      if (!dirtyFields[key]) continue;\n\n      const message = validationErrors[key];\n      if (message) {\n        nextErrors[key] = message;\n      } else {\n        delete nextErrors[key];\n      }\n    }\n    return nextErrors;\n  }, [dirtyFields, errors, form, validate]);\n\n  const connectUrl =\n    buildMcpUrl && persistedToolsetId\n      ? buildMcpUrl(persistedToolsetId)\n      : undefined;\n\n  return (\n    <EditorLayout\n      title={\n        isEditMode\n          ? (labels?.layout?.editTitle ?? 'Edit toolset')\n          : (labels?.layout?.createTitle ?? 'Create toolset')\n      }\n      onBack={onBack}\n      backAriaLabel={labels?.layout?.backAriaLabel ?? 'Back to catalog'}\n      isSaving={isSaving}\n      labels={{\n        savingStatusLabel: labels?.layout?.savingStatusLabel ?? 'Saving',\n      }}\n      actions={\n        <>\n          <NeutralButton\n            label={labels?.layout?.cancelLabel ?? 'Cancel'}\n            onClick={onBack}\n          />\n          <PrimaryButton\n            label={\n              isEditMode\n                ? (labels?.layout?.saveLabel ?? 'Save')\n                : (labels?.layout?.createLabel ?? 'Create')\n            }\n            disabled={isSaveDisabled}\n            onClick={handleSave}\n          />\n        </>\n      }\n      leftContent={\n        <EditorSection\n          title={labels?.layout?.metadataSectionTitle ?? 'Metadata'}\n          className={mergeClasses(\n            'border-0 p-4 desktop:p-6',\n            TOOLSET_EDITOR_CLASS.metadataSection,\n          )}\n        >\n          <GeneralForm\n            form={form}\n            errors={visibleErrors}\n            bucket={bucket}\n            FileManagerModal={FileManagerModal}\n            resolveIconUrl={resolveIconUrl}\n            allowedMimeTypes={allowedMimeTypes}\n            maxFileSizeBytes={maxFileSizeBytes}\n            availableLocaleOptions={availableLocaleOptions}\n            onChange={handleChange}\n            labels={labels?.general}\n          />\n        </EditorSection>\n      }\n      rightContent={\n        <EditorSection\n          title={labels?.layout?.setupSectionTitle ?? 'Setup'}\n          className={mergeClasses(\n            'border-0 p-4 desktop:p-6',\n            TOOLSET_EDITOR_CLASS.setupSection,\n          )}\n        >\n          <SettingsForm\n            form={form}\n            errors={visibleErrors}\n            isSaving={isSaving}\n            toolsetId={persistedToolsetId}\n            isEditMode={isEditMode}\n            connectUrl={connectUrl}\n            listToolNames={listToolNames}\n            authActions={authActions}\n            onOAuthLogin={onOAuthLogin}\n            onNotifySuccess={onNotifySuccess}\n            onNotifyError={onNotifyError}\n            onChange={handleChange}\n            onAuthChange={handleAuthChange}\n            onEnsureSaved={handleEnsureSaved}\n            labels={labels?.settings}\n          />\n        </EditorSection>\n      }\n    />\n  );\n}",
+      "signature": "(props: ToolsetEditorProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "initialForm",
+          "optional": false,
+          "type": "ToolsetFormData"
+        },
+        {
+          "name": "toolsetId",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "onPersist",
+          "optional": false,
+          "type": "(form: ToolsetFormData, toolsetId: string) => Promise<string | null>"
+        },
+        {
+          "name": "onPostSaveLogin",
+          "optional": false,
+          "type": "(toolsetId: string, auth: ToolsetAuthFormData) => Promise<void>"
+        },
+        {
+          "name": "onToolsetsChanged",
+          "optional": false,
+          "type": "() => Promise<void> | void"
+        },
+        {
+          "name": "onSaveSuccess",
+          "optional": false,
+          "type": "(form: ToolsetFormData) => void"
+        },
+        {
+          "name": "onSaveComplete",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onBack",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "buildMcpUrl",
+          "optional": true,
+          "type": "((toolsetId: string) => string) | undefined"
+        },
+        {
+          "name": "listToolNames",
+          "optional": true,
+          "type": "((toolsetId: string) => Promise<string[]>) | undefined"
+        },
+        {
+          "name": "authActions",
+          "optional": false,
+          "type": "import(\"../..\").ToolsetAuthActions"
+        },
+        {
+          "name": "onOAuthLogin",
+          "optional": false,
+          "type": "import(\"../..\").ToolsetOAuthLoginHandler"
+        },
+        {
+          "name": "onNotifySuccess",
+          "optional": false,
+          "type": "(message: string) => void"
+        },
+        {
+          "name": "onNotifyError",
+          "optional": false,
+          "type": "(message: string, requestId?: string) => void"
+        },
+        {
+          "name": "bucket",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "FileManagerModal",
+          "optional": false,
+          "type": "import(\"react\").ComponentType<import(\"@epam/ai-dial-builder-form\").AvatarPickerFileManagerModalProps>"
+        },
+        {
+          "name": "resolveIconUrl",
+          "optional": false,
+          "type": "(url: string) => string"
+        },
+        {
+          "name": "allowedMimeTypes",
+          "optional": false,
+          "type": "string[]"
+        },
+        {
+          "name": "maxFileSizeBytes",
+          "optional": false,
+          "type": "number"
+        },
+        {
+          "name": "availableLocaleOptions",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-builder-form\").DeploymentCreationFormLocaleOption[]"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").ToolsetEditorLabels | undefined"
+        }
+      ]
+    },
+    {
+      "name": "GeneralForm",
+      "file": "libs/toolset-editor/src/components/GeneralForm/GeneralForm.tsx",
+      "start": 80,
+      "end": 151,
+      "declaration": "GeneralForm: FC<GeneralFormProps> = ({\n  form,\n  errors,\n  bucket,\n  FileManagerModal,\n  resolveIconUrl,\n  allowedMimeTypes,\n  maxFileSizeBytes,\n  availableLocaleOptions,\n  onChange,\n  onNameBlur,\n  onVersionBlur,\n  labels,\n}) => {\n  const [isAvatarPickerOpen, setIsAvatarPickerOpen] = useState(false);\n\n  const formLabels: DeploymentCreationFormLabels =\n    labels?.form ?? DEFAULT_FORM_LABELS;\n  const avatarPickerLabels: AvatarPickerModalLabels =\n    labels?.avatarPicker ?? DEFAULT_AVATAR_PICKER_LABELS;\n\n  const iconPreviewUrl = useMemo(\n    () => resolveIconUrl(form.iconUrl),\n    [form.iconUrl, resolveIconUrl],\n  );\n\n  const values: DeploymentCreationFormValues = {\n    name: form.name,\n    description: form.description,\n    iconUrl: form.iconUrl,\n    version: form.version,\n    topics: form.topics,\n    otherLocales: form.otherLocales,\n  };\n\n  return (\n    <>\n      <DeploymentCreationForm\n        values={values}\n        errors={errors}\n        onChange={onChange}\n        onNameBlur={onNameBlur}\n        onVersionBlur={onVersionBlur}\n        iconPreviewUrl={iconPreviewUrl}\n        onAddAvatarClick={() => setIsAvatarPickerOpen(true)}\n        labels={formLabels}\n        availableLocaleOptions={availableLocaleOptions}\n      />\n      <AvatarPickerModal\n        isOpen={isAvatarPickerOpen}\n        onClose={() => setIsAvatarPickerOpen(false)}\n        onAttach={(result: AttachResult) => {\n          const [file] = result.files;\n          const attachment = file\n            ? dialFileToAttachment(file, bucket, {\n                resolvePreviewUrl: resolveIconUrl,\n              })\n            : null;\n          if (attachment?.url) {\n            onChange({ iconUrl: attachment.url });\n          }\n          setIsAvatarPickerOpen(false);\n        }}\n        bucket={bucket}\n        FileManagerModal={FileManagerModal}\n        allowedMimeTypes={allowedMimeTypes}\n        maxFileSizeBytes={maxFileSizeBytes}\n        labels={avatarPickerLabels}\n      />\n    </>\n  );\n}",
+      "signature": "(props: GeneralFormProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "form",
+          "optional": false,
+          "type": "import(\"../..\").DeploymentGeneralFormData"
+        },
+        {
+          "name": "errors",
+          "optional": false,
+          "type": "import(\"../..\").ToolsetFormErrors"
+        },
+        {
+          "name": "bucket",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "FileManagerModal",
+          "optional": false,
+          "type": "import(\"react\").ComponentType<import(\"@epam/ai-dial-builder-form\").AvatarPickerFileManagerModalProps>"
+        },
+        {
+          "name": "resolveIconUrl",
+          "optional": false,
+          "type": "(url: string) => string"
+        },
+        {
+          "name": "allowedMimeTypes",
+          "optional": false,
+          "type": "string[]"
+        },
+        {
+          "name": "maxFileSizeBytes",
+          "optional": false,
+          "type": "number"
+        },
+        {
+          "name": "availableLocaleOptions",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-builder-form\").DeploymentCreationFormLocaleOption[]"
+        },
+        {
+          "name": "onChange",
+          "optional": false,
+          "type": "(patch: Partial<import(\"../..\").DeploymentGeneralFormData>) => void"
+        },
+        {
+          "name": "onNameBlur",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onVersionBlur",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").GeneralFormLabels | undefined"
+        }
+      ]
+    },
+    {
+      "name": "getDefaultToolsetForm",
+      "file": "libs/toolset-editor/src/utils/toolsets.ts",
+      "start": 41,
+      "end": 54,
+      "declaration": "getDefaultToolsetForm = (\n  existingNames: string[] = [],\n): ToolsetFormData => ({\n  name: getStorageSafeUniqueToolsetName({ existingNames }),\n  version: DEFAULT_TOOLSET_VERSION,\n  iconUrl: '',\n  description: '',\n  topics: [],\n  otherLocales: [],\n  endpoint: '',\n  protocol: ToolsetTransportType.Http,\n  allowedTools: [],\n  auth: getDefaultAuthFormData(),\n})",
+      "signature": "(existingNames?: string[]): ToolsetFormData",
+      "props": [
+        {
+          "name": "length",
+          "optional": false,
+          "type": "number"
+        },
+        {
+          "name": "toString",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleString",
+          "optional": false,
+          "type": "{ (): string; (locales: string | string[], options?: Intl.NumberFormatOptions & Intl.DateTimeFormatOptions): string; }"
+        },
+        {
+          "name": "pop",
+          "optional": false,
+          "type": "() => string | undefined"
+        },
+        {
+          "name": "push",
+          "optional": false,
+          "type": "(...items: string[]) => number"
+        },
+        {
+          "name": "concat",
+          "optional": false,
+          "type": "{ (...items: ConcatArray<string>[]): string[]; (...items: (string | ConcatArray<string>)[]): string[]; }"
+        },
+        {
+          "name": "join",
+          "optional": false,
+          "type": "(separator?: string) => string"
+        },
+        {
+          "name": "reverse",
+          "optional": false,
+          "type": "() => string[]"
+        },
+        {
+          "name": "shift",
+          "optional": false,
+          "type": "() => string | undefined"
+        },
+        {
+          "name": "slice",
+          "optional": false,
+          "type": "(start?: number, end?: number) => string[]"
+        },
+        {
+          "name": "sort",
+          "optional": false,
+          "type": "(compareFn?: ((a: string, b: string) => number) | undefined) => string[]"
+        },
+        {
+          "name": "splice",
+          "optional": false,
+          "type": "{ (start: number, deleteCount?: number): string[]; (start: number, deleteCount: number, ...items: string[]): string[]; }"
+        },
+        {
+          "name": "unshift",
+          "optional": false,
+          "type": "(...items: string[]) => number"
+        },
+        {
+          "name": "indexOf",
+          "optional": false,
+          "type": "(searchElement: string, fromIndex?: number) => number"
+        },
+        {
+          "name": "lastIndexOf",
+          "optional": false,
+          "type": "(searchElement: string, fromIndex?: number) => number"
+        },
+        {
+          "name": "every",
+          "optional": false,
+          "type": "{ <S extends string>(predicate: (value: string, index: number, array: string[]) => value is S, thisArg?: any): this is S[]; (predicate: (value: string, index: number, array: string[]) => unknown, thisArg?: any): boolean; }"
+        },
+        {
+          "name": "some",
+          "optional": false,
+          "type": "(predicate: (value: string, index: number, array: string[]) => unknown, thisArg?: any) => boolean"
+        },
+        {
+          "name": "forEach",
+          "optional": false,
+          "type": "(callbackfn: (value: string, index: number, array: string[]) => void, thisArg?: any) => void"
+        },
+        {
+          "name": "map",
+          "optional": false,
+          "type": "<U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]"
+        },
+        {
+          "name": "filter",
+          "optional": false,
+          "type": "{ <S extends string>(predicate: (value: string, index: number, array: string[]) => value is S, thisArg?: any): S[]; (predicate: (value: string, index: number, array: string[]) => unknown, thisArg?: any): string[]; }"
+        },
+        {
+          "name": "reduce",
+          "optional": false,
+          "type": "{ (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string): string; (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string, initialValue: string): string; <U>(callbackfn: (previousValue: U, currentValue: string, currentIndex: number, array: string[]) => U, initialValue: U): U; }"
+        },
+        {
+          "name": "reduceRight",
+          "optional": false,
+          "type": "{ (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string): string; (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string, initialValue: string): string; <U>(callbackfn: (previousValue: U, currentValue: string, currentIndex: number, array: string[]) => U, initialValue: U): U; }"
+        },
+        {
+          "name": "find",
+          "optional": false,
+          "type": "{ <S extends string>(predicate: (value: string, index: number, obj: string[]) => value is S, thisArg?: any): S | undefined; (predicate: (value: string, index: number, obj: string[]) => unknown, thisArg?: any): string | undefined; }"
+        },
+        {
+          "name": "findIndex",
+          "optional": false,
+          "type": "(predicate: (value: string, index: number, obj: string[]) => unknown, thisArg?: any) => number"
+        },
+        {
+          "name": "fill",
+          "optional": false,
+          "type": "(value: string, start?: number, end?: number) => string[]"
+        },
+        {
+          "name": "copyWithin",
+          "optional": false,
+          "type": "(target: number, start: number, end?: number) => string[]"
+        },
+        {
+          "name": "entries",
+          "optional": false,
+          "type": "() => ArrayIterator<[number, string]>"
+        },
+        {
+          "name": "keys",
+          "optional": false,
+          "type": "() => ArrayIterator<number>"
+        },
+        {
+          "name": "values",
+          "optional": false,
+          "type": "() => ArrayIterator<string>"
+        },
+        {
+          "name": "includes",
+          "optional": false,
+          "type": "(searchElement: string, fromIndex?: number) => boolean"
+        },
+        {
+          "name": "flatMap",
+          "optional": false,
+          "type": "<U, This = undefined>(callback: (this: This, value: string, index: number, array: string[]) => U | readonly U[], thisArg?: This | undefined) => U[]"
+        },
+        {
+          "name": "flat",
+          "optional": false,
+          "type": "<A, D extends number = 1>(this: A, depth?: D | undefined) => FlatArray<A, D>[]"
+        },
+        {
+          "name": "at",
+          "optional": false,
+          "type": "(index: number) => string | undefined"
+        },
+        {
+          "name": "__@iterator@21491",
+          "optional": false,
+          "type": "() => ArrayIterator<string>"
+        },
+        {
+          "name": "__@unscopables@21517",
+          "optional": false,
+          "type": "{ [x: number]: boolean | undefined; length?: boolean | undefined; toString?: boolean | undefined; toLocaleString?: boolean | undefined; pop?: boolean | undefined; push?: boolean | undefined; concat?: boolean | undefined; join?: boolean | undefined; reverse?: boolean | undefined; shift?: boolean | undefined; slice?: boolean | undefined; sort?: boolean | undefined; splice?: boolean | undefined; unshift?: boolean | undefined; indexOf?: boolean | undefined; lastIndexOf?: boolean | undefined; every?: boolean | undefined; some?: boolean | undefined; forEach?: boolean | undefined; map?: boolean | undefined; filter?: boolean | undefined; reduce?: boolean | undefined; reduceRight?: boolean | undefined; find?: boolean | undefined; findIndex?: boolean | undefined; fill?: boolean | undefined; copyWithin?: boolean | undefined; entries?: boolean | undefined; keys?: boolean | undefined; values?: boolean | undefined; includes?: boolean | undefined; flatMap?: boolean | undefined; flat?: boolean | undefined; at?: boolean | undefined; [Symbol.iterator]?: boolean | undefined; readonly [Symbol.unscopables]?: boolean | undefined; }"
+        }
+      ]
+    },
+    {
+      "name": "getStorageSafeUniqueToolsetName",
+      "file": "libs/toolset-editor/src/utils/toolsets.ts",
+      "start": 17,
+      "end": 32,
+      "declaration": "getStorageSafeUniqueToolsetName = ({\n  defaultName = DEFAULT_TOOLSET_NAME,\n  existingNames,\n}: {\n  /** Candidate name to make unique. Defaults to `DEFAULT_TOOLSET_NAME`. */\n  defaultName?: string;\n  /** Names already taken by the user's toolsets. */\n  existingNames: string[];\n}): string => {\n  const taken = new Set(existingNames);\n  if (!taken.has(defaultName)) return defaultName;\n\n  let suffix = 1;\n  while (taken.has(`${defaultName} ${suffix}`)) suffix += 1;\n  return `${defaultName} ${suffix}`;\n}",
+      "signature": "({ defaultName, existingNames, }: { defaultName?: string; existingNames: string[]; }): string",
+      "props": [
+        {
+          "name": "defaultName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "existingNames",
+          "optional": false,
+          "type": "string[]"
+        }
+      ]
+    },
+    {
+      "name": "isToolsetAuthValid",
+      "file": "libs/toolset-editor/src/utils/toolsets.ts",
+      "start": 116,
+      "end": 138,
+      "declaration": "isToolsetAuthValid = (\n  auth: ToolsetAuthFormData,\n  isEditMode = false,\n): boolean => {\n  if (auth.isLoggedIn) return true;\n  if (auth.authenticationType === ToolsetAuthTypes.ApiKey) {\n    if (!auth.keyHeader?.trim()) return false;\n    if (auth.withLogin === WithLogin.WithoutLogin) return true;\n    return Boolean(auth.keyHeader?.trim() && auth.apiKey?.trim());\n  }\n  if (\n    auth.authenticationType === ToolsetAuthTypes.OAuth &&\n    auth.withLogin === WithLogin.WithConfig\n  ) {\n    return (\n      Boolean(auth.clientId?.trim()) &&\n      (isEditMode || Boolean(auth.clientSecret?.trim())) &&\n      isOptionalValidEndpointUrl(auth.authorizationEndpoint) &&\n      isOptionalValidEndpointUrl(auth.tokenEndpoint)\n    );\n  }\n  return true;\n}",
+      "signature": "(auth: ToolsetAuthFormData, isEditMode?: boolean): boolean",
+      "props": [
+        {
+          "name": "authenticationType",
+          "optional": false,
+          "type": "ToolsetAuthTypes"
+        },
+        {
+          "name": "withLogin",
+          "optional": false,
+          "type": "WithLogin"
+        },
+        {
+          "name": "isLoggedIn",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "keyHeader",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "apiKey",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "clientId",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "clientSecret",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "authorizationEndpoint",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "tokenEndpoint",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "scopes",
+          "optional": true,
+          "type": "string[] | undefined"
+        },
+        {
+          "name": "codeChallenge",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "codeChallengeMethod",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "isToolsetFormValid",
+      "file": "libs/toolset-editor/src/utils/toolsets.ts",
+      "start": 141,
+      "end": 149,
+      "declaration": "isToolsetFormValid = (\n  form: ToolsetFormData,\n  isEditMode = false,\n): boolean =>\n  Object.keys(\n    validateDeploymentCreationFields(form, { validateVersionPattern: true }),\n  ).length === 0 &&\n  isValidEndpointUrl(form.endpoint) &&\n  isToolsetAuthValid(form.auth, isEditMode)",
+      "signature": "(form: ToolsetFormData, isEditMode?: boolean): boolean",
+      "props": [
+        {
+          "name": "endpoint",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "protocol",
+          "optional": false,
+          "type": "ToolsetTransportType"
+        },
+        {
+          "name": "allowedTools",
+          "optional": false,
+          "type": "string[]"
+        },
+        {
+          "name": "reference",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "auth",
+          "optional": false,
+          "type": "ToolsetAuthFormData"
+        },
+        {
+          "name": "name",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "version",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "iconUrl",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "topics",
+          "optional": false,
+          "type": "string[]"
+        },
+        {
+          "name": "otherLocales",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-builder-form\").DeploymentCreationFormLocaleEntry[]"
+        }
+      ]
+    },
+    {
+      "name": "isValidEndpointUrl",
+      "file": "libs/toolset-editor/src/utils/toolsets.ts",
+      "start": 74,
+      "end": 75,
+      "declaration": "isValidEndpointUrl = (value: string): boolean =>\n  isValidEndpointUrlCandidate(value.trim())",
+      "signature": "(value: string): boolean",
+      "props": [
+        {
+          "name": "toString",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "charAt",
+          "optional": false,
+          "type": "(pos: number) => string"
+        },
+        {
+          "name": "charCodeAt",
+          "optional": false,
+          "type": "(index: number) => number"
+        },
+        {
+          "name": "concat",
+          "optional": false,
+          "type": "(...strings: string[]) => string"
+        },
+        {
+          "name": "indexOf",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => number"
+        },
+        {
+          "name": "lastIndexOf",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => number"
+        },
+        {
+          "name": "localeCompare",
+          "optional": false,
+          "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+        },
+        {
+          "name": "match",
+          "optional": false,
+          "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+        },
+        {
+          "name": "replace",
+          "optional": false,
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+        },
+        {
+          "name": "search",
+          "optional": false,
+          "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+        },
+        {
+          "name": "slice",
+          "optional": false,
+          "type": "(start?: number, end?: number) => string"
+        },
+        {
+          "name": "split",
+          "optional": false,
+          "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+        },
+        {
+          "name": "substring",
+          "optional": false,
+          "type": "(start: number, end?: number) => string"
+        },
+        {
+          "name": "toLowerCase",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleLowerCase",
+          "optional": false,
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+        },
+        {
+          "name": "toUpperCase",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleUpperCase",
+          "optional": false,
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+        },
+        {
+          "name": "trim",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "length",
+          "optional": false,
+          "type": "number"
+        },
+        {
+          "name": "substr",
+          "optional": false,
+          "type": "(from: number, length?: number) => string"
+        },
+        {
+          "name": "valueOf",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "codePointAt",
+          "optional": false,
+          "type": "(pos: number) => number | undefined"
+        },
+        {
+          "name": "includes",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => boolean"
+        },
+        {
+          "name": "endsWith",
+          "optional": false,
+          "type": "(searchString: string, endPosition?: number) => boolean"
+        },
+        {
+          "name": "normalize",
+          "optional": false,
+          "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+        },
+        {
+          "name": "repeat",
+          "optional": false,
+          "type": "(count: number) => string"
+        },
+        {
+          "name": "startsWith",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => boolean"
+        },
+        {
+          "name": "anchor",
+          "optional": false,
+          "type": "(name: string) => string"
+        },
+        {
+          "name": "big",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "blink",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "bold",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "fixed",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "fontcolor",
+          "optional": false,
+          "type": "(color: string) => string"
+        },
+        {
+          "name": "fontsize",
+          "optional": false,
+          "type": "{ (size: number): string; (size: string): string; }"
+        },
+        {
+          "name": "italics",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "link",
+          "optional": false,
+          "type": "(url: string) => string"
+        },
+        {
+          "name": "small",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "strike",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "sub",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "sup",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "padStart",
+          "optional": false,
+          "type": "(maxLength: number, fillString?: string) => string"
+        },
+        {
+          "name": "padEnd",
+          "optional": false,
+          "type": "(maxLength: number, fillString?: string) => string"
+        },
+        {
+          "name": "trimEnd",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimStart",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimLeft",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimRight",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "matchAll",
+          "optional": false,
+          "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+        },
+        {
+          "name": "replaceAll",
+          "optional": false,
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+        },
+        {
+          "name": "at",
+          "optional": false,
+          "type": "(index: number) => string | undefined"
+        },
+        {
+          "name": "__@iterator@21491",
+          "optional": false,
+          "type": "() => StringIterator<string>"
+        }
+      ]
+    },
+    {
+      "name": "normalizeReturnedEndpointUrl",
+      "file": "libs/toolset-editor/src/utils/toolsets.ts",
+      "start": 85,
+      "end": 103,
+      "declaration": "normalizeReturnedEndpointUrl = (value?: string): string => {\n  const trimmed = value?.trim() ?? '';\n  if (!trimmed || isValidEndpointUrlCandidate(trimmed)) return trimmed;\n\n  const candidates = [trimmed];\n  try {\n    const decoded = decodeURIComponent(trimmed);\n    if (decoded !== trimmed) candidates.push(decoded);\n  } catch {\n    // Leave malformed percent-encoded values unchanged.\n  }\n\n  for (const candidate of candidates) {\n    const repaired = repairSingleSlashUrlScheme(candidate);\n    if (isValidEndpointUrlCandidate(repaired)) return repaired;\n  }\n\n  return trimmed;\n}",
+      "signature": "(value?: string): string",
+      "props": []
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/toolset-editor/src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx",
+      "assertions": [
+        "renders the default title, description, and copy button",
+        "renders host-supplied labels instead of the defaults",
+        "copies the endpoint URL to the clipboard",
+        "announces the copy through the polite live region"
+      ]
+    },
+    {
+      "file": "libs/toolset-editor/src/components/AuthSection/tests/AuthSection.spec.tsx",
+      "assertions": [
+        "calls onAuthChange with ApiKey type when the ApiKey option is clicked",
+        "calls onAuthChange with OAuth type when the OAuth option is clicked",
+        "disables every non-selected auth-type option while the toolset is logged in, leaving the selected one enabled",
+        "marks the active auth type as checked for assistive technology",
+        "defaults a fresh OAuth selection to WithConfig so config fields are visible immediately",
+        "defaults an OAuth selection to WithLogin when a client is already configured",
+        "renders key header and API key inputs when ApiKey + WithLogin is active",
+        "masks the API key value and exposes a reveal toggle",
+        "renders only the key header input when ApiKey + WithoutLogin is active",
+        "renders WithLogin and WithoutLogin radio buttons for ApiKey",
+        "renders client ID, client secret, auth endpoint, token endpoint, and scopes when OAuth + WithConfig is active",
+        "masks the client secret value and exposes a reveal toggle",
+        "renders Standard login and Custom login radio buttons for OAuth",
+        "keeps client secret required while creating a new toolset even after a draft is auto-saved",
+        "does not require client secret when editing an already-saved toolset",
+        "renders OAuth endpoint URL validation errors",
+        "hands the host the current auth state and the save continuation",
+        "flips the action to Log out after a successful login",
+        "merges auth fields the host resolved during the flow",
+        "reports a blocked popup with its own actionable message",
+        "reports an unusable client configuration separately from a failed login",
+        "passes the trace id of a failed login to the notification",
+        "stays silent when the flow was cancelled",
+        "blocks a second login while the host flow is still running",
+        "enables the Log In button before the toolset is saved when the form is valid",
+        "calls login and updates isLoggedIn on successful API key login",
+        "shows a success notification on successful API key login",
+        "shows an error notification when login fails",
+        "saves unsaved changes before logging in",
+        "uses the id returned by onEnsureSaved, not a stale toolsetId prop, for the first login of a brand-new toolset",
+        "does not attempt to log in when saving unsaved changes fails",
+        "disables the Log In button when endpoint is empty",
+        "disables the Log In button when endpoint is invalid",
+        "enables the Log In button before the toolset is saved when the form is valid",
+        "disables the Log In button when the key header is empty",
+        "disables the Log In button when the API key is empty",
+        "calls logout, shows a success notification, and closes the confirm dialog",
+        "shows an error notification when logout fails",
+        "does not call logout when the confirm dialog is cancelled",
+        "renders host-supplied labels instead of the English defaults"
+      ]
+    },
+    {
+      "file": "libs/toolset-editor/src/components/GeneralForm/tests/GeneralForm.spec.tsx",
+      "assertions": [
+        "renders name, description, avatar, version, and topics fields with the default labels",
+        "uses host-supplied labels instead of the defaults for the whole form group",
+        "displays the name error message when errors.name is provided",
+        "does not display an error when errors.name is absent",
+        "calls onChange with updated name when the name input changes",
+        "calls onChange with updated description when the textarea changes",
+        "calls onNameBlur and onVersionBlur when the fields lose focus",
+        "reports the picked avatar through onChange after resolving it against the bucket",
+        "leaves the icon unchanged when the picker attaches no file"
+      ]
+    },
+    {
+      "file": "libs/toolset-editor/src/components/SettingsForm/tests/SettingsForm.spec.tsx",
+      "assertions": [
+        "renders the endpoint error message when errors.endpoint is provided",
+        "renders HTTP and SSE as protocol radio options",
+        "reports protocol changes through onChange",
+        "renders the free-text tag input when listToolNames is omitted",
+        "renders the select with fetched tool names once they resolve",
+        "falls back to the tag input when the fetch resolves no tools",
+        "falls back to the tag input when the fetch rejects",
+        "does not fetch tool names before the toolset is persisted",
+        "renders the connect section when connectUrl and toolsetId are set",
+        "hides the connect section when toolsetId is empty",
+        "hides the connect section when connectUrl is omitted",
+        "passes the host-resolved URL to the shared copy control",
+        "threads the connect labels through to the section"
+      ]
+    },
+    {
+      "file": "libs/toolset-editor/src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx",
+      "assertions": [
+        "renders the create title and actions with the default labels",
+        "renders the edit title and Save action when a toolsetId is provided",
+        "calls onBack when Cancel is clicked",
+        "disables the create action until required Settings fields are valid",
+        "shows validation errors after an invalid field becomes dirty",
+        "keeps the create action disabled when OAuth endpoint URLs are invalid",
+        "enables the create action for configured OAuth without authorization/token endpoints",
+        "runs the post-save login for a newly created API-key toolset using the returned id",
+        "resolves onEnsureSaved to the freshly created toolset id for a brand-new toolset",
+        "resolves onEnsureSaved to the already-persisted id without another request when nothing changed",
+        "persists an API-key toolset without login through onPersist and reports the save success",
+        "signals save completion and starts the post-save login after saving a new OAuth toolset",
+        "reports the failure through the post-save login error label and does not complete the save when the post-save login rejects",
+        "leaves the failure notification to the host when persisting resolves without an id",
+        "re-seeds the form state when the host supplies a new initialForm identity",
+        "calls onToolsetsChanged after a successful create so the host list stays in sync",
+        "calls onToolsetsChanged after the auth section reports a successful login",
+        "calls onToolsetsChanged after the auth section reports a successful logout",
+        "stamps both editor columns"
+      ]
+    },
+    {
+      "file": "libs/toolset-editor/src/utils/tests/toolsets.spec.ts",
+      "assertions": [
+        "returns the default name when no collision exists",
+        "appends a numeric suffix when the default name is taken",
+        "returns the default create-mode form state",
+        "derives a collision-free name from the existing toolset names",
+        "accepts http(s) URLs",
+        "rejects an unsupported protocol",
+        "rejects an sse URL, which the SSE transport never uses",
+        "rejects a URL with a trailing dot or double slash",
+        "rejects an unparseable value",
+        "repairs a single-slash URL scheme",
+        "decodes percent-encoded URLs before repairing them",
+        "returns the trimmed value unchanged when no repair produces a valid URL",
+        "returns an already-valid URL unchanged",
+        "returns an empty string for a missing value",
+        "requires both API key header and value for API-key login",
+        "requires only the API key header for API-key without login",
+        "accepts any auth state once the user is logged in",
+        "rejects invalid OAuth endpoint URLs when configured OAuth is selected, but allows them to be omitted",
+        "requires a client secret for configured OAuth when creating a toolset",
+        "does not require a client secret for configured OAuth when editing an existing toolset (the server redacts and preserves it)",
+        "accepts a complete form with no auth requirements",
+        "requires a name and a valid endpoint URL",
+        "requires API key fields when API-key login is selected",
+        "requires the API key header when API-key without login is selected",
+        "requires a client id and secret when configured OAuth is selected, but not the endpoints",
+        "does not require a client secret for configured OAuth when editing an existing toolset",
+        "requires valid OAuth endpoint URLs when they are provided"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat/src/pages/ToolsetEditor/ToolsetEditor.tsx",
+      "matches": [
+        {
+          "start": 8,
+          "end": 18,
+          "excerpt": "  ToolsetAuthTypes,\n  ToolsetCredentialsLevel,\n  WithLogin,\n} from '@epam/ai-dial-chat-hooks';\nimport type {\n  ToolsetAuthActions,\n  ToolsetAuthFormData,\n  ToolsetEditorLabels,\n  ToolsetFormData,\n} from '@epam/ai-dial-toolset-editor';\nimport {"
+        },
+        {
+          "start": 12,
+          "end": 22,
+          "excerpt": "import type {\n  ToolsetAuthActions,\n  ToolsetAuthFormData,\n  ToolsetEditorLabels,\n  ToolsetFormData,\n} from '@epam/ai-dial-toolset-editor';\nimport {\n  getDefaultToolsetForm,\n  ToolsetEditor,\n} from '@epam/ai-dial-toolset-editor';\nimport type { FC } from 'react';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/pages/ToolsetEditor/CustomAppEditorView.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { GeneralForm } from '@epam/ai-dial-toolset-editor';\nimport type {"
+        },
+        {
+          "start": 1,
+          "end": 6,
+          "excerpt": "import { GeneralForm } from '@epam/ai-dial-toolset-editor';\nimport type {\n  GeneralFormLabels,\n  ToolsetFormErrors,\n} from '@epam/ai-dial-toolset-editor';\nimport { NeutralButton, PrimaryButton } from '@epam/ai-dial-ui-kit';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/hooks/toolsets/useToolsetEditorOAuthLogin.ts",
+      "matches": [
+        {
+          "start": 8,
+          "end": 18,
+          "excerpt": "  ToolsetOAuthInitiationResultType,\n  ToolsetOAuthResultType,\n  waitForToolsetOAuthResult,\n  WithLogin,\n} from '@epam/ai-dial-chat-hooks/oauth';\nimport type {\n  ToolsetAuthFormData,\n  ToolsetOAuthLoginHandler,\n  ToolsetOAuthLoginResult,\n} from '@epam/ai-dial-toolset-editor';\nimport { ToolsetOAuthLoginStatus } from '@epam/ai-dial-toolset-editor';"
+        },
+        {
+          "start": 9,
+          "end": 19,
+          "excerpt": "  ToolsetOAuthResultType,\n  waitForToolsetOAuthResult,\n  WithLogin,\n} from '@epam/ai-dial-chat-hooks/oauth';\nimport type {\n  ToolsetAuthFormData,\n  ToolsetOAuthLoginHandler,\n  ToolsetOAuthLoginResult,\n} from '@epam/ai-dial-toolset-editor';\nimport { ToolsetOAuthLoginStatus } from '@epam/ai-dial-toolset-editor';\nimport { useCallback } from 'react';"
+        },
+        {
+          "start": 71,
+          "end": 81,
+          "excerpt": "  } catch {\n    // Best-effort verification only \u2014 a genuine cancel stays silent.\n  }\n  return { status: ToolsetOAuthLoginStatus.Cancelled };\n};\n\n/**\n * Owns the toolset editor's OAuth login flow on the application side: the\n * popup, the callback route it returns through, the credentials level, and\n * the backend reads the flow needs. `@epam/ai-dial-toolset-editor` receives\n * only the settled outcome, so the library stays unaware of every one of"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/models/custom-apps.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "export type { DeploymentGeneralFormData as CustomAppGeneralFormData } from '@epam/ai-dial-toolset-editor';\n"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/utils/toolsets.ts",
+      "matches": [
+        {
+          "start": 9,
+          "end": 19,
+          "excerpt": "  getToolsetRedirectUri as resolveOAuthRedirectUri,\n  ToolsetAuthStatus,\n  ToolsetAuthTypes,\n  WithLogin,\n} from '@epam/ai-dial-chat-hooks';\nimport {\n  DEFAULT_TOOLSET_VERSION,\n  normalizeReturnedEndpointUrl,\n  ToolsetTransportType,\n} from '@epam/ai-dial-toolset-editor';\nimport type {"
+        },
+        {
+          "start": 13,
+          "end": 23,
+          "excerpt": "} from '@epam/ai-dial-chat-hooks';\nimport {\n  DEFAULT_TOOLSET_VERSION,\n  normalizeReturnedEndpointUrl,\n  ToolsetTransportType,\n} from '@epam/ai-dial-toolset-editor';\nimport type {\n  ToolsetAuthFormData,\n  ToolsetFormData,\n} from '@epam/ai-dial-toolset-editor';\nimport { getToolset } from '../server-api/toolsets';"
+        }
+      ]
+    }
+  ]
+}

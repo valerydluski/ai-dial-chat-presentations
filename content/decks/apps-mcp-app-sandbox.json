@@ -1,0 +1,294 @@
+{
+  "id": "apps/mcp-app-sandbox",
+  "shortTitle": "MCP sandbox proxy",
+  "series": "Sandbox walkthrough",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "apps-mcp-app-sandbox-01",
+      "title": "MCP sandbox proxy",
+      "layout": "cover",
+      "sources": [
+        {
+          "file": "apps/mcp-app-sandbox/README.md",
+          "start": 1,
+          "end": 60
+        },
+        {
+          "file": "apps/mcp-app-sandbox/src/main.ts",
+          "start": 1,
+          "end": 49
+        }
+      ],
+      "notes": "This small application serves the sandbox-proxy document used by the MCP UI renderer. It must be deployed on an origin distinct from the chat host. It is an infrastructure component of the rendering boundary, not a catalog demo.",
+      "subtitle": "A separate-origin HTML bridge for the MCP Apps double-iframe boundary.",
+      "chips": [
+        "NestJS proxy page",
+        "Port 3100",
+        "Allowlist required"
+      ],
+      "caption": "apps/mcp-app-sandbox"
+    },
+    {
+      "id": "apps-mcp-app-sandbox-02",
+      "title": "Why a separate application exists",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "apps/mcp-app-sandbox/README.md",
+          "start": 1,
+          "end": 60
+        },
+        {
+          "file": "apps/mcp-app-sandbox/src/main.ts",
+          "start": 1,
+          "end": 49
+        },
+        {
+          "file": "apps/mcp-app-sandbox/src/app/sandbox-page.ts",
+          "start": 1,
+          "end": 103
+        }
+      ],
+      "notes": "The README and implementation adapt the MCP reference double-iframe pattern. A sandbox attribute alone is not the reason for this separate app; the distinct origin keeps the proxy and tool document out of the host origin. The inner document and bridge have their own constraints.",
+      "nodes": [
+        {
+          "title": "Chat host",
+          "body": "Trusted app origin"
+        },
+        {
+          "title": "Proxy frame",
+          "body": "Distinct host or port"
+        },
+        {
+          "title": "Inner tool frame",
+          "body": "Untrusted UI document"
+        },
+        {
+          "title": "Message bridge",
+          "body": "Validated communication"
+        }
+      ],
+      "takeaway": "Same-origin hosting would defeat the intended isolation boundary."
+    },
+    {
+      "id": "apps-mcp-app-sandbox-03",
+      "title": "Request validation precedes HTML delivery",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "apps/mcp-app-sandbox/src/app/sandbox.controller.ts",
+          "start": 1,
+          "end": 33
+        },
+        {
+          "file": "apps/mcp-app-sandbox/src/app/sandbox.service.ts",
+          "start": 1,
+          "end": 56
+        }
+      ],
+      "notes": "SandboxService uses an Origin header when present, then falls back to the Referer origin. A missing or unapproved origin is rejected. SandboxController sends text/html, CSP, nosniff, cross-origin resource policy and no-store. A raw GET without the required embedding context should fail.",
+      "nodes": [
+        {
+          "title": "GET /",
+          "body": "Origin or Referer"
+        },
+        {
+          "title": "Allowlist check",
+          "body": "Verify host origin"
+        },
+        {
+          "title": "Policy builder",
+          "body": "Scope the CSP"
+        },
+        {
+          "title": "HTML response",
+          "body": "Return proxy page"
+        }
+      ],
+      "takeaway": "No allowlist means no successful page response.",
+      "kicker": "Allowed request path \u00b7 invalid origin returns 403 before HTML rendering"
+    },
+    {
+      "id": "apps-mcp-app-sandbox-04",
+      "title": "Configure two sides of the connection",
+      "layout": "code",
+      "sources": [
+        {
+          "file": "apps/mcp-app-sandbox/README.md",
+          "start": 1,
+          "end": 60
+        },
+        {
+          "file": "apps/mcp-app-sandbox/src/config/environment.config.ts",
+          "start": 1,
+          "end": 29
+        }
+      ],
+      "notes": "The frontend receives the sandbox URL through the backend client-configuration pipeline. PORT defaults to 3100. Production should use the actual distinct HTTPS origins and the intended host allowlist. No secret values are required in this example.",
+      "kicker": "The sandbox origin must differ from the chat origin.",
+      "code": "# Start the sandbox:\nMCP_APP_SANDBOX_ALLOWED_HOST_ORIGINS=http://localhost:4207 \\\n  npm exec nx serve mcp-app-sandbox\n\n# Configure chat-api separately:\nMCP_APP_SANDBOX_URL=http://localhost:3100"
+    },
+    {
+      "id": "apps-mcp-app-sandbox-05",
+      "title": "The page and policy are app-owned",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/mcp-app-sandbox/src/app/sandbox.controller.ts",
+          "start": 1,
+          "end": 33
+        },
+        {
+          "file": "apps/mcp-app-sandbox/src/app/sandbox.service.ts",
+          "start": 1,
+          "end": 56
+        },
+        {
+          "file": "apps/mcp-app-sandbox/src/app/csp.ts",
+          "start": 1,
+          "end": 19
+        },
+        {
+          "file": "apps/mcp-app-sandbox/src/app/sandbox-page.ts",
+          "start": 1,
+          "end": 103
+        }
+      ],
+      "notes": "main.ts intentionally disables Helmet generic CSP and frame blocking so the route can deliver its custom embedding policy. CORS is explicitly disabled for cross-origin script fetching. This route is designed for iframe navigation with origin validation, not a general data API.",
+      "cards": [
+        {
+          "title": "Controller",
+          "body": "Validates the caller context and sets response headers."
+        },
+        {
+          "title": "Service",
+          "body": "Combines allowed origin, HTML and CSP construction."
+        },
+        {
+          "title": "Page builder",
+          "body": "Creates the bridge document used by the nested renderer."
+        }
+      ]
+    },
+    {
+      "id": "apps-mcp-app-sandbox-06",
+      "title": "A rendered MCP view needs the whole chain",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+          "start": 1,
+          "end": 148
+        },
+        {
+          "file": "libs/attachment-canvas/src/components/McpAppCanvasRenderer/McpAppCanvasRenderer.tsx",
+          "start": 1,
+          "end": 150
+        },
+        {
+          "file": "apps/mcp-app-sandbox/src/app/sandbox-page.ts",
+          "start": 1,
+          "end": 103
+        }
+      ],
+      "notes": "The sandbox alone does not discover tools or authenticate tool calls. Those operations are supplied by the host adapter and backend. To reproduce a full interaction, use a configured MCP-capable deployment and a real ui:// resource; this bundle does not manufacture a product screenshot of that interaction.",
+      "nodes": [
+        {
+          "title": "Message evidence",
+          "body": "Tool and resource match"
+        },
+        {
+          "title": "Host adapter",
+          "body": "Fetch resource / call tool"
+        },
+        {
+          "title": "MCP renderer",
+          "body": "Configured sandbox URL"
+        },
+        {
+          "title": "Proxy page",
+          "body": "Nested UI lifecycle"
+        }
+      ],
+      "takeaway": "Use the mcp-apps and attachment-canvas decks for the frontend contracts."
+    },
+    {
+      "id": "apps-mcp-app-sandbox-07",
+      "title": "Build and check what exists",
+      "layout": "code",
+      "sources": [
+        {
+          "file": "apps/mcp-app-sandbox/package.json",
+          "start": 1,
+          "end": 103
+        },
+        {
+          "file": "apps/mcp-app-sandbox/README.md",
+          "start": 1,
+          "end": 60
+        },
+        {
+          "file": "apps/mcp-app-sandbox/Dockerfile",
+          "start": 1,
+          "end": 61
+        }
+      ],
+      "notes": "No source test files or test target were discovered for this application. Do not invent a passing test result or recommend a nonexistent target. Build/typecheck/lint commands are available; real isolation behavior needs a browser integration exercise with distinct origins.",
+      "kicker": "The resolved project has build, serve, lint and typecheck; no test target.",
+      "code": "npm exec nx build mcp-app-sandbox\nnpm exec nx run mcp-app-sandbox:typecheck\nnpm exec nx run mcp-app-sandbox:lint\n\ndocker build -f apps/mcp-app-sandbox/Dockerfile \\\n  -t mcp-app-sandbox ."
+    },
+    {
+      "id": "apps-mcp-app-sandbox-08",
+      "title": "Limits to carry into operations",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/mcp-app-sandbox/README.md",
+          "start": 1,
+          "end": 60
+        },
+        {
+          "file": "apps/mcp-app-sandbox/src/main.ts",
+          "start": 1,
+          "end": 49
+        },
+        {
+          "file": "apps/mcp-app-sandbox/src/app/sandbox.service.ts",
+          "start": 1,
+          "end": 56
+        }
+      ],
+      "notes": "The small source footprint does not reduce the importance of this boundary. Deployment-origin and browser-policy checks remain necessary. The presentation report records that no full live MCP/Core integration was exercised during this output-only documentation task.",
+      "cards": [
+        {
+          "title": "Exact origin matters",
+          "body": "A host allowlist must match the deployed scheme, hostname and port."
+        },
+        {
+          "title": "Not a content service",
+          "body": "The app serves a proxy document, not Core storage or user files."
+        },
+        {
+          "title": "Validation gap",
+          "body": "No dedicated source tests were discovered in this project."
+        }
+      ]
+    }
+  ],
+  "output": "decks/apps/mcp-app-sandbox.pptx"
+}

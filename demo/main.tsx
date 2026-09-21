@@ -1,0 +1,13 @@
+import React from 'react';
+import {createRoot} from 'react-dom/client';
+import '../../ai-dial-chat/node_modules/@epam/ai-dial-ui-kit/dist/index.css';
+import favicon from '../assets/favicon.png';
+import {SettingsPanel} from '../../ai-dial-chat/libs/settings-panel/src/components/SettingsPanel/SettingsPanel';
+import {StagesPanel} from '../../ai-dial-chat/libs/conversation-stages/src/components/StagesPanel/StagesPanel';
+import {UsageLimitCard} from '../../ai-dial-chat/libs/usage-dashboard/src/components/UsageLimitCard/UsageLimitCard';
+import {UsageLimitStatus} from '../../ai-dial-chat/libs/usage-dashboard/src/models/usage-limit-card-props';
+const labels={defaultBadgeLabel:'Within limits',runningLowBadgeLabel:'Running low',limitReachedBadgeLabel:'Limit reached',usedOfTotalLabel:({total}:{total:string})=>`used of ${total}`,remainingCaptionLabel:({remaining}:{remaining:string})=>`${remaining} left`,usedPercentLabel:({percent}:{percent:number})=>`${percent}%`};
+import './style.css';
+document.documentElement.lang='en';document.documentElement.dir='ltr';
+function Demo(){const [active,setActive]=React.useState('usage');return <main><header><img alt="" src={favicon}/><div><small>DEMO · ACTUAL WORKSPACE COMPONENTS</small><h1>Inspect an assistant workspace</h1><p>Synthetic data · local source snapshot · no backend calls</p></div></header><div className="grid"><section data-demo="settings"><SettingsPanel styles={{colors:{activeRowText:"#8ebcff",rowFocusOutline:"#8ebcff"}}} sectionLabel="Settings" activeId={active} onSelect={setActive} items={[{id:'usage',label:'Usage'},{id:'profile',label:'Profile'}]}/></section><section data-demo="usage"><UsageLimitCard styles={{colors:{defaultAccentColor:"#8ebcff",defaultProgressColor:"#8ebcff",defaultBadgeBackground:"#243f38",defaultBadgeColor:"#b0f2d4",progressTrackColor:"#33455d"}}} labels={labels} data={{title:'Today',periodDescription:'Current UTC day',used:3,total:10,usedLabel:'$3.00',totalLabel:'$10.00',remainingLabel:'$7.00',usedPercent:30,status:UsageLimitStatus.Default,progressAriaLabel:'Demo: 3 of 10, 30 percent used'}}/></section><section data-demo="stages"><h2>Response stages</h2><StagesPanel isStreaming stages={[{index:0,name:'Read demo sources',status:null,content:'Retrieving evidence for the demonstration.'}]}/></section></div></main>};
+createRoot(document.getElementById('root')!).render(<Demo/>);

@@ -1,0 +1,535 @@
+{
+  "id": "libs/toolset-editor",
+  "shortTitle": "Toolset editor",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-toolset-editor-01",
+      "title": "Toolset editor",
+      "layout": "cover",
+      "subtitle": "Coordinate MCP toolset editing through an explicit host adapter.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-toolset-editor",
+      "notes": "This session explains coordinate mcp toolset editing through an explicit host adapter. The library is a local private workspace package at libs/toolset-editor. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/toolset-editor/README.md",
+          "start": 1,
+          "end": 383
+        },
+        {
+          "file": "libs/toolset-editor/src/index.ts",
+          "start": 1,
+          "end": 47
+        },
+        {
+          "file": "libs/toolset-editor/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+          "start": 58,
+          "end": 425,
+          "symbol": "ToolsetEditor"
+        },
+        {
+          "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+          "start": 74,
+          "end": 150,
+          "symbol": "ToolsetEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-toolset-editor-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Coordinate MCP toolset editing through an explicit host adapter.",
+      "cards": [
+        {
+          "title": "Create a toolset",
+          "body": "Edit metadata, endpoint, transport and authentication settings."
+        },
+        {
+          "title": "Persist a draft",
+          "body": "Reuse the identifier returned by the first successful save."
+        },
+        {
+          "title": "Authorize access",
+          "body": "Delegate login and OAuth to host behavior."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Create a toolset: Edit metadata, endpoint, transport and authentication settings. Persist a draft: Reuse the identifier returned by the first successful save. Authorize access: Delegate login and OAuth to host behavior. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/toolset-editor/README.md",
+          "start": 1,
+          "end": 383
+        },
+        {
+          "file": "libs/toolset-editor/src/index.ts",
+          "start": 1,
+          "end": 47
+        },
+        {
+          "file": "libs/toolset-editor/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+          "start": 58,
+          "end": 425,
+          "symbol": "ToolsetEditor"
+        },
+        {
+          "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+          "start": 74,
+          "end": 150,
+          "symbol": "ToolsetEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-toolset-editor-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Editor form",
+          "body": "Metadata and setup"
+        },
+        {
+          "title": "onPersist",
+          "body": "Create or update"
+        },
+        {
+          "title": "Host authentication",
+          "body": "Post-save login / OAuth"
+        },
+        {
+          "title": "Completion callbacks",
+          "body": "Refresh and navigate"
+        }
+      ],
+      "takeaway": "Library: Form state, dirty/errors state and save orchestration around injected operations.",
+      "notes": "The library owns Form state, dirty/errors state and save orchestration around injected operations. The host owns HTTP persistence, OAuth execution, credentials APIs, routes and file-manager integration.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/toolset-editor/README.md",
+          "start": 1,
+          "end": 383
+        },
+        {
+          "file": "libs/toolset-editor/src/index.ts",
+          "start": 1,
+          "end": 47
+        },
+        {
+          "file": "libs/toolset-editor/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+          "start": 58,
+          "end": 425,
+          "symbol": "ToolsetEditor"
+        },
+        {
+          "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+          "start": 74,
+          "end": 150,
+          "symbol": "ToolsetEditorProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-toolset-editor-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "ToolsetEditor \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "initialForm",
+          "ToolsetFormData"
+        ],
+        [
+          "onPersist",
+          "(form: ToolsetFormData, toolsetId: string)\n=> Promise<string | null>"
+        ],
+        [
+          "onOAuthLogin",
+          "ToolsetOAuthLoginHandler"
+        ],
+        [
+          "authActions",
+          "ToolsetAuthActions"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/toolset-editor/README.md",
+          "start": 1,
+          "end": 383
+        },
+        {
+          "file": "libs/toolset-editor/src/index.ts",
+          "start": 1,
+          "end": 47
+        },
+        {
+          "file": "libs/toolset-editor/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+          "start": 58,
+          "end": 425,
+          "symbol": "ToolsetEditor"
+        },
+        {
+          "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+          "start": 74,
+          "end": 150,
+          "symbol": "ToolsetEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-toolset-editor-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "function ToolsetEditorDemo(host: ToolsetEditorProps) {\n  return <ToolsetEditor {...host} />;\n}\n\n// host includes required persistence, authentication,\n// notification, file-manager and navigation callbacks.\n// See the complete contract in content/api-index.md.",
+      "caption": "Full example: examples/toolset-editor.tsx \u00b7 uses @epam/ai-dial-toolset-editor",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/toolset-editor.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Edit metadata, endpoint, transport and authentication settings. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/toolset-editor/README.md",
+          "start": 1,
+          "end": 383
+        },
+        {
+          "file": "libs/toolset-editor/src/index.ts",
+          "start": 1,
+          "end": 47
+        },
+        {
+          "file": "libs/toolset-editor/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+          "start": 58,
+          "end": 425,
+          "symbol": "ToolsetEditor"
+        },
+        {
+          "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+          "start": 74,
+          "end": 150,
+          "symbol": "ToolsetEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-toolset-editor-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep toolset editor focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Prepare the adapter",
+          "body": "Supply the required persistence, file and auth callbacks."
+        },
+        {
+          "title": "Collect toolset values",
+          "body": "Let the editor coordinate metadata and setup controls."
+        },
+        {
+          "title": "Run host operations",
+          "body": "Keep credential flows, endpoint calls and routing in the host."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Prepare the adapter: Supply the required persistence, file and auth callbacks. Collect toolset values: Let the editor coordinate metadata and setup controls. Run host operations: Keep credential flows, endpoint calls and routing in the host. The complete typed module in examples/toolset-editor.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/toolset-editor/README.md",
+          "start": 1,
+          "end": 383
+        },
+        {
+          "file": "libs/toolset-editor/src/index.ts",
+          "start": 1,
+          "end": 47
+        },
+        {
+          "file": "libs/toolset-editor/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+          "start": 58,
+          "end": 425,
+          "symbol": "ToolsetEditor"
+        },
+        {
+          "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+          "start": 74,
+          "end": 150,
+          "symbol": "ToolsetEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-toolset-editor-10",
+      "title": "Validate a candidate endpoint",
+      "layout": "code",
+      "kicker": "Use an exported utility before host persistence.",
+      "code": "const valid = isValidEndpointUrl(\n  'https://example.com/mcp',\n);",
+      "caption": "Focused source-backed example \u00b7 see examples/ and content/api-index.md.",
+      "notes": "This pure validation example is included in the full module. A valid URL does not establish toolset availability or successful authentication. The complete ToolsetEditor still requires every prop in the exported contract.",
+      "sources": [
+        {
+          "file": "libs/toolset-editor/README.md",
+          "start": 1,
+          "end": 383
+        },
+        {
+          "file": "libs/toolset-editor/src/index.ts",
+          "start": 1,
+          "end": 47
+        },
+        {
+          "file": "libs/toolset-editor/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+          "start": 58,
+          "end": 425,
+          "symbol": "ToolsetEditor"
+        },
+        {
+          "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+          "start": 74,
+          "end": 150,
+          "symbol": "ToolsetEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-toolset-editor-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Typed integration",
+          "body": "ToolsetEditorProps makes persistence, auth and file dependencies explicit."
+        },
+        {
+          "title": "Shared metadata",
+          "body": "GeneralForm reuses builder-form fields and validation."
+        },
+        {
+          "title": "MCP URL resolver",
+          "body": "buildMcpUrl receives the current draft identifier."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Typed integration: ToolsetEditorProps makes persistence, auth and file dependencies explicit. Shared metadata: GeneralForm reuses builder-form fields and validation. MCP URL resolver: buildMcpUrl receives the current draft identifier. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/toolset-editor/README.md",
+          "start": 1,
+          "end": 383
+        },
+        {
+          "file": "libs/toolset-editor/src/index.ts",
+          "start": 1,
+          "end": 47
+        },
+        {
+          "file": "libs/toolset-editor/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+          "start": 58,
+          "end": 425,
+          "symbol": "ToolsetEditor"
+        },
+        {
+          "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+          "start": 74,
+          "end": 150,
+          "symbol": "ToolsetEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-toolset-editor-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat/pages/ToolsetEditor/ToolsetEditor.tsx"
+        ],
+        [
+          "Test evidence",
+          "renders the default title, description, and copy button"
+        ],
+        [
+          "Test evidence",
+          "calls onAuthChange with ApiKey type when the ApiKey option is clicked"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: apps/chat/src/pages/ToolsetEditor/ToolsetEditor.tsx; apps/chat/src/pages/ToolsetEditor/CustomAppEditorView.tsx; apps/chat/src/hooks/toolsets/useToolsetEditorOAuthLogin.ts; apps/chat/src/models/custom-apps.ts; apps/chat/src/utils/toolsets.ts. Existing test evidence: [{\"file\": \"libs/toolset-editor/src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx\", \"assertions\": [\"ConnectMcpUrlContent\", \"renders the default title, description, and copy button\", \"renders host-supplied labels instead of the defaults\", \"copies the endpoint URL to the clipboard\", \"announces the copy through the polite live region\"]}, {\"file\": \"libs/toolset-editor/src/components/AuthSection/tests/AuthSection.spec.tsx\", \"assertions\": [\",\", \"AuthSection\", \"type selection\", \"calls onAuthChange with ApiKey type when the ApiKey option is clicked\", \"calls onAuthChange with OAuth type when the OAuth option is clicked\", \"disables every non-selected auth-type option while the toolset is logged in, leaving the selected one enabled\", \"marks the active auth type as checked for assistive technology\", \"defaults a fresh OAuth selection to WithConfig so config fields are visible immediately\", \"defaults an OAuth selection to WithLogin when a client is already configured\", \"API Key conditional fields\", \"renders key header and API key inputs when ApiKey + WithLogin is active\", \"masks the API key value and exposes a reveal toggle\", \"renders only the key header input when ApiKey + WithoutLogin is active\", \"renders WithLogin and WithoutLogin radio buttons for ApiKey\", \"OAuth conditional fields\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-toolset-editor:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately. Existing test evidence includes: calls onAuthChange with ApiKey type when the ApiKey option is clicked.",
+      "sources": [
+        {
+          "file": "libs/toolset-editor/README.md",
+          "start": 1,
+          "end": 383
+        },
+        {
+          "file": "libs/toolset-editor/src/index.ts",
+          "start": 1,
+          "end": 47
+        },
+        {
+          "file": "libs/toolset-editor/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+          "start": 58,
+          "end": 425,
+          "symbol": "ToolsetEditor"
+        },
+        {
+          "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+          "start": 74,
+          "end": 150,
+          "symbol": "ToolsetEditorProps"
+        },
+        {
+          "file": "apps/chat/src/pages/ToolsetEditor/ToolsetEditor.tsx",
+          "start": 1,
+          "end": 463
+        },
+        {
+          "file": "libs/toolset-editor/src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx",
+          "start": 1,
+          "end": 63
+        },
+        {
+          "file": "libs/toolset-editor/src/components/AuthSection/tests/AuthSection.spec.tsx",
+          "start": 1,
+          "end": 808
+        }
+      ]
+    },
+    {
+      "id": "lib-toolset-editor-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "No minimal fake backend",
+          "body": "A working editor needs the required host callbacks and file component."
+        },
+        {
+          "title": "Form identity",
+          "body": "A new initialForm object reseeds the editing session."
+        },
+        {
+          "title": "Boundary discrepancy",
+          "body": "Current code imports chat-hooks symbols; document this wider dependency."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. No minimal fake backend: A working editor needs the required host callbacks and file component. Form identity: A new initialForm object reseeds the editing session. Boundary discrepancy: Current code imports chat-hooks symbols; document this wider dependency. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/toolset-editor/README.md",
+          "start": 1,
+          "end": 383
+        },
+        {
+          "file": "libs/toolset-editor/src/index.ts",
+          "start": 1,
+          "end": 47
+        },
+        {
+          "file": "libs/toolset-editor/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+          "start": 58,
+          "end": 425,
+          "symbol": "ToolsetEditor"
+        },
+        {
+          "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+          "start": 74,
+          "end": 150,
+          "symbol": "ToolsetEditorProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/toolset-editor.pptx"
+}

@@ -1,0 +1,1755 @@
+{
+  "observedAt": "2026-09-21T19:06:36.887689+00:00",
+  "initialSnapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "finalCommit": "71ae573f4bb46b58671dec4791a5c32e584fdc5d",
+  "finalGitStatus": [
+    "?? .claude/skills/pptx/",
+    "?? skills-lock.json"
+  ],
+  "changedTrackedPathsSinceInitialCommit": [
+    "apps/chat-api/src/app-config/app-config.service.ts",
+    "apps/chat-api/src/app-config/enabled-ui-features.normalizer.ts",
+    "apps/chat-api/src/app-config/tests/app-config.service.spec.ts",
+    "apps/chat-api/src/app-config/tests/enabled-ui-features.normalizer.spec.ts",
+    "openspec/changes/archive/2026-09-21-extract-enabled-ui-features-normalization/design.md",
+    "openspec/changes/archive/2026-09-21-extract-enabled-ui-features-normalization/proposal.md",
+    "openspec/changes/archive/2026-09-21-extract-enabled-ui-features-normalization/specs/config-registry-and-env-provider/spec.md",
+    "openspec/changes/archive/2026-09-21-extract-enabled-ui-features-normalization/tasks.md",
+    "openspec/changes/migrate-nestjs-v12/.openspec.yaml",
+    "openspec/changes/migrate-nestjs-v12/design.md",
+    "openspec/changes/migrate-nestjs-v12/proposal.md",
+    "openspec/changes/migrate-nestjs-v12/specs/chat-api-backend/spec.md",
+    "openspec/changes/migrate-nestjs-v12/tasks.md",
+    "openspec/specs/config-registry-and-env-provider/spec.md"
+  ],
+  "citedFiles": 279,
+  "currentSourceMismatches": [],
+  "initialCommitMismatches": [],
+  "apps": [
+    "apps/chat",
+    "apps/chat-api",
+    "apps/chat-overlay-sandbox",
+    "apps/mcp-app-sandbox"
+  ],
+  "libs": [
+    "libs/attachment-canvas",
+    "libs/attachment-input",
+    "libs/builder-form",
+    "libs/catalog",
+    "libs/chat-api-client",
+    "libs/chat-hooks",
+    "libs/chat-overlay",
+    "libs/chat-shared",
+    "libs/conversation-input",
+    "libs/conversation-messages",
+    "libs/conversation-panel",
+    "libs/conversation-stages",
+    "libs/mcp-apps",
+    "libs/navigation-panel",
+    "libs/prompt-editor",
+    "libs/prompts",
+    "libs/publish-panel",
+    "libs/quotations",
+    "libs/scheduled-tasks",
+    "libs/settings-panel",
+    "libs/share",
+    "libs/sidebar",
+    "libs/skill-editor",
+    "libs/skills",
+    "libs/source-panel",
+    "libs/starter-buttons",
+    "libs/toolset-editor",
+    "libs/usage-dashboard"
+  ],
+  "explanation": "HEAD changed during the presentation task. This task made no source-repository edits, installs, builds or git writes. The original audit commit is preserved in all deck notes. Every cited file is compared with both that commit and the current working tree.",
+  "files": [
+    {
+      "file": "docs/architecture.md",
+      "recordedSha256": "11d68044319488e12cadc6e0f9e93daee7ef3ad698716bc980738abfbbbe45ca",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "package.json",
+      "recordedSha256": "1a38cf466c44340a2e397a7abf82679cd00d4dcc7c9147648fbc9b7fbdda26e4",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/types/routes.ts",
+      "recordedSha256": "6b45e9937e71f392a6657670271c21cdb4dac5a3e5f624f2f69720c51e56283b",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/pages/Conversation/Conversation.tsx",
+      "recordedSha256": "26a3f8b72891eae81f949fa07bf1e2f66a1bf51e9cb5424f54b1a449d5f80daa",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/README.md",
+      "recordedSha256": "2a68820319df6ae077a2cb27818dfdb9bcbfeda149449525be1d37c3e12f0346",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/README.md",
+      "recordedSha256": "f693d27a3e413a6924bbee0ab5a6f5db4fbf53473ad0535fa4df6c3477c75554",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/README.md",
+      "recordedSha256": "b3c2d82de6c5af6dddd99962349dba25e51ebe7cd18169d559117ed963078372",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/mcp-app-sandbox/README.md",
+      "recordedSha256": "228de4d95815556686aba97762ac0de8b9cebf5856abe76c150eb830598f5633",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-input/src/index.ts",
+      "recordedSha256": "94a3ceae8671aa3f9501acabeb80943b8a9c307d2bf197437e4d200084725dd7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-canvas/src/index.ts",
+      "recordedSha256": "c155520ece1cccc8ba1734fb3657a40d385b6261772816d856c7c5debc0947bc",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/navigation-panel/src/index.ts",
+      "recordedSha256": "a1a44a8672ae639c4c821041427ee81a0625c09e43da750844a6597915e2f0f5",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/catalog/src/index.ts",
+      "recordedSha256": "f9e687a0bc8a376190fb951e0ceca9a1b76221641eb760f7fdee380c65098d49",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-hooks/src/index.ts",
+      "recordedSha256": "4313084fc38ea99bec639787c131f87d697cfa6f3e3fb2c16be4b539679c977e",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-overlay/src/index.ts",
+      "recordedSha256": "6b854574ade4ae9e5d6e35b3c97d055d2ae8fdb4b405a02da1d82fc2945bbaf7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/mcp-apps/src/index.ts",
+      "recordedSha256": "2d0d9bb6f8a7e65f220459c174461bf388ad795a806f10c613bf1bd6865e5726",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "AGENTS.md",
+      "recordedSha256": "e16f8c6d4c62405cc98b402cfb4fc48e69ab63c959790a9be48432886a4354cf",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/main.tsx",
+      "recordedSha256": "f78c0ab3bc3a966c250ebcc5e2926901d855f6cd9de354e20773a85faba943ba",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/app/app.module.ts",
+      "recordedSha256": "dffef5dfda1543478249fe20f1c0c7a54f5384da8ce37d42fdefa05cb022ee70",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/server-api/chat-stream.api.ts",
+      "recordedSha256": "901c0828bb743642f8cebb6718903d60565f38c709f72c3704f1c25bd802738d",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-hooks/src/conversation/create-chat-stream-api.ts",
+      "recordedSha256": "46958fc4559b253cd32e29078d138c2888b69202a3083d9874507dd8976b2dfa",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/conversations/conversation.controller.ts",
+      "recordedSha256": "7ab0b0a963971946d95f9682cb2d579f3bea5790d954c469cb98f02d6a55aeeb",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/conversations/streaming/conversation-streaming.service.ts",
+      "recordedSha256": "229342510f9e5aa8a51225485f563b55da72613363cef5148a512fef2a5ac27a",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-hooks/src/conversation/useConversationStream/useConversationStream.ts",
+      "recordedSha256": "0ed14b9d22640a30416e17444bef2c49f0fde15749b7d93252ec2777964f3ad8",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-api-client/src/generated/src/runtime.ts",
+      "recordedSha256": "e88dc6f3c9f57573591437ae71cd2eadce85491092b7af59ed5d322e1103b0be",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+      "recordedSha256": "37577cbb47c5f0bf2b2cd83ff9c6e8fcdfacd692405737a56136fd6d3c575dea",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/server-api/api-client.ts",
+      "recordedSha256": "68f733c8801c09d2a5ed4c9794303ee5198a8007fb76ceaccc6b5def4c2b9a4f",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/components/ConversationView/ConversationView.tsx",
+      "recordedSha256": "b56fdd050e4f172161b988e69133584d64b35a613b546d4bac8a312aba01a87c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+      "recordedSha256": "0b5482db7f191149a2e2bbd7f2f49ec3609fe7f2a3e0e72dacdba91d3aa34fb7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+      "recordedSha256": "27217aebfac2b97827cc3d10430e8ada0d998099e9e57ba3162dff22c827a14b",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/usage-dashboard/src/components/UsageLimitCard/UsageLimitCard.tsx",
+      "recordedSha256": "eed667d54158038155931cc07ca8039a9f2deda291e526757b1842db577b4c84",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+      "recordedSha256": "7f287f785578e89971a23828e426a30b9329cb22825e32559e4c686779462450",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-hooks/package.json",
+      "recordedSha256": "57e0dc73f678ae90f4ff784f39e4f31f223b1af60d03e2105828377ad9de85c6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-overlay/README.md",
+      "recordedSha256": "75113fb7fb88105169bfea25cc56cdf5f63dc6a409aa74cbfb210e513013f7fe",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "tools/publish-lib.mjs",
+      "recordedSha256": "6199d7641d6cf8e441abe0771004e0ac1a87ebb12287e919b91533cebed9a024",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "docs/theme-customization.md",
+      "recordedSha256": "9c2f797325b45d9b4072be3112306ef72adbefbec3819256a72b492d3a20dbab",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/themes/theme.controller.ts",
+      "recordedSha256": "8d82cfb5b3aa1e3f1e350cc1f7a6371aea7a73f6fb91ce33b50664c8c8b7b3b8",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/context/ThemeContext.tsx",
+      "recordedSha256": "fc4323775e5923726fe0ddd1f9ced13910ac9802dbfc481b55806b0f480b8ece",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-shared/src/utils/build-css-vars.ts",
+      "recordedSha256": "eeb4495f5158ae5b06fe3ef5a28ebcbf3f85b8006a93b6e80925465ad6061b35",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/i18n/config.ts",
+      "recordedSha256": "004f30d24145ae52e885293c1877c2d0b83c07a78a2622d985af6d4859255726",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/navigation-panel/src/models/navigation-panel-props.ts",
+      "recordedSha256": "ee6a294f3cb7344f8e54c89195f0a5d84b407eddd169c91e8f3aaf415c1dc68b",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "docs/auth/auth-bff-encrypted-cookie.md",
+      "recordedSha256": "ea0ff581d407c4156a2e8992a56ec6ab6baa45e3bcf378a9b4719da36d759d0d",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/auth/session/session.guard.ts",
+      "recordedSha256": "c3e85b9edee2ecf4cbc5fbf53c1febf6286d385114d7cc0fbffe15f02314f8a0",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/auth/session/session.service.ts",
+      "recordedSha256": "79a4d5dc366d5d8a9d8797206ecc9ba802253550eada5ba214ecae127098fbd0",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/auth/refresh/refresh.service.ts",
+      "recordedSha256": "f0236373b9437ef9390da89c8f48e85d3120277990a9b22f551290fc2a722798",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "docs/responses-api-integration.md",
+      "recordedSha256": "1f8f8970c4272e059e908050b515e64a77215bea52ca85dd21ef80b7da19aee0",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/conversations/generation/generation-api.ts",
+      "recordedSha256": "91657b176c5cd69e24c343a36981d5960d99068576e790da93cb1d194a4bea80",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/vite.config.mts",
+      "recordedSha256": "87d4a028c55430b7f51703daa451fb6f3956f9f0899b83f9717d711dc6a128bf",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "nx.json",
+      "recordedSha256": "b4efa6b2467b8ea5e6d60655352f8a39e7c84206bd3760931b83a1bbfbfbaf18",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/builder-form/src/index.ts",
+      "recordedSha256": "ebc0e55dc495e62eb68bc0486ab247d6e02560948a464b43bee609a911525874",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/toolset-editor/src/components/GeneralForm/GeneralForm.tsx",
+      "recordedSha256": "0647c5e0985462b67f0f82eb730354a71c90690c2d020843e327440513d5e427",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+      "recordedSha256": "e96a113f1891db8b1c1fe87aaf7c43b6415be1e51a3b90fe57f26d44266e249f",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/toolset-editor/package.json",
+      "recordedSha256": "2c77d2fb55e8d248fc1a95e69b06a9992fd6f50dfcde6c45885b15fa5aaec134",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/usage-dashboard/src/utils/map-user-usage-to-model-limits.ts",
+      "recordedSha256": "f5ed004e99721fd7d5f93a408315e60f634b838a88bbcf09aa3e3532e4d1b622",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/conversations/conversation-generation.service.ts",
+      "recordedSha256": "18a04eab0aade420f29032d79b2e9d8e880e9500d51b4063e277d0029a2f16ae",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/app/app.tsx",
+      "recordedSha256": "8ab0107ad7084528feab287f2de5046abb6fb4447b66675ee37695ca156ac7d3",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+      "recordedSha256": "f408288249e81b88b4bec5a1218820e59471a7aecfebb1c8189b41a6f4cfd530",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/hooks/breakpoint/useBreakpoint.ts",
+      "recordedSha256": "0b1697ca558ba073408a7f18f8221f969a5a50d195367b78b69ecbc2e68ac980",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-messages/src/models/message-bubble.ts",
+      "recordedSha256": "e82551bf53ba669775468d06ca15b9e5e13d094dd019bbcd32def7058ae31df9",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/pages/ConversationRoute/ConversationRoute.integration.spec.tsx",
+      "recordedSha256": "181a118c2ca68d6a407e3faee1cfce359482a4a555fd65b4a1b3e3a7052b5cb3",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/components/ConversationView/tests/ConversationMessageItem.spec.tsx",
+      "recordedSha256": "d43d023685a99a2e0aeb37d74a7e406a93316fb4e37d820b427448c51239b0ae",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/context/overlay/tests/OverlayContext.spec.tsx",
+      "recordedSha256": "426378c245fc8a4cb04266b6ac39a718524653988fd9a63910444649075b09e7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/server-api/chat.api.ts",
+      "recordedSha256": "d4e6996d829379d12ad8ad46a57b4877201c7f200a3f82345826804997baf496",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/pages/PromptEditor/PromptEditor.tsx",
+      "recordedSha256": "55808449d8574799f95ae6f59c9022edfc78c74f000d856a098cfffc3de04f1a",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+      "recordedSha256": "ce460facd70bb9b7bffc73d1a4b578da17883d06ffd83cad9c6ef5e9d189d98e",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/main.ts",
+      "recordedSha256": "df17d60ed7f014fc2d7c2b889ad7ab02739500b8ea81363e110e570fd26e4ff6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/dial/dial-client.service.ts",
+      "recordedSha256": "38682389cd5f495dafe2be7cc67bedc9991db7b76c015b135a0e9c5ac045bd66",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/deployments/deployments.controller.ts",
+      "recordedSha256": "546c7f68d4a470226cd44f0b3cfb473105cc3f4df10cf5aaea57fd967f36d941",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/auth/auth.controller.ts",
+      "recordedSha256": "96e5ebbf9b98bde44d41be0fffa562eba2e4f30be6f71ff53675f11b1e8390d6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/auth/strategies/cookie-session.strategy.ts",
+      "recordedSha256": "dc6934bf7da56f9f338d81209bed09920d0bc9464bf0edfa004f5e88a744e7ed",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/auth/strategies/header-token.strategy.ts",
+      "recordedSha256": "45fefd3191371b9fe836f6cddff795d89ccb00743984ce0e33326521f60fffe2",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/chat/chat.controller.ts",
+      "recordedSha256": "885c015bb987e75347e2344d9c20e1cd7183dd748f466d1c7d5b7b86f190eb8c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/chat/dto/chat-completion.dto.ts",
+      "recordedSha256": "72df7bca28e9c5c8dc8253c707a2c25627a980ac0194fb369cf5aebe03f84d6a",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "tools/openapi/check-client.mjs",
+      "recordedSha256": "50a633cb318a92be9aae4764530dee8b31ae0249ade02bfff291c7684867efb0",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/openapi/openapi.config.ts",
+      "recordedSha256": "6ca3332b60492c442fa3ff83a5e22548572833465ce87bee3c30a4c9009e3823",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-api-client/src/index.ts",
+      "recordedSha256": "9595b14b923d892a2d5fb3f6a285231df4a3f87353015eeee4a608bc9ef45cf6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/config/environment.config.ts",
+      "recordedSha256": "0d6aaaea7d9bbc2f071b4bbb5c3ff064d4e3baea18d6952c92fd23cd6a14bb4b",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/conversations/tests/conversation.controller.integration.spec.ts",
+      "recordedSha256": "ad214eb43b6678ea35179fba775833d6dc2f462052d7c7d986fa60bacab9a703",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/auth/session/tests/session.guard.spec.ts",
+      "recordedSha256": "5bd37b49643cf99376871f86487f265cc86846709b39e484c9799a3955c3ab98",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/chat/tests/chat.controller.integration.spec.ts",
+      "recordedSha256": "cf9635e5e63d27ffc94f536395886c98915414fc9589571305eb858933eadd8f",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/app/cache.config.ts",
+      "recordedSha256": "477a23d143674a0c5633b47fe8b4a87e4d5e227183b9cc1be705992662767a75",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/main.tsx",
+      "recordedSha256": "f4bfa9c1823defbf7ad4ec74b4489f5077c07e1b8b94a6cc4b20ce1cd8693346",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+      "recordedSha256": "fbce2a822e49bc313bfc5fb9bc6b8bc236067e3c5a28495fcf965b2a4e373523",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/cases/DirectOverlayCase/DirectOverlayCase.tsx",
+      "recordedSha256": "44280ad60faa1b4c895687e7caf8d1241bf5ee311c98b9bae9fceac476be8637",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/vite.config.mts",
+      "recordedSha256": "898c2d83ba74c89773446ad27a095cb84b59fb4b304f8bc5c07aa209c26c64b6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "Dockerfile",
+      "recordedSha256": "5783cd82f0d0feee93ec19beb85c503351852f1a600d6e6049cafcf2797ccf68",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/app/static-assets.ts",
+      "recordedSha256": "2af2cb7b976104cd56a1653d6e58674ae0309334f53c50486fd74c2c3319c2a2",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/package.json",
+      "recordedSha256": "a1ded773c1724b88d26ff83f76592711ba9cb982bd703b25526474890a99c6d0",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/mcp-app-sandbox/src/main.ts",
+      "recordedSha256": "40cb4ca0b34f185dfa57ae5daa4cacfa848251e94bde59825038f2677e3ec9b0",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/mcp-app-sandbox/src/app/sandbox-page.ts",
+      "recordedSha256": "64702d3ac4367080b45017867e40f74853c73c8cbfa0528ec8d6388c25359bf4",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/mcp-app-sandbox/src/app/sandbox.controller.ts",
+      "recordedSha256": "9df3ea0db46d923b6d05419ca9ab4b47cc29fde7d87cb004346f2c34bf7db44a",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/mcp-app-sandbox/src/app/sandbox.service.ts",
+      "recordedSha256": "4f05a3b2e9bdce0a5e729857ba5f34be8d7f33d9e91e0edc21318c5701c98060",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/mcp-app-sandbox/src/config/environment.config.ts",
+      "recordedSha256": "8207d31f1d3b3489646f882d4fd9059997741d3c000d2a2b33bd0258c1b16d8e",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/mcp-app-sandbox/src/app/csp.ts",
+      "recordedSha256": "36b3f00a425b54612acc515a4ec7eef398016821304ab97f42c5425b3a915e9b",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/mcp-apps/src/models/mcp-apps.ts",
+      "recordedSha256": "f4ddf58ab5ef927422b10efb2d8f597e01362d43583478329418f32e48e8bbaa",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-canvas/src/components/McpAppCanvasRenderer/McpAppCanvasRenderer.tsx",
+      "recordedSha256": "685c7b4c540736b6f2143ec8c776b27e92df5d6724e5c507dd9308dfc078a66f",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/mcp-app-sandbox/package.json",
+      "recordedSha256": "e011be0b3d97807489d071be9e06ac12472d1d04e995dbf10b547a68efa63c4c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/mcp-app-sandbox/Dockerfile",
+      "recordedSha256": "b84737036f8928ba6e2c135e7911ec2b0298c4193ba3d83ff48c4e52900f73b3",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-canvas/README.md",
+      "recordedSha256": "2011067ee17524b01c1ed6acedc32286d4b1ebed214756755a0f6f2562840645",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-canvas/package.json",
+      "recordedSha256": "3e0f9054aa59361d5f488231fb993a95cd0e538bdacdcf1c6529459620b96c1a",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+      "recordedSha256": "744d27e0e709706a11c4c0c696d6a5b8af93e9e1a85979acd2211d6a54091703",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/mcp-apps/src/hooks/useMcpAppInlinePreview/useMcpAppInlinePreview.ts",
+      "recordedSha256": "36dece0a76c8d9ec08b310011d011804bbd76fe09a6c6bd90fde47fd18bae1a9",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-canvas/src/hooks/useOpenAttachmentCanvas/tests/useOpenAttachmentCanvas.spec.ts",
+      "recordedSha256": "49d9008be57a783fdef2ed2b424b8ebef9a3d19e794484df946e59a3689c49d7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-canvas/src/components/CodeContent/tests/CodeContent.spec.tsx",
+      "recordedSha256": "31d9c34d33d6b37d1e2150fbd5afc3060ce782b88869c26e0f298e6c070326c7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-input/README.md",
+      "recordedSha256": "1c76a3945553811a533d3a6b38fa9625d57436ef13926d7f3f50086c15ca7b6b",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-input/src/index.ts",
+      "recordedSha256": "8d3e726233e5ed14cb3eb18d1c1c28e5789563394c7fd5d8f6ead20254fa4c86",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-input/package.json",
+      "recordedSha256": "f3b747e7ebe09afc90d028ad73d7910bccbca6422ed11f38a589e6140cc0dc7c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-input/src/components/AttachmentTray/AttachmentTray.tsx",
+      "recordedSha256": "110ade4f470cc59b1745ae127945d124a3fddc7e63539fd8333cc2f82f92168a",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-input/src/models/attachment-tray.ts",
+      "recordedSha256": "e0f8812918d77322ca69ed5e31b2206b9ca7343b9f153ce60e8204254f721f18",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-messages/src/components/MessageBubble/UserMessageBubble.tsx",
+      "recordedSha256": "ae1e7d0b8fd3a6661336fcc53c967331418c5c279888fcaaf08eb53169440f10",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-input/src/hooks/tests/useClipboardPaste.spec.ts",
+      "recordedSha256": "88dd3d54cf457f3ec5b6785ad084386b0504ea924c4c79bbcbfabc98a3d7aadb",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/attachment-input/src/hooks/tests/useLazyImageLoad.spec.tsx",
+      "recordedSha256": "0d4ece329aa16026a6a409efcf57bb93592342054d22b01ff07af6aa14d8ca46",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/builder-form/README.md",
+      "recordedSha256": "64c62a99f4740cbd5c1c94e53aa1ed083bdfddbaef8bd9ecb4911320bfafd18b",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/builder-form/package.json",
+      "recordedSha256": "8a691b1edbf3d2c42acc1f5970e73d1d4f01a614f7e7ad6de631d57772f4a59d",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+      "recordedSha256": "5640dc79ca8fda28a4fbba0532a3ecff772cab7fae1e99b2232083f9d7e0ccc0",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/builder-form/src/models/editor-layout-props.ts",
+      "recordedSha256": "570e3c79d7ad0e4ac2cfff19cf6c3101665b2350447f9fa404689b79df4c49eb",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+      "recordedSha256": "dcdbe70137b45dab6435a5d08796179b897b950e06a090db06a025a2bd8c46bf",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/builder-form/src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx",
+      "recordedSha256": "a3f8ac8dda326b1e82265d6594433332c59b79facd34f01c6051063d26f779be",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/builder-form/src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx",
+      "recordedSha256": "5d6a49882c28188bd52e70ec20b41ea56f17e0a8e6a9d4f5ec757cbe3a4d967a",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/catalog/README.md",
+      "recordedSha256": "124de404df9d90bcb701598ebe23ff9272246cc32ff7401b2c7a439a7ada6a07",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/catalog/package.json",
+      "recordedSha256": "7351041ccfdb499b87da60168f69f52f36abef4f2e04aa109359a491c3ffa675",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/catalog/src/components/Catalog/Catalog.tsx",
+      "recordedSha256": "4fc90cb40b2cfcd3acf637d7a6629fcb41cc201f225a89085ed932555e01e981",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/catalog/src/models/catalog-props.ts",
+      "recordedSha256": "2b59d363d20118120d68174b46d355b3da1e0255920237125fcdb8b9592583ac",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/catalog/src/utils/catalog-filter.ts",
+      "recordedSha256": "298bb2b7e5d12d1cae7ee449a276c91fa2b0b21ff87fdddf6a398a4cab6a2be6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skills/src/components/SkillDetailsSidePanel/SkillDetailsSidePanel.tsx",
+      "recordedSha256": "cc1f1c9a029334a0f373388774b2a795fc3ce01b8f03b454047604c876129d3e",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/catalog/src/components/Filter/tests/Filter.spec.tsx",
+      "recordedSha256": "2c397fdfe7ff7c9e1cec07ab05383622ed5e0afb461d852ad335b2decf91190a",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/catalog/src/components/CardGrid/tests/Card.spec.tsx",
+      "recordedSha256": "7d298a3b4d59148b9abda3e679c778495aaee9abb50e78b64b752d498cd6f92d",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-api-client/README.md",
+      "recordedSha256": "4a16687602d6c555d3e6361209ed09b05bbf2024cc0c0273523c16f43abdd82d",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-api-client/package.json",
+      "recordedSha256": "53560db480d76e69153134efc863e2992e0ee5d295ab6b7325d80861ae59808c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-api-client/src/generated/src/apis/DeploymentsApi.ts",
+      "recordedSha256": "d63dbb386390c501d681907a91451f32d6a152779c501ad460e151abd9ba4af2",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-hooks/README.md",
+      "recordedSha256": "36c227607e1907faca077d496ee47f5a645e6480de74b1751622308696ca0e57",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/toolset-editor/src/components/AuthSection/AuthSection.tsx",
+      "recordedSha256": "a66d2f24d95df9ce8e39346addd6524c28231fedc24077fb09f701f56e461e0b",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-hooks/src/conversation/useImportFilePicker/tests/useImportFilePicker.spec.ts",
+      "recordedSha256": "bf4bcecb486d998a9700bace0cb86345b3155dede39b944418ff4f609f01047c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-hooks/src/conversation/useActiveConversationSync/tests/useActiveConversationSync.spec.ts",
+      "recordedSha256": "7e4863f4ab0679fbd3d306d9cebc3e07dd5ee594061f1cd083ea39b0f3daf9f6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-overlay/package.json",
+      "recordedSha256": "fbd147a19162e722f620d987542dec1bfe45d93ec394aa99713b6d31ad3f1674",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/cases/ConversationListCase/ConversationListCase.tsx",
+      "recordedSha256": "3cd12724df292dd8e92cf6ecfa67224732bb45da4fc920ba7f68bc6f8eaa406c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-overlay/src/lib/tests/ChatOverlay.spec.ts",
+      "recordedSha256": "a371fc83d9b38cc70dfaa899b34e60a6c11db37ca822e6f7ada9680482c629a7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-overlay/src/lib/tests/ChatOverlayManager.spec.ts",
+      "recordedSha256": "2fdae51fa4d0d43acfa6f106f5ea43e98aa6215de5fa0814645d751231f1d5be",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-shared/README.md",
+      "recordedSha256": "fb2617d064a20494fbcbb0ef438e862da759614e87414585d1c84512bd48ebf6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-shared/src/index.ts",
+      "recordedSha256": "cb68efd19a82fd9e4da28783b22cb4e127dc7a83c1b49a3941b8c6eaa7a131e6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-shared/package.json",
+      "recordedSha256": "b5abb2f0c3dfa0213ce36ea5a577c02d74a2fafeb9f998c5d9c2b625df2fa5bb",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-shared/src/file-manager/FileManagerAttachModal/tests/FileManagerAttachModal.spec.tsx",
+      "recordedSha256": "3e98a9f300c449acc6d0d5eb5ecec80cfa8aeca0ec8449193ef6d18d8d819e9e",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-shared/src/file-manager/useGridEditingScroll/tests/useGridEditingScroll.spec.ts",
+      "recordedSha256": "074e1811a26dc7825e24e526fb1d6c3905389017d64a4b0813b6ab325c031aeb",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-input/README.md",
+      "recordedSha256": "13b33e2f31b5ef8a7ced8bc9385bef1580aec7b7077565b555dbe727fb7b5269",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-input/package.json",
+      "recordedSha256": "175ba7d32e9b56fda818b21016562e692973b6bb013c2630575c8ac3cfa9e798",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-input/src/components/ConversationInput/ConversationInput.tsx",
+      "recordedSha256": "1f67fb88c294af713045a773e8bae6e3b6687593a1c0eb4bd5b7377294aae975",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-input/src/models/ConversationInput.ts",
+      "recordedSha256": "7cac81a5db3fc1e0f5fc016b73e56e74faa1ae33f3cc627d848aad0584c9054c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/hooks/conversation/useAudioTranscription.ts",
+      "recordedSha256": "e1e3e1be47040c9c3bf94faeb02c5cd873d9cb630f322adc1883f2fb475948ca",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-input/src/hooks/tests/useModelSelector.spec.tsx",
+      "recordedSha256": "f80ff1557ec6df20a98fa075da0516e122c52d2d61ba3e0e0181854b0ad14dfa",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-input/src/hooks/tests/useVoiceRecorder.spec.ts",
+      "recordedSha256": "af7c38dd9da84a8a2342efcf1ae58ebdcd0edcd80d529bd3a9124ce5c1d49665",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-messages/README.md",
+      "recordedSha256": "9dd2c8dcf28d8d77ad3e6aa21e153d64e6f24969e3b4a9c3da59d9e5f83597b4",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-messages/src/index.ts",
+      "recordedSha256": "f97caef9d5537bb5de98b5390fda36e4f0d6720cca42c5040133c848ffcc59bd",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-messages/package.json",
+      "recordedSha256": "d7f82592d0066cc327ff24b1dbbc8543b7a46a4731ec99e56d800f99a9df3f78",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+      "recordedSha256": "62cd4c430e24d34e931374d2b4bebf2519387095fff6e19d45900624ae79944f",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-messages/src/components/MessageActions/tests/MessageActions.spec.tsx",
+      "recordedSha256": "c6a3ea2caa6f4cd1d833ce41a17e404b5e88c7ebe2eb5edc1b8717c146eff5a4",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-messages/src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx",
+      "recordedSha256": "70fa90ec3496c7946644209f6d3fef59b65cd64cd6a3541bb7e5a755e32cb233",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-panel/README.md",
+      "recordedSha256": "e6ab9fe993a0aa04c72caeb5a4a7abfc33377094ec453085c9370b3693c2fbef",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-panel/src/index.ts",
+      "recordedSha256": "a5840a500faf9fef664a22c9972bddafe2751e060b4bd0ebb2d2c82fe6a6456f",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-panel/package.json",
+      "recordedSha256": "80fb18846c1e96e6ca6233891fe2f7aa8e692719c23581d9d0bfe8fa969e09a7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+      "recordedSha256": "45c1dcc9154770865b4bf8cc4ccd95a78a5678abf18bdc1a0bbeecb47188b1b3",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-panel/src/models/panel-props.ts",
+      "recordedSha256": "30a3dc09b7a93176d706e7f74cc9f696169c81593ba0705bb0c817cfe1ea1720",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/components/ConversationPanel/ConversationPanelView.tsx",
+      "recordedSha256": "df2c9fc1ba558d2b69b6293726971ee2b150170dc61be8db0279e554d3f1516c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-panel/src/components/FilterTabs/tests/FilterTabs.spec.tsx",
+      "recordedSha256": "86732645718da5060a7d337a5025ca6a77ca93425114f2ae965e1640cb2e3bf2",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-panel/src/components/ConversationRow/tests/ConversationRow.spec.tsx",
+      "recordedSha256": "3d5f62586de410cf00c9947c9b7ea87051f2152a47883e2f49c2c993171db802",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-stages/README.md",
+      "recordedSha256": "2983f1063878abe8c4478e351c25090383ab4174b17833916efe4e9e4f703a25",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-stages/src/index.ts",
+      "recordedSha256": "c0c5f3321730a0f7cc8b8bd6fbd8f2d64e132b12de050d1ec4f13247f82ff2c6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-stages/package.json",
+      "recordedSha256": "c36ead3fee0f32e7f566f46ed27236f8483b5c2ef11ac46dec8d4c15a4bd3e41",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-stages/src/models/stages-props.ts",
+      "recordedSha256": "1455ad59d324f6b24e4a3fdfd46434d67d2d97d4a0280d750f44e1ab29cc407d",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-stages/src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx",
+      "recordedSha256": "fa271fb7eb06f77fc122b6db4b5417daf2bd5447a6cbe822eb28b4c109a0d0f8",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/conversation-stages/src/components/StagesPanel/tests/StagesPanel.spec.tsx",
+      "recordedSha256": "ecbec35b09e388b1806e6908aa78271faeea6010794eb3922bafe273ab81b647",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/mcp-apps/README.md",
+      "recordedSha256": "2783be03a98b99ca5c01cc1e165e8aed5bb1510572f5407c2915cae2fc0f66da",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/mcp-apps/package.json",
+      "recordedSha256": "32ebcca1448da11df18429b3b6882dc9f0b06ed26c86f9bf6b2d88ac46680f2e",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/mcp-apps/src/components/McpAppInlinePreview/McpAppInlinePreview.tsx",
+      "recordedSha256": "baa95b834f827ce337576cb81dc9b95b0fa5854896285aa7dd39c6b78aa6e8f2",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-hooks/src/mcp-apps/useMcpAppTools/useMcpAppTools.ts",
+      "recordedSha256": "ab35776e89f0dc71f7e1f07eee3ee6cc7c115556a6e2aa30c38eec0f3baff1c8",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/mcp-apps/src/components/McpAppInlinePreview/tests/McpAppInlinePreview.classes.spec.tsx",
+      "recordedSha256": "79092f3a25a931073bf6c372704781d06eda95563d35c9d570d21b073d04a3e4",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/navigation-panel/README.md",
+      "recordedSha256": "c65192211acd0839658f0d3cb3412928b03df9e047a00f4f71fe715f722328a2",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/navigation-panel/package.json",
+      "recordedSha256": "2f7972797117735e5858ad917c3cd02c5641c1d26f99f7ec9123af81b367a082",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/navigation-panel/src/components/NavigationPanel/NavigationPanel.tsx",
+      "recordedSha256": "89c10f72d86d863c94835acb2080149b8d7e7c2c5f68d921d94057b473e27a56",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/components/Navigation/Navigation.tsx",
+      "recordedSha256": "b37503eed099db1b69d9d70f82c3fd64d5c2c7cfe65697ac6b76fa9317c91983",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/navigation-panel/src/components/NavigationPanel/tests/NavigationPanel.spec.tsx",
+      "recordedSha256": "9d247bd137e56e92b106bd787ee988c0181b3da5c96bf625acbc465c1a2676c0",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/navigation-panel/src/components/UserMenu/tests/UserMenu.spec.tsx",
+      "recordedSha256": "dbab8b4e6d2858edeaa6c3e39205c97703c546abc5f9897799d7447bd0051196",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompt-editor/README.md",
+      "recordedSha256": "c302c0e2446691283c0207bfc9e6aecf07cad70ae7b2e90551d8012a376bc638",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompt-editor/src/index.ts",
+      "recordedSha256": "c84cd6c9875af935e633a5596271fc76220b98bea916bfccba69a070c500efd8",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompt-editor/package.json",
+      "recordedSha256": "7fd9e01280d77b1736ee6bfad04e15ba6221e92fc76b16eb8975ebd1ecbb2f53",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+      "recordedSha256": "329038d9727bb5465b807808503cd998f1f999aaf6387a56ea5ed1d0f5ec6577",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+      "recordedSha256": "fd5e8f13fef4e103ad3122792335aa31203b45f1f1e31e9398c75c259625988f",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompts/README.md",
+      "recordedSha256": "9d4b4ecd06add0689d17c47d8dcfb868165e019972c252dd4026fd76bbb1ab05",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompts/src/index.ts",
+      "recordedSha256": "e953b6d296c41ab8c47feecd48c6f835c19efd6b6a586bacfe9f2fee9b313988",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompts/package.json",
+      "recordedSha256": "f198ed95b2ae0b9204f0850bf4f279b4b8e4931eef66967803e91887cfbff844",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+      "recordedSha256": "ae5cf34085f403f8bab29aa4f28a38d406e82081fe96c2cfd80f8618d84b7fbd",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+      "recordedSha256": "25bc69209106b70cde1758b15541b8edb9bf9de5b25a8294d6f6d0cc47173d02",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/components/PromptSelector/PromptParametersPopupOverlay.tsx",
+      "recordedSha256": "a2998f6474e2793b44cce87ebc9835fc148daa94494293d7269b1b76cc89e908",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompts/src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx",
+      "recordedSha256": "6f51a83e4d9f74083b1aa45900f47e89b550b4c7962441ff7fd6ca7301d3806f",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/prompts/src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx",
+      "recordedSha256": "8ffc1b5a2967de4ebde62e58b5991eff9e81ca46106e45ccc5db11e14d4c5ab2",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/publish-panel/README.md",
+      "recordedSha256": "c61c051677554fad9a852a5359aea303acabed98b6e5eaa8a409b66464629bcd",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/publish-panel/src/index.ts",
+      "recordedSha256": "aa0f7a2ce226eed347c698f45ec5ae8f75301ce29e6a10c86c0044dbc83ce5b1",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/publish-panel/package.json",
+      "recordedSha256": "94ad7a2c80a59982c5ee997a2a1192408036d98c2fbca71d39679f13f77376b7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+      "recordedSha256": "843c602a2d8484853c87ba2e56db985b6ed309116228e5f90b5fe60e8ec65f66",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-hooks/src/conversation/deriveConversationRowActionState/deriveConversationRowActionState.ts",
+      "recordedSha256": "794fe7d67ffb9552082a75c5b951f39d1ab540187b0cdc9cb61ef7b304d2ad66",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/publish-panel/src/components/PublishFoldersTree/tests/PublishFoldersTree.spec.tsx",
+      "recordedSha256": "7b703dac94f5519776f6b847eb49e8af26423fbe95c2bc8ab542d208c781a4d0",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/publish-panel/src/components/PublishHistoryList/tests/PublishHistoryList.spec.tsx",
+      "recordedSha256": "032a6942bc7221caeb83bb46ee3b57419a0038cc0a9931d09b160b9c984259fe",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/quotations/README.md",
+      "recordedSha256": "900ec32ef9e2d5054c026f2e6ce9dda5a0755ef15a26f1fc0a9b02fbaddbc9e3",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/quotations/src/index.ts",
+      "recordedSha256": "cd9683f122349b5fd7193b80da85f1993c2e56ef300e0dea252d2a1d9b4fd85b",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/quotations/package.json",
+      "recordedSha256": "e32394d371eead9d2cf9ab899d011ee8f4ef3019b68eede8a0488eb4e53d96c6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+      "recordedSha256": "a16c4467787f067a7f0cea265b8c1bc5bbeb7d362fb7a398bf192ec39116a6d5",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-hooks/src/conversation-sources/useConversationSources/useConversationSources.ts",
+      "recordedSha256": "33558fb1cfa687fc961ec677548efbac73adc23390b917e8bf430a43fb426832",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/quotations/src/hooks/useCitationMarkdownComponents/tests/useCitationMarkdownComponents.spec.tsx",
+      "recordedSha256": "f745cb6fa4f219b8d9cca6da1cf21aed70e6d83369ab16504dbdbeaabd321476",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/quotations/src/components/CitationMarker/tests/CitationMarker.spec.tsx",
+      "recordedSha256": "f2d29121193d183cec696313c8422554ca015d6acb679df87bbf76bf6896231b",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/scheduled-tasks/README.md",
+      "recordedSha256": "7d58408ade2200aa4419729d515ecb5f8c9880dd603969a120d0a32b2a09d810",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/scheduled-tasks/src/index.ts",
+      "recordedSha256": "b8d87d359f4f089c774a702dbeb7959fbb099466504f3fa11516d2e31f3c03d2",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/scheduled-tasks/package.json",
+      "recordedSha256": "46b01e34e5af35a15aaaceaf7eb56179a6bf236e5148af061eaa943e4c5fc68f",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/scheduled-tasks/src/components/ScheduledTasks/ScheduledTasks.tsx",
+      "recordedSha256": "2421e7d8864e8635d94b69a2cb5fcfc76cabe020333d170a0e3cba2533f935d8",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/scheduled-tasks/src/models/scheduled-tasks-props.ts",
+      "recordedSha256": "7e311e403c342e939349d4acfad1e7c4dcca8256b23299d641137b60eb316584",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/pages/ScheduledTaskDetailPage/ScheduledTaskDetailPage.tsx",
+      "recordedSha256": "2725562742e36c9a64cd9608ebe56fce315411b40891b6f47bf1f2f8458ac2c0",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/scheduled-tasks/src/components/ScheduledTaskCard/tests/ScheduledTaskCard.spec.tsx",
+      "recordedSha256": "91a1715f6d3f1c9759903fd5b5dcd20c3b9029f52282d9e896301bb4ff33f6d5",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/scheduled-tasks/src/components/ScheduledTaskDetailsSummary/tests/ScheduledTaskDetailsSummary.spec.tsx",
+      "recordedSha256": "59687a8339ad71340d06f9df918d16c5d771015efc10758b499db03fbbddd978",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/settings-panel/README.md",
+      "recordedSha256": "a5ad56b730467abc0705b914ca5089ed5fa7b0ab2de5c29a3239f63b2f5456fa",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/settings-panel/src/index.ts",
+      "recordedSha256": "8e9b0f54ede864eb45838bd03828b98fe6c5734ccb6b750d3197ec3bbdab80af",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/settings-panel/package.json",
+      "recordedSha256": "9bf3eb47f2dba3f624dcccc3cba36c767e3ebf8f26cebd3861539cbaf1fa8527",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+      "recordedSha256": "7b021cbc7503ebfe2f5f72ee5079411e51a05096b84a133d520b1899793da8f2",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/pages/SettingsPage/SettingsPage.tsx",
+      "recordedSha256": "44c91be986b3afd4aa418bc7b3a1908494c99356d694d12d794b6daa8e79ea09",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/settings-panel/src/components/SettingsPanel/tests/SettingsPanel.spec.tsx",
+      "recordedSha256": "2f0f554a0bed488090e4065c3b112cae2e5cc73e49e8e693da8f83baa962e7e7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/share/README.md",
+      "recordedSha256": "e0e0b1d71c5b3de87bbb7f405c383e8b57f2355ee08f59ec108653e06554b1b7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/share/src/index.ts",
+      "recordedSha256": "8c4d96802de28077c8194ba4e2c074534e68e7442d777b0d49ad6bd95643154c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/share/package.json",
+      "recordedSha256": "0216e7e55c333045dbdbb000ba7a902258f3298aa9375aca66e78c5a359a637a",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/share/src/components/SharePopover/SharePopover.tsx",
+      "recordedSha256": "0629bf1d68a7c1d1c4841539fa05486dd7e74d36a163749357d6ce5aae6daa20",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/share/src/models/share-popover-props.ts",
+      "recordedSha256": "5aa584acaded75e0c86e86252f9ff416f1f1debb22226d681c1f56d6971da9ad",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat-api/src/share/dto/create-share-link.dto.ts",
+      "recordedSha256": "3e42f1edfbce9868bab44f8fdaea015e134d979bc91e8e726341d0ed31eef348",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/share/src/components/SharePopover/tests/SharePopover.spec.tsx",
+      "recordedSha256": "2b80cd71d9087659ae6681888dee6680b585b936742fe79bc491023d598d5eb2",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/sidebar/README.md",
+      "recordedSha256": "c6dd6947e2b6d323ff15af02176a45018fade75874fae57591ec6f2d3f7b3077",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/sidebar/src/index.ts",
+      "recordedSha256": "164e7e49760ec671a5c97650d69443d4db03e9901a294e88a36b6223a7b40cff",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/sidebar/package.json",
+      "recordedSha256": "72961a5365f038d1bf67077e40fe94d610107a1ca9afad01b6a7fad8cf17d8db",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+      "recordedSha256": "9bdd5a2d08d48fdec95d6f4be6d2065961a8f958099d84f8194df32fb8a05a92",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/sidebar/src/models/panel-props.ts",
+      "recordedSha256": "0df5b49cd41c110831d2a7b490188c0692af03d3ac8eb5c9b739c5b0b18aa367",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+      "recordedSha256": "579be370da4b6c81face59e7d84f0c97dcba61d1418bd994fcf8c8c42ffde2c2",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.spec.tsx",
+      "recordedSha256": "64d6be8db7ad436e63b942471c8e0ae5dda3995a35b64be49518ad9211096854",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx",
+      "recordedSha256": "ffb12a7e19d236e2807e6e588e7b0f1a068ab6f4b57be213f946331f4d4dbf75",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skill-editor/README.md",
+      "recordedSha256": "94d3cc9fa383452f26286194a7196fa8aa25d3b11308e9a291468ac1bc70cf01",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skill-editor/src/index.ts",
+      "recordedSha256": "2f880aba9451cf714a62d07fc58df1f3baadf169bda2bc7b8d34e5eaf737e5a7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skill-editor/package.json",
+      "recordedSha256": "56b13611e241fdbac9c61f33c02f0d4b862aa9d72bb498bb350cb27cf96be51d",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+      "recordedSha256": "65a6cf42044e0df89f9bbc99190b0fbc28b86706621a4891049ce6779dd32d9c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+      "recordedSha256": "27e152cab7bb857b1c402891a9c77e855d0ff782ec3e33ba0401725934adb327",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/chat-hooks/src/skill/skill.ts",
+      "recordedSha256": "cde9b7b5330be4b66e09963a82855e3345dae8207a6401d00c3c2f1f86060f20",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skill-editor/src/hooks/tests/useSkillFileDropZone.spec.ts",
+      "recordedSha256": "217879654c4b52faaccfdf924bb84e56f58513b985bb79f3e7616dc4279bfcce",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skill-editor/src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx",
+      "recordedSha256": "395fb14250019c5b10c0eb6b55d29fcf760efa6c4c5076dda791d7e5bd840f13",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skills/README.md",
+      "recordedSha256": "aa29bcc707fcbca8f7a0edc79582e60e881ed65737b67c7f28696f83013c7270",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skills/src/index.ts",
+      "recordedSha256": "cefb3476f1215ff5d763a5dcde9cca1612920a3c481a10225e53f006c6d28cd4",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skills/package.json",
+      "recordedSha256": "de54818b9ae6066d47007013e325474af221bcd256620b5759a09d16d6373526",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+      "recordedSha256": "a6b45e9e7eb07fe45366ea432aeb7d1c78dd9b36a9324c218bb5decd03c72339",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+      "recordedSha256": "290e3ed5215da9386f71733b45dfff09df296f0f11cdcf6e545581d17a3fa9a3",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/components/SkillSelector/useSkillSelectorOverlay.tsx",
+      "recordedSha256": "d0295a11dc5232bf2814125c0ae4e3f0368aa25f3857347f253579d8c90394b3",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/skills/src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx",
+      "recordedSha256": "f5370d7af1b869257b6ef33e1940708e2ab6ce07f3d54ed76cf58e4b4cc999ca",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/source-panel/README.md",
+      "recordedSha256": "2bc302912c16c7145c629f9b2811246e348c255e0c7c74cc333cf08698168fc6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/source-panel/src/index.ts",
+      "recordedSha256": "4fcabb704bcb0642a9d6b2d297fd0170bc8977fe60ada0e51b4b6d31b1ed493a",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/source-panel/package.json",
+      "recordedSha256": "ded535db410b4fdd5b99494efa6bbd41a5d82dfe81f79136ca9033cdc4f79497",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+      "recordedSha256": "3bb6f5eec93386f5186c8e0b0dade75d6173936a7008b4ade190515a957699c6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+      "recordedSha256": "abc0bbf38b08d4d63de013d62e67ec4834db93521b300f14ef19e373de942db7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+      "recordedSha256": "f26e60c5f5c7e1a51109c7ce3727754bc2aa7c1c10b5c9d00f662cff0c51654c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/starter-buttons/README.md",
+      "recordedSha256": "f50b8bef851392dfd3a996f9dbfbc5a8af80d89a0e428b452c735cda7ed86ef4",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/starter-buttons/src/index.ts",
+      "recordedSha256": "10d10f84008fad51aca7b238c1f2bed1d26b29c9baac083bce5c8d0d2177d376",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/starter-buttons/package.json",
+      "recordedSha256": "b263bd9129b7e7efec72ce7b5b894ab9e66eb9aea78472d500add71b3972d5f1",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+      "recordedSha256": "36e2751c4f520967bc3d877d40d85bbe232bb0b6e7595768b4fe10a47c77a4e2",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/starter-buttons/src/models/starter-props.ts",
+      "recordedSha256": "6200b2848ba71c1aab9ebd7f1ed63c0080780d50b58d11f14e62ae6ac6549227",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/components/StarterButtons/StarterButtons.tsx",
+      "recordedSha256": "23b54a148e574b46ea7a760e4f908fc26a02f72ba31440014437c82d66b199b7",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.spec.tsx",
+      "recordedSha256": "53e6121c6a420d3f50403f7d5980d417f27c437e1b63984b0a856281871fcf8c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx",
+      "recordedSha256": "21c593b99c78334e8f1fe9738d1e1ad128fb671cb576800061fccca5094a8a53",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/toolset-editor/README.md",
+      "recordedSha256": "54f3a41a44c96c12ec1bf67e9bf98e8fa2970ca345be345ad09b332147b8f5cd",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/toolset-editor/src/index.ts",
+      "recordedSha256": "280d1733234b8c84ca8a8d119d225889eb3ca61b0cbc534fed2600dec7910c05",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+      "recordedSha256": "e031991ca133a099931faecb7f4f7108d6251da8bccc755173810a8dd249d534",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+      "recordedSha256": "dbdc423babb3d22edab45f6370bb1612d553d2ab89fe237b2f70a4eb97d61962",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/pages/ToolsetEditor/ToolsetEditor.tsx",
+      "recordedSha256": "47b1039081ba0e315ce0e52effcaf1f37fe4596e03ce2a7585357b24617f6daf",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/toolset-editor/src/components/ConnectMcpUrlContent/tests/ConnectMcpUrlContent.spec.tsx",
+      "recordedSha256": "b4785f85512844acab1635960bc0d6627e3d9dd5344f2c510c0a48a205202978",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/toolset-editor/src/components/AuthSection/tests/AuthSection.spec.tsx",
+      "recordedSha256": "77ccff455f245261fa4ab4ec413b7cbc037579b514e42fbe5d6940b07c2af870",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/usage-dashboard/README.md",
+      "recordedSha256": "25d9c29c3c74c788a6904776a901b03641ba23157022e7dac4a3e33493aab06c",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/usage-dashboard/src/index.ts",
+      "recordedSha256": "5c207a7d98f3b4ccee8e73a394bae407788ce4581acf2510053e418b69ad4f09",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/usage-dashboard/package.json",
+      "recordedSha256": "c05ac3310d81839ff0bcf764e85bb99886988ebce1ec9eb7b8a22a5a9ea9d7c6",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/usage-dashboard/src/models/usage-limit-card-props.ts",
+      "recordedSha256": "11a1452fc3714ca046b926294e02ba90d4d35853b7e4d5389634ec6c066e6415",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "apps/chat/src/pages/SettingsPage/UsageTab/UsageTab.tsx",
+      "recordedSha256": "0f8d05d6414e9db840e04877df3135e82c009a21897b8e32f3e83651bfd0badf",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/usage-dashboard/src/components/UsageLimitCard/tests/UsageLimitCard.spec.tsx",
+      "recordedSha256": "36d072e1a9b99151e8fd84d6a25de9b1e66350f70439a6f6e61085907fab5c7f",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    },
+    {
+      "file": "libs/usage-dashboard/src/components/ModelLimitsSection/tests/ModelLimitsSection.spec.tsx",
+      "recordedSha256": "a9cd62ad8d75aff6c4068b3f2e170c636aec31b20841f3f85f5b72f8a07e317e",
+      "currentMatches": true,
+      "matchesInitialCommit": true
+    }
+  ]
+}

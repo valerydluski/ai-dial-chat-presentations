@@ -1,0 +1,497 @@
+{
+  "id": "libs/starter-buttons",
+  "shortTitle": "Starter buttons",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-starter-buttons-01",
+      "title": "Starter buttons",
+      "layout": "cover",
+      "subtitle": "Offer prompt starters that fit the available space.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-starter-buttons",
+      "notes": "This session explains offer prompt starters that fit the available space. The library is a local private workspace package at libs/starter-buttons. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/starter-buttons/README.md",
+          "start": 1,
+          "end": 150
+        },
+        {
+          "file": "libs/starter-buttons/src/index.ts",
+          "start": 1,
+          "end": 7
+        },
+        {
+          "file": "libs/starter-buttons/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+          "start": 26,
+          "end": 193,
+          "symbol": "StarterButtons"
+        },
+        {
+          "file": "libs/starter-buttons/src/models/starter-props.ts",
+          "start": 20,
+          "end": 38,
+          "symbol": "StarterButtonsProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-starter-buttons-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Offer prompt starters that fit the available space.",
+      "cards": [
+        {
+          "title": "Start a conversation",
+          "body": "Expose useful first actions before the user types."
+        },
+        {
+          "title": "Handle narrow screens",
+          "body": "Move excess choices to the overflow menu."
+        },
+        {
+          "title": "Keep behavior explicit",
+          "body": "The host decides what a selected starter does."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Start a conversation: Expose useful first actions before the user types. Handle narrow screens: Move excess choices to the overflow menu. Keep behavior explicit: The host decides what a selected starter does. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/starter-buttons/README.md",
+          "start": 1,
+          "end": 150
+        },
+        {
+          "file": "libs/starter-buttons/src/index.ts",
+          "start": 1,
+          "end": 7
+        },
+        {
+          "file": "libs/starter-buttons/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+          "start": 26,
+          "end": 193,
+          "symbol": "StarterButtons"
+        },
+        {
+          "file": "libs/starter-buttons/src/models/starter-props.ts",
+          "start": 20,
+          "end": 38,
+          "symbol": "StarterButtonsProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-starter-buttons-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host deployment",
+          "body": "StarterOption[]"
+        },
+        {
+          "title": "StarterButtons",
+          "body": "Visible and overflow"
+        },
+        {
+          "title": "onSelect",
+          "body": "Whole StarterOption"
+        },
+        {
+          "title": "Host composer",
+          "body": "Populate or submit"
+        }
+      ],
+      "takeaway": "Library: Starter layout, available-space measurement and overflow controls.",
+      "notes": "The library owns Starter layout, available-space measurement and overflow controls. The host owns Starter data, mobile mode when supplied and send/populate behavior.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/starter-buttons/README.md",
+          "start": 1,
+          "end": 150
+        },
+        {
+          "file": "libs/starter-buttons/src/index.ts",
+          "start": 1,
+          "end": 7
+        },
+        {
+          "file": "libs/starter-buttons/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+          "start": 26,
+          "end": 193,
+          "symbol": "StarterButtons"
+        },
+        {
+          "file": "libs/starter-buttons/src/models/starter-props.ts",
+          "start": 20,
+          "end": 38,
+          "symbol": "StarterButtonsProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-starter-buttons-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "StarterButtons \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "starters",
+          "StarterOption[]"
+        ],
+        [
+          "onSelect",
+          "(starter: StarterOption) => void"
+        ],
+        [
+          "labels",
+          "StarterButtonsLabels"
+        ],
+        [
+          "isCollapsible (optional)",
+          "boolean"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/starter-buttons/README.md",
+          "start": 1,
+          "end": 150
+        },
+        {
+          "file": "libs/starter-buttons/src/index.ts",
+          "start": 1,
+          "end": 7
+        },
+        {
+          "file": "libs/starter-buttons/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+          "start": 26,
+          "end": 193,
+          "symbol": "StarterButtons"
+        },
+        {
+          "file": "libs/starter-buttons/src/models/starter-props.ts",
+          "start": 20,
+          "end": 38,
+          "symbol": "StarterButtonsProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-starter-buttons-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "function StartersDemo({ starters, onSelect }: {\n  starters: StarterOption[]; onSelect: (starter: StarterOption) => void;\n}) {\n  return <StarterButtons starters={starters} onSelect={onSelect}\n    labels={{ list: 'Demo starters', overflow: 'More starters' }} />;\n}",
+      "caption": "Full example: examples/starter-buttons.tsx \u00b7 uses @epam/ai-dial-starter-buttons",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/starter-buttons.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Expose useful first actions before the user types. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/starter-buttons/README.md",
+          "start": 1,
+          "end": 150
+        },
+        {
+          "file": "libs/starter-buttons/src/index.ts",
+          "start": 1,
+          "end": 7
+        },
+        {
+          "file": "libs/starter-buttons/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+          "start": 26,
+          "end": 193,
+          "symbol": "StarterButtons"
+        },
+        {
+          "file": "libs/starter-buttons/src/models/starter-props.ts",
+          "start": 20,
+          "end": 38,
+          "symbol": "StarterButtonsProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-starter-buttons-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep starter buttons focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Choose starter options",
+          "body": "The host supplies the available starter records."
+        },
+        {
+          "title": "Render choices",
+          "body": "StarterButtons handles the list and overflow presentation."
+        },
+        {
+          "title": "Apply the selection",
+          "body": "Use onSelect to fill or send content through the host."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Choose starter options: The host supplies the available starter records. Render choices: StarterButtons handles the list and overflow presentation. Apply the selection: Use onSelect to fill or send content through the host. The complete typed module in examples/starter-buttons.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/starter-buttons/README.md",
+          "start": 1,
+          "end": 150
+        },
+        {
+          "file": "libs/starter-buttons/src/index.ts",
+          "start": 1,
+          "end": 7
+        },
+        {
+          "file": "libs/starter-buttons/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+          "start": 26,
+          "end": 193,
+          "symbol": "StarterButtons"
+        },
+        {
+          "file": "libs/starter-buttons/src/models/starter-props.ts",
+          "start": 20,
+          "end": 38,
+          "symbol": "StarterButtonsProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-starter-buttons-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Responsive overflow",
+          "body": "Measured space determines which options remain visible."
+        },
+        {
+          "title": "Collapse policy",
+          "body": "isCollapsible changes the overflow behavior."
+        },
+        {
+          "title": "Accessible names",
+          "body": "labels names the list and the overflow action."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Responsive overflow: Measured space determines which options remain visible. Collapse policy: isCollapsible changes the overflow behavior. Accessible names: labels names the list and the overflow action. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/starter-buttons/README.md",
+          "start": 1,
+          "end": 150
+        },
+        {
+          "file": "libs/starter-buttons/src/index.ts",
+          "start": 1,
+          "end": 7
+        },
+        {
+          "file": "libs/starter-buttons/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+          "start": 26,
+          "end": 193,
+          "symbol": "StarterButtons"
+        },
+        {
+          "file": "libs/starter-buttons/src/models/starter-props.ts",
+          "start": 20,
+          "end": 38,
+          "symbol": "StarterButtonsProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-starter-buttons-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat/components/StarterButtons/StarterButtons.tsx"
+        ],
+        [
+          "Test evidence",
+          "collapses the starters that do not fit into an overflow menu by default"
+        ],
+        [
+          "Test evidence",
+          "stamps the list and the wrapper around it"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: apps/chat/src/components/StarterButtons/StarterButtons.tsx. Existing test evidence: [{\"file\": \"libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.spec.tsx\", \"assertions\": [\"StarterButtons\", \"collapses the starters that do not fit into an overflow menu by default\", \"renders every starter and no overflow menu when collapsing is off\"]}, {\"file\": \"libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx\", \"assertions\": [\"StarterButtons \\u2014 public class names\", \"stamps the list and the wrapper around it\", \"keeps both classes in the non-collapsible layout\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-starter-buttons:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/starter-buttons/README.md",
+          "start": 1,
+          "end": 150
+        },
+        {
+          "file": "libs/starter-buttons/src/index.ts",
+          "start": 1,
+          "end": 7
+        },
+        {
+          "file": "libs/starter-buttons/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+          "start": 26,
+          "end": 193,
+          "symbol": "StarterButtons"
+        },
+        {
+          "file": "libs/starter-buttons/src/models/starter-props.ts",
+          "start": 20,
+          "end": 38,
+          "symbol": "StarterButtonsProps"
+        },
+        {
+          "file": "apps/chat/src/components/StarterButtons/StarterButtons.tsx",
+          "start": 1,
+          "end": 34
+        },
+        {
+          "file": "libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.spec.tsx",
+          "start": 1,
+          "end": 48
+        },
+        {
+          "file": "libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx",
+          "start": 1,
+          "end": 64
+        }
+      ]
+    },
+    {
+      "id": "lib-starter-buttons-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Use the actual shape",
+          "body": "StarterOption includes const and dial:widgetOptions."
+        },
+        {
+          "title": "No completion side effect",
+          "body": "Selecting emits a value; the host controls submission."
+        },
+        {
+          "title": "Layout needs space",
+          "body": "Render inside the actual constrained input area."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Use the actual shape: StarterOption includes const and dial:widgetOptions. No completion side effect: Selecting emits a value; the host controls submission. Layout needs space: Render inside the actual constrained input area. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/starter-buttons/README.md",
+          "start": 1,
+          "end": 150
+        },
+        {
+          "file": "libs/starter-buttons/src/index.ts",
+          "start": 1,
+          "end": 7
+        },
+        {
+          "file": "libs/starter-buttons/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+          "start": 26,
+          "end": 193,
+          "symbol": "StarterButtons"
+        },
+        {
+          "file": "libs/starter-buttons/src/models/starter-props.ts",
+          "start": 20,
+          "end": 38,
+          "symbol": "StarterButtonsProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/starter-buttons.pptx"
+}

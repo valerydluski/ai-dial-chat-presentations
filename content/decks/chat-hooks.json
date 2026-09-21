@@ -1,0 +1,475 @@
+{
+  "id": "libs/chat-hooks",
+  "shortTitle": "Chat hooks",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-chat-hooks-01",
+      "title": "Chat hooks",
+      "layout": "cover",
+      "subtitle": "Reuse headless request lifecycles and chat-interface behavior.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-chat-hooks",
+      "notes": "This session explains reuse headless request lifecycles and chat-interface behavior. The library is a local private workspace package at libs/chat-hooks. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/chat-hooks/README.md",
+          "start": 1,
+          "end": 3809
+        },
+        {
+          "file": "libs/chat-hooks/src/index.ts",
+          "start": 1,
+          "end": 184
+        },
+        {
+          "file": "libs/chat-hooks/package.json",
+          "start": 1,
+          "end": 266
+        },
+        {
+          "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+          "start": 49,
+          "end": 109,
+          "symbol": "useShareLink"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-hooks-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Reuse headless request lifecycles and chat-interface behavior.",
+      "cards": [
+        {
+          "title": "Build a custom chat",
+          "body": "Reuse stream state, scrolling and attachment behavior."
+        },
+        {
+          "title": "Keep rendering separate",
+          "body": "Connect returned data and callbacks to your own UI."
+        },
+        {
+          "title": "Limit imports",
+          "body": "Use the dependency-focused public subpaths."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Build a custom chat: Reuse stream state, scrolling and attachment behavior. Keep rendering separate: Connect returned data and callbacks to your own UI. Limit imports: Use the dependency-focused public subpaths. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/chat-hooks/README.md",
+          "start": 1,
+          "end": 3809
+        },
+        {
+          "file": "libs/chat-hooks/src/index.ts",
+          "start": 1,
+          "end": 184
+        },
+        {
+          "file": "libs/chat-hooks/package.json",
+          "start": 1,
+          "end": 266
+        },
+        {
+          "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+          "start": 49,
+          "end": 109,
+          "symbol": "useShareLink"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-hooks-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host configuration",
+          "body": "Injected API instance"
+        },
+        {
+          "title": "Headless hook",
+          "body": "Lifecycle and state"
+        },
+        {
+          "title": "Return values",
+          "body": "Data, loading, errors"
+        },
+        {
+          "title": "Host UI",
+          "body": "Render and respond"
+        }
+      ],
+      "takeaway": "Library: Reusable hook state, data mapping and permitted thin operation wrappers.",
+      "notes": "The library owns Reusable hook state, data mapping and permitted thin operation wrappers. The host owns Configured clients, authentication setup, routing, app contexts and translated labels.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/chat-hooks/README.md",
+          "start": 1,
+          "end": 3809
+        },
+        {
+          "file": "libs/chat-hooks/src/index.ts",
+          "start": 1,
+          "end": 184
+        },
+        {
+          "file": "libs/chat-hooks/package.json",
+          "start": 1,
+          "end": 266
+        },
+        {
+          "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+          "start": 49,
+          "end": 109,
+          "symbol": "useShareLink"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-hooks-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "useShareLink \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "useViewportWidth()",
+          "number; browser resize lifecycle"
+        ],
+        [
+          "useShareLink(api, id, origin)",
+          "data, isLoading, error, setAccess"
+        ],
+        [
+          "Injected API",
+          "Pick<ShareApi, createShareLink>"
+        ],
+        [
+          "Subpath entries",
+          "Focused public import surfaces"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/chat-hooks/README.md",
+          "start": 1,
+          "end": 3809
+        },
+        {
+          "file": "libs/chat-hooks/src/index.ts",
+          "start": 1,
+          "end": 184
+        },
+        {
+          "file": "libs/chat-hooks/package.json",
+          "start": 1,
+          "end": 266
+        },
+        {
+          "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+          "start": 49,
+          "end": 109,
+          "symbol": "useShareLink"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-hooks-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "function ViewportDemo() {\n  const width = useViewportWidth();\n  return <p>Demo viewport: {width}px</p>;\n}\n// Import from /viewport-layout.\n// The hook removes its resize listener on cleanup.",
+      "caption": "Full example: examples/chat-hooks.tsx \u00b7 uses @epam/ai-dial-chat-hooks",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/chat-hooks.tsx. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Reuse stream state, scrolling and attachment behavior. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/chat-hooks/README.md",
+          "start": 1,
+          "end": 3809
+        },
+        {
+          "file": "libs/chat-hooks/src/index.ts",
+          "start": 1,
+          "end": 184
+        },
+        {
+          "file": "libs/chat-hooks/package.json",
+          "start": 1,
+          "end": 266
+        },
+        {
+          "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+          "start": 49,
+          "end": 109,
+          "symbol": "useShareLink"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-hooks-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep chat hooks focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Keep the client stable",
+          "body": "Inject a configured ShareApi operation into useShareLink."
+        },
+        {
+          "title": "Render the lifecycle",
+          "body": "Read data, isLoading and error from the hook result."
+        },
+        {
+          "title": "Change link access",
+          "body": "Call setAccess to request a link for the new access level."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Keep the client stable: Inject a configured ShareApi operation into useShareLink. Render the lifecycle: Read data, isLoading and error from the hook result. Change link access: Call setAccess to request a link for the new access level. The complete typed module in examples/chat-hooks.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/chat-hooks/README.md",
+          "start": 1,
+          "end": 3809
+        },
+        {
+          "file": "libs/chat-hooks/src/index.ts",
+          "start": 1,
+          "end": 184
+        },
+        {
+          "file": "libs/chat-hooks/package.json",
+          "start": 1,
+          "end": 266
+        },
+        {
+          "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+          "start": 49,
+          "end": 109,
+          "symbol": "useShareLink"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-hooks-10",
+      "title": "A request lifecycle with an injected client",
+      "layout": "code",
+      "kicker": "The caller configures auth and transport.",
+      "code": "const { data, isLoading, error, setAccess } =\n  useShareLink(\n    api,\n    'demo-item',\n    'https://example.com',\n  );\n// Render data.url, pending state or the error.",
+      "caption": "Focused source-backed example \u00b7 see examples/ and content/api-index.md.",
+      "notes": "The full ShareLifecycleDemo example receives Pick<ShareApi, createShareLink>. Changing access requests a new link. The hook uses request identifiers to avoid overwriting newer results with stale responses. Pass origin explicitly when the default browser-global expression is unsuitable.",
+      "sources": [
+        {
+          "file": "libs/chat-hooks/README.md",
+          "start": 1,
+          "end": 3809
+        },
+        {
+          "file": "libs/chat-hooks/src/index.ts",
+          "start": 1,
+          "end": 184
+        },
+        {
+          "file": "libs/chat-hooks/package.json",
+          "start": 1,
+          "end": 266
+        },
+        {
+          "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+          "start": 49,
+          "end": 109,
+          "symbol": "useShareLink"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-hooks-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Small layout entry",
+          "body": "/viewport-layout includes useViewportWidth with listener cleanup."
+        },
+        {
+          "title": "Request lifecycle",
+          "body": "useShareLink manages link loading, access changes and stale response guards."
+        },
+        {
+          "title": "Broad feature entries",
+          "body": "Conversation, files, catalog, OAuth and MCP have explicit subpaths."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Small layout entry: /viewport-layout includes useViewportWidth with listener cleanup. Request lifecycle: useShareLink manages link loading, access changes and stale response guards. Broad feature entries: Conversation, files, catalog, OAuth and MCP have explicit subpaths. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/chat-hooks/README.md",
+          "start": 1,
+          "end": 3809
+        },
+        {
+          "file": "libs/chat-hooks/src/index.ts",
+          "start": 1,
+          "end": 184
+        },
+        {
+          "file": "libs/chat-hooks/package.json",
+          "start": 1,
+          "end": 266
+        },
+        {
+          "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+          "start": 49,
+          "end": 109,
+          "symbol": "useShareLink"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-hooks-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "toolset-editor/src/components/AuthSection/AuthSection.tsx"
+        ],
+        [
+          "Test evidence",
+          "selects a file and resets the input so the same file can be selected again"
+        ],
+        [
+          "Test evidence",
+          "refreshes once when the active conversation is missing without looping on item changes"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: libs/toolset-editor/src/components/AuthSection/AuthSection.tsx; libs/toolset-editor/src/components/GeneralForm/GeneralForm.tsx; libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx; libs/toolset-editor/src/models/toolset-form.ts; libs/toolset-editor/src/utils/toolsets.ts; libs/toolset-editor/src/constants/toolsets.ts. Existing test evidence: [{\"file\": \"libs/chat-hooks/src/conversation/useImportFilePicker/tests/useImportFilePicker.spec.ts\", \"assertions\": [\"useImportFilePicker\", \"selects a file and resets the input so the same file can be selected again\", \"programmatically clicks the attached input\", \"applies and clears the host-resolved accept value\"]}, {\"file\": \"libs/chat-hooks/src/conversation/useActiveConversationSync/tests/useActiveConversationSync.spec.ts\", \"assertions\": [\"useActiveConversationSync\", \"refreshes once when the active conversation is missing without looping on item changes\", \"marks the matching raw conversation viewed when it becomes active\", \"rechecks the active conversation when the injected id matcher changes\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-chat-hooks:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/chat-hooks/README.md",
+          "start": 1,
+          "end": 3809
+        },
+        {
+          "file": "libs/chat-hooks/src/index.ts",
+          "start": 1,
+          "end": 184
+        },
+        {
+          "file": "libs/chat-hooks/package.json",
+          "start": 1,
+          "end": 266
+        },
+        {
+          "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+          "start": 49,
+          "end": 109,
+          "symbol": "useShareLink"
+        },
+        {
+          "file": "libs/toolset-editor/src/components/AuthSection/AuthSection.tsx",
+          "start": 1,
+          "end": 504
+        },
+        {
+          "file": "libs/chat-hooks/src/conversation/useImportFilePicker/tests/useImportFilePicker.spec.ts",
+          "start": 1,
+          "end": 63
+        },
+        {
+          "file": "libs/chat-hooks/src/conversation/useActiveConversationSync/tests/useActiveConversationSync.spec.ts",
+          "start": 1,
+          "end": 84
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-hooks-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Stable dependencies",
+          "body": "Recreating API instances can retrigger effects."
+        },
+        {
+          "title": "Browser assumptions",
+          "body": "Some hooks use browser globals; pass origin explicitly for share examples."
+        },
+        {
+          "title": "Boundary audit needed",
+          "body": "Some current helpers contain more DIAL-specific knowledge than the narrow rule."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Stable dependencies: Recreating API instances can retrigger effects. Browser assumptions: Some hooks use browser globals; pass origin explicitly for share examples. Boundary audit needed: Some current helpers contain more DIAL-specific knowledge than the narrow rule. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/chat-hooks/README.md",
+          "start": 1,
+          "end": 3809
+        },
+        {
+          "file": "libs/chat-hooks/src/index.ts",
+          "start": 1,
+          "end": 184
+        },
+        {
+          "file": "libs/chat-hooks/package.json",
+          "start": 1,
+          "end": 266
+        },
+        {
+          "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+          "start": 49,
+          "end": 109,
+          "symbol": "useShareLink"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/chat-hooks.pptx"
+}

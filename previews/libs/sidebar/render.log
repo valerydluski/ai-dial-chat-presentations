@@ -1,0 +1,9 @@
+convert /Users/Valery_Dluski/projects/dial/ai-dial-chat-presentations/decks/libs/sidebar.pptx as a Impress document -> /Users/Valery_Dluski/projects/dial/ai-dial-chat-presentations/previews/libs/sidebar/sidebar.pdf using filter : impress_pdf_Export
+Overwriting: /Users/Valery_Dluski/projects/dial/ai-dial-chat-presentations/previews/libs/sidebar/sidebar.pdf
+
+Fontconfig warning: no <cachedir> elements found. Check configuration.
+Fontconfig warning: adding <cachedir>/usr/local/var/cache/fontconfig</cachedir>
+Fontconfig warning: adding <cachedir prefix="xdg">fontconfig</cachedir>
+Fontconfig warning: no <cachedir> elements found. Check configuration.
+Fontconfig warning: adding <cachedir>/usr/local/var/cache/fontconfig</cachedir>
+Fontconfig warning: adding <cachedir prefix="xdg">fontconfig</cachedir>

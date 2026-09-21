@@ -1,0 +1,2836 @@
+[
+  {
+    "id": "overview-01",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-01",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.65,
+        "y": 1.65,
+        "w": 11.7,
+        "h": 1.5,
+        "font": 48,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "A modular chat application, a backend edge, and reusable workspace libraries.",
+        "x": 0.68,
+        "y": 3.44,
+        "w": 11.3,
+        "h": 1.15,
+        "font": 28,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "4 applications",
+        "x": 0.9,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "28 libraries",
+        "x": 5,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "33 technical sessions",
+        "x": 9.1,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "Source snapshot 23fa39459d89 · 2026-09-21",
+        "x": 0.68,
+        "y": 6.22,
+        "w": 11.6,
+        "h": 0.32,
+        "font": 14,
+        "color": "BCC9DA"
+      }
+    ]
+  },
+  {
+    "id": "overview-02",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-02",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Start with the user workflows",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Converse with context",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Choose a deployment, attach files, send messages and inspect evidence.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Reuse knowledge",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Browse prompts and skills, then apply them to a conversation.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Manage shared work",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Share or publish resources and inspect scheduled task runs.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "overview-03",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-03",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Four apps have different responsibilities",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      }
+    ]
+  },
+  {
+    "id": "overview-04",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-04",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Libraries for the conversation workspace",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Conversation",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "conversation-input, conversation-messages, conversation-panel, conversation-stages",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Evidence",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "attachment-input, attachment-canvas, source-panel, quotations",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Navigation",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "navigation-panel, sidebar, starter-buttons, settings-panel",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "overview-05",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-05",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "05",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Libraries for knowledge and integration",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Author and discover",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "catalog, builder-form, prompt-editor, prompts, skill-editor, skills, toolset-editor",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Automate and distribute",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "scheduled-tasks, share, publish-panel, usage-dashboard",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Integrate and share code",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "chat-api-client, chat-hooks, chat-shared, chat-overlay, mcp-apps",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "overview-06",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-06",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "06",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Application edges connect the layers",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "A simplified ownership map, not a complete dependency graph.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.82,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Host / browser",
+        "x": 0.82,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Optional embedding page",
+        "x": 0.82,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 3.93,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "apps/chat",
+        "x": 3.93,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Routes, providers, adapters",
+        "x": 3.93,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 7.039999999999999,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "apps/chat-api",
+        "x": 7.039999999999999,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Auth and domain services",
+        "x": 7.039999999999999,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 10.15,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "External systems",
+        "x": 10.15,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Core, identity and theme services",
+        "x": 10.15,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "UI libraries receive data and behavior through public contracts.",
+        "x": 0.66,
+        "y": 5.85,
+        "w": 11.95,
+        "h": 0.74,
+        "font": 24,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "overview-07",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-07",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "07",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "One message enters the backend",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.82,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Conversation Input",
+        "x": 0.82,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "on Send intent",
+        "x": 0.82,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 3.93,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Conversation page",
+        "x": 3.93,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Handlers and stream hook",
+        "x": 3.93,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 7.039999999999999,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "App stream adapter",
+        "x": 7.039999999999999,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Host paths and CSRF",
+        "x": 7.039999999999999,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 10.15,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Conversation API",
+        "x": 10.15,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "POST completions",
+        "x": 10.15,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "POST /api/v1/conversations/completions",
+        "x": 0.66,
+        "y": 5.85,
+        "w": 11.95,
+        "h": 0.74,
+        "font": 24,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "overview-08",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-08",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "08",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Chunks return through a shared lifecycle",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.82,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "DIAL Core",
+        "x": 0.82,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Upstream response events",
+        "x": 0.82,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 3.93,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Backend relay",
+        "x": 3.93,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Normalize and persist",
+        "x": 3.93,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 7.039999999999999,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Stream hook",
+        "x": 7.039999999999999,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Merge message changes",
+        "x": 7.039999999999999,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 10.15,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Message components",
+        "x": 10.15,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Text, stages and citations",
+        "x": 10.15,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "Closing the browser connection is different from explicitly stopping generation.",
+        "x": 0.66,
+        "y": 5.85,
+        "w": 11.95,
+        "h": 0.74,
+        "font": 24,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "overview-09",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-09",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "09",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Separate clients, hooks and adapters",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      }
+    ]
+  },
+  {
+    "id": "overview-10",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-10",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "10",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Compose a view from focused parts",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.82,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Application state",
+        "x": 0.82,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Messages and deployment",
+        "x": 0.82,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 3.93,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Composer + bubbles",
+        "x": 3.93,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Input and transcript",
+        "x": 3.93,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 7.039999999999999,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Evidence surfaces",
+        "x": 7.039999999999999,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Stages, citations, canvas",
+        "x": 7.039999999999999,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 10.15,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Host callbacks",
+        "x": 10.15,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Send, load and navigate",
+        "x": 10.15,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "A library can be adopted without copying the whole route implementation.",
+        "x": 0.66,
+        "y": 5.85,
+        "w": 11.95,
+        "h": 0.74,
+        "font": 24,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "overview-21",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-21",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "11",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "See three libraries in one host",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Reproducible demo · actual workspace source components",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Compose a screen",
+        "x": 9.25,
+        "y": 2.95,
+        "w": 3.1,
+        "h": 0.8,
+        "font": 25,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The host selects rows, formats amounts and supplies stage data. Each library renders its own part.",
+        "x": 9.25,
+        "y": 3.95,
+        "w": 3.1,
+        "h": 2.27,
+        "font": 21
+      },
+      {
+        "type": "text",
+        "text": "DEMO · real components rendered from this source snapshot",
+        "x": 0.68,
+        "y": 6.7,
+        "w": 11.3,
+        "h": 0.19,
+        "font": 10,
+        "color": "BCC9DA"
+      }
+    ]
+  },
+  {
+    "id": "overview-11",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-11",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "12",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Choose a reuse boundary",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Reuse a component",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Bring typed data, callbacks, labels and its stylesheet.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Build a custom UI",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Use chat-hooks and configured generated operations.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Embed the full app",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Use ChatOverlay with an existing chat deployment.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "overview-12",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-12",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "13",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Theme tokens travel from host to component",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.82,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Theme service",
+        "x": 0.82,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "config.json and images",
+        "x": 0.82,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 3.93,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "BFF theme proxy",
+        "x": 3.93,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "/api/themes",
+        "x": 3.93,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 7.039999999999999,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Theme Provider",
+        "x": 7.039999999999999,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "CSS vars on html",
+        "x": 7.039999999999999,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 10.15,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Library styles",
+        "x": 10.15,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Tokens and overrides",
+        "x": 10.15,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "Theme selection is app-owned; reusable libraries consume resolved styling.",
+        "x": 0.66,
+        "y": 5.85,
+        "w": 11.95,
+        "h": 0.74,
+        "font": 24,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "overview-13",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-13",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "14",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Localization support has a clear current limit",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "English resources",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The current i18n initialization registers en translations.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "RTL switching",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "ar, he, fa and ur set document direction to rtl.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Host-localized libraries",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Labels and logical CSS keep language ownership at the edge.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "overview-14",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-14",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "15",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Authentication belongs at the BFF",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.82,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Browser",
+        "x": 0.82,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Opaque session cookie",
+        "x": 0.82,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 3.93,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Session guard",
+        "x": 3.93,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Validate and refresh",
+        "x": 3.93,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 7.039999999999999,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Identity provider",
+        "x": 7.039999999999999,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "OIDC code flow",
+        "x": 7.039999999999999,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 10.15,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Core request",
+        "x": 10.15,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Verified user token",
+        "x": 10.15,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "Configured clients and session details stay outside ordinary UI libraries.",
+        "x": 0.66,
+        "y": 5.85,
+        "w": 11.95,
+        "h": 0.74,
+        "font": 24,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "overview-15",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-15",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "16",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Two upstream APIs share the browser stream",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Server flag: RESPONSES_API_ENABLED · deployment feature: responsesApi",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "overview-16",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-16",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "17",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Run the applications locally",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "From the repository root, after configuring backend environment values.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "npm ci\nnpm run start:all\n\n# Frontend: http://localhost:4207\n# Backend:  http://localhost:5000\n\nnpm exec nx serve chat-overlay-sandbox\nnpm run start:mcp-app-sandbox",
+        "x": 0.86,
+        "y": 3.06,
+        "w": 11.55,
+        "h": 3.2,
+        "font": 18,
+        "fontFace": "Courier New",
+        "breakLine": false,
+        "paraSpaceAfterPt": 0,
+        "lineSpacingMultiple": 1.04,
+        "color": "EDF2F7"
+      },
+      {
+        "type": "text",
+        "text": "Use a Node version compatible with the locked Nx/Vite stack.",
+        "x": 0.65,
+        "y": 6.58,
+        "w": 11.9,
+        "h": 0.24,
+        "font": 12,
+        "color": "BCC9DA"
+      }
+    ]
+  },
+  {
+    "id": "overview-17",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-17",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "18",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Use the checks that match the change",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      }
+    ]
+  },
+  {
+    "id": "overview-18",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-18",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "19",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Modularity gives specific engineering benefits",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "One editor field set",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "builder-form validation and fields are reused by multiple editors.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Reusable evidence UI",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The same canvas displays several typed content kinds.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Replaceable host behavior",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Callbacks let a host choose its own routing and persistence.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "overview-19",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-19",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "20",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Tradeoffs remain visible",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Integration is real work",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "A host must supply data, labels, adapters and the correct peer dependencies.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Boundaries have drift",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Some current libs import broader packages than the written rules permit.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Runtime state is local",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Generation and several caches rely on process/browser memory.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "overview-20",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  REPOSITORY OVERVIEW",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "AI DIAL Chat",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "overview-20",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "21",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Start with a vertical path through the code",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Understand the assembly",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Read main.tsx, app.tsx and one conversation or editor route.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Trace its contract",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Follow a component prop into the host adapter and backend domain.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Reuse one piece",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Open that library deck, its full example and its source references.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  }
+]

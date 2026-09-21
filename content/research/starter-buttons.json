@@ -1,0 +1,794 @@
+{
+  "project": {
+    "id": "libs/starter-buttons",
+    "project": "@epam/ai-dial-starter-buttons",
+    "path": "libs/starter-buttons",
+    "package": "@epam/ai-dial-starter-buttons",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/starter-buttons/README.md",
+      "libs/starter-buttons/package.json",
+      "libs/starter-buttons/src/index.ts",
+      "libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.spec.tsx",
+      "libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx",
+      "libs/starter-buttons/tsconfig.spec.json",
+      "apps/chat/src/components/StarterButtons/StarterButtons.tsx"
+    ],
+    "output": "decks/libs/starter-buttons.pptx",
+    "preview": "previews/libs/starter-buttons",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx",
+      "test-ci--src/components/StarterButtons/tests/StarterButtons.spec.tsx",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-starter-buttons",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-starter-buttons",
+    "description": "Responsive starter prompt buttons that overflow into a dropdown when space is limited",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0"
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-shared": "*",
+      "react": "^19.2.8",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9"
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/starter-buttons",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/starter-buttons",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/starter-buttons/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/starter-buttons",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/starter-buttons",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/starter-buttons",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/starter-buttons",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/starter-buttons",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-starter-buttons --includeDependencies -- npx nx build-deps @epam/ai-dial-starter-buttons"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/starter-buttons",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/starter-buttons",
+          "command": "vitest run src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/StarterButtons/tests/StarterButtons.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/StarterButtons/tests/StarterButtons.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/StarterButtons/tests/StarterButtons.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/starter-buttons",
+          "command": "vitest run src/components/StarterButtons/tests/StarterButtons.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/StarterButtons/tests/StarterButtons.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/StarterButtons/tests/StarterButtons.spec.tsx"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx",
+          "test-ci--src/components/StarterButtons/tests/StarterButtons.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-starter-buttons --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx",
+          "test-ci--src/components/StarterButtons/tests/StarterButtons.spec.tsx"
+        ]
+      },
+      "description": "Responsive starter prompt buttons that overflow into a dropdown when space is limited",
+      "js": {
+        "packageName": "@epam/ai-dial-starter-buttons",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-starter-buttons",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/starter-buttons/src/index.ts",
+    "libs/starter-buttons/src/vite-env.d.ts",
+    "libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.spec.tsx",
+    "libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx",
+    "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+    "libs/starter-buttons/src/test-setup.ts",
+    "libs/starter-buttons/src/models/starter-props.ts",
+    "libs/starter-buttons/src/constants/public-class-names.ts",
+    "libs/starter-buttons/tsconfig.spec.json",
+    "libs/starter-buttons/eslint.config.mjs",
+    "libs/starter-buttons/postcss.config.js",
+    "libs/starter-buttons/tsconfig.lib.json",
+    "libs/starter-buttons/tsconfig.json",
+    "libs/starter-buttons/package.json",
+    "libs/starter-buttons/vite.config.mts",
+    "libs/starter-buttons/README.md",
+    "libs/starter-buttons/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.spec.tsx",
+    "libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx",
+    "libs/starter-buttons/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat/src/components/StarterButtons/StarterButtons.tsx"
+  ],
+  "readme": "# @epam/ai-dial-starter-buttons\n\nResponsive starter prompt buttons that overflow into a dropdown when space is limited.\n\n## Overview\n\n`@epam/ai-dial-starter-buttons` renders the row of quick-action prompt buttons that appear on a new or empty conversation screen, giving users one-tap access to common tasks like summarising a document, writing a draft, or explaining a concept. The core problem it solves is responsive overflow: deployments can expose an arbitrary number of starter prompts, but there is only so much horizontal space available, especially on mobile. This library measures available space and automatically moves excess buttons into a \"More\" dropdown, ensuring the primary actions stay visible without the layout ever wrapping or clipping. Use it in any view that needs to present a curated set of starter prompts above or inside the conversation input; pass the full list and let the component handle layout and accessibility for both the visible buttons and the overflow menu.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-starter-buttons\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-starter-buttons/styles.css';\n```\n\n## Peer Dependencies\n\n- `react`\n- `@epam/ai-dial-chat-shared`\n- `@epam/ai-dial-ui-kit`\n\n## Components\n\n### StarterButtons\n\nRenders starter prompt buttons with automatic overflow handling.\n\n```tsx\nimport { StarterButtons } from '@epam/ai-dial-starter-buttons';\nimport type { StarterButtonsProps } from '@epam/ai-dial-starter-buttons';\n\n<StarterButtons\n  starters={deployment.starters}\n  isMobile={isMobile}\n  labels={{\n    list: 'Conversation starters',\n    overflow: 'More starter prompts',\n  }}\n  onSelect={handleStarterSelect}\n/>;\n```\n\n`starters` is `StarterOption[]` from `@epam/ai-dial-chat-shared` \u2014 the same shape\na deployment's configuration schema declares, so pass it through unchanged:\n\n```tsx\nimport type { StarterOption } from '@epam/ai-dial-chat-shared';\n\nconst starter: StarterOption = {\n  const: 1,\n  title: 'Summarize a document',\n  'dial:widgetOptions': widgetOptions,\n};\n```\n\nThe overflow behaviour is opt-out. Pass `isCollapsible={false}` and every\nstarter is rendered, each on its own row, with no overflow menu \u2014 the layout a\nnarrow embed wants, where the measured row fits a single starter and hides the\nrest behind the \"\u2026\" button:\n\n```tsx\n<StarterButtons\n  starters={deployment.starters}\n  isCollapsible={false}\n  labels={{\n    list: 'Conversation starters',\n    overflow: 'More starter prompts',\n  }}\n  onSelect={handleStarterSelect}\n/>\n```\n\n## Types\n\n```tsx\nimport type {\n  StarterButtonsProps,\n  StarterButtonsLabels,\n  StarterButtonsStyles,\n} from '@epam/ai-dial-starter-buttons';\n```\n\n### StarterButtonsLabels\n\nOverride the default English ARIA labels with translated values.\n\n```tsx\nconst labels: StarterButtonsLabels = {\n  list: t('Conversation starters'),\n  overflow: t('More starter prompts'),\n};\n\n<StarterButtons starters={starters} labels={labels} onSelect={onSelect} />;\n```\n\n### StarterButtonsStyles\n\nOverrides the size and stroke width of the overflow menu icon.\n\n```tsx\n<StarterButtons\n  starters={starters}\n  labels={labels}\n  styles={{ iconSize: 20, iconStrokeWidth: 2 }}\n  onSelect={onSelect}\n/>\n```\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes. The\nlist's `aria-label` comes from `labels.list` and is localisable, so a host that\nselects by it breaks its own styling the moment the app is translated. Two\nelements therefore carry a stable public class, exported as\n`STARTER_BUTTONS_CLASS`.\n\n| Key    | Class                       | Element                                                    |\n| ------ | --------------------------- | ---------------------------------------------------------- |\n| `root` | `dial-starter-buttons-root` | The component's outer wrapper                              |\n| `list` | `dial-starter-buttons-list` | The `role=\"list\"` box holding the buttons, in both layouts |\n\nThe classes carry no declarations of their own: nothing in `styles.css` selects\non them, so they change nothing until a host writes a rule. Renaming one, or\nmoving it to a different element, is a breaking change. The convention is in\n[`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\n```tsx\nimport { STARTER_BUTTONS_CLASS } from '@epam/ai-dial-starter-buttons';\n\nSTARTER_BUTTONS_CLASS.list; // 'dial-starter-buttons-list'\n```\n\n```css\n.dial-starter-buttons-list {\n  justify-content: flex-start;\n}\n```\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/starter-buttons/src/index.ts": "export { StarterButtons } from './components/StarterButtons/StarterButtons';\nexport type {\n  StarterButtonsProps,\n  StarterButtonsLabels,\n  StarterButtonsStyles,\n} from './models/starter-props';\nexport { STARTER_BUTTONS_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/starter-buttons/src/index.ts": [
+      {
+        "name": "StarterButtons",
+        "file": "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+        "start": 26,
+        "end": 193,
+        "declaration": "StarterButtons: FC<StarterButtonsProps> = ({\n  starters,\n  onSelect,\n  isMobile,\n  isCollapsible = true,\n  labels,\n  styles,\n}) => {\n  const containerRef = useRef<HTMLDivElement>(null);\n  const pillRefs = useRef<(HTMLDivElement | null)[]>([]);\n  const pillWidthCacheRef = useRef<number[]>([]);\n\n  const [visibleCount, setVisibleCount] = useState(() =>\n    Math.min(starters.length, MAX_VISIBLE),\n  );\n\n  const computeVisibleCount = useCallback(\n    (totalStarters: number) => {\n      const container = containerRef.current;\n      if (!container || !isCollapsible) return;\n\n      const containerWidth = container.getBoundingClientRect().width;\n      if (containerWidth === 0) return;\n\n      const cap = Math.min(totalStarters, MAX_VISIBLE);\n      const allMounted = pillRefs.current\n        .slice(0, cap)\n        .every((el) => el != null);\n      if (allMounted) {\n        pillWidthCacheRef.current = pillRefs.current\n          .slice(0, cap)\n          .map((el) => el?.getBoundingClientRect().width ?? 0);\n      }\n\n      const widthOf = (i: number) => pillWidthCacheRef.current[i] ?? 120;\n\n      let usedWidth = 0;\n      let count = 0;\n\n      for (let i = 0; i < cap; i++) {\n        const pillWidth = widthOf(i);\n        const remainingAfterThis = totalStarters - (i + 1);\n        const needsOverflow = remainingAfterThis > 0;\n        const projectedWidth =\n          usedWidth +\n          (i > 0 ? GAP : 0) +\n          pillWidth +\n          (needsOverflow ? GAP + OVERFLOW_BUTTON_WIDTH : 0);\n\n        if (projectedWidth > containerWidth) break;\n\n        usedWidth += (i > 0 ? GAP : 0) + pillWidth;\n        count = i + 1;\n      }\n\n      setVisibleCount(Math.max(1, count));\n    },\n    [isCollapsible],\n  );\n\n  useEffect(() => {\n    pillWidthCacheRef.current = [];\n    setVisibleCount(Math.min(starters.length, MAX_VISIBLE));\n  }, [starters.length]);\n\n  useEffect(() => {\n    const container = containerRef.current;\n    if (!container || !isCollapsible) return;\n\n    const observer = new ResizeObserver(() => {\n      computeVisibleCount(starters.length);\n    });\n\n    observer.observe(container);\n\n    return () => observer.disconnect();\n  }, [computeVisibleCount, isCollapsible, starters.length]);\n\n  /* Re-measure once the newly rendered pill set is mounted: the width cache is\n   * only refreshed when every pill up to the cap has a live ref, which is not\n   * the case on the render that collapsed them. Converges because a repeated\n   * count does not re-render. */\n  useEffect(() => {\n    computeVisibleCount(starters.length);\n  }, [computeVisibleCount, starters.length, visibleCount]);\n\n  const iconProps = useMemo(() => {\n    return {\n      ...BASE_MD_ICON_PROPS,\n      stroke: styles?.iconStrokeWidth ?? BASE_MD_ICON_PROPS.stroke,\n      size: styles?.iconSize ?? BASE_MD_ICON_PROPS.size,\n    };\n  }, [styles?.iconStrokeWidth, styles?.iconSize]);\n\n  if (starters.length === 0) return null;\n\n  const visibleStarters = isCollapsible\n    ? starters.slice(0, visibleCount)\n    : starters;\n  const overflowStarters = isCollapsible ? starters.slice(visibleCount) : [];\n\n  const overflowItems: DropdownItem[] = overflowStarters.map(\n    (starter, idx) => ({\n      key: String(idx),\n      label: starter.title,\n      onClick: () => onSelect(starter),\n    }),\n  );\n\n  return (\n    <div\n      ref={containerRef}\n      className={mergeClasses('mb-4 w-full', STARTER_BUTTONS_CLASS.root)}\n    >\n      <div\n        role=\"list\"\n        aria-label={labels.list}\n        className={mergeClasses(\n          isCollapsible\n            ? 'flex flex-wrap justify-center gap-2'\n            : 'flex flex-col items-center gap-2',\n          STARTER_BUTTONS_CLASS.list,\n        )}\n      >\n        {visibleStarters.map((starter, index) => (\n          <div\n            key={starter.const}\n            role=\"listitem\"\n            ref={(el) => {\n              pillRefs.current[index] = el;\n            }}\n          >\n            <NeutralButton\n              label={starter.title}\n              appearance={ButtonAppearance.Outlined}\n              onClick={() => onSelect(starter)}\n            />\n          </div>\n        ))}\n\n        {overflowStarters.length > 0 && (\n          <div role=\"listitem\">\n            <Dropdown\n              items={overflowItems}\n              placement=\"bottom-end\"\n              matchReferenceWidth={false}\n            >\n              <NeutralIconButton\n                appearance={ButtonAppearance.Outlined}\n                icon={\n                  isMobile ? (\n                    <IconDots {...iconProps} stroke={DIAL_KIT_ICON_STROKE} />\n                  ) : (\n                    <IconDotsVertical\n                      {...iconProps}\n                      stroke={DIAL_KIT_ICON_STROKE}\n                    />\n                  )\n                }\n                aria-label={labels.overflow}\n              />\n            </Dropdown>\n          </div>\n        )}\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: StarterButtonsProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "starters",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-chat-shared\").StarterOption[]"
+          },
+          {
+            "name": "onSelect",
+            "optional": false,
+            "type": "(starter: import(\"@epam/ai-dial-chat-shared\").StarterOption) => void"
+          },
+          {
+            "name": "isMobile",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isCollapsible",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").StarterButtonsLabels"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").StarterButtonsStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "StarterButtonsProps",
+        "file": "libs/starter-buttons/src/models/starter-props.ts",
+        "start": 20,
+        "end": 38,
+        "declaration": "export interface StarterButtonsProps {\n  /** Starter prompt options to display as buttons. */\n  starters: StarterOption[];\n  /** Called when the user selects a starter option. */\n  onSelect: (starter: StarterOption) => void;\n  /** When `true`, renders a mobile-optimised layout. */\n  isMobile?: boolean;\n  /**\n   * When `true` (the default), only as many starters as the measured\n   * container width allows stay on one row and the rest collapse into an\n   * overflow dropdown. When `false`, every starter is rendered, each on its\n   * own row, and no overflow menu appears.\n   */\n  isCollapsible?: boolean;\n  /** Localized labels used within the component. */\n  labels: StarterButtonsLabels;\n  /** Optional style overrides. */\n  styles?: StarterButtonsStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "StarterButtonsLabels",
+        "file": "libs/starter-buttons/src/models/starter-props.ts",
+        "start": 4,
+        "end": 9,
+        "declaration": "export interface StarterButtonsLabels {\n  /** Accessible label (`aria-label`) for the visible buttons list. */\n  list: string;\n  /** Accessible label (`aria-label`) for the overflow menu button. */\n  overflow: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "StarterButtonsStyles",
+        "file": "libs/starter-buttons/src/models/starter-props.ts",
+        "start": 12,
+        "end": 17,
+        "declaration": "export interface StarterButtonsStyles {\n  /** Icon size in px for the overflow menu icon. Defaults to `BASE_MD_ICON_PROPS.size`. */\n  iconSize?: number;\n  /** Stroke width for the overflow menu icon. Defaults to `BASE_MD_ICON_PROPS.stroke`. */\n  iconStrokeWidth?: number;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "STARTER_BUTTONS_CLASS",
+        "file": "libs/starter-buttons/src/constants/public-class-names.ts",
+        "start": 13,
+        "end": 18,
+        "declaration": "STARTER_BUTTONS_CLASS = {\n  /** The component's outer wrapper. */\n  root: 'dial-starter-buttons-root',\n  /** The `role=\"list\"` box holding the buttons, in both layouts. */\n  list: 'dial-starter-buttons-list',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "StarterButtons",
+      "file": "libs/starter-buttons/src/components/StarterButtons/StarterButtons.tsx",
+      "start": 26,
+      "end": 193,
+      "declaration": "StarterButtons: FC<StarterButtonsProps> = ({\n  starters,\n  onSelect,\n  isMobile,\n  isCollapsible = true,\n  labels,\n  styles,\n}) => {\n  const containerRef = useRef<HTMLDivElement>(null);\n  const pillRefs = useRef<(HTMLDivElement | null)[]>([]);\n  const pillWidthCacheRef = useRef<number[]>([]);\n\n  const [visibleCount, setVisibleCount] = useState(() =>\n    Math.min(starters.length, MAX_VISIBLE),\n  );\n\n  const computeVisibleCount = useCallback(\n    (totalStarters: number) => {\n      const container = containerRef.current;\n      if (!container || !isCollapsible) return;\n\n      const containerWidth = container.getBoundingClientRect().width;\n      if (containerWidth === 0) return;\n\n      const cap = Math.min(totalStarters, MAX_VISIBLE);\n      const allMounted = pillRefs.current\n        .slice(0, cap)\n        .every((el) => el != null);\n      if (allMounted) {\n        pillWidthCacheRef.current = pillRefs.current\n          .slice(0, cap)\n          .map((el) => el?.getBoundingClientRect().width ?? 0);\n      }\n\n      const widthOf = (i: number) => pillWidthCacheRef.current[i] ?? 120;\n\n      let usedWidth = 0;\n      let count = 0;\n\n      for (let i = 0; i < cap; i++) {\n        const pillWidth = widthOf(i);\n        const remainingAfterThis = totalStarters - (i + 1);\n        const needsOverflow = remainingAfterThis > 0;\n        const projectedWidth =\n          usedWidth +\n          (i > 0 ? GAP : 0) +\n          pillWidth +\n          (needsOverflow ? GAP + OVERFLOW_BUTTON_WIDTH : 0);\n\n        if (projectedWidth > containerWidth) break;\n\n        usedWidth += (i > 0 ? GAP : 0) + pillWidth;\n        count = i + 1;\n      }\n\n      setVisibleCount(Math.max(1, count));\n    },\n    [isCollapsible],\n  );\n\n  useEffect(() => {\n    pillWidthCacheRef.current = [];\n    setVisibleCount(Math.min(starters.length, MAX_VISIBLE));\n  }, [starters.length]);\n\n  useEffect(() => {\n    const container = containerRef.current;\n    if (!container || !isCollapsible) return;\n\n    const observer = new ResizeObserver(() => {\n      computeVisibleCount(starters.length);\n    });\n\n    observer.observe(container);\n\n    return () => observer.disconnect();\n  }, [computeVisibleCount, isCollapsible, starters.length]);\n\n  /* Re-measure once the newly rendered pill set is mounted: the width cache is\n   * only refreshed when every pill up to the cap has a live ref, which is not\n   * the case on the render that collapsed them. Converges because a repeated\n   * count does not re-render. */\n  useEffect(() => {\n    computeVisibleCount(starters.length);\n  }, [computeVisibleCount, starters.length, visibleCount]);\n\n  const iconProps = useMemo(() => {\n    return {\n      ...BASE_MD_ICON_PROPS,\n      stroke: styles?.iconStrokeWidth ?? BASE_MD_ICON_PROPS.stroke,\n      size: styles?.iconSize ?? BASE_MD_ICON_PROPS.size,\n    };\n  }, [styles?.iconStrokeWidth, styles?.iconSize]);\n\n  if (starters.length === 0) return null;\n\n  const visibleStarters = isCollapsible\n    ? starters.slice(0, visibleCount)\n    : starters;\n  const overflowStarters = isCollapsible ? starters.slice(visibleCount) : [];\n\n  const overflowItems: DropdownItem[] = overflowStarters.map(\n    (starter, idx) => ({\n      key: String(idx),\n      label: starter.title,\n      onClick: () => onSelect(starter),\n    }),\n  );\n\n  return (\n    <div\n      ref={containerRef}\n      className={mergeClasses('mb-4 w-full', STARTER_BUTTONS_CLASS.root)}\n    >\n      <div\n        role=\"list\"\n        aria-label={labels.list}\n        className={mergeClasses(\n          isCollapsible\n            ? 'flex flex-wrap justify-center gap-2'\n            : 'flex flex-col items-center gap-2',\n          STARTER_BUTTONS_CLASS.list,\n        )}\n      >\n        {visibleStarters.map((starter, index) => (\n          <div\n            key={starter.const}\n            role=\"listitem\"\n            ref={(el) => {\n              pillRefs.current[index] = el;\n            }}\n          >\n            <NeutralButton\n              label={starter.title}\n              appearance={ButtonAppearance.Outlined}\n              onClick={() => onSelect(starter)}\n            />\n          </div>\n        ))}\n\n        {overflowStarters.length > 0 && (\n          <div role=\"listitem\">\n            <Dropdown\n              items={overflowItems}\n              placement=\"bottom-end\"\n              matchReferenceWidth={false}\n            >\n              <NeutralIconButton\n                appearance={ButtonAppearance.Outlined}\n                icon={\n                  isMobile ? (\n                    <IconDots {...iconProps} stroke={DIAL_KIT_ICON_STROKE} />\n                  ) : (\n                    <IconDotsVertical\n                      {...iconProps}\n                      stroke={DIAL_KIT_ICON_STROKE}\n                    />\n                  )\n                }\n                aria-label={labels.overflow}\n              />\n            </Dropdown>\n          </div>\n        )}\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: StarterButtonsProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "starters",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-chat-shared\").StarterOption[]"
+        },
+        {
+          "name": "onSelect",
+          "optional": false,
+          "type": "(starter: import(\"@epam/ai-dial-chat-shared\").StarterOption) => void"
+        },
+        {
+          "name": "isMobile",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isCollapsible",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").StarterButtonsLabels"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").StarterButtonsStyles | undefined"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.spec.tsx",
+      "assertions": [
+        "collapses the starters that do not fit into an overflow menu by default",
+        "renders every starter and no overflow menu when collapsing is off"
+      ]
+    },
+    {
+      "file": "libs/starter-buttons/src/components/StarterButtons/tests/StarterButtons.classes.spec.tsx",
+      "assertions": [
+        "stamps the list and the wrapper around it",
+        "keeps both classes in the non-collapsible layout"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat/src/components/StarterButtons/StarterButtons.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 4,
+          "excerpt": "import { OverlayFeature } from '@epam/ai-dial-chat-overlay';\nimport type { StarterOption } from '@epam/ai-dial-chat-shared';\nimport { StarterButtons as StarterButtonsLib } from '@epam/ai-dial-starter-buttons';\nimport { FC, memo } from 'react';"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "reviewedAt": "2026-09-21T19:30:47.289657+00:00",
+  "scope": "Presentation-repository packaging, static gallery, publication workflow and portable documentation",
+  "verdict": "pass",
+  "findings": [],
+  "axes": {
+    "correctness": "Manifest coverage, artifact hashes, relative links and anchors pass. Browser navigation, notes and PowerPoint download verified.",
+    "readability": "Small standalone Python publisher and checker; shared HTML/CSS wrapper; no runtime frontend dependencies.",
+    "architecture": "Application repository remains untouched. Pages deploys only the explicit static artifact set.",
+    "security": "Escaped text, bounded artifact paths, no symlinks in deployment. GitHub built-in token has only build read and deployment pages/id-token permissions. No personal deployment credentials. Local third-party tooling excluded.",
+    "performance": "63.7 MB total static artifact set; previews are lazy-loaded; no client JavaScript or third-party requests.",
+    "responsive": "Gallery and viewer verified at 1440, 390 and 360 px with no document overflow.",
+    "documentation": "Repository visibility, Pages workflow, upstream attribution, source prerequisites and verification limitations are documented."
+  },
+  "credentialPatternScan": {
+    "textFiles": 312,
+    "hits": []
+  },
+  "checks": [
+    "npm run site:build",
+    "npm run site:check",
+    "node src/check-site-browser.mjs",
+    "npm run check:bundle"
+  ],
+  "notApplicable": "Nx application build/test and validate:docs targets do not apply to this independent static presentation repository. The source app and library files were not changed."
+}

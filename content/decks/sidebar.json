@@ -1,0 +1,497 @@
+{
+  "id": "libs/sidebar",
+  "shortTitle": "Sidebar",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-sidebar-01",
+      "title": "Sidebar",
+      "layout": "cover",
+      "subtitle": "Give feature panels a common resizable shell.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-sidebar",
+      "notes": "This session explains give feature panels a common resizable shell. The library is a local private workspace package at libs/sidebar. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/sidebar/README.md",
+          "start": 1,
+          "end": 173
+        },
+        {
+          "file": "libs/sidebar/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/sidebar/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+          "start": 25,
+          "end": 266,
+          "symbol": "SidebarPanel"
+        },
+        {
+          "file": "libs/sidebar/src/models/panel-props.ts",
+          "start": 51,
+          "end": 90,
+          "symbol": "SidebarPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-sidebar-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Give feature panels a common resizable shell.",
+      "cards": [
+        {
+          "title": "Add a panel",
+          "body": "Compose a header, actions and scrollable content."
+        },
+        {
+          "title": "Resize a workspace",
+          "body": "Use a bounded width with a resize callback."
+        },
+        {
+          "title": "Handle empty data",
+          "body": "Use PanelEmpty or PanelNoResults consistently."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Add a panel: Compose a header, actions and scrollable content. Resize a workspace: Use a bounded width with a resize callback. Handle empty data: Use PanelEmpty or PanelNoResults consistently. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/sidebar/README.md",
+          "start": 1,
+          "end": 173
+        },
+        {
+          "file": "libs/sidebar/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/sidebar/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+          "start": 25,
+          "end": 266,
+          "symbol": "SidebarPanel"
+        },
+        {
+          "file": "libs/sidebar/src/models/panel-props.ts",
+          "start": 51,
+          "end": 90,
+          "symbol": "SidebarPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-sidebar-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host layout",
+          "body": "Open state and content"
+        },
+        {
+          "title": "SidebarPanel",
+          "body": "Header and resize"
+        },
+        {
+          "title": "onResizeStop",
+          "body": "Width in pixels"
+        },
+        {
+          "title": "Host state",
+          "body": "Store or reuse width"
+        }
+      ],
+      "takeaway": "Library: Panel structure, resize interaction, visibility and empty-state primitives.",
+      "notes": "The library owns Panel structure, resize interaction, visibility and empty-state primitives. The host owns Content, search, durable width storage and feature actions.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/sidebar/README.md",
+          "start": 1,
+          "end": 173
+        },
+        {
+          "file": "libs/sidebar/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/sidebar/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+          "start": 25,
+          "end": 266,
+          "symbol": "SidebarPanel"
+        },
+        {
+          "file": "libs/sidebar/src/models/panel-props.ts",
+          "start": 51,
+          "end": 90,
+          "symbol": "SidebarPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-sidebar-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "SidebarPanel \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "isOpen",
+          "boolean"
+        ],
+        [
+          "orientation",
+          "SidebarOrientation"
+        ],
+        [
+          "children",
+          "ReactNode"
+        ],
+        [
+          "onResizeStop (optional)",
+          "((width: number) => void)"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/sidebar/README.md",
+          "start": 1,
+          "end": 173
+        },
+        {
+          "file": "libs/sidebar/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/sidebar/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+          "start": 25,
+          "end": 266,
+          "symbol": "SidebarPanel"
+        },
+        {
+          "file": "libs/sidebar/src/models/panel-props.ts",
+          "start": 51,
+          "end": 90,
+          "symbol": "SidebarPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-sidebar-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "<SidebarPanel\n  isOpen title=\"Demo sources\"\n  orientation={SidebarOrientation.Right}\n  resizable defaultWidth={width} onResizeStop={setWidth}\n  labels={{ ariaLabel: 'Demo sources', closeLabel: 'Close' }}\n>\n  <p>Host-provided content</p>\n</SidebarPanel>",
+      "caption": "Full example: examples/sidebar.tsx \u00b7 uses @epam/ai-dial-sidebar",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/sidebar.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Compose a header, actions and scrollable content. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/sidebar/README.md",
+          "start": 1,
+          "end": 173
+        },
+        {
+          "file": "libs/sidebar/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/sidebar/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+          "start": 25,
+          "end": 266,
+          "symbol": "SidebarPanel"
+        },
+        {
+          "file": "libs/sidebar/src/models/panel-props.ts",
+          "start": 51,
+          "end": 90,
+          "symbol": "SidebarPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-sidebar-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep sidebar focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Open host content",
+          "body": "Supply isOpen, title and the panel\u2019s child view."
+        },
+        {
+          "title": "Resize the panel",
+          "body": "Enable resizing and handle onResizeStop."
+        },
+        {
+          "title": "Retain the width",
+          "body": "Store the final width in the host if it must survive remounts."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Open host content: Supply isOpen, title and the panel\u2019s child view. Resize the panel: Enable resizing and handle onResizeStop. Retain the width: Store the final width in the host if it must survive remounts. The complete typed module in examples/sidebar.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/sidebar/README.md",
+          "start": 1,
+          "end": 173
+        },
+        {
+          "file": "libs/sidebar/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/sidebar/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+          "start": 25,
+          "end": 266,
+          "symbol": "SidebarPanel"
+        },
+        {
+          "file": "libs/sidebar/src/models/panel-props.ts",
+          "start": 51,
+          "end": 90,
+          "symbol": "SidebarPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-sidebar-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Logical placement",
+          "body": "SidebarOrientation selects the desired panel side."
+        },
+        {
+          "title": "Header slots",
+          "body": "leftActions and rightActions are public API slot names."
+        },
+        {
+          "title": "Width bounds",
+          "body": "defaultWidth, minWidth and maxWidth configure resizing."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Logical placement: SidebarOrientation selects the desired panel side. Header slots: leftActions and rightActions are public API slot names. Width bounds: defaultWidth, minWidth and maxWidth configure resizing. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/sidebar/README.md",
+          "start": 1,
+          "end": 173
+        },
+        {
+          "file": "libs/sidebar/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/sidebar/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+          "start": 25,
+          "end": 266,
+          "symbol": "SidebarPanel"
+        },
+        {
+          "file": "libs/sidebar/src/models/panel-props.ts",
+          "start": 51,
+          "end": 90,
+          "symbol": "SidebarPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-sidebar-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx"
+        ],
+        [
+          "Test evidence",
+          "renders children in the body"
+        ],
+        [
+          "Test evidence",
+          "marks the aside element found by its role"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx; libs/source-panel/src/constants/public-class-names.ts; libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx; libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx; libs/attachment-canvas/src/models/attachment-canvas.ts; libs/attachment-canvas/src/constants/public-class-names.ts. Existing test evidence: [{\"file\": \"libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.spec.tsx\", \"assertions\": [\"SidebarPanel\", \"renders children in the body\", \"has role=complementary and aria-label\", \"renders leftActions in the left header group\", \"renders rightActions in the right header group\", \"side=right: close button is in the right group (last button)\", \"side=right: renders without a divider\", \"side=left: close button is rendered after right actions (last button)\", \"side=left, open: applies the border-s divider facing the navigation rail\", \"side=left, closed: renders without a divider\", \"close button calls onClose\", \"colors prop emits CSS custom properties\", \"no inline style when colors and typography are omitted\", \"w-full className overrides inline width\", \"applies inline width when w-full className is absent\"]}, {\"file\": \"libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx\", \"assertions\": [\"SidebarPanel \\u2014 public class names\", \"marks the aside element found by its role\", \"marks the header bar that carries the title\", \"keeps the aside addressable when the host localises its label\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-sidebar:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/sidebar/README.md",
+          "start": 1,
+          "end": 173
+        },
+        {
+          "file": "libs/sidebar/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/sidebar/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+          "start": 25,
+          "end": 266,
+          "symbol": "SidebarPanel"
+        },
+        {
+          "file": "libs/sidebar/src/models/panel-props.ts",
+          "start": 51,
+          "end": 90,
+          "symbol": "SidebarPanelProps"
+        },
+        {
+          "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+          "start": 1,
+          "end": 203
+        },
+        {
+          "file": "libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.spec.tsx",
+          "start": 1,
+          "end": 312
+        },
+        {
+          "file": "libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx",
+          "start": 1,
+          "end": 87
+        }
+      ]
+    },
+    {
+      "id": "lib-sidebar-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "No built-in search",
+          "body": "Compose search in children or header actions."
+        },
+        {
+          "title": "Persistence is external",
+          "body": "onResizeStop reports width; the host decides where to save it."
+        },
+        {
+          "title": "Contextual visibility",
+          "body": "Keep the parent layout and isOpen state synchronized."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. No built-in search: Compose search in children or header actions. Persistence is external: onResizeStop reports width; the host decides where to save it. Contextual visibility: Keep the parent layout and isOpen state synchronized. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/sidebar/README.md",
+          "start": 1,
+          "end": 173
+        },
+        {
+          "file": "libs/sidebar/src/index.ts",
+          "start": 1,
+          "end": 14
+        },
+        {
+          "file": "libs/sidebar/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+          "start": 25,
+          "end": 266,
+          "symbol": "SidebarPanel"
+        },
+        {
+          "file": "libs/sidebar/src/models/panel-props.ts",
+          "start": 51,
+          "end": 90,
+          "symbol": "SidebarPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/sidebar.pptx"
+}

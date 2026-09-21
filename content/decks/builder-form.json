@@ -1,0 +1,535 @@
+{
+  "id": "libs/builder-form",
+  "shortTitle": "Builder form",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-builder-form-01",
+      "title": "Builder form",
+      "layout": "cover",
+      "subtitle": "Give entity editors a shared structure and validation vocabulary.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-builder-form",
+      "notes": "This session explains give entity editors a shared structure and validation vocabulary. The library is a local private workspace package at libs/builder-form. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/builder-form/README.md",
+          "start": 1,
+          "end": 420
+        },
+        {
+          "file": "libs/builder-form/src/index.ts",
+          "start": 1,
+          "end": 65
+        },
+        {
+          "file": "libs/builder-form/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+          "start": 18,
+          "end": 120,
+          "symbol": "EditorLayout"
+        },
+        {
+          "file": "libs/builder-form/src/models/editor-layout-props.ts",
+          "start": 24,
+          "end": 45,
+          "symbol": "EditorLayoutProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-builder-form-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Give entity editors a shared structure and validation vocabulary.",
+      "cards": [
+        {
+          "title": "Build an editor",
+          "body": "Compose metadata and setup sections in a consistent page."
+        },
+        {
+          "title": "Share field rules",
+          "body": "Use one validator for name and version policies."
+        },
+        {
+          "title": "Localize metadata",
+          "body": "Edit additional deployment names and descriptions by locale."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Build an editor: Compose metadata and setup sections in a consistent page. Share field rules: Use one validator for name and version policies. Localize metadata: Edit additional deployment names and descriptions by locale. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/builder-form/README.md",
+          "start": 1,
+          "end": 420
+        },
+        {
+          "file": "libs/builder-form/src/index.ts",
+          "start": 1,
+          "end": 65
+        },
+        {
+          "file": "libs/builder-form/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+          "start": 18,
+          "end": 120,
+          "symbol": "EditorLayout"
+        },
+        {
+          "file": "libs/builder-form/src/models/editor-layout-props.ts",
+          "start": 24,
+          "end": 45,
+          "symbol": "EditorLayoutProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-builder-form-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host values",
+          "body": "Metadata and labels"
+        },
+        {
+          "title": "Editor controls",
+          "body": "Field changes"
+        },
+        {
+          "title": "Validation codes",
+          "body": "Required or invalid"
+        },
+        {
+          "title": "Host adapter",
+          "body": "Translate and persist"
+        }
+      ],
+      "takeaway": "Library: Editor shells, field controls and pure validation error codes.",
+      "notes": "The library owns Editor shells, field controls and pure validation error codes. The host owns Save behavior, routing, translated errors, avatar resolution and file access.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/builder-form/README.md",
+          "start": 1,
+          "end": 420
+        },
+        {
+          "file": "libs/builder-form/src/index.ts",
+          "start": 1,
+          "end": 65
+        },
+        {
+          "file": "libs/builder-form/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+          "start": 18,
+          "end": 120,
+          "symbol": "EditorLayout"
+        },
+        {
+          "file": "libs/builder-form/src/models/editor-layout-props.ts",
+          "start": 24,
+          "end": 45,
+          "symbol": "EditorLayoutProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-builder-form-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "EditorLayout \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "title",
+          "string"
+        ],
+        [
+          "onBack",
+          "() => void"
+        ],
+        [
+          "leftContent (optional)",
+          "ReactNode"
+        ],
+        [
+          "rightContent (optional)",
+          "ReactNode"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/builder-form/README.md",
+          "start": 1,
+          "end": 420
+        },
+        {
+          "file": "libs/builder-form/src/index.ts",
+          "start": 1,
+          "end": 65
+        },
+        {
+          "file": "libs/builder-form/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+          "start": 18,
+          "end": 120,
+          "symbol": "EditorLayout"
+        },
+        {
+          "file": "libs/builder-form/src/models/editor-layout-props.ts",
+          "start": 24,
+          "end": 45,
+          "symbol": "EditorLayoutProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-builder-form-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "<EditorLayout\n  title=\"Create demo deployment\" onBack={onBack}\n  leftContent={\n    <EditorSection title=\"Metadata\">Demo fields</EditorSection>\n  }\n  rightContent={\n    <EditorSection title=\"Setup\">Host setup</EditorSection>\n  }\n/>",
+      "caption": "Full example: examples/builder-form.tsx \u00b7 uses @epam/ai-dial-builder-form",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/builder-form.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Compose metadata and setup sections in a consistent page. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/builder-form/README.md",
+          "start": 1,
+          "end": 420
+        },
+        {
+          "file": "libs/builder-form/src/index.ts",
+          "start": 1,
+          "end": 65
+        },
+        {
+          "file": "libs/builder-form/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+          "start": 18,
+          "end": 120,
+          "symbol": "EditorLayout"
+        },
+        {
+          "file": "libs/builder-form/src/models/editor-layout-props.ts",
+          "start": 24,
+          "end": 45,
+          "symbol": "EditorLayoutProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-builder-form-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep builder form focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Compose metadata",
+          "body": "Place shared fields inside the editor sections."
+        },
+        {
+          "title": "Validate values",
+          "body": "Map validation error codes to localized field messages."
+        },
+        {
+          "title": "Save through the host",
+          "body": "Submit the validated values using the application adapter."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Compose metadata: Place shared fields inside the editor sections. Validate values: Map validation error codes to localized field messages. Save through the host: Submit the validated values using the application adapter. The complete typed module in examples/builder-form.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/builder-form/README.md",
+          "start": 1,
+          "end": 420
+        },
+        {
+          "file": "libs/builder-form/src/index.ts",
+          "start": 1,
+          "end": 65
+        },
+        {
+          "file": "libs/builder-form/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+          "start": 18,
+          "end": 120,
+          "symbol": "EditorLayout"
+        },
+        {
+          "file": "libs/builder-form/src/models/editor-layout-props.ts",
+          "start": 24,
+          "end": 45,
+          "symbol": "EditorLayoutProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-builder-form-10",
+      "title": "Validate without translating",
+      "layout": "code",
+      "kicker": "The host maps error codes into messages.",
+      "code": "const codes = validateDeploymentCreationFields(\n  { name: '', description: '', iconUrl: '',\n    version: '1.0.0', topics: [], otherLocales: [] },\n  { validateNamePattern: true, validateVersionPattern: true },\n);",
+      "caption": "Focused source-backed example \u00b7 see examples/ and content/api-index.md.",
+      "notes": "An empty name produces a validation error code. No translation service is invoked by the validator. The full example includes this call.",
+      "sources": [
+        {
+          "file": "libs/builder-form/README.md",
+          "start": 1,
+          "end": 420
+        },
+        {
+          "file": "libs/builder-form/src/index.ts",
+          "start": 1,
+          "end": 65
+        },
+        {
+          "file": "libs/builder-form/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+          "start": 18,
+          "end": 120,
+          "symbol": "EditorLayout"
+        },
+        {
+          "file": "libs/builder-form/src/models/editor-layout-props.ts",
+          "start": 24,
+          "end": 45,
+          "symbol": "EditorLayoutProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-builder-form-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Layout composition",
+          "body": "EditorLayout exposes leftContent, rightContent and actions."
+        },
+        {
+          "title": "Metadata fields",
+          "body": "The shared creation form includes avatar, version, topics and locales."
+        },
+        {
+          "title": "Policy switches",
+          "body": "Name and version pattern checks are opt-in validator options."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Layout composition: EditorLayout exposes leftContent, rightContent and actions. Metadata fields: DeploymentCreationForm includes avatar, version, topics and locales. Policy switches: Name and version pattern checks are opt-in validator options. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/builder-form/README.md",
+          "start": 1,
+          "end": 420
+        },
+        {
+          "file": "libs/builder-form/src/index.ts",
+          "start": 1,
+          "end": 65
+        },
+        {
+          "file": "libs/builder-form/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+          "start": 18,
+          "end": 120,
+          "symbol": "EditorLayout"
+        },
+        {
+          "file": "libs/builder-form/src/models/editor-layout-props.ts",
+          "start": 24,
+          "end": 45,
+          "symbol": "EditorLayoutProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-builder-form-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "prompt-editor/src/components/PromptEditor/PromptEditor.tsx"
+        ],
+        [
+          "Test evidence",
+          "renders all shared fields"
+        ],
+        [
+          "Test evidence",
+          "renders the host file manager modal when open"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx; libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx; libs/toolset-editor/src/components/GeneralForm/GeneralForm.tsx; libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx; libs/toolset-editor/src/models/toolset-editor-props.ts; libs/toolset-editor/src/models/general-form-props.ts. Existing test evidence: [{\"file\": \"libs/builder-form/src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx\", \"assertions\": [\",\", \"DeploymentCreationForm\", \"renders all shared fields\", \"calls onAddAvatarClick when the Add avatar button is clicked\", \"calls onChange with a name patch when the name input changes\", \"calls onChange with a description patch when the textarea changes\", \"surfaces a passed-in name error without validating itself\", \"renders no error when none is passed\"]}, {\"file\": \"libs/builder-form/src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx\", \"assertions\": [\"AvatarPickerModal\", \"renders the host file manager modal when open\", \"does not render the host file manager modal when closed\", \"forwards the file manager attach result to onAttach\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-builder-form:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately. Existing test evidence includes: renders all shared fields.",
+      "sources": [
+        {
+          "file": "libs/builder-form/README.md",
+          "start": 1,
+          "end": 420
+        },
+        {
+          "file": "libs/builder-form/src/index.ts",
+          "start": 1,
+          "end": 65
+        },
+        {
+          "file": "libs/builder-form/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+          "start": 18,
+          "end": 120,
+          "symbol": "EditorLayout"
+        },
+        {
+          "file": "libs/builder-form/src/models/editor-layout-props.ts",
+          "start": 24,
+          "end": 45,
+          "symbol": "EditorLayoutProps"
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+          "start": 1,
+          "end": 310
+        },
+        {
+          "file": "libs/builder-form/src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx",
+          "start": 1,
+          "end": 183
+        },
+        {
+          "file": "libs/builder-form/src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx",
+          "start": 1,
+          "end": 95
+        }
+      ]
+    },
+    {
+      "id": "lib-builder-form-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Avatar ownership",
+          "body": "Resolve iconPreviewUrl and open file selection in the host."
+        },
+        {
+          "title": "Locale visibility",
+          "body": "The locale editor hides when no locale options are supplied."
+        },
+        {
+          "title": "State is mixed",
+          "body": "Some controls manage transient state; persistence remains outside."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Avatar ownership: Resolve iconPreviewUrl and open file selection in the host. Locale visibility: DeploymentLocalesField hides when no locale options are supplied. State is mixed: Some controls manage transient state; persistence remains outside. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/builder-form/README.md",
+          "start": 1,
+          "end": 420
+        },
+        {
+          "file": "libs/builder-form/src/index.ts",
+          "start": 1,
+          "end": 65
+        },
+        {
+          "file": "libs/builder-form/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+          "start": 18,
+          "end": 120,
+          "symbol": "EditorLayout"
+        },
+        {
+          "file": "libs/builder-form/src/models/editor-layout-props.ts",
+          "start": 24,
+          "end": 45,
+          "symbol": "EditorLayoutProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/builder-form.pptx"
+}

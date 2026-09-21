@@ -1,0 +1,15 @@
+{
+  "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+  "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+  "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+  "gitStatus": [
+    "?? .claude/skills/pptx/",
+    "?? openspec/changes/migrate-nestjs-v12/",
+    "?? skills-lock.json"
+  ],
+  "skill": {
+    "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+    "local": ".claude/skills/pptx/SKILL.md"
+  },
+  "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+}

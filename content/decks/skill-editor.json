@@ -1,0 +1,497 @@
+{
+  "id": "libs/skill-editor",
+  "shortTitle": "Skill editor",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-skill-editor-01",
+      "title": "Skill editor",
+      "layout": "cover",
+      "subtitle": "Edit a skill and its supporting file tree through host callbacks.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-skill-editor",
+      "notes": "This session explains edit a skill and its supporting file tree through host callbacks. The library is a local private workspace package at libs/skill-editor. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/skill-editor/README.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "libs/skill-editor/src/index.ts",
+          "start": 1,
+          "end": 23
+        },
+        {
+          "file": "libs/skill-editor/package.json",
+          "start": 1,
+          "end": 43
+        },
+        {
+          "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+          "start": 76,
+          "end": 570,
+          "symbol": "SkillEditor"
+        },
+        {
+          "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+          "start": 236,
+          "end": 315,
+          "symbol": "SkillEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-skill-editor-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Edit a skill and its supporting file tree through host callbacks.",
+      "cards": [
+        {
+          "title": "Author instructions",
+          "body": "Edit skill metadata and Markdown instructions."
+        },
+        {
+          "title": "Attach supporting files",
+          "body": "Select, expand and manage a file tree."
+        },
+        {
+          "title": "Resolve edits safely",
+          "body": "Show validation and conflict state from the host."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Author instructions: Edit skill metadata and Markdown instructions. Attach supporting files: Select, expand and manage a file tree. Resolve edits safely: Show validation and conflict state from the host. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/skill-editor/README.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "libs/skill-editor/src/index.ts",
+          "start": 1,
+          "end": 23
+        },
+        {
+          "file": "libs/skill-editor/package.json",
+          "start": 1,
+          "end": 43
+        },
+        {
+          "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+          "start": 76,
+          "end": 570,
+          "symbol": "SkillEditor"
+        },
+        {
+          "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+          "start": 236,
+          "end": 315,
+          "symbol": "SkillEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-skill-editor-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host skill state",
+          "body": "Values, files and errors"
+        },
+        {
+          "title": "SkillEditor",
+          "body": "Form and tree"
+        },
+        {
+          "title": "fileActions / submit",
+          "body": "Typed changes"
+        },
+        {
+          "title": "Host storage",
+          "body": "Validate and commit"
+        }
+      ],
+      "takeaway": "Library: Form editing, file-tree interaction and the protected root SKILL.md node.",
+      "notes": "The library owns Form editing, file-tree interaction and the protected root SKILL.md node. The host owns Path validation, upload/commit operations, ZIP/YAML serialization and persistence.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/skill-editor/README.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "libs/skill-editor/src/index.ts",
+          "start": 1,
+          "end": 23
+        },
+        {
+          "file": "libs/skill-editor/package.json",
+          "start": 1,
+          "end": 43
+        },
+        {
+          "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+          "start": 76,
+          "end": 570,
+          "symbol": "SkillEditor"
+        },
+        {
+          "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+          "start": 236,
+          "end": 315,
+          "symbol": "SkillEditorProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-skill-editor-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "SkillEditor \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "files",
+          "SkillFileTreeNode[]"
+        ],
+        [
+          "fileActions",
+          "SkillEditorFileActions"
+        ],
+        [
+          "onSubmit",
+          "(values: SkillEditorValues) => void"
+        ],
+        [
+          "conflict (optional)",
+          "SkillEditorConflict"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/skill-editor/README.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "libs/skill-editor/src/index.ts",
+          "start": 1,
+          "end": 23
+        },
+        {
+          "file": "libs/skill-editor/package.json",
+          "start": 1,
+          "end": 43
+        },
+        {
+          "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+          "start": 76,
+          "end": 570,
+          "symbol": "SkillEditor"
+        },
+        {
+          "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+          "start": 236,
+          "end": 315,
+          "symbol": "SkillEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-skill-editor-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "<SkillEditor\n  {...host}\n  title=\"Create demo skill\"\n  initialValues={{\n    name: 'demo-skill', description: 'Demo instructions',\n  }}\n/>\n// host supplies files, fileActions and save/navigation callbacks.",
+      "caption": "Full example: examples/skill-editor.tsx \u00b7 uses @epam/ai-dial-skill-editor",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/skill-editor.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Edit skill metadata and Markdown instructions. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/skill-editor/README.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "libs/skill-editor/src/index.ts",
+          "start": 1,
+          "end": 23
+        },
+        {
+          "file": "libs/skill-editor/package.json",
+          "start": 1,
+          "end": 43
+        },
+        {
+          "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+          "start": 76,
+          "end": 570,
+          "symbol": "SkillEditor"
+        },
+        {
+          "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+          "start": 236,
+          "end": 315,
+          "symbol": "SkillEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-skill-editor-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep skill editor focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Load skill inputs",
+          "body": "Prepare metadata, files and the required file actions."
+        },
+        {
+          "title": "Collect edits",
+          "body": "The editor returns changes through host callbacks."
+        },
+        {
+          "title": "Save the skill",
+          "body": "The host performs persistence and handles navigation."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Load skill inputs: Prepare metadata, files and the required file actions. Collect edits: The editor returns changes through host callbacks. Save the skill: The host performs persistence and handles navigation. The complete typed module in examples/skill-editor.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/skill-editor/README.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "libs/skill-editor/src/index.ts",
+          "start": 1,
+          "end": 23
+        },
+        {
+          "file": "libs/skill-editor/package.json",
+          "start": 1,
+          "end": 43
+        },
+        {
+          "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+          "start": 76,
+          "end": 570,
+          "symbol": "SkillEditor"
+        },
+        {
+          "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+          "start": 236,
+          "end": 315,
+          "symbol": "SkillEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-skill-editor-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "File action interface",
+          "body": "Validation and upload callbacks keep storage rules outside the view."
+        },
+        {
+          "title": "Conflict UI",
+          "body": "conflict and onReloadLatest support a host conflict workflow."
+        },
+        {
+          "title": "Selection control",
+          "body": "selectedPath and expandedPaths can be controlled externally."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. File action interface: Validation and upload callbacks keep storage rules outside the view. Conflict UI: conflict and onReloadLatest support a host conflict workflow. Selection control: selectedPath and expandedPaths can be controlled externally. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/skill-editor/README.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "libs/skill-editor/src/index.ts",
+          "start": 1,
+          "end": 23
+        },
+        {
+          "file": "libs/skill-editor/package.json",
+          "start": 1,
+          "end": 43
+        },
+        {
+          "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+          "start": 76,
+          "end": 570,
+          "symbol": "SkillEditor"
+        },
+        {
+          "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+          "start": 236,
+          "end": 315,
+          "symbol": "SkillEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-skill-editor-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat-hooks/src/skill/skill.ts"
+        ],
+        [
+          "Test evidence",
+          "activates on drag-enter"
+        ],
+        [
+          "Test evidence",
+          "renders nothing when not visible"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: libs/chat-hooks/src/skill/skill.ts; apps/chat/src/pages/SkillEditor/SkillEditor.tsx; libs/chat-hooks/src/skill/useSkillEditorSubmit.ts; libs/chat-hooks/src/skill/useSkillEditorLoad.ts; libs/chat-hooks/src/skill/useSkillFileActions.ts; libs/chat-hooks/src/skill/skill-file-batch-validation.ts. Existing test evidence: [{\"file\": \"libs/skill-editor/src/hooks/tests/useSkillFileDropZone.spec.ts\", \"assertions\": [\"useSkillFileDropZone\", \"activates on drag-enter\", \"does not flicker to inactive on a nested drag-leave while still over the zone\", \"deactivates once the net enter count returns to zero\", \"calls preventDefault on dragover for a file drag\", \"ignores a non-file drag\", \"calls onFilesDropped with the dropped files and resets drag state\"]}, {\"file\": \"libs/skill-editor/src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx\", \"assertions\": [\"SkillFileDropOverlay\", \"renders nothing when not visible\", \"shows the default title and subtitle when visible\", \"renders host-supplied labels\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-skill-editor:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/skill-editor/README.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "libs/skill-editor/src/index.ts",
+          "start": 1,
+          "end": 23
+        },
+        {
+          "file": "libs/skill-editor/package.json",
+          "start": 1,
+          "end": 43
+        },
+        {
+          "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+          "start": 76,
+          "end": 570,
+          "symbol": "SkillEditor"
+        },
+        {
+          "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+          "start": 236,
+          "end": 315,
+          "symbol": "SkillEditorProps"
+        },
+        {
+          "file": "libs/chat-hooks/src/skill/skill.ts",
+          "start": 1,
+          "end": 256
+        },
+        {
+          "file": "libs/skill-editor/src/hooks/tests/useSkillFileDropZone.spec.ts",
+          "start": 1,
+          "end": 84
+        },
+        {
+          "file": "libs/skill-editor/src/components/SkillFileDropOverlay/tests/SkillFileDropOverlay.spec.tsx",
+          "start": 1,
+          "end": 39
+        }
+      ]
+    },
+    {
+      "id": "lib-skill-editor-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Protected entry file",
+          "body": "The root SKILL.md cannot be removed by the tree UI."
+        },
+        {
+          "title": "No archive writer",
+          "body": "The host assembles the persisted skill representation."
+        },
+        {
+          "title": "Async ownership",
+          "body": "Supply meaningful loading, submitting and error states."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Protected entry file: The root SKILL.md cannot be removed by the tree UI. No archive writer: The host assembles the persisted skill representation. Async ownership: Supply meaningful loading, submitting and error states. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/skill-editor/README.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "libs/skill-editor/src/index.ts",
+          "start": 1,
+          "end": 23
+        },
+        {
+          "file": "libs/skill-editor/package.json",
+          "start": 1,
+          "end": 43
+        },
+        {
+          "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+          "start": 76,
+          "end": 570,
+          "symbol": "SkillEditor"
+        },
+        {
+          "file": "libs/skill-editor/src/models/skill-editor-props.ts",
+          "start": 236,
+          "end": 315,
+          "symbol": "SkillEditorProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/skill-editor.pptx"
+}

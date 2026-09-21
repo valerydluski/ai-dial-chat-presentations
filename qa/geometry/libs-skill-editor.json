@@ -1,0 +1,1133 @@
+[
+  {
+    "id": "lib-skill-editor-01",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Skill editor",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-skill-editor-01",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Skill editor",
+        "x": 0.65,
+        "y": 1.65,
+        "w": 11.7,
+        "h": 1.5,
+        "font": 48,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Edit a skill and its supporting file tree through host callbacks.",
+        "x": 0.68,
+        "y": 3.44,
+        "w": 11.3,
+        "h": 1.15,
+        "font": 28,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Problem and boundary",
+        "x": 0.9,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "Public contract",
+        "x": 5,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "Working integration",
+        "x": 9.1,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "@epam/ai-dial-skill-editor",
+        "x": 0.68,
+        "y": 6.22,
+        "w": 11.6,
+        "h": 0.32,
+        "font": 14,
+        "color": "BCC9DA"
+      }
+    ]
+  },
+  {
+    "id": "lib-skill-editor-02",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Skill editor",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-skill-editor-02",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "When this library is useful",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Edit a skill and its supporting file tree through host callbacks.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Author instructions",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Edit skill metadata and Markdown instructions.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Attach supporting files",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Select, expand and manage a file tree.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Resolve edits safely",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Show validation and conflict state from the host.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "lib-skill-editor-03",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Skill editor",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-skill-editor-03",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Follow the ownership boundary",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Inputs and effects stay explicit.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.82,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Host skill state",
+        "x": 0.82,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Values, files and errors",
+        "x": 0.82,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 3.93,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Skill Editor",
+        "x": 3.93,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Form and tree",
+        "x": 3.93,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 7.039999999999999,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "file Actions / submit",
+        "x": 7.039999999999999,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Typed changes",
+        "x": 7.039999999999999,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 10.15,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Host storage",
+        "x": 10.15,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Validate and commit",
+        "x": 10.15,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "Library: Form editing, file-tree interaction and the protected root SKILL.md node.",
+        "x": 0.66,
+        "y": 5.85,
+        "w": 11.95,
+        "h": 0.74,
+        "font": 24,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "lib-skill-editor-04",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Skill editor",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-skill-editor-04",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "The public contract to start with",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "SkillEditor · selected surface; full API index is in the bundle.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "lib-skill-editor-05",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Skill editor",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-skill-editor-05",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "05",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "A minimal workspace integration",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "TypeScript / React example · imports and host setup abridged.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "<SkillEditor\n  {...host}\n  title=\"Create demo skill\"\n  initialValues={{\n    name: 'demo-skill', description: 'Demo instructions',\n  }}\n/>\n// host supplies files, fileActions and save/navigation callbacks.",
+        "x": 0.86,
+        "y": 3.06,
+        "w": 11.55,
+        "h": 3.2,
+        "font": 18,
+        "fontFace": "Courier New",
+        "breakLine": false,
+        "paraSpaceAfterPt": 0,
+        "lineSpacingMultiple": 1.04,
+        "color": "EDF2F7"
+      },
+      {
+        "type": "text",
+        "text": "Full example: examples/skill-editor.tsx · uses @epam/ai-dial-skill-editor",
+        "x": 0.65,
+        "y": 6.58,
+        "w": 11.9,
+        "h": 0.24,
+        "font": 12,
+        "color": "BCC9DA"
+      }
+    ]
+  },
+  {
+    "id": "lib-skill-editor-06",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Skill editor",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-skill-editor-06",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "06",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Wire a realistic host workflow",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Keep skill editor focused on its public responsibility.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Load skill inputs",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Prepare metadata, files and the required file actions.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Collect edits",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The editor returns changes through host callbacks.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Save the skill",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The host performs persistence and handles navigation.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "lib-skill-editor-07",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Skill editor",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-skill-editor-07",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "07",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Available customization",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "File action interface",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Validation and upload callbacks keep storage rules outside the view.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Conflict UI",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "conflict and onReloadLatest support a host conflict workflow.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Selection control",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "selectedPath and expandedPaths can be controlled externally.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "lib-skill-editor-08",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Skill editor",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-skill-editor-08",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "08",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Find the integration and its checks",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "lib-skill-editor-09",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  LIBRARY DEEP DIVE",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Skill editor",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "lib-skill-editor-09",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "09",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Constraints that affect integration",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Protected entry file",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The root SKILL.md cannot be removed by the tree UI.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "No archive writer",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The host assembles the persisted skill representation.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Async ownership",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Supply meaningful loading, submitting and error states.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  }
+]

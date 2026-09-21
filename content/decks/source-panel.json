@@ -1,0 +1,497 @@
+{
+  "id": "libs/source-panel",
+  "shortTitle": "Source panel",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-source-panel-01",
+      "title": "Source panel",
+      "layout": "cover",
+      "subtitle": "Put uploaded files, generated files and citations in one evidence panel.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-source-panel",
+      "notes": "This session explains put uploaded files, generated files and citations in one evidence panel. The library is a local private workspace package at libs/source-panel. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/source-panel/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/source-panel/src/index.ts",
+          "start": 1,
+          "end": 10
+        },
+        {
+          "file": "libs/source-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+          "start": 203,
+          "end": 203,
+          "symbol": "ConversationSourcesPanel"
+        },
+        {
+          "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+          "start": 64,
+          "end": 107,
+          "symbol": "ConversationSourcesPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-source-panel-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Put uploaded files, generated files and citations in one evidence panel.",
+      "cards": [
+        {
+          "title": "Find evidence",
+          "body": "Inspect source material beside the conversation."
+        },
+        {
+          "title": "Search by name",
+          "body": "Narrow attachments and source labels."
+        },
+        {
+          "title": "Open a reference",
+          "body": "Delegate preview or download to the host."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Find evidence: Inspect source material beside the conversation. Search by name: Narrow attachments and source labels. Open a reference: Delegate preview or download to the host. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/source-panel/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/source-panel/src/index.ts",
+          "start": 1,
+          "end": 10
+        },
+        {
+          "file": "libs/source-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+          "start": 203,
+          "end": 203,
+          "symbol": "ConversationSourcesPanel"
+        },
+        {
+          "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+          "start": 64,
+          "end": 107,
+          "symbol": "ConversationSourcesPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-source-panel-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host derivation",
+          "body": "Files and quotations"
+        },
+        {
+          "title": "Sources panel",
+          "body": "Search and sections"
+        },
+        {
+          "title": "Click callback",
+          "body": "Source or attachment"
+        },
+        {
+          "title": "Host resolver",
+          "body": "Open the right content"
+        }
+      ],
+      "takeaway": "Library: Evidence sections, filtering and attachment/source interactions.",
+      "notes": "The library owns Evidence sections, filtering and attachment/source interactions. The host owns Source derivation, authenticated downloads and canvas loading.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/source-panel/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/source-panel/src/index.ts",
+          "start": 1,
+          "end": 10
+        },
+        {
+          "file": "libs/source-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+          "start": 203,
+          "end": 203,
+          "symbol": "ConversationSourcesPanel"
+        },
+        {
+          "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+          "start": 64,
+          "end": 107,
+          "symbol": "ConversationSourcesPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-source-panel-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "ConversationSourcesPanel \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "uploaded",
+          "DisplayAttachment[]"
+        ],
+        [
+          "generated",
+          "DisplayAttachment[]"
+        ],
+        [
+          "sources",
+          "QuotationSource[]"
+        ],
+        [
+          "onSourceClick (optional)",
+          "((source: QuotationSource) => void)"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/source-panel/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/source-panel/src/index.ts",
+          "start": 1,
+          "end": 10
+        },
+        {
+          "file": "libs/source-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+          "start": 203,
+          "end": 203,
+          "symbol": "ConversationSourcesPanel"
+        },
+        {
+          "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+          "start": 64,
+          "end": 107,
+          "symbol": "ConversationSourcesPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-source-panel-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "<ConversationSourcesPanel\n  isOpen isMobile={false}\n  onClose={onClose}\n  uploaded={[]} generated={[]}\n  sources={sources}\n  labels={labels}\n  onSourceClick={onOpen}\n/>",
+      "caption": "Full example: examples/source-panel.tsx \u00b7 uses @epam/ai-dial-source-panel",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/source-panel.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Inspect source material beside the conversation. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/source-panel/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/source-panel/src/index.ts",
+          "start": 1,
+          "end": 10
+        },
+        {
+          "file": "libs/source-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+          "start": 203,
+          "end": 203,
+          "symbol": "ConversationSourcesPanel"
+        },
+        {
+          "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+          "start": 64,
+          "end": 107,
+          "symbol": "ConversationSourcesPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-source-panel-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep source panel focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Group the evidence",
+          "body": "Supply uploaded, generated and source records."
+        },
+        {
+          "title": "Open the panel",
+          "body": "The host controls open state and mobile presentation."
+        },
+        {
+          "title": "Handle a source click",
+          "body": "Resolve the selected item and open its host-owned preview."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Group the evidence: Supply uploaded, generated and source records. Open the panel: The host controls open state and mobile presentation. Handle a source click: Resolve the selected item and open its host-owned preview. The complete typed module in examples/source-panel.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/source-panel/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/source-panel/src/index.ts",
+          "start": 1,
+          "end": 10
+        },
+        {
+          "file": "libs/source-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+          "start": 203,
+          "end": 203,
+          "symbol": "ConversationSourcesPanel"
+        },
+        {
+          "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+          "start": 64,
+          "end": 107,
+          "symbol": "ConversationSourcesPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-source-panel-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Separate collections",
+          "body": "uploaded, generated and sources retain their distinct roles."
+        },
+        {
+          "title": "Panel customization",
+          "body": "Width bounds, labels and additionalSections are explicit inputs."
+        },
+        {
+          "title": "Matched text",
+          "body": "Search results use the shared highlighting convention."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Separate collections: uploaded, generated and sources retain their distinct roles. Panel customization: Width bounds, labels and additionalSections are explicit inputs. Matched text: Search results use the shared highlighting convention. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/source-panel/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/source-panel/src/index.ts",
+          "start": 1,
+          "end": 10
+        },
+        {
+          "file": "libs/source-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+          "start": 203,
+          "end": 203,
+          "symbol": "ConversationSourcesPanel"
+        },
+        {
+          "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+          "start": 64,
+          "end": 107,
+          "symbol": "ConversationSourcesPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-source-panel-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx"
+        ],
+        [
+          "Test evidence",
+          "stamps the panel on the desktop layout"
+        ],
+        [
+          "Test evidence",
+          "renders uploaded attachments"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: apps/chat/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx; libs/chat-hooks/src/conversation-sources/useConversationSources/useConversationSources.ts; libs/sidebar/src/constants/public-class-names.ts. Existing test evidence: [{\"file\": \"libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx\", \"assertions\": [\"ConversationSourcesPanel \\u2014 public class names\", \"stamps the panel on the desktop layout\", \"keeps the class beside the mobile full-width utility\", \"stamps the panel while it is closed\"]}, {\"file\": \"libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx\", \"assertions\": [\"ConversationSourcesPanel\", \"renders uploaded attachments\", \"renders generated attachments\", \"close button calls onClose\", \"renders empty state when no data\", \"renders uploaded and generated sections in order\", \"renders sources section\", \"renders the download-all button disabled when onDownloadAll is omitted\", \"renders the download-all button enabled and wired to onDownloadAll\", \"ConversationSourcesPanel \\u2014 search\", \"typing a partial name filters uploaded and generated sections\", \"shows no-results state when query matches nothing\", \"clearing the query restores all attachments\", \"filters sources by title, url, and quote\", \"ConversationSourcesPanel \\u2014 title and additionalSections (optional, additive)\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-source-panel:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/source-panel/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/source-panel/src/index.ts",
+          "start": 1,
+          "end": 10
+        },
+        {
+          "file": "libs/source-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+          "start": 203,
+          "end": 203,
+          "symbol": "ConversationSourcesPanel"
+        },
+        {
+          "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+          "start": 64,
+          "end": 107,
+          "symbol": "ConversationSourcesPanelProps"
+        },
+        {
+          "file": "apps/chat/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+          "start": 1,
+          "end": 354
+        },
+        {
+          "file": "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+          "start": 1,
+          "end": 116
+        },
+        {
+          "file": "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+          "start": 1,
+          "end": 383
+        }
+      ]
+    },
+    {
+      "id": "lib-source-panel-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "No implicit fetching",
+          "body": "Opening a row needs a host callback."
+        },
+        {
+          "title": "Required labels",
+          "body": "The panel contract requires the complete labels object."
+        },
+        {
+          "title": "Boundary drift",
+          "body": "The README peer list differs from current package composition."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. No implicit fetching: Opening a row needs a host callback. Required labels: The panel contract requires the complete labels object. Boundary drift: The README peer list differs from current package composition. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/source-panel/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/source-panel/src/index.ts",
+          "start": 1,
+          "end": 10
+        },
+        {
+          "file": "libs/source-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+          "start": 203,
+          "end": 203,
+          "symbol": "ConversationSourcesPanel"
+        },
+        {
+          "file": "libs/source-panel/src/models/conversation-sources-panel-props.ts",
+          "start": 64,
+          "end": 107,
+          "symbol": "ConversationSourcesPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/source-panel.pptx"
+}

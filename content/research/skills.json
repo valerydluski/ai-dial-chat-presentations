@@ -1,0 +1,1502 @@
+{
+  "project": {
+    "id": "libs/skills",
+    "project": "@epam/ai-dial-skills",
+    "path": "libs/skills",
+    "package": "@epam/ai-dial-skills",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/skills/README.md",
+      "libs/skills/package.json",
+      "libs/skills/src/index.ts",
+      "libs/skills/src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx",
+      "libs/skills/tsconfig.spec.json",
+      "apps/chat/src/components/SkillSelector/useSkillSelectorOverlay.tsx",
+      "apps/chat/src/components/SkillSelector/SkillDetailsPanelContainer.tsx"
+    ],
+    "output": "decks/libs/skills.pptx",
+    "preview": "previews/libs/skills",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-skills",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-skills",
+        "target": "@epam/ai-dial-catalog",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-skills",
+        "target": "@epam/ai-dial-conversation-input",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-skills",
+    "description": "Host-agnostic UI for picking a favorite skill to attach to a chat input",
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0",
+      "@epam/ai-dial-catalog": "*",
+      "@epam/ai-dial-conversation-input": "*"
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9",
+      "react": "^19.2.8"
+    },
+    "nx": {
+      "tags": [
+        "publishable",
+        "type:ui"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/skills",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/skills",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/skills/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skills",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skills",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skills",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skills",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skills",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-skills --includeDependencies -- npx nx build-deps @epam/ai-dial-skills"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/skills",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/skills",
+          "command": "vitest run src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-skills --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx"
+        ]
+      },
+      "description": "Host-agnostic UI for picking a favorite skill to attach to a chat input",
+      "js": {
+        "packageName": "@epam/ai-dial-skills",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-skills",
+    "tags": [
+      "npm:private",
+      "publishable",
+      "type:ui"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/skills/src/index.ts",
+    "libs/skills/src/hooks/useSkillSelectorOverlay/useSkillSelectorOverlay.tsx",
+    "libs/skills/src/vite-env.d.ts",
+    "libs/skills/src/components/SkillInfoTooltipContent/SkillInfoTooltipContent.tsx",
+    "libs/skills/src/components/ChatSkill/ChatSkill.tsx",
+    "libs/skills/src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx",
+    "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.module.scss",
+    "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+    "libs/skills/src/components/SkillDetailsSidePanel/SkillDetailsSidePanel.tsx",
+    "libs/skills/src/components/SkillCatalogModal/SkillCatalogModal.tsx",
+    "libs/skills/src/test-setup.ts",
+    "libs/skills/src/models/skill-selector-overlay.ts",
+    "libs/skills/src/models/favorite-skills-panel-props.ts",
+    "libs/skills/src/models/chat-skill-props.ts",
+    "libs/skills/src/models/skill-info-tooltip-content-props.ts",
+    "libs/skills/src/models/skill-details-side-panel-props.ts",
+    "libs/skills/src/models/skill-catalog-modal-props.ts",
+    "libs/skills/src/models/favorite-skill-item.ts",
+    "libs/skills/src/utils/skill-url.ts",
+    "libs/skills/src/constants/public-class-names.ts",
+    "libs/skills/tsconfig.spec.json",
+    "libs/skills/eslint.config.mjs",
+    "libs/skills/postcss.config.js",
+    "libs/skills/tsconfig.lib.json",
+    "libs/skills/tsconfig.json",
+    "libs/skills/package.json",
+    "libs/skills/vite.config.mts",
+    "libs/skills/README.md",
+    "libs/skills/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/skills/src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx",
+    "libs/skills/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat/src/components/SkillSelector/useSkillSelectorOverlay.tsx",
+    "apps/chat/src/components/SkillSelector/SkillDetailsPanelContainer.tsx"
+  ],
+  "readme": "# @epam/ai-dial-skills\n\nHost-agnostic UI for picking a favorite skill to attach to a chat composer.\n\nThe lib knows nothing about where skills come from or what a selected skill\nmeans at send time. `FavoriteSkillsPanel` renders a plain list of\n`FavoriteSkillItem` objects the host has already resolved (from its own\nskills/favorites data), and hands every interaction back through callbacks \u2014\nit never fetches, navigates, or modifies the composer itself.\n\n`useSkillSelectorOverlay` owns the selection flow's state \u2014 the favorites\noverlay, the browse-modal and details-panel open state, and the single\nselected skill \u2014 while the host injects the listing data (descriptions\nincluded), the favorites state, labels, the browse modal's picker content,\nthe app-owned details-panel component, and the current deployment's\nskills-support flag (a plain boolean \u2014 the lib knows nothing about\ndeployments). While that flag is `false` the skill entry points are hidden,\nbut an already-selected chip stays and renders in `ChatSkill`'s error state.\nThe send-time semantics of a selected skill stay app-owned.\n\n`SkillDetailsSidePanel` composes `@epam/ai-dial-catalog`'s exported\n`DetailsPanel` into a right-anchored skill details panel. It adds no chrome of\nits own: the host supplies the `CatalogItem`, the details data, and every\naction.\n\n`ChatSkill` renders a single used skill \u2014 a `/name` ghost button whose\ninteractive tooltip shows the skill's description and a \"View details\" action \u2014\nidentically wherever a skill appears: inside the conversation input and in the\nconversation history. Its tooltip content is the same `SkillInfoTooltipContent`\nthe favorite rows render, so the skill's panel is visually one thing everywhere.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-skills\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-skills/styles.css';\n```\n\n## Peer Dependencies\n\n- `react` `^19.2.8`\n- `@epam/ai-dial-ui-kit` `^0.15.0-dev.9`\n- `@epam/ai-dial-chat-shared` `*`\n\n## Components\n\n### `ChatSkill`\n\n```tsx\nimport { ChatSkill } from '@epam/ai-dial-skills';\n\n<ChatSkill\n  name=\"my-skill\"\n  path=\"skills/public/my-skill\"\n  description={skill.description}\n  onViewDetails={(path) => openDetailsPanel(path)}\n/>;\n```\n\nRenders one used skill: a ui-kit `GhostButton` whose visible (and accessible)\nlabel is `/` followed by `name`, wrapped in the ui-kit `InteractiveTooltip`\n(`asChild`, uncontrolled, 550px max panel width, top placement flipping with\ndirection). The tooltip's content is the shared `SkillInfoTooltipContent` \u2014\nthe description paragraph (omitted when empty) above the \"View details\" link\nbutton \u2014 so the panel matches the favorite rows exactly. Activating the\nbutton body does nothing beyond opening the tooltip; on a touch-only device\nthe tooltip renders nothing and the button stays presentation-only. The\ncomponent carries no remove control of its own \u2014 removal is the host input's\nBackspace-at-start gesture.\n\n`description` is the listing's value, rendered directly with no fetch.\n`onViewDetails` receives the `path` when the tooltip's \"View details\" button\nis clicked.\n\nWhile `isUnsupported` is set the chip renders in an error state: the `/{name}`\nlabel carries `unsupportedLabelClassName` (default `text-error`), the chip\ncarries `unsupportedClassName` (default `bg-error`), and the tooltip's content\nis the unsupported-model message alone (`labels.unsupportedTooltipLabel`) \u2014 no\ndescription paragraph and no \"View details\" button.\n\n### `FavoriteSkillsPanel`\n\n```tsx\nimport { FavoriteSkillsPanel } from '@epam/ai-dial-skills';\nimport type { FavoriteSkillItem } from '@epam/ai-dial-skills';\n\n<FavoriteSkillsPanel\n  favorites={favoriteSkills}\n  onSelect={(item: FavoriteSkillItem) => handleSkillPicked(item)}\n  onToggleFavorite={(id) => unfavoriteSkill(id)}\n  onBrowse={openBrowseModal}\n  onViewDetails={(item: FavoriteSkillItem) => openDetailsPanel(item.id)}\n  labels={{ myCollectionLabel: t('input.addMenu.skills.myCollection') }}\n/>;\n```\n\nRenders the header, the favorite rows (initials icon, name, filled star), and\nthe \"Browse\" button. When `favorites` is empty, the list area is replaced with\nan empty-state hint; the header and \"Browse\" button still render. The panel is\n280px wide at the desktop breakpoint and fills its container below it, so a\nfull-width mobile sheet hosts it edge-to-edge.\n\nEach row is wrapped in the ui-kit `InteractiveTooltip` (`asChild`, so the row\nstays the focus and click target). The tooltip is uncontrolled: the kit opens\nit on hover or keyboard focus and keeps it open while the pointer is on the\nrow or the panel \u2014 including while it travels between them; on a touch-only\ndevice it renders nothing and the row still selects on tap. Its content is the\nskill's `description` \u2014 the listing's value, rendered only when non-empty \u2014\nabove a link-style \"View details\" button whose label comes from\n`labels.viewDetailsLabel`; the \"View details\" button is reachable whether or\nnot a description renders. The panel content itself is rendered by the shared\n`SkillInfoTooltipContent` component (below), so a `ChatSkill` element shows\nthe exact same panel.\n\n`onViewDetails` fires when the tooltip's \"View details\" button is clicked.\n\nClicking a row's star plays a short exit animation first, so\n`onToggleFavorite` fires ~180 ms after the click rather than synchronously.\nThe list's height animates to match once the row is gone.\n\n### `SkillInfoTooltipContent`\n\n```tsx\nimport { SkillInfoTooltipContent } from '@epam/ai-dial-skills';\n\n<SkillInfoTooltipContent\n  description=\"Summarizes long documents into bullet points.\"\n  viewDetailsLabel=\"View details\"\n  onViewDetails={() => openDetailsPanel(skill.url)}\n/>;\n```\n\nThe inner content of a skill's interactive tooltip, shared by\n`FavoriteSkillsPanel`'s rows and `ChatSkill`: the skill's `description`\nparagraph (the listing's value, omitted entirely when empty) above a\nlink-style \"View details\" button (`IconEye` on its inline-start, label from\n`viewDetailsLabel`). The \"View details\" button is reachable whether or not a\ndescription renders.\n\nWhile `unsupportedMessage` is set, the content is that message alone \u2014 no\ndescription paragraph and no \"View details\" button. That state is why\n`onViewDetails` is optional: the unsupported branch renders no button, so\nthe callback goes unused there.\n\n### `SkillDetailsSidePanel`\n\n```tsx\nimport { SkillDetailsSidePanel } from '@epam/ai-dial-skills';\nimport type { CatalogItem } from '@epam/ai-dial-catalog';\n\n<SkillDetailsSidePanel\n  item={skillCatalogItem}\n  isOpen={isPanelOpen}\n  isStarred={isFavorite}\n  isDetailsLoading={isFetching}\n  onClose={closePanel}\n  onToggleFavorite={(id, isStarred) => toggleFavorite(id, isStarred)}\n  onUseInChat={(item: CatalogItem) => attachSkill(item.id)}\n  isPrimaryActionVisible={() => true}\n  renderContentFilePreview={(fileId, fileName) => (\n    <FilePreview fileId={fileId} fileName={fileName} />\n  )}\n  texts={{ primaryActionLabel: 'Use in chat' }}\n/>;\n```\n\nA thin wrapper over `@epam/ai-dial-catalog`'s `DetailsPanel` narrowed to the\nactions a skill details surface offers: favorite toggle, close, \"Use in chat\",\nand content-file previews. Skills open on the content-first tab exactly as\nthey do on the Catalog page. Publish, share, credentials, and download props\nare deliberately absent \u2014 `DetailsPanel` hides those actions when they are not\nsupplied, so no catalog page chrome comes along. The host owns the open state\nand the details fetch; the panel itself never fetches.\n\n### `SkillCatalogModal`\n\n```tsx\nimport { SkillCatalogModal } from '@epam/ai-dial-skills';\n\n<SkillCatalogModal\n  isOpen={isCatalogOpen}\n  onClose={closeCatalog}\n  onSelect={(id) => handleSkillPicked(id)}\n  title=\"Use skill\"\n  renderContent={(onSelect, onClose) => (\n    <CatalogView onSelect={onSelect} onClose={onClose} />\n  )}\n/>;\n```\n\nThe \"Use skill\" browse-modal shell: a large ui-kit `Popup` whose body hosts\nhost-rendered picker content. The content is mounted only while the modal is\nopen, wrapped in a `Suspense` with a `null` fallback, so a lazily loaded\npicker (e.g. a catalog view chunk) loads in place on first open. The shell\nnever selects or navigates itself \u2014 it hands `onSelect` and `onClose` to\n`renderContent` and forwards a selection to `onSelect`.\n\n## Hooks\n\n### `useSkillSelectorOverlay`\n\n```tsx\nimport {\n  useSkillSelectorOverlay,\n  type UseSkillSelectorOverlayResult,\n} from '@epam/ai-dial-skills';\n\nconst CatalogView = lazy(() => import('./CatalogView'));\nconst SkillDetailsPanel = lazy(() => import('./SkillDetailsPanel'));\n\nconst {\n  skillMenuOverlay,\n  commandMenu,\n  skillCatalogModal,\n  skillDetailsPanel,\n  selectedSkillElement,\n  selectedSkillPath,\n  selectedSkills,\n  isSkillUnsupported,\n  selectSkill,\n  removeSelectedSkill,\n  renderHistorySkills,\n}: UseSkillSelectorOverlayResult = useSkillSelectorOverlay({\n  isEnabled: isSkillUsageEnabled,\n  isSkillsSupported: selectedDeployment?.features?.skillsSupported === true,\n  skills,\n  sharedWithMe,\n  publicSkills,\n  favoriteIds,\n  onToggleFavorite: (id) => unfavoriteSkill(id),\n  labels: {\n    addMenuLabel: 'Skills',\n    backLabel: 'Back',\n    emptyQueryHintLabel: 'Type to filter',\n  },\n  renderCatalogContent: (onSelect, onClose) => (\n    <CatalogView onSelect={onSelect} onClose={onClose} />\n  ),\n  detailsPanelComponent: SkillDetailsPanel,\n});\n```\n\nOwns the Skills Add-menu flow's state. `skillMenuOverlay` is the entry for\nthe `menuOverlays` prop of `ConversationInput`/`Input`; `commandMenu` is the\n`/`-prefix command-menu config for the input's `commandMenu` prop \u2014 the same\nfavorites panel in search mode over the typed query, with\n`labels.emptyQueryHintLabel` as its empty-query hint. Both entries are\n`undefined` while `isEnabled` is `false` or `isSkillsSupported` is `false`\n(the current deployment does not support skills), so the host omits the\nmenu item and the slash dropdown entirely; the hook renders\n`FavoriteSkillsPanel` as both entries' content, forwarding\n`labels.panelLabels`. `skillCatalogModal` renders the lib's `SkillCatalogModal`\nshell with `labels.catalogModalTitleLabel` as its title and\n`renderCatalogContent` as its body \u2014 both elements the host renders at a\nstable level outside the popover. `skillDetailsPanel` renders the injected\n`detailsPanelComponent` (wrapped in `Suspense`, so a lazily loaded component\nis fine); the open state of the modal and the panel, and the wiring of \"View\ndetails\" and \"Use in chat\" back to selection, are the hook's.\n`selectedSkillElement` is the selected skill as a `ChatSkill` element for the\nconversation input's `inlineStartSlot` \u2014 at most one, replaced on every\nselection, with the shared tooltip (the listing-sourced description, same as\nthe rows) and no remove control of its own (removal is the input's\nBackspace-at-position-0 gesture, wired through `removeSelectedSkill`).\n`isSkillUnsupported` is `true` while a skill is selected and\n`isSkillsSupported` is `false` (always `false` while `isEnabled` is `false`):\nthe selected chip renders in `ChatSkill`'s error state \u2014 the error-state\ntooltip message comes from `labels.unsupportedTooltipLabel`, which has an\nEnglish default \u2014 and hosts fold the flag into their send-disabled\ncondition, while the chip, its removal gesture, and the details panel stay\navailable.\n`selectedSkillPath` is the selected skill's resource URL\n(`skills/{bucket}/{path}`) \u2014 the value the host sends as the `{ url }` entry\nof the outgoing message's `custom_content.skills` (`null` while nothing is\nselected or `isEnabled` is `false`) \u2014 and `selectSkill` selects by that same\nresource URL. `selectedSkills` is that send-time payload ready-made \u2014\n`[{ url: <selected path> }]` while a skill is selected, `undefined` otherwise\n(so `custom_content.skills` is omitted from the message entirely).\n`renderHistorySkills` renders a history message's\n`custom_content.skills` entries as `ChatSkill` elements beside the\nmessage bubble's first text line, with the text word-flowing after them\n(user and assistant messages alike): each entry's name and description are\nresolved from the injected listing pools matched on its url (the name falling\nback to the url's last non-empty segment, the description omitted when no\npool carries the url), and \"View details\" opens the same details panel;\nit returns `null` while `isEnabled` is `false` or the array is empty. The\nchip renders beside the bubble's first text line, so pass\n`historyChipLabelClassName` with the label class the bubbles' body text\nuses, keeping the chip's height matched to that line.\n\nRow and chip descriptions come from the listing entries the host injects \u2014\nno per-skill fetch happens anywhere in the flow, and opening a tooltip\ntriggers zero requests.\n\n## Utilities\n\n### `buildFavoriteSkillItem`\n\n```tsx\nimport { buildFavoriteSkillItem } from '@epam/ai-dial-skills';\nimport type { FavoriteSkillItem } from '@epam/ai-dial-skills';\n\nconst favorites: FavoriteSkillItem[] = listedSkills\n  .filter((skill) => favoriteIds.has(skill.url))\n  .map((skill) => buildFavoriteSkillItem(skill));\n```\n\nBuilds a `FavoriteSkillItem` from a listing entry, mapping its `description`\nstraight through. The entry needs only `{ url, name }` \u2014 the host's skill\nlisting DTO satisfies it directly, and an entry that carries no `description`\nproduces no description paragraph.\n\n## Types\n\n```tsx\nimport type {\n  ChatSkillLabels,\n  ChatSkillProps,\n  FavoriteSkillItem,\n  FavoriteSkillsPanelColors,\n  FavoriteSkillsPanelLabels,\n  FavoriteSkillsPanelProps,\n  SkillCatalogModalProps,\n  SkillDetailsPanelComponentProps,\n  SkillDetailsSidePanelProps,\n  SkillInfoTooltipContentProps,\n  SkillListingEntry,\n  SkillSelectorOverlayLabels,\n  UseSkillSelectorOverlayOptions,\n  UseSkillSelectorOverlayResult,\n} from '@epam/ai-dial-skills';\n```\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. Selected\nelements therefore carry a stable public class.\n\n| Key              | Class                         | Element                                                                |\n| ---------------- | ----------------------------- | ---------------------------------------------------------------------- |\n| `favoritesPanel` | `dial-skills-favorites-panel` | The `FavoriteSkillsPanel` root, which carries the themed CSS variables |\n| `chip`           | `dial-skills-chip`            | The `/name` chip a `ChatSkill` renders inside the composer             |\n\n```tsx\nimport { SKILLS_CLASS } from '@epam/ai-dial-skills';\n\nSKILLS_CLASS.chip; // 'dial-skills-chip'\n```\n\nThe chip is a `GhostButton` from\n[`@epam/ai-dial-ui-kit`](https://www.npmjs.com/package/@epam/ai-dial-ui-kit), so\n`dial-kit-base-button` is on the same element. Its height is exactly its label\nline with no vertical padding, which is what aligns it with the composer's first\ntext line \u2014 keep the block padding at zero when restyling it:\n\n```css\n.dial-skills-chip {\n  padding-inline: 0.75rem;\n}\n```\n\nThe classes carry no declarations of their own: nothing in `styles.css`\nselects on them, so they change nothing until a host writes a rule. Renaming\none, or moving it to a different element, is a breaking change. The convention\nis in [`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/skills/src/index.ts": "export { ChatSkill } from './components/ChatSkill/ChatSkill';\nexport { FavoriteSkillsPanel } from './components/FavoriteSkillsPanel/FavoriteSkillsPanel';\nexport { SkillCatalogModal } from './components/SkillCatalogModal/SkillCatalogModal';\nexport { SkillDetailsSidePanel } from './components/SkillDetailsSidePanel/SkillDetailsSidePanel';\nexport { SkillInfoTooltipContent } from './components/SkillInfoTooltipContent/SkillInfoTooltipContent';\nexport { useSkillSelectorOverlay } from './hooks/useSkillSelectorOverlay/useSkillSelectorOverlay';\nexport { buildFavoriteSkillItem } from './models/favorite-skill-item';\nexport type {\n  ChatSkillLabels,\n  ChatSkillProps,\n} from './models/chat-skill-props';\nexport type {\n  FavoriteSkillItem,\n  SkillListingEntry,\n} from './models/favorite-skill-item';\nexport type {\n  FavoriteSkillsPanelColors,\n  FavoriteSkillsPanelLabels,\n  FavoriteSkillsPanelProps,\n} from './models/favorite-skills-panel-props';\nexport type { SkillCatalogModalProps } from './models/skill-catalog-modal-props';\nexport type { SkillDetailsSidePanelProps } from './models/skill-details-side-panel-props';\nexport type { SkillInfoTooltipContentProps } from './models/skill-info-tooltip-content-props';\nexport type {\n  SkillDetailsPanelComponentProps,\n  SkillSelectorOverlayLabels,\n  UseSkillSelectorOverlayOptions,\n  UseSkillSelectorOverlayResult,\n} from './models/skill-selector-overlay';\nexport { SKILLS_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/skills/src/index.ts": [
+      {
+        "name": "ChatSkill",
+        "file": "libs/skills/src/components/ChatSkill/ChatSkill.tsx",
+        "start": 16,
+        "end": 99,
+        "declaration": "ChatSkill: FC<ChatSkillProps> = ({\n  name,\n  path,\n  description,\n  isUnsupported = false,\n  labelClassName = 'dial-body-paragraph-text',\n  unsupportedLabelClassName = 'text-error',\n  unsupportedClassName = 'bg-error',\n  onViewDetails,\n  labels = {},\n}) => {\n  const {\n    viewDetailsLabel = 'View details',\n    unsupportedTooltipLabel = 'Selected model does not support skills. Remove the skill or select different model to proceed.',\n  } = labels;\n\n  /*\n   * The tooltip is uncontrolled (the kit opens it on hover/focus) and exposes\n   * no imperative close, so a \"View details\" click remounts it \u2014 the fresh\n   * instance's open state starts closed. This mirrors the favorites rows,\n   * whose tooltip unmounts with the Add menu on the same click; reopening\n   * takes a fresh hover or focus, not the pointer already resting on the chip.\n   */\n  const [tooltipGeneration, setTooltipGeneration] = useState(0);\n\n  const handleViewDetails = () => {\n    setTooltipGeneration((generation) => generation + 1);\n    onViewDetails(path);\n  };\n\n  return (\n    <InteractiveTooltip\n      key={tooltipGeneration}\n      asChild\n      placement={TooltipPlacement.Top}\n      contentClassName=\"max-w-[550px]\"\n      content={\n        isUnsupported ? (\n          <SkillInfoTooltipContent\n            unsupportedMessage={unsupportedTooltipLabel}\n          />\n        ) : (\n          <SkillInfoTooltipContent\n            description={description}\n            viewDetailsLabel={viewDetailsLabel}\n            onViewDetails={handleViewDetails}\n          />\n        )\n      }\n    >\n      {/*\n       * The span is the tooltip's trigger (`asChild`), so the tooltip stays\n       * open while the pointer moves between it and the button. The button\n       * body is presentation only \u2014 activating it does nothing beyond opening\n       * the tooltip; removal is the host input's Backspace-at-start gesture.\n       */}\n      <span className=\"inline-flex items-center\">\n        {/*\n         * `h-auto px-2 py-0` overrides the kit button's `h-[40px] px-4` so\n         * the chip is exactly its label line (26px with the default\n         * `dial-body-paragraph-text` label) plus 8px of horizontal padding \u2014\n         * no vertical padding, so the total height stays at the label line's\n         * height and the chip's text aligns with the input's first text line.\n         * In the error state the color classes join the layout/typography\n         * classes so the whole chip reads as the error: error-tinted\n         * background, error-colored `/{name}` label.\n         */}\n        <GhostButton\n          label={`/${name}`}\n          textClassName={\n            isUnsupported\n              ? mergeClasses(labelClassName, unsupportedLabelClassName)\n              : labelClassName\n          }\n          className={mergeClasses(\n            'h-auto px-2 py-0',\n            isUnsupported && unsupportedClassName,\n            SKILLS_CLASS.chip,\n          )}\n        />\n      </span>\n    </InteractiveTooltip>\n  );\n}",
+        "signature": "(props: ChatSkillProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "name",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "path",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "isUnsupported",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "labelClassName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "unsupportedLabelClassName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "unsupportedClassName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "onViewDetails",
+            "optional": false,
+            "type": "(path: string) => void"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").ChatSkillLabels | undefined"
+          }
+        ]
+      },
+      {
+        "name": "FavoriteSkillsPanel",
+        "file": "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+        "start": 37,
+        "end": 294,
+        "declaration": "FavoriteSkillsPanel: FC<FavoriteSkillsPanelProps> = ({\n  favorites,\n  onSelect,\n  onToggleFavorite,\n  onBrowse,\n  onViewDetails,\n  searchQuery,\n  labels = {},\n  colors,\n  nameClassName = 'dial-small-text',\n  headerClassName = 'dial-tiny-lead-semi-text',\n  emptyHintClassName = 'dial-small-text',\n}) => {\n  const {\n    myCollectionLabel = 'My Collection',\n    emptyHintLabel = 'Star a skill to pin it here',\n    browseLabel = 'Browse',\n    removeFromFavoritesLabel = 'Remove from favorites',\n    viewDetailsLabel = 'View details',\n    noMatchingSkillsLabel = 'No matching skills',\n  } = labels;\n\n  const cssVars = buildCssVars({\n    '--fs-row-hover-bg': colors?.rowHoverBackground,\n    '--fs-header-text': colors?.headerText,\n    '--fs-empty-hint-text': colors?.emptyHintText,\n    '--fs-star-color': colors?.starColor,\n    '--fs-footer-border': colors?.footerBorder,\n  });\n\n  const [leavingIds, setLeavingIds] = useState<Set<string>>(new Set());\n  const leaveTimeoutsRef = useRef(\n    new Map<string, ReturnType<typeof setTimeout>>(),\n  );\n\n  useEffect(() => {\n    const timeouts = leaveTimeoutsRef.current;\n    return () => {\n      timeouts.forEach((timeout) => clearTimeout(timeout));\n      timeouts.clear();\n    };\n  }, []);\n\n  const isSearchMode = searchQuery != null;\n  const normalizedQuery = searchQuery?.toLowerCase() ?? '';\n  const visibleFavorites = isSearchMode\n    ? favorites.filter((item) =>\n        item.name.toLowerCase().includes(normalizedQuery),\n      )\n    : favorites;\n\n  /*\n   * Animates the scrollable list's own height as rows leave instead of\n   * letting it snap instantly, since CSS can't transition height: auto.\n   */\n  const listContentRef = useRef<HTMLDivElement>(null);\n  const [listHeight, setListHeight] = useState<number>();\n\n  useLayoutEffect(() => {\n    if (listContentRef.current) {\n      setListHeight(\n        Math.min(listContentRef.current.scrollHeight, LIST_MAX_HEIGHT_PX),\n      );\n    }\n  }, [favorites, searchQuery]);\n\n  const handleKeyDown = (\n    e: KeyboardEvent<HTMLDivElement>,\n    item: FavoriteSkillItem,\n  ) => {\n    if (e.target !== e.currentTarget) return;\n    if (e.key === 'Enter' || e.key === ' ') {\n      e.preventDefault();\n      onSelect(item);\n    }\n  };\n\n  /*\n   * Plays the row's fade-out animation before actually committing the\n   * favorite change, since applying it immediately would make the row\n   * (and its own animation) disappear instantly.\n   */\n  const handleToggleFavorite = (id: string) => {\n    setLeavingIds((prev) => new Set(prev).add(id));\n    const timeout = setTimeout(() => {\n      onToggleFavorite(id);\n      setLeavingIds((prev) => {\n        const next = new Set(prev);\n        next.delete(id);\n        return next;\n      });\n      leaveTimeoutsRef.current.delete(id);\n    }, ROW_LEAVE_ANIMATION_MS);\n    leaveTimeoutsRef.current.set(id, timeout);\n  };\n\n  const renderRow = (item: FavoriteSkillItem) => {\n    const row = (\n      <div\n        role=\"button\"\n        tabIndex={0}\n        className={mergeClasses(\n          'flex cursor-pointer items-center gap-2 rounded-lg border border-transparent px-2 py-1.5 transition-colors',\n          styles.row,\n        )}\n        onClick={() => onSelect(item)}\n        onKeyDown={(e) => handleKeyDown(e, item)}\n      >\n        <DeploymentIcon size={DIAL_ICON_SIZE.MD} initialsName={item.name} />\n        {searchQuery != null ? (\n          <Highlight\n            text={item.name}\n            query={searchQuery}\n            maxLines={1}\n            className={mergeClasses(nameClassName, 'min-w-0 flex-1 text-start')}\n          />\n        ) : (\n          <span\n            className={mergeClasses(\n              nameClassName,\n              'min-w-0 flex-1 truncate text-start',\n            )}\n          >\n            {item.name}\n          </span>\n        )}\n        <ToggleIconButton\n          icon={\n            <IconStarFilled\n              size={DIAL_ICON_SIZE.SM}\n              className={styles.star}\n              aria-hidden\n            />\n          }\n          aria-label={removeFromFavoritesLabel}\n          /* Every row in this panel is a favorite, so the star is always on. */\n          isSelected\n          onClick={(e) => {\n            e.stopPropagation();\n            handleToggleFavorite(item.id);\n          }}\n        />\n      </div>\n    );\n\n    return (\n      <li\n        key={item.id}\n        className={\n          leavingIds.has(item.id) ? styles.rowLeaving : styles.rowEnter\n        }\n      >\n        {/*\n         * The row stays the focus/click target (`asChild`); the tooltip is\n         * uncontrolled \u2014 the kit opens it on hover or keyboard focus and keeps\n         * it open while the pointer travels between the row and the panel \u2014\n         * and renders nothing on touch-only devices, where tapping the row\n         * still selects the skill.\n         */}\n        <InteractiveTooltip\n          asChild\n          contentClassName=\"max-w-[550px]\"\n          content={\n            <SkillInfoTooltipContent\n              description={item.description}\n              viewDetailsLabel={viewDetailsLabel}\n              onViewDetails={() => onViewDetails(item)}\n            />\n          }\n        >\n          {row}\n        </InteractiveTooltip>\n      </li>\n    );\n  };\n\n  /*\n   * In search mode an empty list is the filter's result, not the empty\n   * favorites state, so it gets its own hint \u2014 announced via aria-live since\n   * the user is typing and the change has no other confirmation. An empty\n   * query still shows every row, so it never reaches the no-matching branch.\n   */\n  const renderListBody = () => {\n    if (visibleFavorites.length > 0) {\n      return (\n        <ul className=\"flex flex-col gap-1 px-1 pb-1\">\n          {visibleFavorites.map(renderRow)}\n        </ul>\n      );\n    }\n\n    if (isSearchMode && normalizedQuery !== '') {\n      return (\n        <p\n          role=\"status\"\n          aria-live=\"polite\"\n          className={mergeClasses(\n            emptyHintClassName,\n            'px-4 py-4 text-start',\n            styles.emptyHint,\n          )}\n        >\n          {noMatchingSkillsLabel}\n        </p>\n      );\n    }\n\n    return (\n      <p\n        className={mergeClasses(\n          emptyHintClassName,\n          'px-4 py-4 text-start',\n          styles.emptyHint,\n        )}\n      >\n        {emptyHintLabel}\n      </p>\n    );\n  };\n\n  return (\n    <div\n      className={mergeClasses(\n        'flex w-full flex-col desktop:w-[280px]',\n        SKILLS_CLASS.favoritesPanel,\n      )}\n      style={cssVars}\n    >\n      <p\n        className={mergeClasses(\n          headerClassName,\n          SECTION_HEADING_CLASS_NAME,\n          styles.header,\n        )}\n      >\n        {myCollectionLabel}\n      </p>\n\n      <div\n        className={mergeClasses(\n          'max-h-72 min-h-0 flex-1 overflow-y-auto',\n          styles.listContent,\n        )}\n        style={{ maxHeight: listHeight }}\n      >\n        <div ref={listContentRef}>{renderListBody()}</div>\n      </div>\n\n      <div className={mergeClasses('border-t px-2 py-3', styles.footer)}>\n        <GhostButton\n          label={browseLabel}\n          className=\"w-full justify-center\"\n          onClick={onBrowse}\n        />\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: FavoriteSkillsPanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "favorites",
+            "optional": false,
+            "type": "FavoriteSkillItem[]"
+          },
+          {
+            "name": "onSelect",
+            "optional": false,
+            "type": "(item: FavoriteSkillItem) => void"
+          },
+          {
+            "name": "onToggleFavorite",
+            "optional": false,
+            "type": "(id: string) => void"
+          },
+          {
+            "name": "onBrowse",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onViewDetails",
+            "optional": false,
+            "type": "(item: FavoriteSkillItem) => void"
+          },
+          {
+            "name": "searchQuery",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").FavoriteSkillsPanelLabels | undefined"
+          },
+          {
+            "name": "colors",
+            "optional": true,
+            "type": "import(\"../..\").FavoriteSkillsPanelColors | undefined"
+          },
+          {
+            "name": "nameClassName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "headerClassName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "emptyHintClassName",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "SkillCatalogModal",
+        "file": "libs/skills/src/components/SkillCatalogModal/SkillCatalogModal.tsx",
+        "start": 6,
+        "end": 26,
+        "declaration": "SkillCatalogModal: FC<SkillCatalogModalProps> = ({\n  isOpen,\n  onClose,\n  onSelect,\n  title,\n  renderContent,\n}) => (\n  <Popup\n    open={isOpen}\n    header={title}\n    size={PopupSize.Lg}\n    className=\"h-[min(90vh,860px)] !max-w-[min(95vw,1200px)] overflow-hidden\"\n    onClose={onClose}\n  >\n    <div className=\"h-[min(80vh,840px)] overflow-auto\">\n      <Suspense fallback={null}>\n        {isOpen && renderContent(onSelect, onClose)}\n      </Suspense>\n    </div>\n  </Popup>\n)",
+        "signature": "(props: SkillCatalogModalProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "isOpen",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onSelect",
+            "optional": false,
+            "type": "(id: string) => void"
+          },
+          {
+            "name": "title",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "renderContent",
+            "optional": false,
+            "type": "(onSelect: (id: string) => void, onClose: () => void) => import(\"react\").ReactNode"
+          }
+        ]
+      },
+      {
+        "name": "SkillDetailsSidePanel",
+        "file": "libs/skills/src/components/SkillDetailsSidePanel/SkillDetailsSidePanel.tsx",
+        "start": 11,
+        "end": 13,
+        "declaration": "SkillDetailsSidePanel: FC<SkillDetailsSidePanelProps> = (\n  props,\n) => <DetailsPanel {...props} />",
+        "signature": "(props: SkillDetailsSidePanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "item",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-catalog\").CatalogItem"
+          },
+          {
+            "name": "isOpen",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "isStarred",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isDetailsLoading",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isReadonly",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onToggleFavorite",
+            "optional": true,
+            "type": "((id: string, isStarred: boolean) => void) | undefined"
+          },
+          {
+            "name": "onUseInChat",
+            "optional": true,
+            "type": "((item: import(\"@epam/ai-dial-catalog\").CatalogItem) => void) | undefined"
+          },
+          {
+            "name": "isPrimaryActionVisible",
+            "optional": true,
+            "type": "((item: import(\"@epam/ai-dial-catalog\").CatalogItem) => boolean) | undefined"
+          },
+          {
+            "name": "isDownloadVisible",
+            "optional": true,
+            "type": "((item: import(\"@epam/ai-dial-catalog\").CatalogItem) => boolean) | undefined"
+          },
+          {
+            "name": "onLoadContentFile",
+            "optional": true,
+            "type": "((fileId: string) => Promise<string | undefined>) | undefined"
+          },
+          {
+            "name": "onLoadContentFilePreview",
+            "optional": true,
+            "type": "((fileId: string) => Promise<import(\"@epam/ai-dial-catalog\").CatalogContentFilePreview | undefined>) | undefined"
+          },
+          {
+            "name": "renderContentFilePreview",
+            "optional": true,
+            "type": "((fileId: string, fileName: string) => import(\"react\").ReactNode) | undefined"
+          },
+          {
+            "name": "texts",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-catalog\").ItemDetailsTexts | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-catalog\").ItemDetailsStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "SkillInfoTooltipContent",
+        "file": "libs/skills/src/components/SkillInfoTooltipContent/SkillInfoTooltipContent.tsx",
+        "start": 13,
+        "end": 59,
+        "declaration": "SkillInfoTooltipContent: FC<SkillInfoTooltipContentProps> = ({\n  description,\n  unsupportedMessage,\n  viewDetailsLabel = 'View details',\n  onViewDetails,\n}) => {\n  /*\n   * The unsupported state replaces the whole content: the message alone, no\n   * description and no \"View details\" action \u2014 the skill cannot be sent as\n   * selected, so there is nothing to open details for.\n   */\n  if (unsupportedMessage != null) {\n    return <p className=\"text-start\">{unsupportedMessage}</p>;\n  }\n\n  const hasDescription = description != null && description !== '';\n\n  return (\n    <div className=\"flex flex-col gap-3\">\n      {hasDescription && <p className=\"text-start\">{description}</p>}\n      {/*\n       * The action is reachable regardless of the description's state \u2014\n       * present or absent. `self-start` keeps the button at the\n       * content's start edge instead of stretching it across the panel;\n       * `h-[24px]` caps the kit Standard button's 40px height to the design's\n       * 24px (the Standard label class `dial-small-paragraph-semi-text`,\n       * 14px/24px semibold, already matches the design spec \u2014 the kit's\n       * `ElementSize.Small` is not used because it swaps the label to 12px\n       * tiny typography).\n       */}\n      <Button\n        variant={ButtonVariant.Primary}\n        appearance={ButtonAppearance.Link}\n        className=\"h-[24px] self-start\"\n        label={viewDetailsLabel}\n        iconBefore={\n          <IconEye\n            size={DIAL_ICON_SIZE.SM}\n            stroke={DIAL_KIT_ICON_STROKE}\n            aria-hidden\n          />\n        }\n        onClick={onViewDetails}\n      />\n    </div>\n  );\n}",
+        "signature": "(props: SkillInfoTooltipContentProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "description",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "unsupportedMessage",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "viewDetailsLabel",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "onViewDetails",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          }
+        ]
+      },
+      {
+        "name": "useSkillSelectorOverlay",
+        "file": "libs/skills/src/hooks/useSkillSelectorOverlay/useSkillSelectorOverlay.tsx",
+        "start": 36,
+        "end": 356,
+        "declaration": "useSkillSelectorOverlay = ({\n  isEnabled,\n  isSkillsSupported,\n  skills,\n  sharedWithMe,\n  publicSkills,\n  favoriteIds,\n  onToggleFavorite,\n  labels,\n  historyChipLabelClassName,\n  renderCatalogContent,\n  detailsPanelComponent: DetailsPanelComponent,\n}: UseSkillSelectorOverlayOptions): UseSkillSelectorOverlayResult => {\n  const {\n    addMenuLabel = 'Skills',\n    backLabel = 'Back',\n    catalogModalTitleLabel = 'Use skill',\n    emptyQueryHintLabel = 'Type to filter',\n    unsupportedTooltipLabel = 'Selected model does not support skills. Remove the skill or select different model to proceed.',\n    panelLabels,\n  } = labels ?? {};\n\n  /*\n   * The entry-point gate: both the feature flag and the deployment's own\n   * support must hold. A selected skill, its removal gesture, and the\n   * details panel survive an unsupported deployment \u2014 only the ways in are\n   * hidden \u2014 so unlike `isEnabled` this never blanks the whole result.\n   */\n  const isSkillsEnabled = isEnabled && isSkillsSupported;\n\n  const [isCatalogOpen, setIsCatalogOpen] = useState(false);\n  const [detailsSkillId, setDetailsSkillId] = useState<string | null>(null);\n  const [selectedSkillId, setSelectedSkillId] = useState<string | null>(null);\n\n  const allSkills = useMemo<SkillListingEntry[]>(\n    () => [...skills, ...(sharedWithMe ?? []), ...(publicSkills ?? [])],\n    [skills, sharedWithMe, publicSkills],\n  );\n\n  /*\n   * Url-keyed view of `allSkills` so per-url lookups (the selected skill,\n   * history entries) are O(1) instead of a linear scan per entry per render.\n   */\n  const skillByUrl = useMemo<Map<string, SkillListingEntry>>(\n    () => new Map(allSkills.map((skill) => [skill.url, skill])),\n    [allSkills],\n  );\n\n  /*\n   * Only skill items end up in the favorites list server-side, so matching on\n   * `url` needs no nodeType filtering \u2014 folder URLs never appear in\n   * `favoriteIds`.\n   */\n  const favoriteSkillItems = useMemo<FavoriteSkillItem[]>(\n    () =>\n      allSkills\n        .filter((skill) => favoriteIds.has(skill.url))\n        .map((skill) => buildFavoriteSkillItem(skill)),\n    [allSkills, favoriteIds],\n  );\n\n  /*\n   * Resolved from `allSkills` on every render rather than captured at\n   * selection time, so a skill picked while the listing is still loading\n   * (e.g. via a one-shot route state) renders once the listing settles.\n   */\n  const selectedSkill = useMemo(\n    () =>\n      selectedSkillId == null\n        ? null\n        : (skillByUrl.get(selectedSkillId) ?? null),\n    [skillByUrl, selectedSkillId],\n  );\n\n  /*\n   * A skill selected on a deployment that does not support skills: the chip\n   * renders in its error state and hosts fold this into send-disabled.\n   */\n  const isSkillUnsupported = selectedSkill != null && !isSkillsSupported;\n\n  const selectSkill = useCallback((skillId: string) => {\n    setSelectedSkillId(skillId);\n  }, []);\n\n  const removeSelectedSkill = useCallback(() => {\n    setSelectedSkillId(null);\n  }, []);\n\n  /*\n   * The selection id is the skill's resource URL, so it is exposed as the\n   * send-time path directly \u2014 even while the listing is still loading and\n   * `selectedSkill` has not resolved yet (the id came from a selection entry\n   * point, which always receives resource URLs).\n   */\n  const selectedSkillPath = selectedSkillId;\n\n  /*\n   * The send-time `custom_content.skills` payload: a single `{ url }` entry\n   * while a skill is selected, `undefined` otherwise so the field is omitted\n   * from the message entirely. Memoized on the selection id so hosts can hold\n   * it in `useCallback`/`memo` deps without the identity churning on every\n   * render (e.g. every streaming token re-rendering the conversation view).\n   */\n  const selectedSkills = useMemo<RequestSkill[] | undefined>(\n    () => (selectedSkillId == null ? undefined : [{ url: selectedSkillId }]),\n    [selectedSkillId],\n  );\n\n  /*\n   * The selected skill's inline form: the shared tooltip content, with the\n   * listing-sourced description \u2014 or, while the deployment does not support\n   * skills, the error state (error-colored label, message-only tooltip).\n   * Memoized so the element's identity stays stable across unrelated\n   * re-renders (streaming) and the input hosting it as `inlineStartSlot` is\n   * not needlessly re-rendered. The element carries no remove control \u2014\n   * removal is the input's Backspace-at-start gesture via\n   * `removeSelectedSkill` (wired to `onInlineStartRemove`). \"View details\"\n   * opens the same side panel the rows' action opens.\n   */\n  const selectedSkillElement = useMemo<ReactNode>(\n    () =>\n      selectedSkill == null ? null : (\n        <ChatSkill\n          name={selectedSkill.name}\n          path={selectedSkill.url}\n          description={selectedSkill.description}\n          isUnsupported={isSkillUnsupported}\n          onViewDetails={setDetailsSkillId}\n          labels={{\n            viewDetailsLabel: panelLabels?.viewDetailsLabel,\n            unsupportedTooltipLabel,\n          }}\n        />\n      ),\n    [selectedSkill, isSkillUnsupported, panelLabels, unsupportedTooltipLabel],\n  );\n\n  /*\n   * History display: one `ChatSkill` per `custom_content.skills` entry,\n   * sharing the rows' \"View details\" panel. The name and description come\n   * from the listing pools matched on the entry's url; a url no pool carries\n   * (e.g. a skill the viewer cannot read) falls back to its last non-empty\n   * segment with no description. The label class is host-supplied because\n   * the chip renders beside the bubble's first text line and its height\n   * should match that line.\n   */\n  const renderHistorySkills = useCallback(\n    (entries: RequestSkill[] | undefined): ReactNode => {\n      if (entries == null || entries.length === 0) {\n        return null;\n      }\n\n      return entries.map((entry) => {\n        const skill = skillByUrl.get(entry.url);\n        const name = skill?.name ?? getSkillFallbackName(entry.url);\n\n        return (\n          <ChatSkill\n            key={entry.url}\n            name={name}\n            path={entry.url}\n            labelClassName={historyChipLabelClassName}\n            description={skill?.description}\n            onViewDetails={setDetailsSkillId}\n            labels={{ viewDetailsLabel: panelLabels?.viewDetailsLabel }}\n          />\n        );\n      });\n    },\n    [skillByUrl, historyChipLabelClassName, panelLabels],\n  );\n\n  const renderOverlay = useCallback(\n    (onClose: () => void): ReactNode => (\n      <FavoriteSkillsPanel\n        favorites={favoriteSkillItems}\n        onSelect={(item) => {\n          selectSkill(item.id);\n          onClose();\n        }}\n        onToggleFavorite={onToggleFavorite}\n        onBrowse={() => {\n          onClose();\n          setIsCatalogOpen(true);\n        }}\n        onViewDetails={(item) => {\n          /* Closing the Add menu unmounts the overlay and its open tooltip. */\n          onClose();\n          setDetailsSkillId(item.id);\n        }}\n        labels={panelLabels}\n      />\n    ),\n    [favoriteSkillItems, selectSkill, onToggleFavorite, panelLabels],\n  );\n\n  const skillMenuOverlay = useMemo<MenuOverlayConfig | undefined>(\n    () =>\n      isSkillsEnabled\n        ? {\n            key: 'skills',\n            title: addMenuLabel,\n            icon: (\n              <IconBlocks\n                size={BASE_ICON_SIZE}\n                aria-hidden\n                stroke={DIAL_KIT_ICON_STROKE}\n              />\n            ),\n            renderOverlay,\n            backLabel,\n          }\n        : undefined,\n    [isSkillsEnabled, addMenuLabel, backLabel, renderOverlay],\n  );\n\n  /*\n   * The slash-command menu: same favorites panel as the Add-menu overlay, but\n   * in search mode over the typed query. Every action consumes the `/query`\n   * text from the textarea first (`close({ consumeQuery: true })`), so it is\n   * never sent \u2014 including \"View details\", which would otherwise leave a\n   * stale query behind while the side panel opens.\n   */\n  const commandMenu = useMemo<CommandMenuConfig | undefined>(\n    () =>\n      isSkillsEnabled\n        ? {\n            triggerPrefix: '/',\n            menuLabel: addMenuLabel,\n            emptyQueryHint: emptyQueryHintLabel,\n            renderMenu: ({ query, close }) => (\n              <FavoriteSkillsPanel\n                favorites={favoriteSkillItems}\n                searchQuery={query}\n                onSelect={(item) => {\n                  close({ consumeQuery: true });\n                  selectSkill(item.id);\n                }}\n                onToggleFavorite={onToggleFavorite}\n                onBrowse={() => {\n                  close({ consumeQuery: true });\n                  setIsCatalogOpen(true);\n                }}\n                onViewDetails={(item) => {\n                  close({ consumeQuery: true });\n                  setDetailsSkillId(item.id);\n                }}\n                labels={panelLabels}\n              />\n            ),\n          }\n        : undefined,\n    [\n      isSkillsEnabled,\n      addMenuLabel,\n      emptyQueryHintLabel,\n      favoriteSkillItems,\n      selectSkill,\n      onToggleFavorite,\n      panelLabels,\n    ],\n  );\n\n  const skillCatalogModal = (\n    <SkillCatalogModal\n      isOpen={isCatalogOpen}\n      onClose={() => setIsCatalogOpen(false)}\n      onSelect={(id) => {\n        selectSkill(id);\n        setIsCatalogOpen(false);\n      }}\n      title={catalogModalTitleLabel}\n      renderContent={renderCatalogContent}\n    />\n  );\n\n  /*\n   * Information-only by design: the panel a \"View details\" action opens shows\n   * the skill's details and nothing else \u2014 selecting a skill belongs to the\n   * rows, the slash menu, and the browse modal, and favorite toggling to the\n   * rows. The host's panel component renders `DetailsPanel` read-only.\n   */\n  const skillDetailsPanel = (\n    <Suspense fallback={null}>\n      <DetailsPanelComponent\n        skillId={detailsSkillId}\n        onClose={() => setDetailsSkillId(null)}\n      />\n    </Suspense>\n  );\n\n  if (!isEnabled) {\n    return {\n      skillMenuOverlay: undefined,\n      commandMenu: undefined,\n      skillCatalogModal: null,\n      skillDetailsPanel: null,\n      selectedSkillElement: null,\n      selectedSkillPath: null,\n      selectedSkills: undefined,\n      isSkillUnsupported: false,\n      selectSkill: () => undefined,\n      removeSelectedSkill: () => undefined,\n      renderHistorySkills: () => null,\n    };\n  }\n\n  return {\n    skillMenuOverlay,\n    commandMenu,\n    skillCatalogModal,\n    skillDetailsPanel,\n    selectedSkillElement,\n    selectedSkillPath,\n    selectedSkills,\n    isSkillUnsupported,\n    selectSkill,\n    removeSelectedSkill,\n    renderHistorySkills,\n  };\n}",
+        "signature": "({ isEnabled, isSkillsSupported, skills, sharedWithMe, publicSkills, favoriteIds, onToggleFavorite, labels, historyChipLabelClassName, renderCatalogContent, detailsPanelComponent: DetailsPanelComponent, }: UseSkillSelectorOverlayOptions): UseSkillSelectorOverlayResult",
+        "props": [
+          {
+            "name": "isEnabled",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "isSkillsSupported",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "skills",
+            "optional": false,
+            "type": "SkillListingEntry[]"
+          },
+          {
+            "name": "sharedWithMe",
+            "optional": true,
+            "type": "SkillListingEntry[] | undefined"
+          },
+          {
+            "name": "publicSkills",
+            "optional": true,
+            "type": "SkillListingEntry[] | undefined"
+          },
+          {
+            "name": "favoriteIds",
+            "optional": false,
+            "type": "ReadonlySet<string>"
+          },
+          {
+            "name": "onToggleFavorite",
+            "optional": false,
+            "type": "(id: string) => void"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").SkillSelectorOverlayLabels | undefined"
+          },
+          {
+            "name": "historyChipLabelClassName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "renderCatalogContent",
+            "optional": false,
+            "type": "(onSelect: (id: string) => void, onClose: () => void) => ReactNode"
+          },
+          {
+            "name": "detailsPanelComponent",
+            "optional": false,
+            "type": "import(\"react\").ComponentType<import(\"../..\").SkillDetailsPanelComponentProps>"
+          }
+        ]
+      },
+      {
+        "name": "buildFavoriteSkillItem",
+        "file": "libs/skills/src/models/favorite-skill-item.ts",
+        "start": 32,
+        "end": 38,
+        "declaration": "buildFavoriteSkillItem = (\n  skill: SkillListingEntry,\n): FavoriteSkillItem => ({\n  id: skill.url,\n  name: skill.name,\n  description: skill.description,\n})",
+        "signature": "(skill: SkillListingEntry): FavoriteSkillItem",
+        "props": [
+          {
+            "name": "url",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "ChatSkillLabels",
+        "file": "libs/skills/src/models/chat-skill-props.ts",
+        "start": 2,
+        "end": 11,
+        "declaration": "export interface ChatSkillLabels {\n  /** Label for the tooltip's \"View details\" action. Defaults to `'View details'`. */\n  viewDetailsLabel?: string;\n  /**\n   * Message shown alone in the tooltip while `isUnsupported` is set, stating\n   * that the selected model does not support skills and that the user should\n   * remove the skill or select a different model to proceed.\n   */\n  unsupportedTooltipLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ChatSkillProps",
+        "file": "libs/skills/src/models/chat-skill-props.ts",
+        "start": 14,
+        "end": 48,
+        "declaration": "export interface ChatSkillProps {\n  /** Display name, rendered after the `/` prefix in the button's label. */\n  name: string;\n  /**\n   * The skill's resource URL (`skills/{bucket}/{path}`), passed to every\n   * callback so the host never has to re-derive it.\n   */\n  path: string;\n  /** The skill's listing-sourced description, shown in the tooltip. Omitted when empty. */\n  description?: string;\n  /**\n   * Whether the current model/application does not support skills. While\n   * `true` the `/{name}` label carries `unsupportedLabelClassName`, the chip\n   * carries `unsupportedClassName`, and the tooltip shows the\n   * unsupported-model message alone \u2014 no description paragraph and no\n   * \"View details\" button.\n   */\n  isUnsupported?: boolean;\n  /** CSS class applied to the `/name` label. Defaults to `'dial-body-paragraph-text'`. */\n  labelClassName?: string;\n  /**\n   * Color class applied to the `/{name}` label in addition to\n   * `labelClassName` while `isUnsupported` is set. Defaults to `'text-error'`.\n   */\n  unsupportedLabelClassName?: string;\n  /**\n   * Class applied to the chip in addition to its layout classes while\n   * `isUnsupported` is set. Defaults to `'bg-error'`.\n   */\n  unsupportedClassName?: string;\n  /** Called with the skill's path when the tooltip's \"View details\" button is clicked. */\n  onViewDetails: (path: string) => void;\n  /** Localizable string overrides. */\n  labels?: ChatSkillLabels;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FavoriteSkillItem",
+        "file": "libs/skills/src/models/favorite-skill-item.ts",
+        "start": 2,
+        "end": 12,
+        "declaration": "export interface FavoriteSkillItem {\n  /**\n   * Stable identifier for the skill: the `skills/{bucket}/{path}` resource\n   * URL, identical to the skill's `CatalogItem` id.\n   */\n  id: string;\n  /** Display name. */\n  name: string;\n  /** Listing-sourced description shown in a tooltip on hover. Omitted when empty. */\n  description?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillListingEntry",
+        "file": "libs/skills/src/models/favorite-skill-item.ts",
+        "start": 18,
+        "end": 25,
+        "declaration": "export interface SkillListingEntry {\n  /** Stable identifier for the skill: the `skills/{bucket}/{path}` resource URL. */\n  url: string;\n  /** Display name. */\n  name: string;\n  /** Listing-sourced description (Core PR #1970). Absent on folders and older Cores. */\n  description?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FavoriteSkillsPanelColors",
+        "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+        "start": 20,
+        "end": 31,
+        "declaration": "export interface FavoriteSkillsPanelColors {\n  /** Background color of a row on hover. Defaults to `--bg-layer-sunken`. */\n  rowHoverBackground?: string;\n  /** Text color of the \"My Collection\" header. Defaults to `--text-tertiary`. */\n  headerText?: string;\n  /** Text color of the empty-favorites hint. Defaults to `--text-icon-tertiary`. */\n  emptyHintText?: string;\n  /** Fill color of a row's star icon. Defaults to `--text-warning-icon`. */\n  starColor?: string;\n  /** Border color above the footer's Browse button. Defaults to `--stroke-tertiary`. */\n  footerBorder?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FavoriteSkillsPanelLabels",
+        "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+        "start": 4,
+        "end": 17,
+        "declaration": "export interface FavoriteSkillsPanelLabels {\n  /** Header above the favorites list. Defaults to `'My Collection'`. */\n  myCollectionLabel?: string;\n  /** Hint shown when there are no favorites. Defaults to `'Star a skill to pin it here'`. */\n  emptyHintLabel?: string;\n  /** Label for the footer action button. Defaults to `'Browse'`. */\n  browseLabel?: string;\n  /** Accessible label for a row's remove-from-favorites star button. Defaults to `'Remove from favorites'`. */\n  removeFromFavoritesLabel?: string;\n  /** Label for a row tooltip's \"View details\" action. Defaults to `'View details'`. */\n  viewDetailsLabel?: string;\n  /** Hint shown when `searchQuery` filters out every favorite. Defaults to `'No matching skills'`. */\n  noMatchingSkillsLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FavoriteSkillsPanelProps",
+        "file": "libs/skills/src/models/favorite-skills-panel-props.ts",
+        "start": 34,
+        "end": 62,
+        "declaration": "export interface FavoriteSkillsPanelProps {\n  /** The user's favorited skills, already resolved by the host. */\n  favorites: FavoriteSkillItem[];\n  /** Called when a row is activated (click, Enter, or Space). */\n  onSelect: (item: FavoriteSkillItem) => void;\n  /** Called with a skill's id when its row's star button is clicked to remove it from favorites. */\n  onToggleFavorite: (id: string) => void;\n  /** Called when the \"Browse\" button is clicked. */\n  onBrowse: () => void;\n  /** Called when a row tooltip's \"View details\" button is clicked. */\n  onViewDetails: (item: FavoriteSkillItem) => void;\n  /**\n   * When provided, the panel enters search mode: rows are filtered to names\n   * containing this string case-insensitively and matched names render with a\n   * highlight mark. An empty string shows every row. Omit to show all\n   * favorites unfiltered.\n   */\n  searchQuery?: string;\n  /** Localizable string overrides. */\n  labels?: FavoriteSkillsPanelLabels;\n  /** Color overrides applied as CSS custom properties. */\n  colors?: FavoriteSkillsPanelColors;\n  /** CSS class applied to a row's skill name. Defaults to `'dial-small-text'`. */\n  nameClassName?: string;\n  /** CSS class applied to the \"My Collection\" header. Defaults to `'dial-tiny-lead-semi-text'`, which uppercases the label itself. */\n  headerClassName?: string;\n  /** CSS class applied to the empty-favorites hint. Defaults to `'dial-small-text'`. */\n  emptyHintClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillCatalogModalProps",
+        "file": "libs/skills/src/models/skill-catalog-modal-props.ts",
+        "start": 4,
+        "end": 21,
+        "declaration": "export interface SkillCatalogModalProps {\n  /** Whether the modal is open. */\n  isOpen: boolean;\n  /** Called when the modal should close (close button or backdrop click). */\n  onClose: () => void;\n  /** Called with the selected skill's resource URL when the content picks one. */\n  onSelect: (id: string) => void;\n  /** Header title. */\n  title: string;\n  /**\n   * Renders the modal body's picker content, mounted only while the modal is\n   * open; receives the selection and close callbacks to wire into it.\n   */\n  renderContent: (\n    onSelect: (id: string) => void,\n    onClose: () => void,\n  ) => ReactNode;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillDetailsSidePanelProps",
+        "file": "libs/skills/src/models/skill-details-side-panel-props.ts",
+        "start": 17,
+        "end": 69,
+        "declaration": "export interface SkillDetailsSidePanelProps {\n  /** The skill catalog item to display in the panel. */\n  item: CatalogItem;\n  /** Controls whether the panel is visible. */\n  isOpen: boolean;\n  /** Initial starred state for the skill. Default: `false`. */\n  isStarred?: boolean;\n  /**\n   * When `true`, a fetch for the structured Overview tab is pending; the\n   * panel shows a small loading indicator next to the tab row.\n   */\n  isDetailsLoading?: boolean;\n  /**\n   * Renders the panel read-only: the favorite star and every mutating action\n   * are withheld. The primary action and Download still render unless their\n   * own visibility rules hide them. Default: `false`.\n   */\n  isReadonly?: boolean;\n  /** Called when the panel should close (close button or backdrop click). */\n  onClose: () => void;\n  /** Called when the star/favorite button is toggled. */\n  onToggleFavorite?: (id: string, isStarred: boolean) => void;\n  /** Called when the header's \"Use in chat\" button is clicked. */\n  onUseInChat?: (item: CatalogItem) => void;\n  /** Controls whether the header's primary action button is shown for the skill. */\n  isPrimaryActionVisible?: (item: CatalogItem) => boolean;\n  /** Narrows which items offer the \"Download\" action. */\n  isDownloadVisible?: (item: CatalogItem) => boolean;\n  /**\n   * Resolves the text of a file picked in the Content tab, given its opaque\n   * `id`. Superseded by `onLoadContentFilePreview` and\n   * `renderContentFilePreview` when those are supplied.\n   */\n  onLoadContentFile?: (fileId: string) => Promise<string | undefined>;\n  /**\n   * Resolves a picked file's typed preview, given its opaque `id`. Takes\n   * precedence over `onLoadContentFile`; superseded by\n   * `renderContentFilePreview` when that is supplied.\n   */\n  onLoadContentFilePreview?: (\n    fileId: string,\n  ) => Promise<CatalogContentFilePreview | undefined>;\n  /**\n   * Renders a picked file through a host-owned preview surface. Takes\n   * precedence over both loading callbacks. The file id is opaque to the\n   * panel; `fileName` is the basename resolved from the supplied tree.\n   */\n  renderContentFilePreview?: (fileId: string, fileName: string) => ReactNode;\n  /** Text overrides for the panel's user-visible strings. */\n  texts?: ItemDetailsTexts;\n  /** Grouped style overrides. */\n  styles?: ItemDetailsStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillInfoTooltipContentProps",
+        "file": "libs/skills/src/models/skill-info-tooltip-content-props.ts",
+        "start": 2,
+        "end": 14,
+        "declaration": "export interface SkillInfoTooltipContentProps {\n  /** The skill's listing-sourced description paragraph. Omitted entirely when empty. */\n  description?: string;\n  /**\n   * The unsupported-model message. While set, it replaces the whole content \u2014\n   * no description paragraph and no \"View details\" button render.\n   */\n  unsupportedMessage?: string;\n  /** Label for the \"View details\" action. Defaults to `'View details'`. */\n  viewDetailsLabel?: string;\n  /** Called when the \"View details\" button is clicked. Unused while `unsupportedMessage` is set. */\n  onViewDetails?: () => void;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillDetailsPanelComponentProps",
+        "file": "libs/skills/src/models/skill-selector-overlay.ts",
+        "start": 16,
+        "end": 21,
+        "declaration": "export interface SkillDetailsPanelComponentProps {\n  /** Resource URL of the skill whose details are shown; `null` renders nothing. */\n  skillId: string | null;\n  /** Called when the panel should close (close button or backdrop click). */\n  onClose: () => void;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SkillSelectorOverlayLabels",
+        "file": "libs/skills/src/models/skill-selector-overlay.ts",
+        "start": 24,
+        "end": 43,
+        "declaration": "export interface SkillSelectorOverlayLabels {\n  /** Add-menu entry label and mobile sheet title. Defaults to `'Skills'`. */\n  addMenuLabel?: string;\n  /** Accessible label for the mobile sheet's back arrow. Defaults to `'Back'`. */\n  backLabel?: string;\n  /** Header title of the \"Use skill\" browse modal. Defaults to `'Use skill'`. */\n  catalogModalTitleLabel?: string;\n  /**\n   * Hint rendered in the text area right after the `/` while the slash menu\n   * is open with an empty query. Defaults to `'Type to filter'`.\n   */\n  emptyQueryHintLabel?: string;\n  /**\n   * Message shown alone in the selected skill chip's error-state tooltip\n   * while the current deployment does not support skills.\n   */\n  unsupportedTooltipLabel?: string;\n  /** Labels forwarded to the favorites panel rendered as the overlay. */\n  panelLabels?: FavoriteSkillsPanelLabels;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UseSkillSelectorOverlayOptions",
+        "file": "libs/skills/src/models/skill-selector-overlay.ts",
+        "start": 46,
+        "end": 91,
+        "declaration": "export interface UseSkillSelectorOverlayOptions {\n  /**\n   * Whether the skill flow is enabled. While `false` the hook returns empty\n   * outputs: no menu entry, no modal, no panel, no chips.\n   */\n  isEnabled: boolean;\n  /**\n   * Whether the input's current deployment supports skills. While `false`\n   * (with the flow enabled) the entry points are omitted \u2014 no Add-menu item\n   * and no slash menu \u2014 but an already-selected skill chip stays rendered in\n   * its error state with its removal gesture and \"View details\" panel\n   * available. The host resolves this from its own deployment data.\n   */\n  isSkillsSupported: boolean;\n  /** The user's own skills. */\n  skills: SkillListingEntry[];\n  /** Skills shared with the user, when the host distinguishes them. */\n  sharedWithMe?: SkillListingEntry[];\n  /** Public skills, when the host distinguishes them. */\n  publicSkills?: SkillListingEntry[];\n  /** Ids (`skills/{bucket}/{path}` URLs) of the user's favorited skills. */\n  favoriteIds: ReadonlySet<string>;\n  /** Removes a skill from favorites; fired by a row's star button. */\n  onToggleFavorite: (id: string) => void;\n  /** Localizable string overrides. */\n  labels?: SkillSelectorOverlayLabels;\n  /**\n   * Typography class applied to each history `ChatSkill` chip's label.\n   * History chips render beside the message bubble's first text line \u2014 inline\n   * within it (user bubble) or overlaid on it (assistant bubble) \u2014 so pass\n   * the class the bubbles' body text uses, keeping the chip's height matched\n   * to that line. Unset falls back to the chip's own default label class.\n   */\n  historyChipLabelClassName?: string;\n  /**\n   * Renders the browse modal's picker content (e.g. a host catalog view);\n   * receives the selection and close callbacks to wire into it, and is\n   * mounted only while the modal is open.\n   */\n  renderCatalogContent: (\n    onSelect: (id: string) => void,\n    onClose: () => void,\n  ) => ReactNode;\n  /** The skill details side panel; may be a lazily loaded component. */\n  detailsPanelComponent: ComponentType<SkillDetailsPanelComponentProps>;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "UseSkillSelectorOverlayResult",
+        "file": "libs/skills/src/models/skill-selector-overlay.ts",
+        "start": 94,
+        "end": 173,
+        "declaration": "export interface UseSkillSelectorOverlayResult {\n  /**\n   * The Skills entry for the `menuOverlays` prop of\n   * `ConversationInput`/`Input`. `undefined` while the flow is disabled or the\n   * current deployment does not support skills: the host omits the entry\n   * entirely when this is `undefined`, so a stub renderer would leave the\n   * menu item in place with nothing behind it.\n   */\n  skillMenuOverlay?: MenuOverlayConfig;\n  /**\n   * The Skills entry for the `commandMenu` prop of\n   * `ConversationInput`/`Input`: typing `/` into an empty textarea opens the\n   * favorites panel in search mode above the input. `undefined` while the\n   * flow is disabled or the current deployment does not support skills,\n   * disabling the slash menu entirely.\n   */\n  commandMenu?: CommandMenuConfig;\n  /**\n   * The browse modal element. Render at a stable level outside the popover\n   * (e.g. next to the input); `null` while `isEnabled` is `false`.\n   */\n  skillCatalogModal: ReactNode;\n  /**\n   * The skill details side panel opened by a row tooltip's \"View details\".\n   * `null` while `isEnabled` is `false`.\n   */\n  skillDetailsPanel: ReactNode;\n  /**\n   * The selected skill as a `ChatSkill` element for the conversation input's\n   * `inlineStartSlot` \u2014 at most one, replaced on every selection, carrying\n   * the shared tooltip (the listing-sourced description, same as the favorite\n   * rows), or the error state while the current deployment does not support\n   * skills. The element has no remove control of its own; removal is the\n   * input's Backspace-at-start gesture, wired through `removeSelectedSkill`.\n   * `null` while `isEnabled` is `false` or nothing is selected.\n   */\n  selectedSkillElement: ReactNode;\n  /**\n   * Whether a skill is selected while the current deployment does not\n   * support skills \u2014 the chip renders in its error state and hosts must fold\n   * this into their send-disabled conditions. Always `false` while\n   * `isEnabled` is `false`.\n   */\n  isSkillUnsupported: boolean;\n  /**\n   * The selected skill's resource URL (`skills/{bucket}/{path}`) \u2014 the value\n   * the host sends as a `{ url }` entry in the outgoing message's\n   * `custom_content.skills`. `null` while nothing is selected or the flow is\n   * disabled.\n   */\n  selectedSkillPath: string | null;\n  /**\n   * The selected skill as the send-time `custom_content.skills` payload \u2014\n   * `[{ url: selectedSkillPath }]`, or `undefined` while nothing is selected\n   * or the flow is disabled, so `custom_content.skills` is omitted entirely.\n   */\n  selectedSkills: RequestSkill[] | undefined;\n  /**\n   * Selects a skill by its resource URL (`skills/{bucket}/{path}`), replacing\n   * any prior selection.\n   */\n  selectSkill: (skillId: string) => void;\n  /**\n   * Clears the selected skill. Wire to the input's `onInlineStartRemove` \u2014\n   * Backspace with the caret collapsed at position 0 while the selected\n   * skill's element is shown.\n   */\n  removeSelectedSkill: () => void;\n  /**\n   * Renders a message's `custom_content.skills` entries as `ChatSkill`\n   * elements beside the message bubble's first text line, with the text\n   * word-flowing after them \u2014 one per entry, sharing the \"View details\"\n   * details panel with the favorite rows and the input chip. Each entry's\n   * name comes from the listing pools matched on its url, falling back to\n   * the url's last non-empty segment, and its description from the same\n   * match (absent when no pool carries the url). Returns `null` while\n   * `isEnabled` is `false` or the array is empty.\n   */\n  renderHistorySkills: (skills: RequestSkill[] | undefined) => ReactNode;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SKILLS_CLASS",
+        "file": "libs/skills/src/constants/public-class-names.ts",
+        "start": 11,
+        "end": 22,
+        "declaration": "SKILLS_CLASS = {\n  /** The favorite-skills panel root, which carries the themed CSS variables. */\n  favoritesPanel: 'dial-skills-favorites-panel',\n  /**\n   * The `/name` chip a `ChatSkill` renders inside the composer, additive to\n   * the `dial-kit-base-button` that `@epam/ai-dial-ui-kit` draws. The chip's\n   * height is its label line, so a host changing its padding should keep the\n   * vertical padding at zero or the chip stops aligning with the input's first\n   * text line.\n   */\n  chip: 'dial-skills-chip',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "ChatSkill",
+      "file": "libs/skills/src/components/ChatSkill/ChatSkill.tsx",
+      "start": 16,
+      "end": 99,
+      "declaration": "ChatSkill: FC<ChatSkillProps> = ({\n  name,\n  path,\n  description,\n  isUnsupported = false,\n  labelClassName = 'dial-body-paragraph-text',\n  unsupportedLabelClassName = 'text-error',\n  unsupportedClassName = 'bg-error',\n  onViewDetails,\n  labels = {},\n}) => {\n  const {\n    viewDetailsLabel = 'View details',\n    unsupportedTooltipLabel = 'Selected model does not support skills. Remove the skill or select different model to proceed.',\n  } = labels;\n\n  /*\n   * The tooltip is uncontrolled (the kit opens it on hover/focus) and exposes\n   * no imperative close, so a \"View details\" click remounts it \u2014 the fresh\n   * instance's open state starts closed. This mirrors the favorites rows,\n   * whose tooltip unmounts with the Add menu on the same click; reopening\n   * takes a fresh hover or focus, not the pointer already resting on the chip.\n   */\n  const [tooltipGeneration, setTooltipGeneration] = useState(0);\n\n  const handleViewDetails = () => {\n    setTooltipGeneration((generation) => generation + 1);\n    onViewDetails(path);\n  };\n\n  return (\n    <InteractiveTooltip\n      key={tooltipGeneration}\n      asChild\n      placement={TooltipPlacement.Top}\n      contentClassName=\"max-w-[550px]\"\n      content={\n        isUnsupported ? (\n          <SkillInfoTooltipContent\n            unsupportedMessage={unsupportedTooltipLabel}\n          />\n        ) : (\n          <SkillInfoTooltipContent\n            description={description}\n            viewDetailsLabel={viewDetailsLabel}\n            onViewDetails={handleViewDetails}\n          />\n        )\n      }\n    >\n      {/*\n       * The span is the tooltip's trigger (`asChild`), so the tooltip stays\n       * open while the pointer moves between it and the button. The button\n       * body is presentation only \u2014 activating it does nothing beyond opening\n       * the tooltip; removal is the host input's Backspace-at-start gesture.\n       */}\n      <span className=\"inline-flex items-center\">\n        {/*\n         * `h-auto px-2 py-0` overrides the kit button's `h-[40px] px-4` so\n         * the chip is exactly its label line (26px with the default\n         * `dial-body-paragraph-text` label) plus 8px of horizontal padding \u2014\n         * no vertical padding, so the total height stays at the label line's\n         * height and the chip's text aligns with the input's first text line.\n         * In the error state the color classes join the layout/typography\n         * classes so the whole chip reads as the error: error-tinted\n         * background, error-colored `/{name}` label.\n         */}\n        <GhostButton\n          label={`/${name}`}\n          textClassName={\n            isUnsupported\n              ? mergeClasses(labelClassName, unsupportedLabelClassName)\n              : labelClassName\n          }\n          className={mergeClasses(\n            'h-auto px-2 py-0',\n            isUnsupported && unsupportedClassName,\n            SKILLS_CLASS.chip,\n          )}\n        />\n      </span>\n    </InteractiveTooltip>\n  );\n}",
+      "signature": "(props: ChatSkillProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "name",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "path",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "isUnsupported",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "labelClassName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "unsupportedLabelClassName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "unsupportedClassName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "onViewDetails",
+          "optional": false,
+          "type": "(path: string) => void"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").ChatSkillLabels | undefined"
+        }
+      ]
+    },
+    {
+      "name": "FavoriteSkillsPanel",
+      "file": "libs/skills/src/components/FavoriteSkillsPanel/FavoriteSkillsPanel.tsx",
+      "start": 37,
+      "end": 294,
+      "declaration": "FavoriteSkillsPanel: FC<FavoriteSkillsPanelProps> = ({\n  favorites,\n  onSelect,\n  onToggleFavorite,\n  onBrowse,\n  onViewDetails,\n  searchQuery,\n  labels = {},\n  colors,\n  nameClassName = 'dial-small-text',\n  headerClassName = 'dial-tiny-lead-semi-text',\n  emptyHintClassName = 'dial-small-text',\n}) => {\n  const {\n    myCollectionLabel = 'My Collection',\n    emptyHintLabel = 'Star a skill to pin it here',\n    browseLabel = 'Browse',\n    removeFromFavoritesLabel = 'Remove from favorites',\n    viewDetailsLabel = 'View details',\n    noMatchingSkillsLabel = 'No matching skills',\n  } = labels;\n\n  const cssVars = buildCssVars({\n    '--fs-row-hover-bg': colors?.rowHoverBackground,\n    '--fs-header-text': colors?.headerText,\n    '--fs-empty-hint-text': colors?.emptyHintText,\n    '--fs-star-color': colors?.starColor,\n    '--fs-footer-border': colors?.footerBorder,\n  });\n\n  const [leavingIds, setLeavingIds] = useState<Set<string>>(new Set());\n  const leaveTimeoutsRef = useRef(\n    new Map<string, ReturnType<typeof setTimeout>>(),\n  );\n\n  useEffect(() => {\n    const timeouts = leaveTimeoutsRef.current;\n    return () => {\n      timeouts.forEach((timeout) => clearTimeout(timeout));\n      timeouts.clear();\n    };\n  }, []);\n\n  const isSearchMode = searchQuery != null;\n  const normalizedQuery = searchQuery?.toLowerCase() ?? '';\n  const visibleFavorites = isSearchMode\n    ? favorites.filter((item) =>\n        item.name.toLowerCase().includes(normalizedQuery),\n      )\n    : favorites;\n\n  /*\n   * Animates the scrollable list's own height as rows leave instead of\n   * letting it snap instantly, since CSS can't transition height: auto.\n   */\n  const listContentRef = useRef<HTMLDivElement>(null);\n  const [listHeight, setListHeight] = useState<number>();\n\n  useLayoutEffect(() => {\n    if (listContentRef.current) {\n      setListHeight(\n        Math.min(listContentRef.current.scrollHeight, LIST_MAX_HEIGHT_PX),\n      );\n    }\n  }, [favorites, searchQuery]);\n\n  const handleKeyDown = (\n    e: KeyboardEvent<HTMLDivElement>,\n    item: FavoriteSkillItem,\n  ) => {\n    if (e.target !== e.currentTarget) return;\n    if (e.key === 'Enter' || e.key === ' ') {\n      e.preventDefault();\n      onSelect(item);\n    }\n  };\n\n  /*\n   * Plays the row's fade-out animation before actually committing the\n   * favorite change, since applying it immediately would make the row\n   * (and its own animation) disappear instantly.\n   */\n  const handleToggleFavorite = (id: string) => {\n    setLeavingIds((prev) => new Set(prev).add(id));\n    const timeout = setTimeout(() => {\n      onToggleFavorite(id);\n      setLeavingIds((prev) => {\n        const next = new Set(prev);\n        next.delete(id);\n        return next;\n      });\n      leaveTimeoutsRef.current.delete(id);\n    }, ROW_LEAVE_ANIMATION_MS);\n    leaveTimeoutsRef.current.set(id, timeout);\n  };\n\n  const renderRow = (item: FavoriteSkillItem) => {\n    const row = (\n      <div\n        role=\"button\"\n        tabIndex={0}\n        className={mergeClasses(\n          'flex cursor-pointer items-center gap-2 rounded-lg border border-transparent px-2 py-1.5 transition-colors',\n          styles.row,\n        )}\n        onClick={() => onSelect(item)}\n        onKeyDown={(e) => handleKeyDown(e, item)}\n      >\n        <DeploymentIcon size={DIAL_ICON_SIZE.MD} initialsName={item.name} />\n        {searchQuery != null ? (\n          <Highlight\n            text={item.name}\n            query={searchQuery}\n            maxLines={1}\n            className={mergeClasses(nameClassName, 'min-w-0 flex-1 text-start')}\n          />\n        ) : (\n          <span\n            className={mergeClasses(\n              nameClassName,\n              'min-w-0 flex-1 truncate text-start',\n            )}\n          >\n            {item.name}\n          </span>\n        )}\n        <ToggleIconButton\n          icon={\n            <IconStarFilled\n              size={DIAL_ICON_SIZE.SM}\n              className={styles.star}\n              aria-hidden\n            />\n          }\n          aria-label={removeFromFavoritesLabel}\n          /* Every row in this panel is a favorite, so the star is always on. */\n          isSelected\n          onClick={(e) => {\n            e.stopPropagation();\n            handleToggleFavorite(item.id);\n          }}\n        />\n      </div>\n    );\n\n    return (\n      <li\n        key={item.id}\n        className={\n          leavingIds.has(item.id) ? styles.rowLeaving : styles.rowEnter\n        }\n      >\n        {/*\n         * The row stays the focus/click target (`asChild`); the tooltip is\n         * uncontrolled \u2014 the kit opens it on hover or keyboard focus and keeps\n         * it open while the pointer travels between the row and the panel \u2014\n         * and renders nothing on touch-only devices, where tapping the row\n         * still selects the skill.\n         */}\n        <InteractiveTooltip\n          asChild\n          contentClassName=\"max-w-[550px]\"\n          content={\n            <SkillInfoTooltipContent\n              description={item.description}\n              viewDetailsLabel={viewDetailsLabel}\n              onViewDetails={() => onViewDetails(item)}\n            />\n          }\n        >\n          {row}\n        </InteractiveTooltip>\n      </li>\n    );\n  };\n\n  /*\n   * In search mode an empty list is the filter's result, not the empty\n   * favorites state, so it gets its own hint \u2014 announced via aria-live since\n   * the user is typing and the change has no other confirmation. An empty\n   * query still shows every row, so it never reaches the no-matching branch.\n   */\n  const renderListBody = () => {\n    if (visibleFavorites.length > 0) {\n      return (\n        <ul className=\"flex flex-col gap-1 px-1 pb-1\">\n          {visibleFavorites.map(renderRow)}\n        </ul>\n      );\n    }\n\n    if (isSearchMode && normalizedQuery !== '') {\n      return (\n        <p\n          role=\"status\"\n          aria-live=\"polite\"\n          className={mergeClasses(\n            emptyHintClassName,\n            'px-4 py-4 text-start',\n            styles.emptyHint,\n          )}\n        >\n          {noMatchingSkillsLabel}\n        </p>\n      );\n    }\n\n    return (\n      <p\n        className={mergeClasses(\n          emptyHintClassName,\n          'px-4 py-4 text-start',\n          styles.emptyHint,\n        )}\n      >\n        {emptyHintLabel}\n      </p>\n    );\n  };\n\n  return (\n    <div\n      className={mergeClasses(\n        'flex w-full flex-col desktop:w-[280px]',\n        SKILLS_CLASS.favoritesPanel,\n      )}\n      style={cssVars}\n    >\n      <p\n        className={mergeClasses(\n          headerClassName,\n          SECTION_HEADING_CLASS_NAME,\n          styles.header,\n        )}\n      >\n        {myCollectionLabel}\n      </p>\n\n      <div\n        className={mergeClasses(\n          'max-h-72 min-h-0 flex-1 overflow-y-auto',\n          styles.listContent,\n        )}\n        style={{ maxHeight: listHeight }}\n      >\n        <div ref={listContentRef}>{renderListBody()}</div>\n      </div>\n\n      <div className={mergeClasses('border-t px-2 py-3', styles.footer)}>\n        <GhostButton\n          label={browseLabel}\n          className=\"w-full justify-center\"\n          onClick={onBrowse}\n        />\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: FavoriteSkillsPanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "favorites",
+          "optional": false,
+          "type": "FavoriteSkillItem[]"
+        },
+        {
+          "name": "onSelect",
+          "optional": false,
+          "type": "(item: FavoriteSkillItem) => void"
+        },
+        {
+          "name": "onToggleFavorite",
+          "optional": false,
+          "type": "(id: string) => void"
+        },
+        {
+          "name": "onBrowse",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onViewDetails",
+          "optional": false,
+          "type": "(item: FavoriteSkillItem) => void"
+        },
+        {
+          "name": "searchQuery",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").FavoriteSkillsPanelLabels | undefined"
+        },
+        {
+          "name": "colors",
+          "optional": true,
+          "type": "import(\"../..\").FavoriteSkillsPanelColors | undefined"
+        },
+        {
+          "name": "nameClassName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "headerClassName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "emptyHintClassName",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "SkillCatalogModal",
+      "file": "libs/skills/src/components/SkillCatalogModal/SkillCatalogModal.tsx",
+      "start": 6,
+      "end": 26,
+      "declaration": "SkillCatalogModal: FC<SkillCatalogModalProps> = ({\n  isOpen,\n  onClose,\n  onSelect,\n  title,\n  renderContent,\n}) => (\n  <Popup\n    open={isOpen}\n    header={title}\n    size={PopupSize.Lg}\n    className=\"h-[min(90vh,860px)] !max-w-[min(95vw,1200px)] overflow-hidden\"\n    onClose={onClose}\n  >\n    <div className=\"h-[min(80vh,840px)] overflow-auto\">\n      <Suspense fallback={null}>\n        {isOpen && renderContent(onSelect, onClose)}\n      </Suspense>\n    </div>\n  </Popup>\n)",
+      "signature": "(props: SkillCatalogModalProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "isOpen",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "onClose",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onSelect",
+          "optional": false,
+          "type": "(id: string) => void"
+        },
+        {
+          "name": "title",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "renderContent",
+          "optional": false,
+          "type": "(onSelect: (id: string) => void, onClose: () => void) => import(\"react\").ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "SkillDetailsSidePanel",
+      "file": "libs/skills/src/components/SkillDetailsSidePanel/SkillDetailsSidePanel.tsx",
+      "start": 11,
+      "end": 13,
+      "declaration": "SkillDetailsSidePanel: FC<SkillDetailsSidePanelProps> = (\n  props,\n) => <DetailsPanel {...props} />",
+      "signature": "(props: SkillDetailsSidePanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "item",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-catalog\").CatalogItem"
+        },
+        {
+          "name": "isOpen",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "isStarred",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isDetailsLoading",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isReadonly",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "onClose",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onToggleFavorite",
+          "optional": true,
+          "type": "((id: string, isStarred: boolean) => void) | undefined"
+        },
+        {
+          "name": "onUseInChat",
+          "optional": true,
+          "type": "((item: import(\"@epam/ai-dial-catalog\").CatalogItem) => void) | undefined"
+        },
+        {
+          "name": "isPrimaryActionVisible",
+          "optional": true,
+          "type": "((item: import(\"@epam/ai-dial-catalog\").CatalogItem) => boolean) | undefined"
+        },
+        {
+          "name": "isDownloadVisible",
+          "optional": true,
+          "type": "((item: import(\"@epam/ai-dial-catalog\").CatalogItem) => boolean) | undefined"
+        },
+        {
+          "name": "onLoadContentFile",
+          "optional": true,
+          "type": "((fileId: string) => Promise<string | undefined>) | undefined"
+        },
+        {
+          "name": "onLoadContentFilePreview",
+          "optional": true,
+          "type": "((fileId: string) => Promise<import(\"@epam/ai-dial-catalog\").CatalogContentFilePreview | undefined>) | undefined"
+        },
+        {
+          "name": "renderContentFilePreview",
+          "optional": true,
+          "type": "((fileId: string, fileName: string) => import(\"react\").ReactNode) | undefined"
+        },
+        {
+          "name": "texts",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-catalog\").ItemDetailsTexts | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-catalog\").ItemDetailsStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "SkillInfoTooltipContent",
+      "file": "libs/skills/src/components/SkillInfoTooltipContent/SkillInfoTooltipContent.tsx",
+      "start": 13,
+      "end": 59,
+      "declaration": "SkillInfoTooltipContent: FC<SkillInfoTooltipContentProps> = ({\n  description,\n  unsupportedMessage,\n  viewDetailsLabel = 'View details',\n  onViewDetails,\n}) => {\n  /*\n   * The unsupported state replaces the whole content: the message alone, no\n   * description and no \"View details\" action \u2014 the skill cannot be sent as\n   * selected, so there is nothing to open details for.\n   */\n  if (unsupportedMessage != null) {\n    return <p className=\"text-start\">{unsupportedMessage}</p>;\n  }\n\n  const hasDescription = description != null && description !== '';\n\n  return (\n    <div className=\"flex flex-col gap-3\">\n      {hasDescription && <p className=\"text-start\">{description}</p>}\n      {/*\n       * The action is reachable regardless of the description's state \u2014\n       * present or absent. `self-start` keeps the button at the\n       * content's start edge instead of stretching it across the panel;\n       * `h-[24px]` caps the kit Standard button's 40px height to the design's\n       * 24px (the Standard label class `dial-small-paragraph-semi-text`,\n       * 14px/24px semibold, already matches the design spec \u2014 the kit's\n       * `ElementSize.Small` is not used because it swaps the label to 12px\n       * tiny typography).\n       */}\n      <Button\n        variant={ButtonVariant.Primary}\n        appearance={ButtonAppearance.Link}\n        className=\"h-[24px] self-start\"\n        label={viewDetailsLabel}\n        iconBefore={\n          <IconEye\n            size={DIAL_ICON_SIZE.SM}\n            stroke={DIAL_KIT_ICON_STROKE}\n            aria-hidden\n          />\n        }\n        onClick={onViewDetails}\n      />\n    </div>\n  );\n}",
+      "signature": "(props: SkillInfoTooltipContentProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "description",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "unsupportedMessage",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "viewDetailsLabel",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "onViewDetails",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        }
+      ]
+    },
+    {
+      "name": "useSkillSelectorOverlay",
+      "file": "libs/skills/src/hooks/useSkillSelectorOverlay/useSkillSelectorOverlay.tsx",
+      "start": 36,
+      "end": 356,
+      "declaration": "useSkillSelectorOverlay = ({\n  isEnabled,\n  isSkillsSupported,\n  skills,\n  sharedWithMe,\n  publicSkills,\n  favoriteIds,\n  onToggleFavorite,\n  labels,\n  historyChipLabelClassName,\n  renderCatalogContent,\n  detailsPanelComponent: DetailsPanelComponent,\n}: UseSkillSelectorOverlayOptions): UseSkillSelectorOverlayResult => {\n  const {\n    addMenuLabel = 'Skills',\n    backLabel = 'Back',\n    catalogModalTitleLabel = 'Use skill',\n    emptyQueryHintLabel = 'Type to filter',\n    unsupportedTooltipLabel = 'Selected model does not support skills. Remove the skill or select different model to proceed.',\n    panelLabels,\n  } = labels ?? {};\n\n  /*\n   * The entry-point gate: both the feature flag and the deployment's own\n   * support must hold. A selected skill, its removal gesture, and the\n   * details panel survive an unsupported deployment \u2014 only the ways in are\n   * hidden \u2014 so unlike `isEnabled` this never blanks the whole result.\n   */\n  const isSkillsEnabled = isEnabled && isSkillsSupported;\n\n  const [isCatalogOpen, setIsCatalogOpen] = useState(false);\n  const [detailsSkillId, setDetailsSkillId] = useState<string | null>(null);\n  const [selectedSkillId, setSelectedSkillId] = useState<string | null>(null);\n\n  const allSkills = useMemo<SkillListingEntry[]>(\n    () => [...skills, ...(sharedWithMe ?? []), ...(publicSkills ?? [])],\n    [skills, sharedWithMe, publicSkills],\n  );\n\n  /*\n   * Url-keyed view of `allSkills` so per-url lookups (the selected skill,\n   * history entries) are O(1) instead of a linear scan per entry per render.\n   */\n  const skillByUrl = useMemo<Map<string, SkillListingEntry>>(\n    () => new Map(allSkills.map((skill) => [skill.url, skill])),\n    [allSkills],\n  );\n\n  /*\n   * Only skill items end up in the favorites list server-side, so matching on\n   * `url` needs no nodeType filtering \u2014 folder URLs never appear in\n   * `favoriteIds`.\n   */\n  const favoriteSkillItems = useMemo<FavoriteSkillItem[]>(\n    () =>\n      allSkills\n        .filter((skill) => favoriteIds.has(skill.url))\n        .map((skill) => buildFavoriteSkillItem(skill)),\n    [allSkills, favoriteIds],\n  );\n\n  /*\n   * Resolved from `allSkills` on every render rather than captured at\n   * selection time, so a skill picked while the listing is still loading\n   * (e.g. via a one-shot route state) renders once the listing settles.\n   */\n  const selectedSkill = useMemo(\n    () =>\n      selectedSkillId == null\n        ? null\n        : (skillByUrl.get(selectedSkillId) ?? null),\n    [skillByUrl, selectedSkillId],\n  );\n\n  /*\n   * A skill selected on a deployment that does not support skills: the chip\n   * renders in its error state and hosts fold this into send-disabled.\n   */\n  const isSkillUnsupported = selectedSkill != null && !isSkillsSupported;\n\n  const selectSkill = useCallback((skillId: string) => {\n    setSelectedSkillId(skillId);\n  }, []);\n\n  const removeSelectedSkill = useCallback(() => {\n    setSelectedSkillId(null);\n  }, []);\n\n  /*\n   * The selection id is the skill's resource URL, so it is exposed as the\n   * send-time path directly \u2014 even while the listing is still loading and\n   * `selectedSkill` has not resolved yet (the id came from a selection entry\n   * point, which always receives resource URLs).\n   */\n  const selectedSkillPath = selectedSkillId;\n\n  /*\n   * The send-time `custom_content.skills` payload: a single `{ url }` entry\n   * while a skill is selected, `undefined` otherwise so the field is omitted\n   * from the message entirely. Memoized on the selection id so hosts can hold\n   * it in `useCallback`/`memo` deps without the identity churning on every\n   * render (e.g. every streaming token re-rendering the conversation view).\n   */\n  const selectedSkills = useMemo<RequestSkill[] | undefined>(\n    () => (selectedSkillId == null ? undefined : [{ url: selectedSkillId }]),\n    [selectedSkillId],\n  );\n\n  /*\n   * The selected skill's inline form: the shared tooltip content, with the\n   * listing-sourced description \u2014 or, while the deployment does not support\n   * skills, the error state (error-colored label, message-only tooltip).\n   * Memoized so the element's identity stays stable across unrelated\n   * re-renders (streaming) and the input hosting it as `inlineStartSlot` is\n   * not needlessly re-rendered. The element carries no remove control \u2014\n   * removal is the input's Backspace-at-start gesture via\n   * `removeSelectedSkill` (wired to `onInlineStartRemove`). \"View details\"\n   * opens the same side panel the rows' action opens.\n   */\n  const selectedSkillElement = useMemo<ReactNode>(\n    () =>\n      selectedSkill == null ? null : (\n        <ChatSkill\n          name={selectedSkill.name}\n          path={selectedSkill.url}\n          description={selectedSkill.description}\n          isUnsupported={isSkillUnsupported}\n          onViewDetails={setDetailsSkillId}\n          labels={{\n            viewDetailsLabel: panelLabels?.viewDetailsLabel,\n            unsupportedTooltipLabel,\n          }}\n        />\n      ),\n    [selectedSkill, isSkillUnsupported, panelLabels, unsupportedTooltipLabel],\n  );\n\n  /*\n   * History display: one `ChatSkill` per `custom_content.skills` entry,\n   * sharing the rows' \"View details\" panel. The name and description come\n   * from the listing pools matched on the entry's url; a url no pool carries\n   * (e.g. a skill the viewer cannot read) falls back to its last non-empty\n   * segment with no description. The label class is host-supplied because\n   * the chip renders beside the bubble's first text line and its height\n   * should match that line.\n   */\n  const renderHistorySkills = useCallback(\n    (entries: RequestSkill[] | undefined): ReactNode => {\n      if (entries == null || entries.length === 0) {\n        return null;\n      }\n\n      return entries.map((entry) => {\n        const skill = skillByUrl.get(entry.url);\n        const name = skill?.name ?? getSkillFallbackName(entry.url);\n\n        return (\n          <ChatSkill\n            key={entry.url}\n            name={name}\n            path={entry.url}\n            labelClassName={historyChipLabelClassName}\n            description={skill?.description}\n            onViewDetails={setDetailsSkillId}\n            labels={{ viewDetailsLabel: panelLabels?.viewDetailsLabel }}\n          />\n        );\n      });\n    },\n    [skillByUrl, historyChipLabelClassName, panelLabels],\n  );\n\n  const renderOverlay = useCallback(\n    (onClose: () => void): ReactNode => (\n      <FavoriteSkillsPanel\n        favorites={favoriteSkillItems}\n        onSelect={(item) => {\n          selectSkill(item.id);\n          onClose();\n        }}\n        onToggleFavorite={onToggleFavorite}\n        onBrowse={() => {\n          onClose();\n          setIsCatalogOpen(true);\n        }}\n        onViewDetails={(item) => {\n          /* Closing the Add menu unmounts the overlay and its open tooltip. */\n          onClose();\n          setDetailsSkillId(item.id);\n        }}\n        labels={panelLabels}\n      />\n    ),\n    [favoriteSkillItems, selectSkill, onToggleFavorite, panelLabels],\n  );\n\n  const skillMenuOverlay = useMemo<MenuOverlayConfig | undefined>(\n    () =>\n      isSkillsEnabled\n        ? {\n            key: 'skills',\n            title: addMenuLabel,\n            icon: (\n              <IconBlocks\n                size={BASE_ICON_SIZE}\n                aria-hidden\n                stroke={DIAL_KIT_ICON_STROKE}\n              />\n            ),\n            renderOverlay,\n            backLabel,\n          }\n        : undefined,\n    [isSkillsEnabled, addMenuLabel, backLabel, renderOverlay],\n  );\n\n  /*\n   * The slash-command menu: same favorites panel as the Add-menu overlay, but\n   * in search mode over the typed query. Every action consumes the `/query`\n   * text from the textarea first (`close({ consumeQuery: true })`), so it is\n   * never sent \u2014 including \"View details\", which would otherwise leave a\n   * stale query behind while the side panel opens.\n   */\n  const commandMenu = useMemo<CommandMenuConfig | undefined>(\n    () =>\n      isSkillsEnabled\n        ? {\n            triggerPrefix: '/',\n            menuLabel: addMenuLabel,\n            emptyQueryHint: emptyQueryHintLabel,\n            renderMenu: ({ query, close }) => (\n              <FavoriteSkillsPanel\n                favorites={favoriteSkillItems}\n                searchQuery={query}\n                onSelect={(item) => {\n                  close({ consumeQuery: true });\n                  selectSkill(item.id);\n                }}\n                onToggleFavorite={onToggleFavorite}\n                onBrowse={() => {\n                  close({ consumeQuery: true });\n                  setIsCatalogOpen(true);\n                }}\n                onViewDetails={(item) => {\n                  close({ consumeQuery: true });\n                  setDetailsSkillId(item.id);\n                }}\n                labels={panelLabels}\n              />\n            ),\n          }\n        : undefined,\n    [\n      isSkillsEnabled,\n      addMenuLabel,\n      emptyQueryHintLabel,\n      favoriteSkillItems,\n      selectSkill,\n      onToggleFavorite,\n      panelLabels,\n    ],\n  );\n\n  const skillCatalogModal = (\n    <SkillCatalogModal\n      isOpen={isCatalogOpen}\n      onClose={() => setIsCatalogOpen(false)}\n      onSelect={(id) => {\n        selectSkill(id);\n        setIsCatalogOpen(false);\n      }}\n      title={catalogModalTitleLabel}\n      renderContent={renderCatalogContent}\n    />\n  );\n\n  /*\n   * Information-only by design: the panel a \"View details\" action opens shows\n   * the skill's details and nothing else \u2014 selecting a skill belongs to the\n   * rows, the slash menu, and the browse modal, and favorite toggling to the\n   * rows. The host's panel component renders `DetailsPanel` read-only.\n   */\n  const skillDetailsPanel = (\n    <Suspense fallback={null}>\n      <DetailsPanelComponent\n        skillId={detailsSkillId}\n        onClose={() => setDetailsSkillId(null)}\n      />\n    </Suspense>\n  );\n\n  if (!isEnabled) {\n    return {\n      skillMenuOverlay: undefined,\n      commandMenu: undefined,\n      skillCatalogModal: null,\n      skillDetailsPanel: null,\n      selectedSkillElement: null,\n      selectedSkillPath: null,\n      selectedSkills: undefined,\n      isSkillUnsupported: false,\n      selectSkill: () => undefined,\n      removeSelectedSkill: () => undefined,\n      renderHistorySkills: () => null,\n    };\n  }\n\n  return {\n    skillMenuOverlay,\n    commandMenu,\n    skillCatalogModal,\n    skillDetailsPanel,\n    selectedSkillElement,\n    selectedSkillPath,\n    selectedSkills,\n    isSkillUnsupported,\n    selectSkill,\n    removeSelectedSkill,\n    renderHistorySkills,\n  };\n}",
+      "signature": "({ isEnabled, isSkillsSupported, skills, sharedWithMe, publicSkills, favoriteIds, onToggleFavorite, labels, historyChipLabelClassName, renderCatalogContent, detailsPanelComponent: DetailsPanelComponent, }: UseSkillSelectorOverlayOptions): UseSkillSelectorOverlayResult",
+      "props": [
+        {
+          "name": "isEnabled",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "isSkillsSupported",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "skills",
+          "optional": false,
+          "type": "SkillListingEntry[]"
+        },
+        {
+          "name": "sharedWithMe",
+          "optional": true,
+          "type": "SkillListingEntry[] | undefined"
+        },
+        {
+          "name": "publicSkills",
+          "optional": true,
+          "type": "SkillListingEntry[] | undefined"
+        },
+        {
+          "name": "favoriteIds",
+          "optional": false,
+          "type": "ReadonlySet<string>"
+        },
+        {
+          "name": "onToggleFavorite",
+          "optional": false,
+          "type": "(id: string) => void"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").SkillSelectorOverlayLabels | undefined"
+        },
+        {
+          "name": "historyChipLabelClassName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "renderCatalogContent",
+          "optional": false,
+          "type": "(onSelect: (id: string) => void, onClose: () => void) => ReactNode"
+        },
+        {
+          "name": "detailsPanelComponent",
+          "optional": false,
+          "type": "import(\"react\").ComponentType<import(\"../..\").SkillDetailsPanelComponentProps>"
+        }
+      ]
+    },
+    {
+      "name": "buildFavoriteSkillItem",
+      "file": "libs/skills/src/models/favorite-skill-item.ts",
+      "start": 32,
+      "end": 38,
+      "declaration": "buildFavoriteSkillItem = (\n  skill: SkillListingEntry,\n): FavoriteSkillItem => ({\n  id: skill.url,\n  name: skill.name,\n  description: skill.description,\n})",
+      "signature": "(skill: SkillListingEntry): FavoriteSkillItem",
+      "props": [
+        {
+          "name": "url",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/skills/src/components/ChatSkill/tests/ChatSkill.classes.spec.tsx",
+      "assertions": [
+        "stamps the composer chip",
+        "keeps the chip class in the unsupported state",
+        "stamps the favorites panel root"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat/src/components/SkillSelector/useSkillSelectorOverlay.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 8,
+          "excerpt": "import { FavoriteEntityType } from '@epam/ai-dial-chat-hooks';\nimport { CatalogEntityType } from '@epam/ai-dial-chat-shared';\nimport {\n  useSkillSelectorOverlay as useHostAgnosticSkillSelectorOverlay,\n  type SkillSelectorOverlayLabels,\n  type UseSkillSelectorOverlayResult,\n} from '@epam/ai-dial-skills';\nimport { lazy, useCallback, useMemo } from 'react';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/SkillSelector/SkillDetailsPanelContainer.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 4,
+          "excerpt": "import type { ItemDetailsTexts } from '@epam/ai-dial-catalog';\nimport { useSkillDetailsPanelData } from '@epam/ai-dial-chat-hooks';\nimport { SkillDetailsSidePanel } from '@epam/ai-dial-skills';\nimport { memo, useCallback, useMemo, type FC } from 'react';"
+        }
+      ]
+    }
+  ]
+}

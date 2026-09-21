@@ -1,0 +1,889 @@
+[
+  {
+    "id": "apps-chat-overlay-sandbox-01",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  SANDBOX WALKTHROUGH",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Overlay sandbox",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "apps-chat-overlay-sandbox-01",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Overlay sandbox",
+        "x": 0.65,
+        "y": 1.65,
+        "w": 11.7,
+        "h": 1.5,
+        "font": 48,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "A real browser host for exercising the chat overlay protocol.",
+        "x": 0.68,
+        "y": 3.44,
+        "w": 11.3,
+        "h": 1.15,
+        "font": 28,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Integration cases",
+        "x": 0.9,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "Port 4300",
+        "x": 5,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "Running chat required",
+        "x": 9.1,
+        "y": 5.42,
+        "w": 3.35,
+        "h": 0.24,
+        "font": 16
+      },
+      {
+        "type": "text",
+        "text": "apps/chat-overlay-sandbox",
+        "x": 0.68,
+        "y": 6.22,
+        "w": 11.6,
+        "h": 0.32,
+        "font": 14,
+        "color": "BCC9DA"
+      }
+    ]
+  },
+  {
+    "id": "apps-chat-overlay-sandbox-02",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  SANDBOX WALKTHROUGH",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Overlay sandbox",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "apps-chat-overlay-sandbox-02",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Each case demonstrates a distinct contract",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      }
+    ]
+  },
+  {
+    "id": "apps-chat-overlay-sandbox-03",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  SANDBOX WALKTHROUGH",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Overlay sandbox",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "apps-chat-overlay-sandbox-03",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Trace the host-to-chat handshake",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.82,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Sandbox page",
+        "x": 0.82,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Choose an integration case",
+        "x": 0.82,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 3.93,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Chat Overlay",
+        "x": 3.93,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Create iframe",
+        "x": 3.93,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 7.039999999999999,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Embedded chat",
+        "x": 7.039999999999999,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Readiness exchange",
+        "x": 7.039999999999999,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 10.15,
+        "y": 3.32,
+        "w": 2.33,
+        "h": 0.32,
+        "font": 16,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Host controls",
+        "x": 10.15,
+        "y": 3.79,
+        "w": 2.33,
+        "h": 0.68,
+        "font": 21,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Send requests / read events",
+        "x": 10.15,
+        "y": 4.57,
+        "w": 2.33,
+        "h": 0.63,
+        "font": 17,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "Host allowlisting and overlay mode are prerequisites.",
+        "x": 0.66,
+        "y": 5.85,
+        "w": 11.95,
+        "h": 0.74,
+        "font": 24,
+        "color": "8EBCFF"
+      }
+    ]
+  },
+  {
+    "id": "apps-chat-overlay-sandbox-04",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  SANDBOX WALKTHROUGH",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Overlay sandbox",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "apps-chat-overlay-sandbox-04",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "04",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Reproduce the local scenario",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Configure the backend, then run both the chat and this sandbox.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "OVERLAY_ENABLED=true\nALLOWED_IFRAME_ORIGINS=http://localhost:4300\n\n# In the shell that starts the sandbox:\nVITE_CHAT_OVERLAY_HOST=http://localhost:4207 \\\n  npm exec nx serve chat-overlay-sandbox",
+        "x": 0.86,
+        "y": 3.06,
+        "w": 11.55,
+        "h": 3.2,
+        "font": 18,
+        "fontFace": "Courier New",
+        "breakLine": false,
+        "paraSpaceAfterPt": 0,
+        "lineSpacingMultiple": 1.04,
+        "color": "EDF2F7"
+      }
+    ]
+  },
+  {
+    "id": "apps-chat-overlay-sandbox-05",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  SANDBOX WALKTHROUGH",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Overlay sandbox",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "apps-chat-overlay-sandbox-05",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "05",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "A direct overlay is a small integration",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Checked pattern from examples/chat-overlay.ts.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "const overlay = new ChatOverlay('#demo-chat', {\n  domain: 'http://localhost:4207',\n  theme: 'dark',\n});\nawait overlay.ready();\nawait overlay.setInputContent('Explain the demo');\n// Later: overlay.destroy();",
+        "x": 0.86,
+        "y": 3.06,
+        "w": 11.55,
+        "h": 3.2,
+        "font": 18,
+        "fontFace": "Courier New",
+        "breakLine": false,
+        "paraSpaceAfterPt": 0,
+        "lineSpacingMultiple": 1.04,
+        "color": "EDF2F7"
+      }
+    ]
+  },
+  {
+    "id": "apps-chat-overlay-sandbox-06",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  SANDBOX WALKTHROUGH",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Overlay sandbox",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "apps-chat-overlay-sandbox-06",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "06",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Deployment shares the main chat image",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Published route",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The backend can serve the sandbox at /overlay-sandbox/.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Enable it explicitly",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The backend sandbox flag controls exposure of the route.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Separate HTML policy",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "The backend supplies the sandbox style nonce and response policy.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  },
+  {
+    "id": "apps-chat-overlay-sandbox-07",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  SANDBOX WALKTHROUGH",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Overlay sandbox",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "apps-chat-overlay-sandbox-07",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "07",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Verify cases through the current targets",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Nx targets come from the resolved project graph.",
+        "x": 0.63,
+        "y": 2.08,
+        "w": 12,
+        "h": 0.5,
+        "font": 17,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "npm exec nx test chat-overlay-sandbox\nnpm exec nx build chat-overlay-sandbox\nnpm exec nx run chat-overlay-sandbox:typecheck",
+        "x": 0.86,
+        "y": 3.06,
+        "w": 11.55,
+        "h": 3.2,
+        "font": 18,
+        "fontFace": "Courier New",
+        "breakLine": false,
+        "paraSpaceAfterPt": 0,
+        "lineSpacingMultiple": 1.04,
+        "color": "EDF2F7"
+      }
+    ]
+  },
+  {
+    "id": "apps-chat-overlay-sandbox-08",
+    "elements": [
+      {
+        "type": "text",
+        "text": "AI DIAL  /  SANDBOX WALKTHROUGH",
+        "x": 0.6,
+        "y": 0.45,
+        "w": 11.25,
+        "h": 0.22,
+        "font": 11,
+        "color": "BCC9DA",
+        "charSpacing": 1.4
+      },
+      {
+        "type": "text",
+        "text": "Overlay sandbox",
+        "x": 0.6,
+        "y": 7,
+        "w": 8.5,
+        "h": 0.2,
+        "font": 10,
+        "color": "BCC9DA"
+      },
+      {
+        "type": "text",
+        "text": "apps-chat-overlay-sandbox-08",
+        "x": 9,
+        "y": 7,
+        "w": 3,
+        "h": 0.2,
+        "font": 9,
+        "color": "BCC9DA",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "08",
+        "x": 12.3,
+        "y": 6.98,
+        "w": 0.42,
+        "h": 0.25,
+        "font": 12,
+        "color": "8EBCFF",
+        "align": "right"
+      },
+      {
+        "type": "text",
+        "text": "Interpret integration failures at the right layer",
+        "x": 0.6,
+        "y": 1.03,
+        "w": 12,
+        "h": 1.1,
+        "font": 36,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "01",
+        "x": 0.85,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Blank frame",
+        "x": 0.85,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Check chat CSP frame-ancestors and allowed host origin.",
+        "x": 0.85,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "02",
+        "x": 4.996666666666666,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "No ready event",
+        "x": 4.996666666666666,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Inspect protocol readiness after the iframe loads.",
+        "x": 4.996666666666666,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      },
+      {
+        "type": "text",
+        "text": "03",
+        "x": 9.143333333333333,
+        "y": 3.04,
+        "w": 3.3066666666666666,
+        "h": 0.34,
+        "font": 15,
+        "color": "8EBCFF"
+      },
+      {
+        "type": "text",
+        "text": "Login cannot complete",
+        "x": 9.143333333333333,
+        "y": 3.58,
+        "w": 3.3066666666666666,
+        "h": 0.85,
+        "font": 26,
+        "bold": true
+      },
+      {
+        "type": "text",
+        "text": "Verify the exact provider and configured UI mode.",
+        "x": 9.143333333333333,
+        "y": 4.62,
+        "w": 3.3066666666666666,
+        "h": 1.63,
+        "font": 22
+      }
+    ]
+  }
+]

@@ -1,0 +1,497 @@
+{
+  "id": "libs/conversation-panel",
+  "shortTitle": "Conversation panel",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-conversation-panel-01",
+      "title": "Conversation panel",
+      "layout": "cover",
+      "subtitle": "Navigate a large conversation history with a small visible list.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-conversation-panel",
+      "notes": "This session explains navigate a large conversation history with a small visible list. The library is a local private workspace package at libs/conversation-panel. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/conversation-panel/README.md",
+          "start": 1,
+          "end": 406
+        },
+        {
+          "file": "libs/conversation-panel/src/index.ts",
+          "start": 1,
+          "end": 28
+        },
+        {
+          "file": "libs/conversation-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+          "start": 52,
+          "end": 507,
+          "symbol": "ConversationPanel"
+        },
+        {
+          "file": "libs/conversation-panel/src/models/panel-props.ts",
+          "start": 162,
+          "end": 223,
+          "symbol": "ConversationPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-panel-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Navigate a large conversation history with a small visible list.",
+      "cards": [
+        {
+          "title": "Resume work",
+          "body": "Select a conversation from a grouped history list."
+        },
+        {
+          "title": "Find context",
+          "body": "Search titles and filter by source."
+        },
+        {
+          "title": "Manage history",
+          "body": "Expose rename, move, pin and transfer actions."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Resume work: Select a conversation from a grouped history list. Find context: Search titles and filter by source. Manage history: Expose rename, move, pin and transfer actions. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/conversation-panel/README.md",
+          "start": 1,
+          "end": 406
+        },
+        {
+          "file": "libs/conversation-panel/src/index.ts",
+          "start": 1,
+          "end": 28
+        },
+        {
+          "file": "libs/conversation-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+          "start": 52,
+          "end": 507,
+          "symbol": "ConversationPanel"
+        },
+        {
+          "file": "libs/conversation-panel/src/models/panel-props.ts",
+          "start": 162,
+          "end": 223,
+          "symbol": "ConversationPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-panel-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host history",
+          "body": "ConversationItem[]"
+        },
+        {
+          "title": "ConversationPanel",
+          "body": "Grouped visible rows"
+        },
+        {
+          "title": "Selection or move",
+          "body": "Id or ConversationMove"
+        },
+        {
+          "title": "Host state",
+          "body": "Navigate and persist"
+        }
+      ],
+      "takeaway": "Library: Windowed rows, grouping, search UI and per-row interaction.",
+      "notes": "The library owns Windowed rows, grouping, search UI and per-row interaction. The host owns Ordered data, active route, storage changes and action implementations.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/conversation-panel/README.md",
+          "start": 1,
+          "end": 406
+        },
+        {
+          "file": "libs/conversation-panel/src/index.ts",
+          "start": 1,
+          "end": 28
+        },
+        {
+          "file": "libs/conversation-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+          "start": 52,
+          "end": 507,
+          "symbol": "ConversationPanel"
+        },
+        {
+          "file": "libs/conversation-panel/src/models/panel-props.ts",
+          "start": 162,
+          "end": 223,
+          "symbol": "ConversationPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-panel-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "ConversationPanel \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "conversations",
+          "ConversationItem[]"
+        ],
+        [
+          "onSelectConversation",
+          "(id: string) => void"
+        ],
+        [
+          "onNewChat",
+          "() => void"
+        ],
+        [
+          "labels",
+          "ConversationPanelLabels"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/conversation-panel/README.md",
+          "start": 1,
+          "end": 406
+        },
+        {
+          "file": "libs/conversation-panel/src/index.ts",
+          "start": 1,
+          "end": 28
+        },
+        {
+          "file": "libs/conversation-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+          "start": 52,
+          "end": 507,
+          "symbol": "ConversationPanel"
+        },
+        {
+          "file": "libs/conversation-panel/src/models/panel-props.ts",
+          "start": 162,
+          "end": 223,
+          "symbol": "ConversationPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-panel-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "<ConversationPanel\n  isOpen\n  conversations={[{ id: 'demo', title: 'Demo chat' }]}\n  activeConversationId={active}\n  onSelectConversation={setActive}\n  onNewChat={onNewChat}\n  labels={labels}\n/>",
+      "caption": "Full example: examples/conversation-panel.tsx \u00b7 uses @epam/ai-dial-conversation-panel",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/conversation-panel.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Select a conversation from a grouped history list. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/conversation-panel/README.md",
+          "start": 1,
+          "end": 406
+        },
+        {
+          "file": "libs/conversation-panel/src/index.ts",
+          "start": 1,
+          "end": 28
+        },
+        {
+          "file": "libs/conversation-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+          "start": 52,
+          "end": 507,
+          "symbol": "ConversationPanel"
+        },
+        {
+          "file": "libs/conversation-panel/src/models/panel-props.ts",
+          "start": 162,
+          "end": 223,
+          "symbol": "ConversationPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-panel-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep conversation panel focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Load summaries",
+          "body": "Supply conversation ids, titles and the active id."
+        },
+        {
+          "title": "Handle selection",
+          "body": "Use onSelectConversation to choose a host-owned route."
+        },
+        {
+          "title": "Load the transcript",
+          "body": "The host loads messages for the selected conversation."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Load summaries: Supply conversation ids, titles and the active id. Handle selection: Use onSelectConversation to choose a host-owned route. Load the transcript: The host loads messages for the selected conversation. The complete typed module in examples/conversation-panel.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/conversation-panel/README.md",
+          "start": 1,
+          "end": 406
+        },
+        {
+          "file": "libs/conversation-panel/src/index.ts",
+          "start": 1,
+          "end": 28
+        },
+        {
+          "file": "libs/conversation-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+          "start": 52,
+          "end": 507,
+          "symbol": "ConversationPanel"
+        },
+        {
+          "file": "libs/conversation-panel/src/models/panel-props.ts",
+          "start": 162,
+          "end": 223,
+          "symbol": "ConversationPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-panel-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Stable row data",
+          "body": "Items carry title, source, pinned state and optional unread/task badges."
+        },
+        {
+          "title": "Action extension",
+          "body": "getActions and onActionMenuOpen inject row actions."
+        },
+        {
+          "title": "Transfer surfaces",
+          "body": "Transfer queues and rename dialogs are separate public components."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Stable row data: Items carry title, source, pinned state and optional unread/task badges. Action extension: getActions and onActionMenuOpen inject row actions. Transfer surfaces: ImportExportQueue and RenameConversationPopup are separate exports. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/conversation-panel/README.md",
+          "start": 1,
+          "end": 406
+        },
+        {
+          "file": "libs/conversation-panel/src/index.ts",
+          "start": 1,
+          "end": 28
+        },
+        {
+          "file": "libs/conversation-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+          "start": 52,
+          "end": 507,
+          "symbol": "ConversationPanel"
+        },
+        {
+          "file": "libs/conversation-panel/src/models/panel-props.ts",
+          "start": 162,
+          "end": 223,
+          "symbol": "ConversationPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-panel-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat/components/ConversationPanel/ConversationPanelView.tsx"
+        ],
+        [
+          "Test evidence",
+          "renders a tab for each filter"
+        ],
+        [
+          "Test evidence",
+          "renders a skeleton when isIconLoading is true"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: apps/chat/src/components/ConversationPanel/ConversationPanelView.tsx. Existing test evidence: [{\"file\": \"libs/conversation-panel/src/components/FilterTabs/tests/FilterTabs.spec.tsx\", \"assertions\": [\"FilterTabs\", \"renders a tab for each filter\", \"marks only the active tab as pressed\", \"names the filter row so the group is announced\", \"applies flex-1 by default so the tabs fill the row equally\", \"applies the provided typography class to each tab\", \"omits a tab listed in hiddenSources\"]}, {\"file\": \"libs/conversation-panel/src/components/ConversationRow/tests/ConversationRow.spec.tsx\", \"assertions\": [\"ConversationRow\", \"renders a skeleton when isIconLoading is true\", \"skeleton has aria-hidden=\", \"skeleton is rendered with Circular variant at DIAL_ICON_SIZE.LG dimensions\", \"renders DeploymentIcon when isIconLoading is false and iconUrl is set\", \"renders DeploymentIcon when isIconLoading is omitted\", \"renders DeploymentIcon fallback when isIconLoading is false and iconUrl is absent\", \"exposes the action trigger when its menu opens\", \"renders the task badge when showTaskBadge is true\", \"does not render the task badge when showTaskBadge is omitted\", \"does not render the task badge when showTaskBadge is false\", \"marks the task badge icon as aria-hidden\", \"clicking the task badge selects the conversation like any other row click\", \"unread indicator\", \"renders the unread dot with an accessible label when isUnread is true\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-conversation-panel:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/conversation-panel/README.md",
+          "start": 1,
+          "end": 406
+        },
+        {
+          "file": "libs/conversation-panel/src/index.ts",
+          "start": 1,
+          "end": 28
+        },
+        {
+          "file": "libs/conversation-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+          "start": 52,
+          "end": 507,
+          "symbol": "ConversationPanel"
+        },
+        {
+          "file": "libs/conversation-panel/src/models/panel-props.ts",
+          "start": 162,
+          "end": 223,
+          "symbol": "ConversationPanelProps"
+        },
+        {
+          "file": "apps/chat/src/components/ConversationPanel/ConversationPanelView.tsx",
+          "start": 1,
+          "end": 1510
+        },
+        {
+          "file": "libs/conversation-panel/src/components/FilterTabs/tests/FilterTabs.spec.tsx",
+          "start": 1,
+          "end": 61
+        },
+        {
+          "file": "libs/conversation-panel/src/components/ConversationRow/tests/ConversationRow.spec.tsx",
+          "start": 1,
+          "end": 356
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-panel-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Preserve ordering",
+          "body": "The host supplies an already-ordered flat list."
+        },
+        {
+          "title": "Selection is not routing",
+          "body": "onSelectConversation returns an id for the host to interpret."
+        },
+        {
+          "title": "Virtualized content",
+          "body": "Only a subset of rows exists in the DOM at a time."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Preserve ordering: The host supplies an already-ordered flat list. Selection is not routing: onSelectConversation returns an id for the host to interpret. Virtualized content: Only a subset of rows exists in the DOM at a time. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/conversation-panel/README.md",
+          "start": 1,
+          "end": 406
+        },
+        {
+          "file": "libs/conversation-panel/src/index.ts",
+          "start": 1,
+          "end": 28
+        },
+        {
+          "file": "libs/conversation-panel/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+          "start": 52,
+          "end": 507,
+          "symbol": "ConversationPanel"
+        },
+        {
+          "file": "libs/conversation-panel/src/models/panel-props.ts",
+          "start": 162,
+          "end": 223,
+          "symbol": "ConversationPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/conversation-panel.pptx"
+}

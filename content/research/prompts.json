@@ -1,0 +1,1087 @@
+{
+  "project": {
+    "id": "libs/prompts",
+    "project": "@epam/ai-dial-prompts",
+    "path": "libs/prompts",
+    "package": "@epam/ai-dial-prompts",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/prompts/README.md",
+      "libs/prompts/package.json",
+      "libs/prompts/src/index.ts",
+      "libs/prompts/src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx",
+      "libs/prompts/src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx",
+      "libs/prompts/tsconfig.spec.json",
+      "apps/chat/src/components/PromptSelector/PromptParametersPopupOverlay.tsx",
+      "apps/chat/src/components/PromptSelector/PromptSelectorOverlay.tsx",
+      "apps/chat/src/components/PromptSelector/usePromptSelectorOverlay.tsx"
+    ],
+    "output": "decks/libs/prompts.pptx",
+    "preview": "previews/libs/prompts",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx",
+      "test-ci--src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-prompts",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-prompts",
+        "target": "@epam/ai-dial-catalog",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-prompts",
+    "description": "Host-agnostic UI for picking a favorite prompt and resolving its {{parameter}} placeholders before it is inserted into a chat message",
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0",
+      "@epam/ai-dial-catalog": "*"
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9",
+      "react": "^19.2.8"
+    },
+    "nx": {
+      "tags": [
+        "publishable",
+        "type:ui"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/prompts",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/prompts",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/prompts/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompts",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompts",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompts",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompts",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompts",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-prompts --includeDependencies -- npx nx build-deps @epam/ai-dial-prompts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/prompts",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompts",
+          "command": "vitest run src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/prompts",
+          "command": "vitest run src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx",
+          "test-ci--src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-prompts --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx",
+          "test-ci--src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx"
+        ]
+      },
+      "description": "Host-agnostic UI for picking a favorite prompt and resolving its {{parameter}} placeholders before it is inserted into a chat message",
+      "js": {
+        "packageName": "@epam/ai-dial-prompts",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-prompts",
+    "tags": [
+      "npm:private",
+      "publishable",
+      "type:ui"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/prompts/src/index.ts",
+    "libs/prompts/src/vite-env.d.ts",
+    "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.module.scss",
+    "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+    "libs/prompts/src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx",
+    "libs/prompts/src/components/FavoritePromptsPanel/FavoritePromptsPanel.module.scss",
+    "libs/prompts/src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx",
+    "libs/prompts/src/components/FavoritePromptsPanel/FavoritePromptsPanel.tsx",
+    "libs/prompts/src/test-setup.ts",
+    "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+    "libs/prompts/src/models/favorite-prompts-panel-props.ts",
+    "libs/prompts/src/models/favorite-prompt-item.ts",
+    "libs/prompts/src/constants/public-class-names.ts",
+    "libs/prompts/tsconfig.spec.json",
+    "libs/prompts/eslint.config.mjs",
+    "libs/prompts/postcss.config.js",
+    "libs/prompts/tsconfig.lib.json",
+    "libs/prompts/tsconfig.json",
+    "libs/prompts/package.json",
+    "libs/prompts/vite.config.mts",
+    "libs/prompts/README.md",
+    "libs/prompts/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/prompts/src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx",
+    "libs/prompts/src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx",
+    "libs/prompts/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat/src/components/PromptSelector/PromptParametersPopupOverlay.tsx",
+    "apps/chat/src/components/PromptSelector/PromptSelectorOverlay.tsx",
+    "apps/chat/src/components/PromptSelector/usePromptSelectorOverlay.tsx"
+  ],
+  "readme": "# @epam/ai-dial-prompts\n\nHost-agnostic UI for picking a favorite prompt and resolving its\n`{{parameter}}` placeholders before the resulting text is handed back to a\nchat composer.\n\nThe lib knows nothing about where prompts come from or how a chat message is\nsent. `FavoritePromptsPanel` renders a plain list of `FavoritePromptItem`\nobjects the host has already resolved (from its own favorites/prompts data),\nand `PromptParametersPopup` only reads and replaces `{{param}}` tokens in a\n`content` string it is given \u2014 it never fetches, navigates, or inserts text\nanywhere itself. The host decides what \"select\" and \"submit\" mean.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-prompts\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-prompts/styles.css';\n```\n\n## Peer Dependencies\n\n- `react` `^19.2.8`\n- `@epam/ai-dial-ui-kit` `^0.15.0-dev.9`\n- `@epam/ai-dial-chat-shared` `*`\n\n## Components\n\n### `FavoritePromptsPanel`\n\n```tsx\nimport { FavoritePromptsPanel } from '@epam/ai-dial-prompts';\nimport type { FavoritePromptItem } from '@epam/ai-dial-prompts';\n\n<FavoritePromptsPanel\n  favorites={favoritePrompts}\n  onSelect={(item: FavoritePromptItem) => handlePromptPicked(item)}\n  onToggleFavorite={(id) => unfavoritePrompt(id)}\n  onBrowse={openBrowseModal}\n  labels={{ myCollectionLabel: t('input.addMenu.prompts.myCollection') }}\n/>;\n```\n\nRenders the header, the favorite rows (icon, name, filled star, description\ntooltip), and the \"Browse\" button. When `favorites` is empty, the list area is\nreplaced with an empty-state hint; the header and \"Browse\" button still\nrender.\n\nEach row with a non-empty `description` is wrapped in the ui-kit\n`InteractiveTooltip` (`asChild`, so the row stays the focus and click target).\nThe tooltip is uncontrolled: the kit opens it on hover or keyboard focus and\nkeeps it open while the pointer is on the row or the panel \u2014 including while\nit travels between them; on a touch-only device it renders nothing and the\nrow still inserts the prompt on tap. Rows without a description are not\nwrapped at all \u2014 no tooltip appears for them.\n\nClicking a row's star plays a short exit animation first, so\n`onToggleFavorite` fires ~180 ms after the click rather than synchronously.\nThe list's height animates to match once the row is gone.\n\n### `PromptParametersPopup`\n\n```tsx\nimport { PromptParametersPopup } from '@epam/ai-dial-prompts';\nimport {\n  extractPromptParams,\n  resolvePromptParams,\n} from '@epam/ai-dial-chat-shared';\n\nconst parameters = extractPromptParams(selectedPrompt.content);\n\n<PromptParametersPopup\n  open={isPopupOpen}\n  promptName={selectedPrompt.name}\n  content={selectedPrompt.content}\n  parameters={parameters}\n  onBack={openedFromBrowseModal ? reopenBrowseModal : undefined}\n  onClose={closePopup}\n  onCancel={closePopup}\n  onSubmit={(values) =>\n    insertIntoComposer(resolvePromptParams(selectedPrompt.content, values))\n  }\n/>;\n```\n\nPass `onBack` only when the popup was opened from the browse modal \u2014 omitting\nit hides the header's back chevron, matching the direct-from-favorite entry\npoint. `extractPromptParams`/`resolvePromptParams` live in\n`@epam/ai-dial-chat-shared`, alongside the `{{param}}` grammar this component\nrenders inline via `MarkdownWithPlaceholders`.\n\n`parameters` is a `PromptParameter[]` \u2014 each entry a `name` and an optional\n`defaultValue`, which `extractPromptParams` reads out of the prompt body. A\ntoken written as `{{language|Spanish}}` labels its field `language` and opens\nit holding `Spanish`, so confirming without typing submits the default; a bare\n`{{tone}}` opens empty, as before. Every field stays required, so a parameter\nwithout a default still has to be filled before Submit enables.\n\n## Types\n\n```tsx\nimport type {\n  FavoritePromptItem,\n  FavoritePromptsPanelColors,\n  FavoritePromptsPanelLabels,\n  FavoritePromptsPanelProps,\n  PromptParametersPopupColors,\n  PromptParametersPopupLabels,\n  PromptParametersPopupProps,\n} from '@epam/ai-dial-prompts';\n```\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. Selected\nelements therefore carry a stable public class.\n\n| Key              | Class                          | Element                                                                 |\n| ---------------- | ------------------------------ | ----------------------------------------------------------------------- |\n| `favoritesPanel` | `dial-prompts-favorites-panel` | The `FavoritePromptsPanel` root, which carries the themed CSS variables |\n\n```tsx\nimport { PROMPTS_CLASS } from '@epam/ai-dial-prompts';\n\nPROMPTS_CLASS.favoritesPanel; // 'dial-prompts-favorites-panel'\n```\n\nThe classes carry no declarations of their own: nothing in `styles.css`\nselects on them, so they change nothing until a host writes a rule. Renaming\none, or moving it to a different element, is a breaking change. The convention\nis in [`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/prompts/src/index.ts": "export { FavoritePromptsPanel } from './components/FavoritePromptsPanel/FavoritePromptsPanel';\nexport { PromptParametersPopup } from './components/PromptParametersPopup/PromptParametersPopup';\nexport type { FavoritePromptItem } from './models/favorite-prompt-item';\nexport type {\n  FavoritePromptsPanelColors,\n  FavoritePromptsPanelLabels,\n  FavoritePromptsPanelProps,\n} from './models/favorite-prompts-panel-props';\nexport type {\n  PromptParametersPopupColors,\n  PromptParametersPopupLabels,\n  PromptParametersPopupProps,\n} from './models/prompt-parameters-popup-props';\nexport { PROMPTS_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/prompts/src/index.ts": [
+      {
+        "name": "FavoritePromptsPanel",
+        "file": "libs/prompts/src/components/FavoritePromptsPanel/FavoritePromptsPanel.tsx",
+        "start": 31,
+        "end": 228,
+        "declaration": "FavoritePromptsPanel: FC<FavoritePromptsPanelProps> = ({\n  favorites,\n  onSelect,\n  onToggleFavorite,\n  onBrowse,\n  labels = {},\n  colors,\n  nameClassName = 'dial-small-text',\n  headerClassName = 'dial-tiny-lead-semi-text',\n  emptyHintClassName = 'dial-small-text',\n}) => {\n  const {\n    myCollectionLabel = 'My Collection',\n    emptyHintLabel = 'Star a prompt to pin it here',\n    browseLabel = 'Browse',\n    removeFromFavoritesLabel = 'Remove from favorites',\n  } = labels;\n\n  const cssVars = buildCssVars({\n    '--fp-header-text': colors?.headerText,\n    '--fp-empty-hint-text': colors?.emptyHintText,\n    '--fp-star-color': colors?.starColor,\n    '--fp-footer-border': colors?.footerBorder,\n  });\n\n  const [leavingIds, setLeavingIds] = useState<Set<string>>(new Set());\n  const leaveTimeoutsRef = useRef(\n    new Map<string, ReturnType<typeof setTimeout>>(),\n  );\n\n  useEffect(() => {\n    const timeouts = leaveTimeoutsRef.current;\n    return () => {\n      timeouts.forEach((timeout) => clearTimeout(timeout));\n      timeouts.clear();\n    };\n  }, []);\n\n  /*\n   * Animates the scrollable list's own height as rows leave instead of\n   * letting it snap instantly, since CSS can't transition height: auto.\n   */\n  const listContentRef = useRef<HTMLDivElement>(null);\n  const [listHeight, setListHeight] = useState<number>();\n\n  useLayoutEffect(() => {\n    if (listContentRef.current) {\n      setListHeight(\n        Math.min(\n          listContentRef.current.scrollHeight,\n          SELECT_LIST_MAX_HEIGHT_PX,\n        ),\n      );\n    }\n  }, [favorites]);\n\n  /*\n   * Plays the row's fade-out animation before actually committing the\n   * favorite change, since applying it immediately would make the row\n   * (and its own animation) disappear instantly.\n   */\n  const handleToggleFavorite = (id: string) => {\n    setLeavingIds((prev) => new Set(prev).add(id));\n    const timeout = setTimeout(() => {\n      onToggleFavorite(id);\n      setLeavingIds((prev) => {\n        const next = new Set(prev);\n        next.delete(id);\n        return next;\n      });\n      leaveTimeoutsRef.current.delete(id);\n    }, ROW_LEAVE_ANIMATION_MS);\n    leaveTimeoutsRef.current.set(id, timeout);\n  };\n\n  const renderRow = (item: FavoritePromptItem) => {\n    const row = (\n      /*\n        The kit's own select-list row, so its rest, hover and focus states come\n        from the design's list-item spec. The star goes through `rightControl`:\n        it is a button, and a button nested inside the row's own button would be\n        invalid markup, swallow the row's click, and land inside the row's\n        accessible name.\n      */\n      <MenuItem\n        className=\"h-auto py-1.5\"\n        icon={\n          <DeploymentIcon size={DIAL_ICON_SIZE.MD} initialsName={item.name} />\n        }\n        label={item.name}\n        labelClassName={nameClassName}\n        onClick={() => onSelect(item)}\n        /* `MenuItem` is a real button, so it needs no custom keydown handling for Enter/Space. */\n        rightControl={\n          <ToggleIconButton\n            icon={\n              <IconStarFilled\n                size={DIAL_ICON_SIZE.SM}\n                className={styles.star}\n                aria-hidden\n              />\n            }\n            aria-label={removeFromFavoritesLabel}\n            /* Every row in this panel is a favorite, so the star is always on. */\n            isSelected\n            onClick={() => handleToggleFavorite(item.id)}\n          />\n        }\n      />\n    );\n\n    const hasDescription = item.description != null && item.description !== '';\n\n    return (\n      <li\n        key={item.id}\n        className={\n          leavingIds.has(item.id) ? styles.rowLeaving : styles.rowEnter\n        }\n      >\n        {hasDescription ? (\n          /*\n           * The row stays the focus/click target (`asChild`); the tooltip is\n           * uncontrolled \u2014 the kit opens it on hover or keyboard focus and\n           * keeps it open while the pointer travels between the row and the\n           * panel \u2014 and renders nothing on touch-only devices, where tapping\n           * the row still inserts the prompt. Rows without a description are\n           * not wrapped at all.\n           */\n          <InteractiveTooltip\n            asChild\n            contentClassName=\"max-w-[550px]\"\n            content={<p className=\"text-start\">{item.description}</p>}\n          >\n            {row}\n          </InteractiveTooltip>\n        ) : (\n          row\n        )}\n      </li>\n    );\n  };\n\n  return (\n    <div\n      className={mergeClasses(\n        'flex min-w-[240px] flex-col',\n        PROMPTS_CLASS.favoritesPanel,\n      )}\n      style={cssVars}\n    >\n      <p\n        className={mergeClasses(\n          headerClassName,\n          SECTION_HEADING_CLASS_NAME,\n          styles.header,\n        )}\n      >\n        {myCollectionLabel}\n      </p>\n\n      <div\n        className={mergeClasses(\n          SELECT_LIST_MAX_HEIGHT_CLASS_NAME,\n          'min-h-0 flex-1 overflow-y-auto',\n          styles.listContent,\n        )}\n        style={{ maxHeight: listHeight }}\n      >\n        <div ref={listContentRef}>\n          {favorites.length > 0 ? (\n            <ul className=\"flex flex-col gap-1 px-1 pb-1\">\n              {favorites.map(renderRow)}\n            </ul>\n          ) : (\n            <p\n              className={mergeClasses(\n                emptyHintClassName,\n                'px-4 py-4 text-start',\n                styles.emptyHint,\n              )}\n            >\n              {emptyHintLabel}\n            </p>\n          )}\n        </div>\n      </div>\n\n      <div className={mergeClasses('border-t px-2 py-3', styles.footer)}>\n        <GhostButton\n          label={browseLabel}\n          className=\"w-full justify-center\"\n          onClick={onBrowse}\n        />\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: FavoritePromptsPanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "favorites",
+            "optional": false,
+            "type": "FavoritePromptItem[]"
+          },
+          {
+            "name": "onSelect",
+            "optional": false,
+            "type": "(item: FavoritePromptItem) => void"
+          },
+          {
+            "name": "onToggleFavorite",
+            "optional": false,
+            "type": "(id: string) => void"
+          },
+          {
+            "name": "onBrowse",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").FavoritePromptsPanelLabels | undefined"
+          },
+          {
+            "name": "colors",
+            "optional": true,
+            "type": "import(\"../..\").FavoritePromptsPanelColors | undefined"
+          },
+          {
+            "name": "nameClassName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "headerClassName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "emptyHintClassName",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "PromptParametersPopup",
+        "file": "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+        "start": 27,
+        "end": 174,
+        "declaration": "PromptParametersPopup: FC<PromptParametersPopupProps> = ({\n  open,\n  promptName,\n  content,\n  description,\n  parameters,\n  onBack,\n  onClose,\n  onSubmit,\n  onCancel,\n  labels = {},\n  colors,\n  titleClassName = 'dial-h2-text',\n  parametersLabelClassName = 'dial-h2-text',\n  detailsLabelClassName = 'dial-h2-text',\n}) => {\n  const {\n    title = 'Prompt parameters',\n    closeLabel = 'Close',\n    backLabel = 'Back',\n    parametersLabel = 'Parameters',\n    detailsLabel = 'Details',\n    enterValuePlaceholder = 'Enter value',\n    cancelLabel = 'Cancel',\n    submitLabel = 'Confirm',\n  } = labels;\n\n  const parametersKey = parameters\n    .map(({ name, defaultValue }) => `${name}\\u0000${defaultValue ?? ''}`)\n    .join('\\u0001');\n\n  const [values, setValues] = useState<Record<string, string>>(() =>\n    buildPromptParamDefaults(parameters),\n  );\n  const [seededKey, setSeededKey] = useState(parametersKey);\n\n  /*\n   * Re-seed during render (React's \"adjust state when a prop changes\") when the\n   * popup is handed a different set of parameters, so reopening a prompt offers\n   * its defaults again rather than whatever was typed the previous time.\n   */\n  if (seededKey !== parametersKey) {\n    setSeededKey(parametersKey);\n    setValues(buildPromptParamDefaults(parameters));\n  }\n\n  const fieldIdPrefix = useId();\n\n  const cssVars = buildCssVars({\n    '--pp-card-bg': colors?.cardBackground,\n    '--pp-card-border': colors?.cardBorder,\n  });\n\n  const isSubmitDisabled = parameters.some(({ name }) => !values[name]?.trim());\n\n  const handleSubmit = () => {\n    if (isSubmitDisabled) return;\n    onSubmit(values);\n  };\n\n  const header = (\n    <div className=\"flex items-center gap-2\">\n      {onBack != null && (\n        <GhostIconButton\n          icon={\n            <IconChevronLeft\n              className=\"rtl:scale-x-[-1]\"\n              aria-hidden\n              stroke={DIAL_KIT_ICON_STROKE}\n            />\n          }\n          aria-label={backLabel}\n          onClick={onBack}\n        />\n      )}\n      <span className={titleClassName}>{title}</span>\n    </div>\n  );\n\n  return (\n    <Popup\n      open={open}\n      header={header}\n      ariaLabel={title}\n      size={PopupSize.Lg}\n      closeAriaLabel={closeLabel}\n      onClose={onClose}\n      footer={\n        <div className=\"flex justify-end gap-2 px-6 py-4\">\n          <NeutralButton label={cancelLabel} onClick={onCancel} />\n          <PrimaryButton\n            label={submitLabel}\n            disabled={isSubmitDisabled}\n            onClick={handleSubmit}\n          />\n        </div>\n      }\n    >\n      <div className=\"flex flex-col gap-4 px-6 pb-4 pt-2\">\n        <div\n          className={mergeClasses(\n            'flex h-[72px] w-full items-center rounded-lg border px-3',\n            styles.card,\n          )}\n          style={cssVars}\n        >\n          <AppIdentity\n            type={CatalogEntityType.Prompt}\n            name={promptName}\n            size={DeploymentSize.LG}\n            className=\"w-full\"\n          />\n        </div>\n\n        <div className=\"grid grid-cols-2 gap-4\">\n          <div className=\"flex flex-col gap-3\">\n            <h2 className={mergeClasses(parametersLabelClassName, 'm-0')}>\n              {parametersLabel}\n            </h2>\n            {parameters.map(({ name }) => {\n              const fieldId = `${fieldIdPrefix}-${name}`;\n              return (\n                <Textarea\n                  key={name}\n                  id={fieldId}\n                  aria-label={name}\n                  value={values[name] ?? ''}\n                  labelProps={{ htmlFor: fieldId, label: name, required: true }}\n                  placeholder={enterValuePlaceholder}\n                  onChange={(value) =>\n                    setValues((prev) => ({ ...prev, [name]: value }))\n                  }\n                />\n              );\n            })}\n          </div>\n\n          <div className=\"flex min-h-0 flex-col gap-3\">\n            <h2 className={mergeClasses(detailsLabelClassName, 'm-0')}>\n              {detailsLabel}\n            </h2>\n            <ContentTab content={content} description={description} />\n          </div>\n        </div>\n      </div>\n    </Popup>\n  );\n}",
+        "signature": "(props: PromptParametersPopupProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "open",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "promptName",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "parameters",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-chat-shared\").PromptParameter[]"
+          },
+          {
+            "name": "onBack",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onSubmit",
+            "optional": false,
+            "type": "(values: Record<string, string>) => void"
+          },
+          {
+            "name": "onCancel",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").PromptParametersPopupLabels | undefined"
+          },
+          {
+            "name": "colors",
+            "optional": true,
+            "type": "import(\"../..\").PromptParametersPopupColors | undefined"
+          },
+          {
+            "name": "titleClassName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "parametersLabelClassName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "detailsLabelClassName",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "FavoritePromptItem",
+        "file": "libs/prompts/src/models/favorite-prompt-item.ts",
+        "start": 2,
+        "end": 11,
+        "declaration": "export interface FavoritePromptItem {\n  /** Stable identifier for the prompt. */\n  id: string;\n  /** Display name. */\n  name: string;\n  /** Short description shown in a tooltip on hover. Omitted when empty. */\n  description?: string;\n  /** Full prompt body, including any `{{param}}` tokens. */\n  content: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FavoritePromptsPanelColors",
+        "file": "libs/prompts/src/models/favorite-prompts-panel-props.ts",
+        "start": 16,
+        "end": 25,
+        "declaration": "export interface FavoritePromptsPanelColors {\n  /** Text color of the \"My Collection\" header. Defaults to `--text-tertiary`. */\n  headerText?: string;\n  /** Text color of the empty-favorites hint. Defaults to `--text-icon-tertiary`. */\n  emptyHintText?: string;\n  /** Fill color of a row's star icon. Defaults to `--text-warning-icon`. */\n  starColor?: string;\n  /** Border color above the footer's Browse button. Defaults to `--stroke-tertiary`. */\n  footerBorder?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FavoritePromptsPanelLabels",
+        "file": "libs/prompts/src/models/favorite-prompts-panel-props.ts",
+        "start": 4,
+        "end": 13,
+        "declaration": "export interface FavoritePromptsPanelLabels {\n  /** Header above the favorites list. Defaults to `'My Collection'`. */\n  myCollectionLabel?: string;\n  /** Hint shown when there are no favorites. Defaults to `'Star a prompt to pin it here'`. */\n  emptyHintLabel?: string;\n  /** Label for the footer action button. Defaults to `'Browse'`. */\n  browseLabel?: string;\n  /** Accessible label for a row's remove-from-favorites star button. Defaults to `'Remove from favorites'`. */\n  removeFromFavoritesLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FavoritePromptsPanelProps",
+        "file": "libs/prompts/src/models/favorite-prompts-panel-props.ts",
+        "start": 28,
+        "end": 47,
+        "declaration": "export interface FavoritePromptsPanelProps {\n  /** The user's favorited prompts, already resolved by the host. */\n  favorites: FavoritePromptItem[];\n  /** Called when a row is activated (click, Enter, or Space). */\n  onSelect: (item: FavoritePromptItem) => void;\n  /** Called with a prompt's id when its row's star button is clicked to remove it from favorites. */\n  onToggleFavorite: (id: string) => void;\n  /** Called when the \"Browse\" button is clicked. */\n  onBrowse: () => void;\n  /** Localizable string overrides. */\n  labels?: FavoritePromptsPanelLabels;\n  /** Color overrides applied as CSS custom properties. */\n  colors?: FavoritePromptsPanelColors;\n  /** CSS class applied to a row's prompt name. Defaults to `'dial-small-text'`. */\n  nameClassName?: string;\n  /** CSS class applied to the \"My Collection\" header. Defaults to `'dial-tiny-lead-semi-text'`, which uppercases the label itself. */\n  headerClassName?: string;\n  /** CSS class applied to the empty-favorites hint. Defaults to `'dial-small-text'`. */\n  emptyHintClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PromptParametersPopupColors",
+        "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+        "start": 24,
+        "end": 29,
+        "declaration": "export interface PromptParametersPopupColors {\n  /** Background color of the prompt summary card. Defaults to `--bg-layer-sunken`. */\n  cardBackground?: string;\n  /** Border color of the prompt summary card. Defaults to `--stroke-tertiary`. */\n  cardBorder?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PromptParametersPopupLabels",
+        "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+        "start": 4,
+        "end": 21,
+        "declaration": "export interface PromptParametersPopupLabels {\n  /** Dialog title. Defaults to `'Prompt parameters'`. */\n  title?: string;\n  /** Accessible label for the close button. Defaults to `'Close'`. */\n  closeLabel?: string;\n  /** Accessible label for the back chevron, shown only when `onBack` is provided. Defaults to `'Back'`. */\n  backLabel?: string;\n  /** Heading for the parameters column. Defaults to `'Parameters'`. */\n  parametersLabel?: string;\n  /** Heading for the details column. Defaults to `'Details'`. */\n  detailsLabel?: string;\n  /** Placeholder shown in each empty parameter field. Defaults to `'Enter value'`. */\n  enterValuePlaceholder?: string;\n  /** Label for the footer Cancel button. Defaults to `'Cancel'`. */\n  cancelLabel?: string;\n  /** Label for the footer Submit button. Defaults to `'Confirm'`. */\n  submitLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PromptParametersPopupProps",
+        "file": "libs/prompts/src/models/prompt-parameters-popup-props.ts",
+        "start": 32,
+        "end": 69,
+        "declaration": "export interface PromptParametersPopupProps {\n  /** Whether the popup is open. */\n  open: boolean;\n  /** The selected prompt's display name, shown in the summary card. */\n  promptName: string;\n  /** The selected prompt's full content, including `{{param}}` tokens \u2014 rendered read-only in the Details column. */\n  content: string;\n  /** Short summary shown above the divider in the Details column. Omitted when empty. */\n  description?: string;\n  /**\n   * Distinct parameters found in `content`, in first-occurrence order \u2014 as\n   * returned by `extractPromptParams`. One required field is rendered per\n   * entry, labelled with the parameter's name and starting out holding its\n   * `defaultValue` when it has one.\n   */\n  parameters: PromptParameter[];\n  /**\n   * Called to return to the previous screen (the browse modal). When omitted,\n   * no back chevron is rendered \u2014 the popup was opened directly from a favorite.\n   */\n  onBack?: () => void;\n  /** Called when the popup is dismissed via the close button. */\n  onClose: () => void;\n  /** Called with the entered values, keyed by parameter name, when Submit is clicked. */\n  onSubmit: (values: Record<string, string>) => void;\n  /** Called when the Cancel button is clicked. */\n  onCancel: () => void;\n  /** Localizable string overrides. */\n  labels?: PromptParametersPopupLabels;\n  /** Color overrides applied as CSS custom properties. */\n  colors?: PromptParametersPopupColors;\n  /** CSS class applied to the popup title. Defaults to `'dial-h2-text'`. */\n  titleClassName?: string;\n  /** CSS class applied to the \"Parameters\" column heading. Defaults to `'dial-h2-text'`. */\n  parametersLabelClassName?: string;\n  /** CSS class applied to the \"Details\" column heading. Defaults to `'dial-h2-text'`. */\n  detailsLabelClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PROMPTS_CLASS",
+        "file": "libs/prompts/src/constants/public-class-names.ts",
+        "start": 11,
+        "end": 14,
+        "declaration": "PROMPTS_CLASS = {\n  /** The favorite-prompts panel root, which carries the themed CSS variables. */\n  favoritesPanel: 'dial-prompts-favorites-panel',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "FavoritePromptsPanel",
+      "file": "libs/prompts/src/components/FavoritePromptsPanel/FavoritePromptsPanel.tsx",
+      "start": 31,
+      "end": 228,
+      "declaration": "FavoritePromptsPanel: FC<FavoritePromptsPanelProps> = ({\n  favorites,\n  onSelect,\n  onToggleFavorite,\n  onBrowse,\n  labels = {},\n  colors,\n  nameClassName = 'dial-small-text',\n  headerClassName = 'dial-tiny-lead-semi-text',\n  emptyHintClassName = 'dial-small-text',\n}) => {\n  const {\n    myCollectionLabel = 'My Collection',\n    emptyHintLabel = 'Star a prompt to pin it here',\n    browseLabel = 'Browse',\n    removeFromFavoritesLabel = 'Remove from favorites',\n  } = labels;\n\n  const cssVars = buildCssVars({\n    '--fp-header-text': colors?.headerText,\n    '--fp-empty-hint-text': colors?.emptyHintText,\n    '--fp-star-color': colors?.starColor,\n    '--fp-footer-border': colors?.footerBorder,\n  });\n\n  const [leavingIds, setLeavingIds] = useState<Set<string>>(new Set());\n  const leaveTimeoutsRef = useRef(\n    new Map<string, ReturnType<typeof setTimeout>>(),\n  );\n\n  useEffect(() => {\n    const timeouts = leaveTimeoutsRef.current;\n    return () => {\n      timeouts.forEach((timeout) => clearTimeout(timeout));\n      timeouts.clear();\n    };\n  }, []);\n\n  /*\n   * Animates the scrollable list's own height as rows leave instead of\n   * letting it snap instantly, since CSS can't transition height: auto.\n   */\n  const listContentRef = useRef<HTMLDivElement>(null);\n  const [listHeight, setListHeight] = useState<number>();\n\n  useLayoutEffect(() => {\n    if (listContentRef.current) {\n      setListHeight(\n        Math.min(\n          listContentRef.current.scrollHeight,\n          SELECT_LIST_MAX_HEIGHT_PX,\n        ),\n      );\n    }\n  }, [favorites]);\n\n  /*\n   * Plays the row's fade-out animation before actually committing the\n   * favorite change, since applying it immediately would make the row\n   * (and its own animation) disappear instantly.\n   */\n  const handleToggleFavorite = (id: string) => {\n    setLeavingIds((prev) => new Set(prev).add(id));\n    const timeout = setTimeout(() => {\n      onToggleFavorite(id);\n      setLeavingIds((prev) => {\n        const next = new Set(prev);\n        next.delete(id);\n        return next;\n      });\n      leaveTimeoutsRef.current.delete(id);\n    }, ROW_LEAVE_ANIMATION_MS);\n    leaveTimeoutsRef.current.set(id, timeout);\n  };\n\n  const renderRow = (item: FavoritePromptItem) => {\n    const row = (\n      /*\n        The kit's own select-list row, so its rest, hover and focus states come\n        from the design's list-item spec. The star goes through `rightControl`:\n        it is a button, and a button nested inside the row's own button would be\n        invalid markup, swallow the row's click, and land inside the row's\n        accessible name.\n      */\n      <MenuItem\n        className=\"h-auto py-1.5\"\n        icon={\n          <DeploymentIcon size={DIAL_ICON_SIZE.MD} initialsName={item.name} />\n        }\n        label={item.name}\n        labelClassName={nameClassName}\n        onClick={() => onSelect(item)}\n        /* `MenuItem` is a real button, so it needs no custom keydown handling for Enter/Space. */\n        rightControl={\n          <ToggleIconButton\n            icon={\n              <IconStarFilled\n                size={DIAL_ICON_SIZE.SM}\n                className={styles.star}\n                aria-hidden\n              />\n            }\n            aria-label={removeFromFavoritesLabel}\n            /* Every row in this panel is a favorite, so the star is always on. */\n            isSelected\n            onClick={() => handleToggleFavorite(item.id)}\n          />\n        }\n      />\n    );\n\n    const hasDescription = item.description != null && item.description !== '';\n\n    return (\n      <li\n        key={item.id}\n        className={\n          leavingIds.has(item.id) ? styles.rowLeaving : styles.rowEnter\n        }\n      >\n        {hasDescription ? (\n          /*\n           * The row stays the focus/click target (`asChild`); the tooltip is\n           * uncontrolled \u2014 the kit opens it on hover or keyboard focus and\n           * keeps it open while the pointer travels between the row and the\n           * panel \u2014 and renders nothing on touch-only devices, where tapping\n           * the row still inserts the prompt. Rows without a description are\n           * not wrapped at all.\n           */\n          <InteractiveTooltip\n            asChild\n            contentClassName=\"max-w-[550px]\"\n            content={<p className=\"text-start\">{item.description}</p>}\n          >\n            {row}\n          </InteractiveTooltip>\n        ) : (\n          row\n        )}\n      </li>\n    );\n  };\n\n  return (\n    <div\n      className={mergeClasses(\n        'flex min-w-[240px] flex-col',\n        PROMPTS_CLASS.favoritesPanel,\n      )}\n      style={cssVars}\n    >\n      <p\n        className={mergeClasses(\n          headerClassName,\n          SECTION_HEADING_CLASS_NAME,\n          styles.header,\n        )}\n      >\n        {myCollectionLabel}\n      </p>\n\n      <div\n        className={mergeClasses(\n          SELECT_LIST_MAX_HEIGHT_CLASS_NAME,\n          'min-h-0 flex-1 overflow-y-auto',\n          styles.listContent,\n        )}\n        style={{ maxHeight: listHeight }}\n      >\n        <div ref={listContentRef}>\n          {favorites.length > 0 ? (\n            <ul className=\"flex flex-col gap-1 px-1 pb-1\">\n              {favorites.map(renderRow)}\n            </ul>\n          ) : (\n            <p\n              className={mergeClasses(\n                emptyHintClassName,\n                'px-4 py-4 text-start',\n                styles.emptyHint,\n              )}\n            >\n              {emptyHintLabel}\n            </p>\n          )}\n        </div>\n      </div>\n\n      <div className={mergeClasses('border-t px-2 py-3', styles.footer)}>\n        <GhostButton\n          label={browseLabel}\n          className=\"w-full justify-center\"\n          onClick={onBrowse}\n        />\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: FavoritePromptsPanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "favorites",
+          "optional": false,
+          "type": "FavoritePromptItem[]"
+        },
+        {
+          "name": "onSelect",
+          "optional": false,
+          "type": "(item: FavoritePromptItem) => void"
+        },
+        {
+          "name": "onToggleFavorite",
+          "optional": false,
+          "type": "(id: string) => void"
+        },
+        {
+          "name": "onBrowse",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").FavoritePromptsPanelLabels | undefined"
+        },
+        {
+          "name": "colors",
+          "optional": true,
+          "type": "import(\"../..\").FavoritePromptsPanelColors | undefined"
+        },
+        {
+          "name": "nameClassName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "headerClassName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "emptyHintClassName",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "PromptParametersPopup",
+      "file": "libs/prompts/src/components/PromptParametersPopup/PromptParametersPopup.tsx",
+      "start": 27,
+      "end": 174,
+      "declaration": "PromptParametersPopup: FC<PromptParametersPopupProps> = ({\n  open,\n  promptName,\n  content,\n  description,\n  parameters,\n  onBack,\n  onClose,\n  onSubmit,\n  onCancel,\n  labels = {},\n  colors,\n  titleClassName = 'dial-h2-text',\n  parametersLabelClassName = 'dial-h2-text',\n  detailsLabelClassName = 'dial-h2-text',\n}) => {\n  const {\n    title = 'Prompt parameters',\n    closeLabel = 'Close',\n    backLabel = 'Back',\n    parametersLabel = 'Parameters',\n    detailsLabel = 'Details',\n    enterValuePlaceholder = 'Enter value',\n    cancelLabel = 'Cancel',\n    submitLabel = 'Confirm',\n  } = labels;\n\n  const parametersKey = parameters\n    .map(({ name, defaultValue }) => `${name}\\u0000${defaultValue ?? ''}`)\n    .join('\\u0001');\n\n  const [values, setValues] = useState<Record<string, string>>(() =>\n    buildPromptParamDefaults(parameters),\n  );\n  const [seededKey, setSeededKey] = useState(parametersKey);\n\n  /*\n   * Re-seed during render (React's \"adjust state when a prop changes\") when the\n   * popup is handed a different set of parameters, so reopening a prompt offers\n   * its defaults again rather than whatever was typed the previous time.\n   */\n  if (seededKey !== parametersKey) {\n    setSeededKey(parametersKey);\n    setValues(buildPromptParamDefaults(parameters));\n  }\n\n  const fieldIdPrefix = useId();\n\n  const cssVars = buildCssVars({\n    '--pp-card-bg': colors?.cardBackground,\n    '--pp-card-border': colors?.cardBorder,\n  });\n\n  const isSubmitDisabled = parameters.some(({ name }) => !values[name]?.trim());\n\n  const handleSubmit = () => {\n    if (isSubmitDisabled) return;\n    onSubmit(values);\n  };\n\n  const header = (\n    <div className=\"flex items-center gap-2\">\n      {onBack != null && (\n        <GhostIconButton\n          icon={\n            <IconChevronLeft\n              className=\"rtl:scale-x-[-1]\"\n              aria-hidden\n              stroke={DIAL_KIT_ICON_STROKE}\n            />\n          }\n          aria-label={backLabel}\n          onClick={onBack}\n        />\n      )}\n      <span className={titleClassName}>{title}</span>\n    </div>\n  );\n\n  return (\n    <Popup\n      open={open}\n      header={header}\n      ariaLabel={title}\n      size={PopupSize.Lg}\n      closeAriaLabel={closeLabel}\n      onClose={onClose}\n      footer={\n        <div className=\"flex justify-end gap-2 px-6 py-4\">\n          <NeutralButton label={cancelLabel} onClick={onCancel} />\n          <PrimaryButton\n            label={submitLabel}\n            disabled={isSubmitDisabled}\n            onClick={handleSubmit}\n          />\n        </div>\n      }\n    >\n      <div className=\"flex flex-col gap-4 px-6 pb-4 pt-2\">\n        <div\n          className={mergeClasses(\n            'flex h-[72px] w-full items-center rounded-lg border px-3',\n            styles.card,\n          )}\n          style={cssVars}\n        >\n          <AppIdentity\n            type={CatalogEntityType.Prompt}\n            name={promptName}\n            size={DeploymentSize.LG}\n            className=\"w-full\"\n          />\n        </div>\n\n        <div className=\"grid grid-cols-2 gap-4\">\n          <div className=\"flex flex-col gap-3\">\n            <h2 className={mergeClasses(parametersLabelClassName, 'm-0')}>\n              {parametersLabel}\n            </h2>\n            {parameters.map(({ name }) => {\n              const fieldId = `${fieldIdPrefix}-${name}`;\n              return (\n                <Textarea\n                  key={name}\n                  id={fieldId}\n                  aria-label={name}\n                  value={values[name] ?? ''}\n                  labelProps={{ htmlFor: fieldId, label: name, required: true }}\n                  placeholder={enterValuePlaceholder}\n                  onChange={(value) =>\n                    setValues((prev) => ({ ...prev, [name]: value }))\n                  }\n                />\n              );\n            })}\n          </div>\n\n          <div className=\"flex min-h-0 flex-col gap-3\">\n            <h2 className={mergeClasses(detailsLabelClassName, 'm-0')}>\n              {detailsLabel}\n            </h2>\n            <ContentTab content={content} description={description} />\n          </div>\n        </div>\n      </div>\n    </Popup>\n  );\n}",
+      "signature": "(props: PromptParametersPopupProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "open",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "promptName",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "content",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "parameters",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-chat-shared\").PromptParameter[]"
+        },
+        {
+          "name": "onBack",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onClose",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onSubmit",
+          "optional": false,
+          "type": "(values: Record<string, string>) => void"
+        },
+        {
+          "name": "onCancel",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").PromptParametersPopupLabels | undefined"
+        },
+        {
+          "name": "colors",
+          "optional": true,
+          "type": "import(\"../..\").PromptParametersPopupColors | undefined"
+        },
+        {
+          "name": "titleClassName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "parametersLabelClassName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "detailsLabelClassName",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/prompts/src/components/PromptParametersPopup/tests/PromptParametersPopup.spec.tsx",
+      "assertions": [
+        "renders the title and one field per parameter",
+        "renders one field for a token repeated in the content, via extractPromptParams",
+        "does not render a back chevron when onBack is omitted",
+        "renders a back chevron when onBack is provided",
+        "calls onBack when the back chevron is clicked",
+        "disables Submit until every parameter field is filled",
+        "calls onSubmit with the entered values when Submit is clicked",
+        "opens a defaulted field holding its default value",
+        "labels a defaulted field with the name alone, without the separator",
+        "enables Submit with no typing when every parameter carries a default",
+        "submits the default when a defaulted field is left untouched",
+        "submits the edited value rather than the default when the field is changed",
+        "offers the default again when the same prompt comes back after another",
+        "calls onCancel when Cancel is clicked"
+      ]
+    },
+    {
+      "file": "libs/prompts/src/components/FavoritePromptsPanel/tests/FavoritePromptsPanel.spec.tsx",
+      "assertions": [
+        "renders the \"My Collection\" header",
+        "shows the empty-state hint when there are no favorites",
+        "shows the \"Browse\" button even when there are no favorites",
+        "renders a favorite row with its name and a pressed star toggle",
+        "calls onSelect with the item when a row is clicked",
+        "does not call onToggleFavorite synchronously on click",
+        "calls onToggleFavorite with the id once the exit animation finishes",
+        "calls onBrowse when \"Browse\" is clicked",
+        "renders the description in the row tooltip when a described row is hovered",
+        "stamps the panel root"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat/src/components/PromptSelector/PromptParametersPopupOverlay.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 3,
+          "excerpt": "import type { PromptParameter } from '@epam/ai-dial-chat-shared';\nimport type { PromptParametersPopupLabels } from '@epam/ai-dial-prompts';\nimport { lazy, memo, Suspense, type FC } from 'react';"
+        },
+        {
+          "start": 3,
+          "end": 13,
+          "excerpt": "import { lazy, memo, Suspense, type FC } from 'react';\nimport { useTranslation } from 'react-i18next';\nimport {\n  ButtonsI18nKeys,\n  NavigationI18nKeys,\n  PromptSelectorI18nKeys,\n} from '../../constants/translation-keys';\n\nconst PromptParametersPopup = lazy(async () => {\n  const module = await import('@epam/ai-dial-prompts');\n  return { default: module.PromptParametersPopup };"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/PromptSelector/PromptSelectorOverlay.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 5,
+          "excerpt": "import type {\n  FavoritePromptItem,\n  FavoritePromptsPanelLabels,\n} from '@epam/ai-dial-prompts';\nimport { lazy, memo, Suspense, type FC } from 'react';"
+        },
+        {
+          "start": 4,
+          "end": 14,
+          "excerpt": "} from '@epam/ai-dial-prompts';\nimport { lazy, memo, Suspense, type FC } from 'react';\nimport { useTranslation } from 'react-i18next';\nimport {\n  FavoritesI18nKeys,\n  PromptSelectorI18nKeys,\n} from '../../constants/translation-keys';\n\nconst FavoritePromptsPanel = lazy(async () => {\n  const module = await import('@epam/ai-dial-prompts');\n  return { default: module.FavoritePromptsPanel };"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/PromptSelector/usePromptSelectorOverlay.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 9,
+          "excerpt": "import type { PromptResponseDto } from '@epam/ai-dial-chat-api-client';\nimport { FavoriteEntityType } from '@epam/ai-dial-chat-hooks';\nimport { OverlayFeature } from '@epam/ai-dial-chat-overlay';\nimport {\n  extractPromptParams,\n  resolvePromptParams,\n} from '@epam/ai-dial-chat-shared';\nimport type { FavoritePromptItem } from '@epam/ai-dial-prompts';\nimport {"
+        }
+      ]
+    }
+  ]
+}

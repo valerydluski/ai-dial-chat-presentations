@@ -1,0 +1,497 @@
+{
+  "id": "libs/publish-panel",
+  "shortTitle": "Publish panel",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-publish-panel-01",
+      "title": "Publish panel",
+      "layout": "cover",
+      "subtitle": "Reuse the publish-to-folder workflow across different entity types.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-publish-panel",
+      "notes": "This session explains reuse the publish-to-folder workflow across different entity types. The library is a local private workspace package at libs/publish-panel. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/publish-panel/README.md",
+          "start": 1,
+          "end": 350
+        },
+        {
+          "file": "libs/publish-panel/src/index.ts",
+          "start": 1,
+          "end": 90
+        },
+        {
+          "file": "libs/publish-panel/package.json",
+          "start": 1,
+          "end": 44
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 196,
+          "end": 497,
+          "symbol": "PublishPanel"
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 93,
+          "end": 193,
+          "symbol": "PublishPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-publish-panel-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Reuse the publish-to-folder workflow across different entity types.",
+      "cards": [
+        {
+          "title": "Choose a destination",
+          "body": "Search and select a publication folder."
+        },
+        {
+          "title": "Explain history",
+          "body": "Show earlier publications before replacing or versioning."
+        },
+        {
+          "title": "Share one workflow",
+          "body": "Use the same panel for deployments and conversations."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Choose a destination: Search and select a publication folder. Explain history: Show earlier publications before replacing or versioning. Share one workflow: Use the same panel for deployments and conversations. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/publish-panel/README.md",
+          "start": 1,
+          "end": 350
+        },
+        {
+          "file": "libs/publish-panel/src/index.ts",
+          "start": 1,
+          "end": 90
+        },
+        {
+          "file": "libs/publish-panel/package.json",
+          "start": 1,
+          "end": 44
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 196,
+          "end": 497,
+          "symbol": "PublishPanel"
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 93,
+          "end": 193,
+          "symbol": "PublishPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-publish-panel-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host resources",
+          "body": "Folders and history"
+        },
+        {
+          "title": "PublishPanel",
+          "body": "Destination and rules"
+        },
+        {
+          "title": "Flow callbacks",
+          "body": "Create folder / submit"
+        },
+        {
+          "title": "Host API",
+          "body": "Persist publication"
+        }
+      ],
+      "takeaway": "Library: Folder/history UI and a generic publish-flow state helper.",
+      "notes": "The library owns Folder/history UI and a generic publish-flow state helper. The host owns Folder loading, write permissions, publish requests and domain-specific resource mapping.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/publish-panel/README.md",
+          "start": 1,
+          "end": 350
+        },
+        {
+          "file": "libs/publish-panel/src/index.ts",
+          "start": 1,
+          "end": 90
+        },
+        {
+          "file": "libs/publish-panel/package.json",
+          "start": 1,
+          "end": 44
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 196,
+          "end": 497,
+          "symbol": "PublishPanel"
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 93,
+          "end": 193,
+          "symbol": "PublishPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-publish-panel-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "PublishPanel \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "folderItems",
+          "PublishFolderNode[]"
+        ],
+        [
+          "onCreateFolder",
+          "(parentPath: string[], name: string) => Promise<void>"
+        ],
+        [
+          "rules",
+          "PublicationRule[]"
+        ],
+        [
+          "hasWriteAccess",
+          "boolean"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/publish-panel/README.md",
+          "start": 1,
+          "end": 350
+        },
+        {
+          "file": "libs/publish-panel/src/index.ts",
+          "start": 1,
+          "end": 90
+        },
+        {
+          "file": "libs/publish-panel/package.json",
+          "start": 1,
+          "end": 44
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 196,
+          "end": 497,
+          "symbol": "PublishPanel"
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 93,
+          "end": 193,
+          "symbol": "PublishPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-publish-panel-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "function PublishDemo(\n  host: Omit<PublishPanelProps, 'resource'>,\n) {\n  return <PublishPanel\n    {...host}\n    resource={{ title: 'Demo planning notes' }}\n  />;\n}",
+      "caption": "Full example: examples/publish-panel.tsx \u00b7 uses @epam/ai-dial-publish-panel",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/publish-panel.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Search and select a publication folder. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/publish-panel/README.md",
+          "start": 1,
+          "end": 350
+        },
+        {
+          "file": "libs/publish-panel/src/index.ts",
+          "start": 1,
+          "end": 90
+        },
+        {
+          "file": "libs/publish-panel/package.json",
+          "start": 1,
+          "end": 44
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 196,
+          "end": 497,
+          "symbol": "PublishPanel"
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 93,
+          "end": 193,
+          "symbol": "PublishPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-publish-panel-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep publish panel focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Prepare the resource",
+          "body": "Supply the resource title, labels and publication controls."
+        },
+        {
+          "title": "Collect the request",
+          "body": "The panel gathers the publication choices."
+        },
+        {
+          "title": "Publish through the host",
+          "body": "Run the host callback and reflect its pending or error state."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Prepare the resource: Supply the resource title, labels and publication controls. Collect the request: The panel gathers the publication choices. Publish through the host: Run the host callback and reflect its pending or error state. The complete typed module in examples/publish-panel.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/publish-panel/README.md",
+          "start": 1,
+          "end": 350
+        },
+        {
+          "file": "libs/publish-panel/src/index.ts",
+          "start": 1,
+          "end": 90
+        },
+        {
+          "file": "libs/publish-panel/package.json",
+          "start": 1,
+          "end": 44
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 196,
+          "end": 497,
+          "symbol": "PublishPanel"
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 93,
+          "end": 193,
+          "symbol": "PublishPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-publish-panel-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Generic summary",
+          "body": "resource and renderSummary avoid requiring a catalog-specific model."
+        },
+        {
+          "title": "State helper",
+          "body": "usePublishFlow coordinates selection and submission state."
+        },
+        {
+          "title": "Access-rule controls",
+          "body": "Author, rules and rule-source options are explicit inputs."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Generic summary: resource and renderSummary avoid requiring a catalog-specific model. State helper: usePublishFlow coordinates selection and submission state. Access-rule controls: Author, rules and rule-source options are explicit inputs. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/publish-panel/README.md",
+          "start": 1,
+          "end": 350
+        },
+        {
+          "file": "libs/publish-panel/src/index.ts",
+          "start": 1,
+          "end": 90
+        },
+        {
+          "file": "libs/publish-panel/package.json",
+          "start": 1,
+          "end": 44
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 196,
+          "end": 497,
+          "symbol": "PublishPanel"
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 93,
+          "end": 193,
+          "symbol": "PublishPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-publish-panel-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat-hooks/src/conversation/deriveConversationRowActionState/deriveConversationRowActionState.ts"
+        ],
+        [
+          "Test evidence",
+          "converts folder nodes into a rooted, folder-only file-manager tree"
+        ],
+        [
+          "Test evidence",
+          "renders the empty-state message when there are no entries"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: libs/chat-hooks/src/conversation/deriveConversationRowActionState/deriveConversationRowActionState.ts; libs/chat-hooks/src/catalog/usePublishFolders/usePublishFolders.ts; libs/chat-hooks/src/catalog/create-publish-api.ts; apps/chat/src/hooks/useConversationPublishHistory/useConversationPublishHistory.ts; libs/chat-hooks/src/catalog/publish.ts; apps/chat/src/hooks/useCatalogPublishing/useCatalogPublishing.ts. Existing test evidence: [{\"file\": \"libs/publish-panel/src/components/PublishFoldersTree/tests/PublishFoldersTree.spec.tsx\", \"assertions\": [\"PublishFoldersTree\", \"converts PublishFolderNode[] to DialFile[] with showFiles disabled, wrapped under the root node\", \"orders folders by name at every level, regardless of the order given\", \"passes the selected path joined as a string\", \"selects a folder when clicked\", \"deselects (undefined) when clicking the already-selected folder\", \"filters the tree to matching folders when searchQuery is set\", \"passes a no-results empty state title when search matches nothing, and omits the root node\", \"creating a folder from a search that matched nothing\", \"renders the tree with the inline create row instead of the empty state\", \"pre-fills the new folder name with the unmatched query\", \"falls back to the default name when the query is not a valid folder name\", \"keeps the default name when the query did match a folder\", \"creates the folder under the selected parent and selects it\", \"restores the filtered empty state when creation is cancelled\"]}, {\"file\": \"libs/publish-panel/src/components/PublishHistoryList/tests/PublishHistoryList.spec.tsx\", \"assertions\": [\"PublishHistoryList\", \"renders the empty-state message when there are no entries\", \"renders a row for each history entry\", \"marks an entry that carried shared credentials\", \"uses the host-supplied shared-credentials label\", \"leaves an entry without the flag unmarked\", \"renders a relative date within the last week\", \"renders an exact date once older than a week\", \"does not render the destination folder path, since this list is already scoped to it\", \"uses the versionPrefix override\", \"renders no dividers between rows, using zebra striping instead (matching the Overview tab grid)\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-publish-panel:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately. Existing test evidence includes: converts folder nodes into a rooted, folder-only file-manager tree.",
+      "sources": [
+        {
+          "file": "libs/publish-panel/README.md",
+          "start": 1,
+          "end": 350
+        },
+        {
+          "file": "libs/publish-panel/src/index.ts",
+          "start": 1,
+          "end": 90
+        },
+        {
+          "file": "libs/publish-panel/package.json",
+          "start": 1,
+          "end": 44
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 196,
+          "end": 497,
+          "symbol": "PublishPanel"
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 93,
+          "end": 193,
+          "symbol": "PublishPanelProps"
+        },
+        {
+          "file": "libs/chat-hooks/src/conversation/deriveConversationRowActionState/deriveConversationRowActionState.ts",
+          "start": 1,
+          "end": 79
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishFoldersTree/tests/PublishFoldersTree.spec.tsx",
+          "start": 1,
+          "end": 503
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishHistoryList/tests/PublishHistoryList.spec.tsx",
+          "start": 1,
+          "end": 97
+        }
+      ]
+    },
+    {
+      "id": "lib-publish-panel-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Permission truth",
+          "body": "hasWriteAccess must come from a host authorization decision."
+        },
+        {
+          "title": "Folder mutations",
+          "body": "onCreateFolder is asynchronous and can fail."
+        },
+        {
+          "title": "Version semantics",
+          "body": "The host decides whether replacement or a new version is appropriate."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Permission truth: hasWriteAccess must come from a host authorization decision. Folder mutations: onCreateFolder is asynchronous and can fail. Version semantics: The host decides whether replacement or a new version is appropriate. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/publish-panel/README.md",
+          "start": 1,
+          "end": 350
+        },
+        {
+          "file": "libs/publish-panel/src/index.ts",
+          "start": 1,
+          "end": 90
+        },
+        {
+          "file": "libs/publish-panel/package.json",
+          "start": 1,
+          "end": 44
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 196,
+          "end": 497,
+          "symbol": "PublishPanel"
+        },
+        {
+          "file": "libs/publish-panel/src/components/PublishPanel/PublishPanel.tsx",
+          "start": 93,
+          "end": 193,
+          "symbol": "PublishPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/publish-panel.pptx"
+}

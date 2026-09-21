@@ -1,0 +1,1924 @@
+{
+  "project": {
+    "id": "libs/chat-overlay",
+    "project": "@epam/ai-dial-chat-overlay",
+    "path": "libs/chat-overlay",
+    "package": "@epam/ai-dial-chat-overlay",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/chat-overlay/README.md",
+      "libs/chat-overlay/package.json",
+      "libs/chat-overlay/src/index.ts",
+      "libs/chat-overlay/src/lib/tests/ChatOverlay.spec.ts",
+      "libs/chat-overlay/src/lib/tests/ChatOverlayManager.spec.ts",
+      "libs/chat-overlay/src/protocol/tests/overlay-protocol.spec.ts",
+      "libs/chat-overlay/tsconfig.spec.json",
+      "apps/chat-overlay-sandbox/src/cases/ConversationListCase/ConversationListCase.tsx",
+      "apps/chat-overlay-sandbox/src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx",
+      "apps/chat-overlay-sandbox/src/cases/EnabledFeaturesCase/EnabledFeaturesCase.tsx",
+      "apps/chat-overlay-sandbox/src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx"
+    ],
+    "output": "decks/libs/chat-overlay.pptx",
+    "preview": "previews/libs/chat-overlay",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/lib/tests/ChatOverlay.spec.ts",
+      "test-ci--src/lib/tests/ChatOverlayManager.spec.ts",
+      "test-ci--src/protocol/tests/overlay-protocol.spec.ts",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": []
+  },
+  "package": {
+    "name": "@epam/ai-dial-chat-overlay",
+    "description": "Embeddable postMessage-based ChatOverlay/ChatOverlayManager widget for hosting a DIAL Chat instance inside a third-party page",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/chat-overlay",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/chat-overlay",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/chat-overlay/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/chat-overlay",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/chat-overlay",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/chat-overlay",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/chat-overlay",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/chat-overlay",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-chat-overlay --includeDependencies -- npx nx build-deps @epam/ai-dial-chat-overlay"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/chat-overlay",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/lib/tests/ChatOverlay.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/lib/tests/ChatOverlay.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/lib/tests/ChatOverlay.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/chat-overlay",
+          "command": "vitest run src/lib/tests/ChatOverlay.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/lib/tests/ChatOverlay.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/lib/tests/ChatOverlayManager.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/lib/tests/ChatOverlayManager.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/lib/tests/ChatOverlayManager.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/chat-overlay",
+          "command": "vitest run src/lib/tests/ChatOverlayManager.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/lib/tests/ChatOverlayManager.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/protocol/tests/overlay-protocol.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/protocol/tests/overlay-protocol.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/protocol/tests/overlay-protocol.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/chat-overlay",
+          "command": "vitest run src/protocol/tests/overlay-protocol.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/protocol/tests/overlay-protocol.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/lib/tests/ChatOverlay.spec.ts",
+          "{projectRoot}/test-output/vitest/coverage/src/lib/tests/ChatOverlayManager.spec.ts",
+          "{projectRoot}/test-output/vitest/coverage/src/protocol/tests/overlay-protocol.spec.ts"
+        ],
+        "dependsOn": [
+          "test-ci--src/lib/tests/ChatOverlay.spec.ts",
+          "test-ci--src/lib/tests/ChatOverlayManager.spec.ts",
+          "test-ci--src/protocol/tests/overlay-protocol.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-chat-overlay --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/lib/tests/ChatOverlay.spec.ts",
+          "test-ci--src/lib/tests/ChatOverlayManager.spec.ts",
+          "test-ci--src/protocol/tests/overlay-protocol.spec.ts"
+        ]
+      },
+      "description": "Embeddable postMessage-based ChatOverlay/ChatOverlayManager widget for hosting a DIAL Chat instance inside a third-party page",
+      "js": {
+        "packageName": "@epam/ai-dial-chat-overlay",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-chat-overlay",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/chat-overlay/src/index.ts",
+    "libs/chat-overlay/src/lib/internal/default-loader.ts",
+    "libs/chat-overlay/src/lib/internal/task.ts",
+    "libs/chat-overlay/src/lib/internal/dom-styles.ts",
+    "libs/chat-overlay/src/lib/internal/overlay-styles.ts",
+    "libs/chat-overlay/src/lib/internal/deferred-request.ts",
+    "libs/chat-overlay/src/lib/tests/ChatOverlay.spec.ts",
+    "libs/chat-overlay/src/lib/tests/ChatOverlayManager.spec.ts",
+    "libs/chat-overlay/src/lib/ChatOverlay.ts",
+    "libs/chat-overlay/src/lib/ChatOverlayManager.ts",
+    "libs/chat-overlay/src/protocol.ts",
+    "libs/chat-overlay/src/protocol/tests/overlay-protocol.spec.ts",
+    "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+    "libs/chat-overlay/tsconfig.spec.json",
+    "libs/chat-overlay/eslint.config.mjs",
+    "libs/chat-overlay/tsconfig.lib.json",
+    "libs/chat-overlay/tsconfig.json",
+    "libs/chat-overlay/package.json",
+    "libs/chat-overlay/vite.config.mts",
+    "libs/chat-overlay/README.md"
+  ],
+  "tests": [
+    "libs/chat-overlay/src/lib/tests/ChatOverlay.spec.ts",
+    "libs/chat-overlay/src/lib/tests/ChatOverlayManager.spec.ts",
+    "libs/chat-overlay/src/protocol/tests/overlay-protocol.spec.ts",
+    "libs/chat-overlay/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat-overlay-sandbox/src/cases/ConversationListCase/ConversationListCase.tsx",
+    "apps/chat-overlay-sandbox/src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/cases/EnabledFeaturesCase/EnabledFeaturesCase.tsx",
+    "apps/chat-overlay-sandbox/src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/cases/ManagerOverlayCase/ManagerOverlayCase.tsx",
+    "apps/chat-overlay-sandbox/src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/cases/DirectOverlayCase/DirectOverlayCase.tsx",
+    "apps/chat-overlay-sandbox/src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx",
+    "apps/chat/src/components/CatalogView/CatalogView.tsx",
+    "apps/chat/src/components/CatalogView/tests/CatalogView.spec.tsx",
+    "apps/chat/src/pages/SettingsPage/PreferencesTab/PreferencesTab.tsx",
+    "apps/chat-overlay-sandbox/src/cases/AuthUiModeCase/AuthUiModeCase.tsx",
+    "apps/chat-overlay-sandbox/src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx",
+    "apps/chat/src/components/Header/Header.tsx",
+    "apps/chat/src/pages/SettingsPage/PreferencesTab/tests/PreferencesTab.spec.tsx",
+    "apps/chat/src/components/Header/tests/Header.spec.tsx",
+    "apps/chat/src/components/FooterMessage/FooterMessage.tsx",
+    "apps/chat-api/src/app-config/known-ui-features.constants.ts",
+    "apps/chat/src/components/SigninInterruptDialog/SigninInterruptDialog.tsx",
+    "apps/chat-api/src/app-config/tests/known-ui-features.constants.spec.ts",
+    "apps/chat/src/components/StarterButtons/StarterButtons.tsx",
+    "apps/chat/src/components/PromptSelector/usePromptSelectorOverlay.tsx",
+    "apps/chat/src/pages/PromptEditor/PromptEditor.tsx",
+    "apps/chat/src/components/NewConversationComposer/tests/NewConversationComposer.spec.tsx",
+    "apps/chat/src/pages/PromptEditor/tests/PromptEditor.spec.tsx",
+    "apps/chat/src/components/NewConversationComposer/NewConversationComposer.tsx",
+    "libs/chat-hooks/src/conversation/overlay-messages.ts",
+    "apps/chat/src/components/ConversationPanel/tests/ConversationPanelView.spec.tsx",
+    "apps/chat/src/components/ConversationPanel/ConversationPanelView.tsx",
+    "apps/chat/src/hooks/conversation/useAudioTranscription.ts",
+    "apps/chat/src/hooks/conversation/tests/useActiveConversationBridge.spec.ts",
+    "apps/chat/src/hooks/conversation/tests/useAudioTranscription.spec.ts",
+    "apps/chat/src/hooks/conversation/useConversationListBridge.ts",
+    "apps/chat/src/components/Navigation/Navigation.tsx",
+    "apps/chat/src/components/Navigation/tests/Navigation.spec.tsx",
+    "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+    "apps/chat/src/components/ConversationView/ConversationView.tsx",
+    "apps/chat/src/components/ConversationView/tests/ConversationMessageItem.spec.tsx",
+    "apps/chat/src/components/ConversationView/Rate/NegativeFeedbackModal.tsx",
+    "libs/chat-hooks/src/conversation/tests/overlay-messages.spec.ts",
+    "apps/chat/src/hooks/useCatalogSharing/useCatalogSharing.ts",
+    "apps/chat/src/hooks/useCatalogSharing/tests/useCatalogSharing.spec.ts",
+    "libs/chat-hooks/src/entry-points/conversation-overlay.ts",
+    "apps/chat/src/hooks/useVisibleNavItems.ts",
+    "apps/chat/src/context/UiFeaturesContext.tsx",
+    "apps/chat/src/components/ChatLayout/ChatLayout.tsx",
+    "apps/chat/src/hooks/navigation/useNavigationMenuGroups.tsx",
+    "apps/chat/src/context/overlay/tests/OverlayContext.spec.tsx",
+    "apps/chat/src/components/ChatLayout/tests/ChatLayout.spec.tsx",
+    "apps/chat/src/context/overlay/OverlayContext.tsx",
+    "apps/chat/src/context/SkillsContext.tsx",
+    "apps/chat/src/hooks/navigation/tests/useNavigationMenuGroups.spec.tsx",
+    "apps/chat/src/constants/ui-features.ts",
+    "apps/chat/src/context/IsolatedModelViewContext.tsx",
+    "apps/chat/src/app/app.tsx",
+    "apps/chat/src/hooks/useUiFeature.ts",
+    "apps/chat/src/context/tests/IsolatedModelViewContext.spec.tsx",
+    "apps/chat/src/hooks/auth/useOverlayProviderLogin.ts",
+    "apps/chat/src/context/tests/ConversationsContext.spec.tsx",
+    "apps/chat/src/context/tests/UiFeaturesContext.spec.tsx"
+  ],
+  "readme": "# @epam/ai-dial-chat-overlay\n\nEmbeddable `ChatOverlay`/`ChatOverlayManager` widget for hosting a DIAL Chat instance inside a third-party page.\n\n## Overview\n\n`@epam/ai-dial-chat-overlay` lets a host page embed a running DIAL Chat instance as an iframe and control it over a `postMessage` protocol (`@DIAL_OVERLAY`), without the host needing same-origin access. `ChatOverlay` manages a single embedded iframe: it performs the readiness handshake, exposes chat-only methods (`getMessages`, `sendMessage`, `setInputContent`, `setSystemPrompt`, `setTemperature`, `setOverlayOptions`), and lets the host subscribe to chat/generation lifecycle events. `ChatOverlayManager` builds on top of `ChatOverlay` to create one or more fixed-position, toggle/close/(optional) fullscreen widgets \u2014 the common \"chat bubble in the corner of the page\" pattern \u2014 forwarding every `ChatOverlay` method keyed by an `overlayId`. Use `ChatOverlay` directly when you already own the layout and just need to mount an iframe somewhere in it; use `ChatOverlayManager` when you want the ready-made floating-widget chrome.\n\nThe library is vanilla DOM/TypeScript with no React dependency, so it can be used from any frontend stack. It has no network dependency beyond `postMessage` to the embedded app's origin \u2014 it never sends messages to `'*'` once the app's origin is known.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-chat-overlay\": \"*\"\n  }\n}\n```\n\n## Protocol API\n\nProtocol types, request/event enums, and validation helpers are included in this package and exported from its main entry point:\n\n```ts\nimport {\n  OverlayEventType,\n  type OverlayMessageRequest,\n} from '@epam/ai-dial-chat-overlay';\n```\n\n## Classes\n\n### ChatOverlay\n\nEmbeds one DIAL Chat iframe into `root` and controls it over `postMessage`.\n\n```ts\nimport { ChatOverlay, OverlayEventType } from '@epam/ai-dial-chat-overlay';\n\nconst overlay = new ChatOverlay('#chat-root', {\n  domain: 'https://chat.example.com',\n  theme: 'dark',\n  modelId: 'gpt-4o',\n  overlayConversationId: 'conversation-id',\n});\n\nawait overlay.ready(); // resolves after the full handshake (READY_TO_INTERACT)\n\nawait overlay.sendMessage('Hello!');\nconst { messages } = await overlay.getMessages();\n\nconst unsubscribe = overlay.subscribe(\n  OverlayEventType.GptStartGenerating,\n  () => {\n    console.log('generation started');\n  },\n);\n\n// Later:\nunsubscribe();\noverlay.destroy();\n```\n\nProvider-specific authentication behavior can be configured per overlay:\n\n```ts\nimport { ChatOverlay, OverlayAuthUiMode } from '@epam/ai-dial-chat-overlay';\n\nconst overlay = new ChatOverlay('#chat-root', {\n  domain: 'https://chat.example.com',\n  auth: {\n    providerUiModes: {\n      entra: OverlayAuthUiMode.External,\n      keycloak: OverlayAuthUiMode.SameWindow,\n    },\n    /* Optional: start this provider's login with no user interaction. */\n    autoSignInProvider: 'keycloak',\n  },\n});\n\n/* SameWindow is an explicit opt-in. The host must verify that each provider\n * supports iframe login for its specific configuration before enabling it.\n */\n```\n\n`autoSignInProvider` names the provider whose login the embedded app starts on\nits own while the session is unauthenticated \u2014 the successor to the legacy\n`signInOptions.autoSignIn` + `signInProvider` pair. Its presence enables the\nbehavior; there is no separate boolean.\n\nThe provider must also be mapped to `OverlayAuthUiMode.SameWindow`, because\nonly that mode navigates the iframe itself: the `External` path calls\n`window.open`, which a browser blocks without a user gesture. The app also\nskips the automatic start when the backend does not register the id, and when\nit already started one for the same URL in the last 60 seconds \u2014 a guard\nagainst an identity provider that returns the user still unauthenticated. Every\nskip logs one console warning and leaves the normal login gate in place.\n\nNotes:\n\n- `setSystemPrompt`/`setTemperature` persist onto the active conversation the same way the app's own UI does \u2014 the new value takes effect on the _next_ message sent, not retroactively on an in-flight generation.\n- `setOverlayOptions` bypasses the readiness gate: it is also how the initial handshake options exchange happens (the library sends it automatically right after receiving the app's `READY` event), so it can be called at any time, including before `ready()` resolves.\n- Deferred for a future change: `createPlaybackConversation`, `stopSelectedPlaybackConversation`, `exportConversation`, `importConversation`.\n\n```ts\n// Change which UI sections the embedded app shows, without reconstructing the iframe.\n// enabledFeatures REPLACES (does not merge with) any previously-sent enabledFeatures.\nawait overlay.setOverlayOptions({\n  enabledFeatures: [OverlayFeature.Header, OverlayFeature.ConversationsSharing],\n});\n```\n\n#### Message shape and agent stages\n\n`getMessages()` and `sendMessage()` return `OverlayChatMessage` \u2014 a narrow\nprojection of the app's own message, not the chat's internal entity:\n\n```ts\nimport {\n  type OverlayChatMessage,\n  OverlayStageStatus,\n} from '@epam/ai-dial-chat-overlay';\n\nconst { messages } = await overlay.getMessages();\n\nconst last: OverlayChatMessage | undefined = messages.at(-1);\nconst ranCanvasTool = last?.stages?.some(\n  (stage) =>\n    stage.name === 'Render canvas' &&\n    stage.status === OverlayStageStatus.Completed,\n);\n```\n\n`stages` carries the agent execution stages (tool calls, retrieval steps,\nreasoning steps) of a message that has any, and is absent otherwise \u2014 a host\nreads it to react to what an agent actually did, for example refreshing its own\nview after a specific tool has run. Each stage carries `index`, `name`,\n`status` (`null` while still running, otherwise an `OverlayStageStatus`), and\nthe optional `content` and `tag`. Stage attachments are not projected.\n\nStages are read on demand, not pushed: subscribe to\n`OverlayEventType.GptEndGenerating` and call `getMessages()` from the handler\nto inspect the finished response.\n\n#### Conversation-list methods\n\n```ts\nconst { conversations } = await overlay.getConversations();\nconst { conversations: selected } = await overlay.getSelectedConversations();\n\n// Persists immediately and navigates to the new conversation.\nconst { conversation } = await overlay.createConversation({\n  deploymentId: 'gpt-4o',\n  firstMessage: 'Hello!',\n});\n\n// Opens the composer without persisting anything \u2014 identical to\n// createConversation() called with no firstMessage.\nawait overlay.createLocalConversation();\n\nconst { conversation: selectedConversation } = await overlay.selectConversation(\n  conversation!.id,\n);\nawait overlay.renameConversation(conversation!.id, 'New title');\nawait overlay.deleteConversation(conversation!.id);\n```\n\n`selectConversation`, `createConversation`, `deleteConversation`, and `renameConversation` responses carry an optional `error: { code: 'NOT_FOUND' | 'FORBIDDEN' | 'INVALID_ARGUMENT'; message: string }` field for invalid ids/values/forbidden actions instead of the request silently timing out. `getConversations`/`getSelectedConversations` have no error field \u2014 they are snapshot reads with no failure mode beyond the request timeout. One documented asymmetry: `selectConversation`/a persisted `createConversation` for an inaccessible id has no way to distinguish \"will never load\" from \"still loading\", so it degrades to the request's ordinary timeout rather than an explicit error.\n\nRequest-level failures reject immediately with `ChatOverlayRequestError`. Its\n`code` and `requestType` fields can be used for programmatic handling. For\nexample, calling `getMessages()`, `sendMessage()`, `setInputContent()`,\n`setSystemPrompt()`, or `setTemperature()` while the composer is open rejects\nwith `OverlayRequestErrorCode.ActiveConversationUnavailable` instead of waiting\nfor the request timeout. Other request-level codes are\n`ConversationListUnavailable`, `InvalidPayload`, and `RequestExecutionFailed`.\n\n**Compatibility break:** `createConversation`'s signature replaces the historical positional `(parentPath?, local?)` shape used by pre-`@epam/ai-dial-chat-overlay` overlay integrations with `createConversation(options?: { deploymentId?: string; firstMessage?: string })`. `parentPath` has no replacement \u2014 this app has no folder concept for conversations. The old `local` boolean is replaced by omitting `firstMessage`: `createConversation()` called with no `firstMessage` behaves identically to `createLocalConversation()`.\n\n### ChatOverlayManager\n\nCreates one or more `ChatOverlay` instances behind fixed-position toggle/close/(optional) fullscreen chrome.\n\n```ts\nimport {\n  ChatOverlayManager,\n  OverlayPosition,\n} from '@epam/ai-dial-chat-overlay';\n\nconst manager = new ChatOverlayManager();\n\nmanager.createOverlay({\n  overlayId: 'support-widget',\n  domain: 'https://chat.example.com',\n  position: OverlayPosition.RightBottom,\n  width: 380,\n  height: 600,\n  allowFullscreen: true,\n});\n\nawait manager.sendMessage('support-widget', 'Hello!');\nconst { conversations } = await manager.getConversations('support-widget');\nmanager.showOverlay('support-widget');\nmanager.hideOverlay('support-widget');\nmanager.removeOverlay('support-widget');\n\n// Tears down every overlay and global resize/orientationchange listeners.\nmanager.destroy();\n```\n\n## Options (`ChatOverlayOptions`)\n\n| Option                  | Type                                                                                    | Description                                                                                                                                                                                                             |\n| ----------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| `domain`                | `string`                                                                                | Full URL of the chat app instance to embed (origin + optional path).                                                                                                                                                    |\n| `requestTimeout`        | `number?`                                                                               | Milliseconds to wait for a request's response before rejecting. Defaults to `10000`.                                                                                                                                    |\n| `loaderStyles`          | `Record<string, string>?`                                                               | Inline CSS properties applied to the loader element, overriding the injected defaults \u2014 except `display`, which is cleared when the loader hides (see [Styling](#styling)).                                             |\n| `loaderClass`           | `string?`                                                                               | CSS class added to the loader element alongside `dial-overlay-loader`.                                                                                                                                                  |\n| `loaderInnerHTML`       | `string?`                                                                               | Custom HTML rendered inside the loader, replacing the default spinner.                                                                                                                                                  |\n| `loaderHideEvent`       | `OverlayEventType?`                                                                     | Event whose receipt hides the loader. Defaults to `OverlayEventType.Ready`.                                                                                                                                             |\n| `enabledFeatures`       | `OverlayFeature[]?`                                                                     | Embed-time features to enable, e.g. `OverlayFeature.VoiceInput` for microphone access.                                                                                                                                  |\n| `theme`                 | `string?`                                                                               | Theme name applied to the embedded app.                                                                                                                                                                                 |\n| `modelId`               | `string?`                                                                               | Deployment/model id to select in the embedded app.                                                                                                                                                                      |\n| `overlayConversationId` | `string?`                                                                               | Conversation id the embedded app should load and display.                                                                                                                                                               |\n| `auth`                  | `{ providerUiModes?: Record<string, OverlayAuthUiMode>; autoSignInProvider?: string }?` | Per-provider login UI modes; unconfigured providers default to external login. `autoSignInProvider` starts that provider's login without user interaction, and requires the same provider to be mapped to `SameWindow`. |\n\n`ChatOverlayManagerOptions` extends `ChatOverlayOptions` with `overlayId` (required), `position` (`OverlayPosition`, default `RightBottom`), `width`/`height` (default `380`/`600`), `zIndex` (default `999999`), `allowFullscreen`, and `toggleButtonAriaLabel`/`closeButtonAriaLabel`/`fullscreenButtonAriaLabel`.\n\n## Events (`OverlayEventType`)\n\n| Event                        | Fires when                                                             |\n| ---------------------------- | ---------------------------------------------------------------------- |\n| `InitReady`                  | Immediately, before any host identity is known.                        |\n| `Ready`                      | Once auth/model-load state resolves in the embedded app.               |\n| `ReadyToInteract`            | Once, after the active conversation is first selected/loaded.          |\n| `SelectedConversationLoaded` | Whenever a conversation finishes loading (initial load or navigation). |\n| `GptStartGenerating`         | When a generation starts for the active conversation.                  |\n| `GptEndGenerating`           | When a generation completes normally (not on user-initiated stop).     |\n| `StopGenerating`             | When the user (or host) stops an in-flight generation.                 |\n| `ConversationsUpdated`       | Whenever the app's conversation list changes.                          |\n\n## Styling\n\nThe overlay ships no CSS file \u2014 the first `ChatOverlay` constructed appends a\n`<style id=\"dial-overlay-styles\">` element to `document.head`, once per document,\nand elements carry classes instead of inline styles:\n\n| Class                         | Applied to                                                              |\n| ----------------------------- | ----------------------------------------------------------------------- |\n| `dial-overlay-root`           | The host root element, only when its computed `position` is `static`.   |\n| `dial-overlay-iframe`         | The embedded chat iframe.                                               |\n| `dial-overlay-loader`         | The loader element.                                                     |\n| `dial-overlay-loader--hidden` | The loader once `loaderHideEvent` arrives (`display: none !important`). |\n\nHost CSS of equal or higher specificity can restyle any of these, and\n`loaderStyles` is an inline-style escape hatch that wins over both \u2014 with one\nexception. Visibility is not styling: `dial-overlay-loader--hidden` declares\n`display: none !important`, and `hideLoader()` also clears any inline `display`\nthe host set through `loaderStyles`, so the loader always disappears when\n`loaderHideEvent` arrives. Set every other property freely; do not use `display`\nto drive loader visibility \u2014 configure `loaderHideEvent` instead.\n\nThe colors are fixed by design (this lib ships no CSS file and does not\nparticipate in the `--cs-*` / `buildCssVars` theming channel), but each one is\nread through a custom property with a literal fallback. Set these on any\nancestor of the overlay root to retheme without an `!important` override:\n\n| Custom property                       | Default   | Applies to                                               |\n| ------------------------------------- | --------- | -------------------------------------------------------- |\n| `--dial-overlay-loader-background`    | `#ffffff` | Loader backdrop.                                         |\n| `--dial-overlay-loader-color`         | `#2764d9` | Loader foreground \u2014 the spinner's `currentColor` stroke. |\n| `--dial-overlay-btn-background`       | `#2764d9` | `ChatOverlayManager` chrome buttons.                     |\n| `--dial-overlay-btn-color`            | `#ffffff` | Chrome button icon.                                      |\n| `--dial-overlay-btn-background-hover` | `#1d4fb8` | Chrome button on `:hover` / `:focus-visible`.            |\n| `--dial-overlay-btn-outline`          | `#1d4fb8` | Chrome button focus outline.                             |\n\n```css\n:root {\n  --dial-overlay-loader-background: #131319;\n  --dial-overlay-loader-color: #5c8dea;\n}\n```\n\n`ChatOverlayManager` injects its own\n`<style id=\"dial-overlay-manager-styles\">` element for the `dial-overlay-btn`\nchrome buttons.\n\n## Deployment prerequisites\n\nThe embedded app (`apps/chat`) must have overlay mode enabled and the host's origin allowlisted on the backend before a `ChatOverlay`/`ChatOverlayManager` pointed at it will work \u2014 see `apps/chat-api/.env.template`'s `OVERLAY_ENABLED` / `ALLOWED_IFRAME_ORIGINS` documentation. Without both, the app's CSP `frame-ancestors` denies the embed outright.\n\n## Sandbox\n\n`apps/chat-overlay-sandbox` (Nx app) exercises both classes against the real built package \u2014 run `npm exec nx serve chat-overlay-sandbox` after setting `VITE_CHAT_OVERLAY_HOST` in its `.env.development` to a running, overlay-enabled `apps/chat` instance.\n\n## Building\n\n```sh\nnpm exec nx build @epam/ai-dial-chat-overlay\n```\n\n## Testing\n\n```sh\nnpm exec nx test @epam/ai-dial-chat-overlay\n```\n",
+  "exports": {
+    "libs/chat-overlay/src/index.ts": "export { ChatOverlay, ChatOverlayRequestError } from './lib/ChatOverlay';\nexport { ChatOverlayManager, OverlayPosition } from './lib/ChatOverlayManager';\nexport type { ChatOverlayManagerOptions } from './lib/ChatOverlayManager';\nexport * from './protocol';\n"
+  },
+  "contracts": {
+    "libs/chat-overlay/src/index.ts": [
+      {
+        "name": "ChatOverlay",
+        "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+        "start": 110,
+        "end": 494,
+        "declaration": "export class ChatOverlay {\n  private readonly root: HTMLElement;\n  private readonly iframe: HTMLIFrameElement;\n  private readonly loader: HTMLElement;\n  private readonly options: ChatOverlayOptions;\n  private readonly targetOrigin: string;\n  private readonly readyGate = new Task<boolean>();\n  private readonly pendingRequests = new Map<\n    string,\n    DeferredRequest<unknown>\n  >();\n  private readonly eventSubscribers = new Map<\n    OverlayEventType,\n    Set<(payload: unknown) => void>\n  >();\n  private readonly messageListener = (event: MessageEvent): void => {\n    this.handleMessage(event);\n  };\n  private isDestroyed = false;\n\n  constructor(root: HTMLElement | string, options: ChatOverlayOptions) {\n    this.root = resolveRoot(root);\n    this.options = { ...options };\n    this.targetOrigin = new URL(options.domain).origin;\n    ensureOverlayStylesInjected();\n    this.iframe = createIframe(this.options);\n    this.loader = createLoader(this.options);\n    const rootPosition = window.getComputedStyle(this.root).position;\n    if (rootPosition === 'static' || rootPosition === '') {\n      this.root.classList.add(OverlayClassName.Root);\n    }\n    this.root.appendChild(this.loader);\n    this.root.appendChild(this.iframe);\n    window.addEventListener('message', this.messageListener);\n    // Guarantees the gate is always \"handled\" even if destroy() rejects it\n    // before a caller ever calls ready(); callers still observe rejection\n    // independently through their own ready().then/.catch.\n    this.readyGate.promise.catch(() => undefined);\n  }\n\n  /** Resolves once the handshake reaches `READY_TO_INTERACT`. */\n  ready(): Promise<boolean> {\n    return this.readyGate.promise;\n  }\n\n  /** Fetches the active conversation's messages. */\n  getMessages(): Promise<GetMessagesResponse> {\n    return this.send<GetMessagesResponse>(OverlayRequestType.GetMessages);\n  }\n\n  /** Sends a new message in the active conversation. */\n  sendMessage(content: string): Promise<SendMessageResponse> {\n    const payload: SendMessagePayload = { content };\n    return this.send<SendMessageResponse>(\n      OverlayRequestType.SendMessage,\n      payload,\n    );\n  }\n\n  /** Sets the current text content of the message input. */\n  setInputContent(content: string): Promise<void> {\n    const payload: SetInputContentPayload = { content };\n    return this.send<void>(OverlayRequestType.SetInputContent, payload);\n  }\n\n  /** Sets the active conversation's system prompt. */\n  setSystemPrompt(systemPrompt: string): Promise<SetSystemPromptResponse> {\n    const payload: SetSystemPromptPayload = { systemPrompt };\n    return this.send<SetSystemPromptResponse>(\n      OverlayRequestType.SetSystemPrompt,\n      payload,\n    );\n  }\n\n  /** Sets the active conversation's temperature. */\n  setTemperature(temperature: number): Promise<SetTemperatureResponse> {\n    const payload: SetTemperaturePayload = { temperature };\n    return this.send<SetTemperatureResponse>(\n      OverlayRequestType.SetTemperature,\n      payload,\n    );\n  }\n\n  /** Fetches the current user's conversation list. */\n  getConversations(): Promise<GetConversationsResponse> {\n    return this.send<GetConversationsResponse>(\n      OverlayRequestType.GetConversations,\n    );\n  }\n\n  /** Fetches the currently displayed (active) conversation(s). */\n  getSelectedConversations(): Promise<GetSelectedConversationsResponse> {\n    return this.send<GetSelectedConversationsResponse>(\n      OverlayRequestType.GetSelectedConversations,\n    );\n  }\n\n  /** Navigates to and loads the conversation matching `id`. */\n  selectConversation(id: string): Promise<SelectConversationResponse> {\n    const payload: SelectConversationPayload = { id };\n    return this.send<SelectConversationResponse>(\n      OverlayRequestType.SelectConversation,\n      payload,\n    );\n  }\n\n  /**\n   * Creates a new conversation. With a non-blank `firstMessage`, persists\n   * immediately and returns its projection. Without one, opens the composer\n   * and resolves with `{ conversation: null }` \u2014 identical to\n   * `createLocalConversation()`.\n   */\n  createConversation(options?: {\n    deploymentId?: string;\n    firstMessage?: string;\n  }): Promise<CreateConversationResponse> {\n    const payload: CreateConversationPayload = { ...options };\n    return this.send<CreateConversationResponse>(\n      OverlayRequestType.CreateConversation,\n      payload,\n    );\n  }\n\n  /** Opens the composer without persisting anything. */\n  createLocalConversation(): Promise<CreateLocalConversationResponse> {\n    return this.send<CreateLocalConversationResponse>(\n      OverlayRequestType.CreateLocalConversation,\n    );\n  }\n\n  /** Deletes the conversation matching `id`. */\n  deleteConversation(id: string): Promise<DeleteConversationResponse> {\n    const payload: DeleteConversationPayload = { id };\n    return this.send<DeleteConversationResponse>(\n      OverlayRequestType.DeleteConversation,\n      payload,\n    );\n  }\n\n  /** Renames the conversation matching `id` to `newName`. */\n  renameConversation(\n    id: string,\n    newName: string,\n  ): Promise<RenameConversationResponse> {\n    const payload: RenameConversationPayload = { id, newName };\n    return this.send<RenameConversationResponse>(\n      OverlayRequestType.RenameConversation,\n      payload,\n    );\n  }\n\n  /**\n   * Updates theme/model/conversation options and re-sends them to the\n   * embedded app. Bypasses the readiness gate \u2014 it is also how the initial\n   * handshake options exchange happens, before `ready()` resolves.\n   */\n  setOverlayOptions(\n    options: Partial<\n      Pick<\n        ChatOverlayOptions,\n        | 'theme'\n        | 'modelId'\n        | 'overlayConversationId'\n        | 'enabledFeatures'\n        | 'auth'\n      >\n    >,\n  ): Promise<SetOverlayOptionsResponse> {\n    this.options.theme = options.theme ?? this.options.theme;\n    this.options.modelId = options.modelId ?? this.options.modelId;\n    this.options.overlayConversationId =\n      options.overlayConversationId ?? this.options.overlayConversationId;\n    this.options.enabledFeatures =\n      options.enabledFeatures ?? this.options.enabledFeatures;\n    if (Object.hasOwn(options, 'auth')) {\n      this.options.auth = options.auth;\n    }\n    return this.sendCurrentOverlayOptions();\n  }\n\n  /** Registers `callback` to be invoked with each `eventType` event's payload. */\n  subscribe<T = unknown>(\n    eventType: OverlayEventType,\n    callback: (payload: T) => void,\n  ): () => void {\n    const callbacks =\n      this.eventSubscribers.get(eventType) ??\n      new Set<(payload: unknown) => void>();\n    const typedCallback = callback as (payload: unknown) => void;\n    callbacks.add(typedCallback);\n    this.eventSubscribers.set(eventType, callbacks);\n    return () => {\n      callbacks.delete(typedCallback);\n    };\n  }\n\n  /** Grants the iframe permission to enter fullscreen. */\n  allowFullscreen(): void {\n    this.iframe.setAttribute('allowfullscreen', 'true');\n    const allow = this.iframe.getAttribute('allow') ?? '';\n    if (!allow.includes('fullscreen')) {\n      this.iframe.setAttribute(\n        'allow',\n        [allow, 'fullscreen'].filter(Boolean).join('; '),\n      );\n    }\n  }\n\n  /** Requests fullscreen on the iframe element. */\n  async openFullscreen(): Promise<void> {\n    if (typeof this.iframe.requestFullscreen === 'function') {\n      await this.iframe.requestFullscreen();\n    }\n  }\n\n  /**\n   * Removes the `message` listener, rejects all pending requests, and\n   * removes the iframe/loader from `root`. Calling twice is a no-op.\n   */\n  destroy(): void {\n    if (this.isDestroyed) {\n      return;\n    }\n    this.isDestroyed = true;\n    window.removeEventListener('message', this.messageListener);\n    this.pendingRequests.forEach((deferred) => {\n      deferred.reject(new Error('ChatOverlay: instance was destroyed'));\n    });\n    this.pendingRequests.clear();\n    this.readyGate.reject(new Error('ChatOverlay: instance was destroyed'));\n    this.iframe.remove();\n    this.loader.remove();\n  }\n\n  private sendCurrentOverlayOptions(): Promise<SetOverlayOptionsResponse> {\n    const payload: SetOverlayOptionsPayload = {\n      hostDomain: window.location.origin,\n    };\n    if (this.options.theme !== undefined) {\n      payload.theme = this.options.theme;\n    }\n    if (this.options.modelId !== undefined) {\n      payload.modelId = this.options.modelId;\n    }\n    if (this.options.overlayConversationId !== undefined) {\n      payload.overlayConversationId = this.options.overlayConversationId;\n    }\n    if (this.options.enabledFeatures !== undefined) {\n      payload.enabledFeatures = this.options.enabledFeatures;\n    }\n    const authProviderUiModes = this.options.auth?.providerUiModes;\n    if (\n      authProviderUiModes !== undefined &&\n      Object.keys(authProviderUiModes).length > 0\n    ) {\n      payload.authProviderUiModes = authProviderUiModes;\n    }\n    const autoSignInProvider = this.options.auth?.autoSignInProvider?.trim();\n    if (autoSignInProvider) {\n      payload.authAutoSignInProvider = autoSignInProvider;\n    }\n    return this.send<SetOverlayOptionsResponse>(\n      OverlayRequestType.SetOverlayOptions,\n      payload,\n      { bypassReadyGate: true },\n    );\n  }\n\n  private send<TResponse>(\n    type: OverlayRequestType,\n    payload?: unknown,\n    sendOptions?: { bypassReadyGate?: boolean },\n  ): Promise<TResponse> {\n    if (this.isDestroyed) {\n      return Promise.reject(new Error('ChatOverlay: instance was destroyed'));\n    }\n\n    if (sendOptions?.bypassReadyGate) {\n      return this.dispatchRequest<TResponse>(type, payload);\n    }\n\n    return this.readyGate.promise.then(() =>\n      this.dispatchRequest<TResponse>(type, payload),\n    );\n  }\n\n  private dispatchRequest<TResponse>(\n    type: OverlayRequestType,\n    payload?: unknown,\n  ): Promise<TResponse> {\n    if (this.isDestroyed) {\n      return Promise.reject(new Error('ChatOverlay: instance was destroyed'));\n    }\n\n    const timeoutMs = this.options.requestTimeout ?? DEFAULT_REQUEST_TIMEOUT_MS;\n    const deferred = new DeferredRequest<TResponse>(type, timeoutMs);\n    this.pendingRequests.set(\n      deferred.requestId,\n      deferred as DeferredRequest<unknown>,\n    );\n    deferred.promise\n      .finally(() => {\n        this.pendingRequests.delete(deferred.requestId);\n      })\n      .catch(() => undefined);\n\n    const message: OverlayMessageRequest = {\n      type,\n      requestId: deferred.requestId,\n      expiresAt: Date.now() + timeoutMs,\n      payload,\n    };\n    this.iframe.contentWindow?.postMessage(message, this.targetOrigin);\n\n    return deferred.promise;\n  }\n\n  private handleMessage(event: MessageEvent): void {\n    if (event.source !== this.iframe.contentWindow) {\n      return;\n    }\n    const data = event.data;\n    if (isOverlayMessageResponse(data)) {\n      this.handleResponse(data);\n      return;\n    }\n    if (isOverlayMessageEvent(data)) {\n      this.handleEvent(data);\n    }\n  }\n\n  private handleResponse(message: OverlayMessageResponse): void {\n    const pending = this.pendingRequests.get(message.requestId);\n    if (!pending || !pending.matches(message.type, message.requestId)) {\n      return;\n    }\n    this.pendingRequests.delete(message.requestId);\n    if (message.error) {\n      pending.reject(\n        new ChatOverlayRequestError(pending.requestType, message.error),\n      );\n      return;\n    }\n    pending.resolve(message.payload);\n  }\n\n  private handleEvent(message: OverlayMessageEvent): void {\n    const eventType = message.type as OverlayEventType;\n\n    if (eventType === OverlayEventType.Ready) {\n      this.sendCurrentOverlayOptions().catch(() => undefined);\n    }\n\n    const hideEvent = this.options.loaderHideEvent ?? OverlayEventType.Ready;\n    if (eventType === hideEvent) {\n      this.hideLoader();\n    }\n\n    if (eventType === OverlayEventType.ReadyToInteract) {\n      this.readyGate.resolve(true);\n    }\n\n    this.notifySubscribers(eventType, message.payload);\n  }\n\n  private hideLoader(): void {\n    this.loader.classList.add(OverlayClassName.LoaderHidden);\n    /*\n     * `loaderStyles` is an inline-style escape hatch for the loader's look, but\n     * a `display` entry in it competes with the hidden state rather than\n     * describing it. Dropping it here keeps the class the single source of\n     * truth for visibility, including when the host marked it `!important` \u2014\n     * the one declaration the stylesheet's own `!important` cannot outrank.\n     */\n    this.loader.style.removeProperty('display');\n  }\n\n  private notifySubscribers(\n    eventType: OverlayEventType,\n    payload: unknown,\n  ): void {\n    const callbacks = this.eventSubscribers.get(eventType);\n    callbacks?.forEach((callback) => callback(payload));\n  }\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ChatOverlayRequestError",
+        "file": "libs/chat-overlay/src/lib/ChatOverlay.ts",
+        "start": 47,
+        "end": 61,
+        "declaration": "export class ChatOverlayRequestError extends Error {\n  /** Stable embedded-chat error code. */\n  readonly code: OverlayRequestError['code'];\n  /** Request type that failed. */\n  readonly requestType: string;\n\n  constructor(requestType: string, error: OverlayRequestError) {\n    super(\n      `ChatOverlay: request \"${requestType}\" failed [${error.code}]: ${error.message}`,\n    );\n    this.name = 'ChatOverlayRequestError';\n    this.code = error.code;\n    this.requestType = requestType;\n  }\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ChatOverlayManager",
+        "file": "libs/chat-overlay/src/lib/ChatOverlayManager.ts",
+        "start": 158,
+        "end": 456,
+        "declaration": "export class ChatOverlayManager {\n  private readonly overlays = new Map<string, OverlayEntry>();\n  private readonly abortController = new AbortController();\n  private isDestroyed = false;\n\n  constructor() {\n    const handleViewportChange = (): void => {\n      this.overlays.forEach((entry) => this.applyLayout(entry));\n    };\n    window.addEventListener('resize', handleViewportChange, {\n      signal: this.abortController.signal,\n    });\n    window.addEventListener('orientationchange', handleViewportChange, {\n      signal: this.abortController.signal,\n    });\n  }\n\n  /** Creates an overlay and its toggle/close/(optional) fullscreen chrome. */\n  createOverlay(options: ChatOverlayManagerOptions): void {\n    if (this.overlays.has(options.overlayId)) {\n      throw new Error(\n        `ChatOverlayManager: overlay \"${options.overlayId}\" already exists`,\n      );\n    }\n    ensureManagerStylesInjected();\n\n    const container = document.createElement('div');\n    container.setAttribute('data-dial-overlay-container', options.overlayId);\n    setStyles(container, {\n      display: 'flex',\n      flexDirection: 'column',\n      overflow: 'hidden',\n      borderRadius: '12px',\n      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.24)',\n      background: '#ffffff',\n    });\n\n    const header = document.createElement('div');\n    setStyles(header, {\n      display: 'flex',\n      justifyContent: 'flex-end',\n      gap: '8px',\n      padding: '8px',\n    });\n\n    const closeButton = createButton(\n      options.closeButtonAriaLabel ?? 'Collapse',\n      ICON_CLOSE,\n    );\n    header.appendChild(closeButton);\n\n    let fullscreenButton: HTMLButtonElement | undefined;\n    if (options.allowFullscreen) {\n      fullscreenButton = createButton(\n        options.fullscreenButtonAriaLabel ?? 'Open full screen',\n        ICON_FULLSCREEN,\n      );\n      header.appendChild(fullscreenButton);\n    }\n\n    const body = document.createElement('div');\n    setStyles(body, { flex: '1', minHeight: '0' });\n\n    container.appendChild(header);\n    container.appendChild(body);\n    document.body.appendChild(container);\n\n    const overlay = new ChatOverlay(body, options);\n    if (options.allowFullscreen) {\n      overlay.allowFullscreen();\n    }\n\n    const toggleButton = createButton(\n      options.toggleButtonAriaLabel ?? 'Open chat',\n      ICON_TOGGLE,\n    );\n    document.body.appendChild(toggleButton);\n\n    const entry: OverlayEntry = {\n      overlay,\n      container,\n      toggleButton,\n      closeButton,\n      fullscreenButton,\n      options,\n    };\n    this.overlays.set(options.overlayId, entry);\n\n    toggleButton.addEventListener('click', () =>\n      this.showOverlay(options.overlayId),\n    );\n    closeButton.addEventListener('click', () =>\n      this.hideOverlay(options.overlayId),\n    );\n    fullscreenButton?.addEventListener('click', () => {\n      void this.openFullscreen(options.overlayId);\n    });\n\n    this.applyLayout(entry);\n    this.hideOverlay(options.overlayId);\n  }\n\n  /** Shows the overlay panel and hides its toggle button. */\n  showOverlay(overlayId: string): void {\n    const entry = this.getEntry(overlayId);\n    entry.container.style.display = 'flex';\n    entry.toggleButton.style.display = 'none';\n  }\n\n  /** Hides the overlay panel and shows its toggle button. */\n  hideOverlay(overlayId: string): void {\n    const entry = this.getEntry(overlayId);\n    entry.container.style.display = 'none';\n    entry.toggleButton.style.display = 'inline-flex';\n  }\n\n  /** Destroys the overlay and removes its DOM (container, toggle button). */\n  removeOverlay(overlayId: string): void {\n    const entry = this.getEntry(overlayId);\n    entry.overlay.destroy();\n    entry.container.remove();\n    entry.toggleButton.remove();\n    this.overlays.delete(overlayId);\n  }\n\n  /** Resolves once `overlayId` reaches `READY_TO_INTERACT`. */\n  ready(overlayId: string): Promise<boolean> {\n    return this.getEntry(overlayId).overlay.ready();\n  }\n\n  /** Fetches the active conversation's messages for `overlayId`. */\n  getMessages(overlayId: string): Promise<GetMessagesResponse> {\n    return this.getEntry(overlayId).overlay.getMessages();\n  }\n\n  /** Sends a new message in `overlayId`'s active conversation. */\n  sendMessage(\n    overlayId: string,\n    content: string,\n  ): Promise<SendMessageResponse> {\n    return this.getEntry(overlayId).overlay.sendMessage(content);\n  }\n\n  /** Sets `overlayId`'s message input content. */\n  setInputContent(overlayId: string, content: string): Promise<void> {\n    return this.getEntry(overlayId).overlay.setInputContent(content);\n  }\n\n  /** Sets `overlayId`'s active conversation system prompt. */\n  setSystemPrompt(\n    overlayId: string,\n    systemPrompt: string,\n  ): Promise<SetSystemPromptResponse> {\n    return this.getEntry(overlayId).overlay.setSystemPrompt(systemPrompt);\n  }\n\n  /** Sets `overlayId`'s active conversation temperature. */\n  setTemperature(\n    overlayId: string,\n    temperature: number,\n  ): Promise<SetTemperatureResponse> {\n    return this.getEntry(overlayId).overlay.setTemperature(temperature);\n  }\n\n  /** Fetches the current user's conversation list for `overlayId`. */\n  getConversations(overlayId: string): Promise<GetConversationsResponse> {\n    return this.getEntry(overlayId).overlay.getConversations();\n  }\n\n  /** Fetches `overlayId`'s currently displayed (active) conversation(s). */\n  getSelectedConversations(\n    overlayId: string,\n  ): Promise<GetSelectedConversationsResponse> {\n    return this.getEntry(overlayId).overlay.getSelectedConversations();\n  }\n\n  /** Navigates `overlayId` to and loads the conversation matching `id`. */\n  selectConversation(\n    overlayId: string,\n    id: string,\n  ): Promise<SelectConversationResponse> {\n    return this.getEntry(overlayId).overlay.selectConversation(id);\n  }\n\n  /** Creates a new conversation for `overlayId`. */\n  createConversation(\n    overlayId: string,\n    options?: { deploymentId?: string; firstMessage?: string },\n  ): Promise<CreateConversationResponse> {\n    return this.getEntry(overlayId).overlay.createConversation(options);\n  }\n\n  /** Opens `overlayId`'s composer without persisting anything. */\n  createLocalConversation(\n    overlayId: string,\n  ): Promise<CreateLocalConversationResponse> {\n    return this.getEntry(overlayId).overlay.createLocalConversation();\n  }\n\n  /** Deletes the conversation matching `id` for `overlayId`. */\n  deleteConversation(\n    overlayId: string,\n    id: string,\n  ): Promise<DeleteConversationResponse> {\n    return this.getEntry(overlayId).overlay.deleteConversation(id);\n  }\n\n  /** Renames the conversation matching `id` to `newName` for `overlayId`. */\n  renameConversation(\n    overlayId: string,\n    id: string,\n    newName: string,\n  ): Promise<RenameConversationResponse> {\n    return this.getEntry(overlayId).overlay.renameConversation(id, newName);\n  }\n\n  /** Updates theme/model/conversation options for `overlayId`. */\n  setOverlayOptions(\n    overlayId: string,\n    options: Partial<\n      Pick<\n        ChatOverlayOptions,\n        'theme' | 'modelId' | 'overlayConversationId' | 'enabledFeatures'\n      >\n    >,\n  ): Promise<SetOverlayOptionsResponse> {\n    return this.getEntry(overlayId).overlay.setOverlayOptions(options);\n  }\n\n  /** Subscribes to an event from `overlayId`'s embedded app. */\n  subscribe<T = unknown>(\n    overlayId: string,\n    eventType: OverlayEventType,\n    callback: (payload: T) => void,\n  ): () => void {\n    return this.getEntry(overlayId).overlay.subscribe(eventType, callback);\n  }\n\n  /** Requests fullscreen for `overlayId`. */\n  openFullscreen(overlayId: string): Promise<void> {\n    return this.getEntry(overlayId).overlay.openFullscreen();\n  }\n\n  /** Destroys every overlay and removes global `resize`/`orientationchange` listeners. */\n  destroy(): void {\n    if (this.isDestroyed) {\n      return;\n    }\n    this.isDestroyed = true;\n    this.overlays.forEach((entry) => {\n      entry.overlay.destroy();\n      entry.container.remove();\n      entry.toggleButton.remove();\n    });\n    this.overlays.clear();\n    this.abortController.abort();\n  }\n\n  private getEntry(overlayId: string): OverlayEntry {\n    const entry = this.overlays.get(overlayId);\n    if (!entry) {\n      throw new Error(`ChatOverlayManager: unknown overlay id \"${overlayId}\"`);\n    }\n    return entry;\n  }\n\n  private applyLayout(entry: OverlayEntry): void {\n    const { options, container, toggleButton } = entry;\n    const position = options.position ?? OverlayPosition.RightBottom;\n    const zIndex = String(options.zIndex ?? DEFAULT_Z_INDEX);\n\n    setStyles(toggleButton, {\n      position: 'fixed',\n      zIndex,\n      ...POSITION_STYLES[position],\n    });\n    setStyles(container, { position: 'fixed', zIndex });\n\n    const isMobileViewport = window.innerWidth <= MOBILE_BREAKPOINT_PX;\n    if (isMobileViewport) {\n      setStyles(container, {\n        insetInlineStart: '0',\n        insetInlineEnd: '0',\n        insetBlockStart: '0',\n        insetBlockEnd: '0',\n        width: '100%',\n        height: '100%',\n        borderRadius: '0',\n      });\n      return;\n    }\n\n    setStyles(container, {\n      width: toCssSize(options.width ?? DEFAULT_WIDTH),\n      height: toCssSize(options.height ?? DEFAULT_HEIGHT),\n      ...POSITION_STYLES[position],\n    });\n  }\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayPosition",
+        "file": "libs/chat-overlay/src/lib/ChatOverlayManager.ts",
+        "start": 88,
+        "end": 97,
+        "declaration": "export enum OverlayPosition {\n  /** Anchored to the start (left in LTR) edge, bottom corner. */\n  LeftBottom = 'left-bottom',\n  /** Anchored to the start (left in LTR) edge, top corner. */\n  LeftTop = 'left-top',\n  /** Anchored to the end (right in LTR) edge, bottom corner. Default. */\n  RightBottom = 'right-bottom',\n  /** Anchored to the end (right in LTR) edge, top corner. */\n  RightTop = 'right-top',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ChatOverlayManagerOptions",
+        "file": "libs/chat-overlay/src/lib/ChatOverlayManager.ts",
+        "start": 127,
+        "end": 146,
+        "declaration": "export interface ChatOverlayManagerOptions extends ChatOverlayOptions {\n  /** Unique id used to reference this overlay in every manager method. */\n  overlayId: string;\n  /** Fixed-position corner. Defaults to `OverlayPosition.RightBottom`. */\n  position?: OverlayPosition;\n  /** Panel width (number treated as px). Defaults to `380`. */\n  width?: number | string;\n  /** Panel height (number treated as px). Defaults to `600`. */\n  height?: number | string;\n  /** CSS `z-index` for the panel and toggle button. Defaults to `999999`. */\n  zIndex?: number;\n  /** Whether to render a fullscreen button in the panel header. */\n  allowFullscreen?: boolean;\n  /** Accessible name for the toggle button. Defaults to `'Open chat'`. */\n  toggleButtonAriaLabel?: string;\n  /** Accessible name for the close button. Defaults to `'Collapse'`. */\n  closeButtonAriaLabel?: string;\n  /** Accessible name for the fullscreen button. Defaults to `'Open full screen'`. */\n  fullscreenButtonAriaLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DIAL_OVERLAY_NAMESPACE",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 2,
+        "end": 2,
+        "declaration": "DIAL_OVERLAY_NAMESPACE = '@DIAL_OVERLAY'",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayRequestType",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 5,
+        "end": 32,
+        "declaration": "export enum OverlayRequestType {\n  /** Fetch the active conversation's messages. */\n  GetMessages = '@DIAL_OVERLAY/GET_MESSAGES',\n  /** Send a new message in the active conversation. */\n  SendMessage = '@DIAL_OVERLAY/SEND_MESSAGE',\n  /** Set the current text content of the message input. */\n  SetInputContent = '@DIAL_OVERLAY/SET_INPUT_CONTENT',\n  /** Set the active conversation's system prompt. */\n  SetSystemPrompt = '@DIAL_OVERLAY/SET_SYSTEM_PROMPT',\n  /** Set the active conversation's temperature. */\n  SetTemperature = '@DIAL_OVERLAY/SET_TEMPERATURE',\n  /** Set host-provided options (theme, model, conversation, host domain). */\n  SetOverlayOptions = '@DIAL_OVERLAY/SET_OVERLAY_OPTIONS',\n  /** Fetch the current user's conversation list. */\n  GetConversations = '@DIAL_OVERLAY/GET_CONVERSATIONS',\n  /** Fetch the currently displayed (active) conversation(s). */\n  GetSelectedConversations = '@DIAL_OVERLAY/GET_SELECTED_CONVERSATIONS',\n  /** Navigate to and load a specific conversation by id. */\n  SelectConversation = '@DIAL_OVERLAY/SELECT_CONVERSATION',\n  /** Create a new conversation, persisting immediately if a first message is given. */\n  CreateConversation = '@DIAL_OVERLAY/CREATE_CONVERSATION',\n  /** Open the conversation composer without persisting anything. */\n  CreateLocalConversation = '@DIAL_OVERLAY/CREATE_LOCAL_CONVERSATION',\n  /** Delete a conversation by id. */\n  DeleteConversation = '@DIAL_OVERLAY/DELETE_CONVERSATION',\n  /** Rename a conversation by id. */\n  RenameConversation = '@DIAL_OVERLAY/RENAME_CONVERSATION',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayEventType",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 35,
+        "end": 52,
+        "declaration": "export enum OverlayEventType {\n  /** Sent once, immediately, before any host identity is known. */\n  InitReady = '@DIAL_OVERLAY/INIT_READY',\n  /** Sent once, after auth/model-load state resolves. */\n  Ready = '@DIAL_OVERLAY/READY',\n  /** Sent once, after the active conversation has been selected/loaded for the first time. */\n  ReadyToInteract = '@DIAL_OVERLAY/READY_TO_INTERACT',\n  /** Sent whenever the app finishes loading a conversation (initial load or navigation). */\n  SelectedConversationLoaded = '@DIAL_OVERLAY/SELECTED_CONVERSATION_LOADED',\n  /** Sent when a generation starts for the active conversation. */\n  GptStartGenerating = '@DIAL_OVERLAY/GPT_START_GENERATING',\n  /** Sent when a generation completes for the active conversation. */\n  GptEndGenerating = '@DIAL_OVERLAY/GPT_END_GENERATING',\n  /** Sent when a user (or host) stops an in-flight generation. */\n  StopGenerating = '@DIAL_OVERLAY/STOP_GENERATING',\n  /** Sent whenever the app's conversation list changes. */\n  ConversationsUpdated = '@DIAL_OVERLAY/CONVERSATIONS_UPDATED',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayFeature",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 55,
+        "end": 189,
+        "declaration": "export enum OverlayFeature {\n  /** Enables the \"Add app\" menu's Code Apps entry. */\n  CodeApps = 'code-apps',\n  /**\n   * Enables the catalog's Quick App creation entry, i.e. applications built\n   * on an `applicationTypeSchemaId`. Schema-less applications are gated by\n   * `CustomApps` instead.\n   */\n  SchemaApps = 'schema-apps',\n  /**\n   * Hides both of the catalog's app-creation entries, \"Create Quick App\" and\n   * \"Create Custom app\", regardless of `SchemaApps` / `CustomApps`.\n   */\n  HideCustomAppCreation = 'hide-custom-app-creation',\n  /** Disables the send action on the chat input without removing the button. */\n  DisabledSend = 'disabled-send',\n  /** Suppresses the chat input's auto-focus effect on load. */\n  SkipFocusChatInputOnload = 'skip-focus-chat-input-onload',\n  /**\n   * Enables the \"Chat settings\" entry (temperature, system prompt, response\n   * format) in the conversation input's \"+\" menu, on every screen that renders\n   * that input. Disabling it removes the entry everywhere, regardless of\n   * `EmptyChatSettings`.\n   */\n  ChatSettings = 'chat-settings',\n  /**\n   * Enables removing a deployment tool from the conversation input: each tool\n   * chip gets a \u00d7 that drops it from the row, and the \"+\" menu gets a \"Tools\"\n   * entry that brings a dropped chip back. Disabling it makes every chip a\n   * persistent on/off toggle that the user cannot add or remove.\n   */\n  RemovableTools = 'removable-tools',\n  /** Enables the comment field in the negative-feedback (dislike) modal. */\n  DislikeComment = 'dislike-comment',\n  /** Enables attaching files to a message via the conversation input. */\n  InputFiles = 'input-files',\n  /** Enables like/dislike actions on assistant messages. */\n  Likes = 'likes',\n  /** Enables the live-chat-interaction sign-in UI affordance. */\n  LiveChatInteraction = 'live-chat-interaction',\n  /** Restricts (disables) changing the selected agent/model on the conversation top bar. */\n  DisallowChangeAgent = 'disallow-change-agent',\n  /** Hides the agent/model selector on the in-chat conversation input. */\n  HideChangeAgent = 'hide-change-agent',\n  /** Hides the new-conversation controls in the header/layout. */\n  HideNewConversation = 'hide-new-conversation',\n  /**\n   * Enables the empty-chat (new conversation composer) settings UI. Narrows\n   * `ChatSettings` to that screen only \u00e2\u0080\u0094 both must be enabled for the entry to\n   * appear there.\n   */\n  EmptyChatSettings = 'empty-chat-settings',\n  /** Hides the model selector on the empty-chat composer screen. */\n  HideEmptyChatChangeAgent = 'hide-empty-chat-change-agent',\n  /** Enables the attachments-manager (`AttachmentCanvasProvider`) mount. */\n  AttachmentsManager = 'attachments-manager',\n  /** Enables the conversations-panel toggle button. */\n  ConversationsPanelToggle = 'conversations-panel-toggle',\n  /** Enables the conversations sidebar section. */\n  ConversationsSection = 'conversations-section',\n  /** Enables the app header. */\n  Header = 'header',\n  /**\n   * Hides the header's hamburger button and the navigation sheet it opens \u00e2\u0080\u0094\n   * the mobile-breakpoint navigation surface carrying the nav items, profile,\n   * keyboard shortcuts, and log out.\n   */\n  HideNavigationMenu = 'hide-navigation-menu',\n  /** Makes the conversations sidebar section open by default. */\n  ShowConversationsSectionByDefault = 'showConversationsSectionByDefault',\n  /** Hides the conversations panel's source filter tabs (All / My chats / Shared / Organization). */\n  HideConversationsFilter = 'hide-conversations-filter',\n  /** Enables the catalog (`/catalog`) route. */\n  Catalog = 'catalog',\n  /** Restricts the catalog to hide the current user's own/shared-with-me apps. */\n  CatalogHideMyApps = 'catalog-hide-my-apps',\n  /** Makes the catalog's table view the initial default (instead of grid). */\n  CatalogTableView = 'catalog-table-view',\n  /** Enables the file manager (`/files`) route and its navigation entry. */\n  FileManager = 'file-manager',\n  /** Hides the delete action on a user's own messages. */\n  HideDeleteUserMessage = 'hide-delete-user-message',\n  /** Hides the edit action on a user's own messages. */\n  HideEditUserMessage = 'hide-edit-user-message',\n  /** Hides the regenerate action on assistant messages. */\n  HideRegenerateAssistantMessage = 'hide-regenerate-assistant-message',\n  /** Enables the conversation-publishing entry point. */\n  ConversationsPublishing = 'conversations-publishing',\n  /** Enables the application-sharing entry point. */\n  ApplicationsSharing = 'applications-sharing',\n  /** Enables the conversation-sharing entry point. */\n  ConversationsSharing = 'conversations-sharing',\n  /** Enables the toolset-sharing entry point. */\n  ToolsetsSharing = 'toolsets-sharing',\n  /** Enables toolsets functionality. */\n  Toolsets = 'toolsets',\n  /** Enables prompts: the catalog's Prompts tab, its create option, and the prompt editor route. */\n  Prompts = 'prompts',\n  /** Enables skills: the catalog's Skills tab and the skill details panel. */\n  Skills = 'skills',\n  /**\n   * Enables the catalog's custom-app creation entry, the editability of\n   * schema-less applications, and the custom-app editor route. Applications\n   * built on a schema are gated by `SchemaApps` instead.\n   */\n  CustomApps = 'custom-apps',\n  /** Hides the user avatar/menu button in the header. */\n  HideUserMenu = 'hide-user-menu',\n  /** Hides the settings entry in the user menu. */\n  HideUserSettings = 'hide-user-settings',\n  /** Hides the keyboard-shortcuts entry in the user menu and the mobile profile sheet. */\n  HideKeyboardShortcuts = 'hide-keyboard-shortcuts',\n  /** Enables the `microphone` permission on the iframe's `allow` attribute for voice input. */\n  VoiceInput = 'voice-input',\n  /**\n   * Renders every conversation starter, each on its own row, instead of\n   * fitting as many as the measured width allows on one line and collapsing\n   * the rest into a \"\u2026\" dropdown. Intended for narrow embeds, where the row\n   * has space for a single starter and hides the remainder behind the menu.\n   */\n  ShowAllStarters = 'show-all-starters',\n  /**\n   * Hides the application version label in the footer. The label is\n   * diagnostic chrome an embedding host usually owns itself, and it is not\n   * gated by the operator's `footer` capability flag.\n   */\n  HideFooterVersion = 'hide-footer-version',\n  /**\n   * Renders the selected agent's own `description` on the empty-chat screen,\n   * below the conversation starters, as markdown. Independent of the\n   * operator-wide welcome-screen description, which renders under the\n   * greeting for every agent alike.\n   */\n  ShowAgentDescription = 'show-agent-description',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DEPRECATED_OVERLAY_FEATURE_ALIASES",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 198,
+        "end": 203,
+        "declaration": "DEPRECATED_OVERLAY_FEATURE_ALIASES: Readonly<\n  Record<string, OverlayFeature>\n> = {\n  /* Renamed because it gates Quick Apps, not schema-less custom applications. */\n  'custom-applications': OverlayFeature.SchemaApps,\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "resolveOverlayFeature",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 214,
+        "end": 219,
+        "declaration": "resolveOverlayFeature = (\n  value: string,\n): OverlayFeature | undefined =>\n  OVERLAY_FEATURE_WIRE_VALUES.has(value)\n    ? (value as OverlayFeature)\n    : DEPRECATED_OVERLAY_FEATURE_ALIASES[value]",
+        "signature": "(value: string): OverlayFeature | undefined",
+        "props": [
+          {
+            "name": "toString",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "charAt",
+            "optional": false,
+            "type": "(pos: number) => string"
+          },
+          {
+            "name": "charCodeAt",
+            "optional": false,
+            "type": "(index: number) => number"
+          },
+          {
+            "name": "concat",
+            "optional": false,
+            "type": "(...strings: string[]) => string"
+          },
+          {
+            "name": "indexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "lastIndexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "localeCompare",
+            "optional": false,
+            "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+          },
+          {
+            "name": "match",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+          },
+          {
+            "name": "replace",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "search",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+          },
+          {
+            "name": "slice",
+            "optional": false,
+            "type": "(start?: number, end?: number) => string"
+          },
+          {
+            "name": "split",
+            "optional": false,
+            "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+          },
+          {
+            "name": "substring",
+            "optional": false,
+            "type": "(start: number, end?: number) => string"
+          },
+          {
+            "name": "toLowerCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleLowerCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "toUpperCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleUpperCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "trim",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "length",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "substr",
+            "optional": false,
+            "type": "(from: number, length?: number) => string"
+          },
+          {
+            "name": "valueOf",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "codePointAt",
+            "optional": false,
+            "type": "(pos: number) => number | undefined"
+          },
+          {
+            "name": "includes",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "endsWith",
+            "optional": false,
+            "type": "(searchString: string, endPosition?: number) => boolean"
+          },
+          {
+            "name": "normalize",
+            "optional": false,
+            "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+          },
+          {
+            "name": "repeat",
+            "optional": false,
+            "type": "(count: number) => string"
+          },
+          {
+            "name": "startsWith",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "anchor",
+            "optional": false,
+            "type": "(name: string) => string"
+          },
+          {
+            "name": "big",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "blink",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "bold",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fixed",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fontcolor",
+            "optional": false,
+            "type": "(color: string) => string"
+          },
+          {
+            "name": "fontsize",
+            "optional": false,
+            "type": "{ (size: number): string; (size: string): string; }"
+          },
+          {
+            "name": "italics",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "link",
+            "optional": false,
+            "type": "(url: string) => string"
+          },
+          {
+            "name": "small",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "strike",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sub",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sup",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "padStart",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "padEnd",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "trimEnd",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimStart",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimLeft",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimRight",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "matchAll",
+            "optional": false,
+            "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+          },
+          {
+            "name": "replaceAll",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "at",
+            "optional": false,
+            "type": "(index: number) => string | undefined"
+          },
+          {
+            "name": "__@iterator@21491",
+            "optional": false,
+            "type": "() => StringIterator<string>"
+          }
+        ]
+      },
+      {
+        "name": "OverlayAuthUiMode",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 222,
+        "end": 227,
+        "declaration": "export enum OverlayAuthUiMode {\n  /** Opens authentication in a separate browser window or tab. */\n  External = 'external',\n  /** Navigates the embedded overlay window through authentication. */\n  SameWindow = 'sameWindow',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayRequestErrorCode",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 230,
+        "end": 239,
+        "declaration": "export enum OverlayRequestErrorCode {\n  /** The method requires an open conversation, but the composer is currently shown. */\n  ActiveConversationUnavailable = 'ACTIVE_CONVERSATION_UNAVAILABLE',\n  /** The method requires the conversation-list integration, but it is not available. */\n  ConversationListUnavailable = 'CONVERSATION_LIST_UNAVAILABLE',\n  /** The request payload does not match the method contract. */\n  InvalidPayload = 'INVALID_PAYLOAD',\n  /** The embedded chat failed while executing the requested operation. */\n  RequestExecutionFailed = 'REQUEST_EXECUTION_FAILED',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayRequestError",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 242,
+        "end": 247,
+        "declaration": "export interface OverlayRequestError {\n  /** Stable code suitable for programmatic handling. */\n  code: OverlayRequestErrorCode;\n  /** Human-readable explanation suitable for logs and diagnostics. */\n  message: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayStageStatus",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 250,
+        "end": 255,
+        "declaration": "export enum OverlayStageStatus {\n  /** The stage completed successfully. */\n  Completed = 'completed',\n  /** The stage encountered an error. */\n  Failed = 'failed',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayMessageStage",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 262,
+        "end": 273,
+        "declaration": "export interface OverlayMessageStage {\n  /** Zero-based ordering key, stable across updates to the same stage. */\n  index: number;\n  /** Human-readable stage label, e.g. `'Lookup available terms'`. */\n  name: string;\n  /** `null` while the stage is still running; a settled value once it finishes. */\n  status: OverlayStageStatus | null;\n  /** Text content accumulated for this stage, when the agent produced any. */\n  content?: string;\n  /** Short source/category label shown beside the name, e.g. `'MCP'`. */\n  tag?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayChatMessage",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 276,
+        "end": 289,
+        "declaration": "export interface OverlayChatMessage {\n  /** Message id. */\n  id: string;\n  /** Author role, e.g. `'user'`, `'assistant'`, or `'system'`. */\n  role: string;\n  /** Message text content. */\n  content: string;\n  /**\n   * Agent execution stages attached to this message, omitted when it has\n   * none. Stage attachments are not carried \u2014 the protocol projects labels,\n   * status, and text only.\n   */\n  stages?: OverlayMessageStage[];\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayConversation",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 292,
+        "end": 307,
+        "declaration": "export interface OverlayConversation {\n  /** Conversation id. */\n  id: string;\n  /** Conversation title. */\n  title: string;\n  /** Epoch milliseconds of the conversation's last update. */\n  updatedAt: number;\n  /** Whether the conversation is pinned. */\n  isPinned: boolean;\n  /** Whether the current user has read-only access. */\n  isReadonly: boolean;\n  /** Whether the conversation was shared with the current user. */\n  sharedWithMe: boolean;\n  /** Whether the conversation was published with the current user. */\n  publishedWithMe: boolean;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayConversationError",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 310,
+        "end": 315,
+        "declaration": "export interface OverlayConversationError {\n  /** `NOT_FOUND` for an unknown/inaccessible id, `FORBIDDEN` for a read-only/shared-without-write-access conversation, `INVALID_ARGUMENT` for a rejected value (e.g. blank rename). */\n  code: 'NOT_FOUND' | 'FORBIDDEN' | 'INVALID_ARGUMENT';\n  /** Human-readable description of the failure. */\n  message: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ChatOverlayOptions",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 318,
+        "end": 356,
+        "declaration": "export interface ChatOverlayOptions {\n  /** Full URL of the chat app instance to embed (origin + optional path). */\n  domain: string;\n  /** Milliseconds to wait for a request's response before rejecting. Defaults to `10000`. */\n  requestTimeout?: number;\n  /**\n   * Inline CSS properties applied to the loader element while it is visible.\n   * A `display` entry is dropped once `loaderHideEvent` arrives \u2014 use\n   * `loaderHideEvent` to control visibility, not `display`.\n   */\n  loaderStyles?: Record<string, string>;\n  /** CSS class applied to the loader element. */\n  loaderClass?: string;\n  /** Custom HTML rendered inside the loader element, replacing the default spinner. */\n  loaderInnerHTML?: string;\n  /** Event whose receipt hides the loader. Defaults to `OverlayEventType.Ready`. */\n  loaderHideEvent?: OverlayEventType;\n  /** Embed-time features to enable, e.g. microphone access for voice input. */\n  enabledFeatures?: OverlayFeature[];\n  /** Theme name applied to the embedded app. */\n  theme?: string;\n  /** Deployment/model id to select in the embedded app. */\n  modelId?: string;\n  /** Conversation id the embedded app should load and display. */\n  overlayConversationId?: string;\n  /** Per-provider authentication UI behavior configured by the embedding host. */\n  auth?: {\n    providerUiModes?: Record<string, OverlayAuthUiMode>;\n    /**\n     * Provider id whose login the embedded app starts on its own, with no user\n     * interaction, while the session is unauthenticated. Presence enables the\n     * behavior \u2014 there is no separate boolean \u2014 and the same provider must be\n     * mapped to `OverlayAuthUiMode.SameWindow` in `providerUiModes`, because\n     * only that path navigates the iframe itself. Supersedes the legacy\n     * `signInOptions.autoSignIn` + `signInProvider` pair.\n     */\n    autoSignInProvider?: string;\n  };\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SetOverlayOptionsPayload",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 359,
+        "end": 377,
+        "declaration": "export interface SetOverlayOptionsPayload {\n  /** Origin of the host page, used by the app to target responses/events. */\n  hostDomain: string;\n  /** Theme name to apply, if provided. */\n  theme?: string;\n  /** Deployment/model id to select, if provided. */\n  modelId?: string;\n  /** Conversation id to navigate to and load, if provided. */\n  overlayConversationId?: string;\n  /**\n   * UI-feature keys that replace (not merge with) the app's current effective\n   * UI-feature set, if provided. Array only \u2014 no comma-separated-string form.\n   */\n  enabledFeatures?: string[];\n  /** Opaque per-provider authentication UI modes supplied by the host. */\n  authProviderUiModes?: Record<string, string>;\n  /** Opaque wire form of `ChatOverlayOptions.auth.autoSignInProvider`. */\n  authAutoSignInProvider?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SendMessagePayload",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 380,
+        "end": 383,
+        "declaration": "export interface SendMessagePayload {\n  /** Text content of the message to send. */\n  content: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SetInputContentPayload",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 386,
+        "end": 389,
+        "declaration": "export interface SetInputContentPayload {\n  /** Text content to set in the message input. */\n  content: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SetSystemPromptPayload",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 392,
+        "end": 395,
+        "declaration": "export interface SetSystemPromptPayload {\n  /** System prompt to persist on the active conversation. */\n  systemPrompt: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SetTemperaturePayload",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 398,
+        "end": 401,
+        "declaration": "export interface SetTemperaturePayload {\n  /** Temperature value to persist on the active conversation. */\n  temperature: number;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SelectConversationPayload",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 404,
+        "end": 407,
+        "declaration": "export interface SelectConversationPayload {\n  /** Id of the conversation to select. */\n  id: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeleteConversationPayload",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 410,
+        "end": 413,
+        "declaration": "export interface DeleteConversationPayload {\n  /** Id of the conversation to delete. */\n  id: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "RenameConversationPayload",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 416,
+        "end": 421,
+        "declaration": "export interface RenameConversationPayload {\n  /** Id of the conversation to rename. */\n  id: string;\n  /** New title for the conversation. */\n  newName: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "CreateConversationPayload",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 424,
+        "end": 429,
+        "declaration": "export interface CreateConversationPayload {\n  /** Deployment/model id to create the conversation with, if given. */\n  deploymentId?: string;\n  /** Initial message to persist immediately. Omitted/blank opens the composer instead. */\n  firstMessage?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "GetMessagesResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 432,
+        "end": 435,
+        "declaration": "export interface GetMessagesResponse {\n  /** Messages in the active conversation. */\n  messages: OverlayChatMessage[];\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SendMessageResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 438,
+        "end": 441,
+        "declaration": "export interface SendMessageResponse {\n  /** Messages in the active conversation after the send. */\n  messages: OverlayChatMessage[];\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SetSystemPromptResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 444,
+        "end": 447,
+        "declaration": "export interface SetSystemPromptResponse {\n  /** System prompt value that was persisted. */\n  systemPrompt: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SetTemperatureResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 450,
+        "end": 453,
+        "declaration": "export interface SetTemperatureResponse {\n  /** Temperature value that was persisted. */\n  temperature: number;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SetOverlayOptionsResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 456,
+        "end": 459,
+        "declaration": "export interface SetOverlayOptionsResponse {\n  /** Whether the supplied options were applied (`false` only signals a fallback, never a thrown error). */\n  applied: boolean;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "GetConversationsResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 462,
+        "end": 465,
+        "declaration": "export interface GetConversationsResponse {\n  /** The current user's conversation list. */\n  conversations: OverlayConversation[];\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "GetSelectedConversationsResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 468,
+        "end": 471,
+        "declaration": "export interface GetSelectedConversationsResponse {\n  /** Currently displayed conversation(s); empty when no conversation is mounted. */\n  conversations: OverlayConversation[];\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SelectConversationResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 474,
+        "end": 479,
+        "declaration": "export interface SelectConversationResponse {\n  /** The now-selected conversation's projection, present on success. */\n  conversation?: OverlayConversation;\n  /** Present when the selection failed. */\n  error?: OverlayConversationError;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "CreateConversationResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 482,
+        "end": 487,
+        "declaration": "export interface CreateConversationResponse {\n  /** The created conversation's projection, or `null` when the composer path was taken. */\n  conversation: OverlayConversation | null;\n  /** Present when creation failed. */\n  error?: OverlayConversationError;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "CreateLocalConversationResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 490,
+        "end": 493,
+        "declaration": "export interface CreateLocalConversationResponse {\n  /** Always `null` \u2014 the composer opens without persisting anything. */\n  conversation: null;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeleteConversationResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 496,
+        "end": 499,
+        "declaration": "export interface DeleteConversationResponse {\n  /** Present when deletion failed. */\n  error?: OverlayConversationError;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "RenameConversationResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 502,
+        "end": 507,
+        "declaration": "export interface RenameConversationResponse {\n  /** The renamed conversation's projection, present on success. */\n  conversation?: OverlayConversation;\n  /** Present when the rename failed. */\n  error?: OverlayConversationError;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayMessageRequest",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 513,
+        "end": 525,
+        "declaration": "export interface OverlayMessageRequest<TPayload = unknown> {\n  /** Full wire type string, one of the `OverlayRequestType` values. */\n  type: `${OverlayRequestType}`;\n  /** Unique id used to match this request to its response. */\n  requestId: string;\n  /**\n   * Epoch milliseconds after which the embedded app must stop waiting for\n   * prerequisites (such as an active conversation bridge) and drop the request.\n   */\n  expiresAt?: number;\n  /** Request-specific payload. */\n  payload?: TPayload;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayMessageResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 531,
+        "end": 540,
+        "declaration": "export interface OverlayMessageResponse<TPayload = unknown> {\n  /** Full wire type string, always `'${OverlayRequestType}/RESPONSE'`. */\n  type: `${OverlayRequestType}/RESPONSE`;\n  /** `requestId` of the request this message answers. */\n  requestId: string;\n  /** Response-specific payload. */\n  payload?: TPayload;\n  /** Present when the embedded chat could not complete the request. */\n  error?: OverlayRequestError;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "OverlayMessageEvent",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 546,
+        "end": 551,
+        "declaration": "export interface OverlayMessageEvent<TPayload = unknown> {\n  /** Full wire type string, one of the `OverlayEventType` values. */\n  type: `${OverlayEventType}`;\n  /** Event-specific payload. */\n  payload?: TPayload;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "isOverlayMessageRequest",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 554,
+        "end": 569,
+        "declaration": "isOverlayMessageRequest = (\n  data: unknown,\n): data is OverlayMessageRequest => {\n  if (typeof data !== 'object' || data === null) {\n    return false;\n  }\n  const candidate = data as Record<string, unknown>;\n  return (\n    typeof candidate.type === 'string' &&\n    (Object.values(OverlayRequestType) as string[]).includes(candidate.type) &&\n    typeof candidate.requestId === 'string' &&\n    (!('expiresAt' in candidate) ||\n      (typeof candidate.expiresAt === 'number' &&\n        Number.isFinite(candidate.expiresAt)))\n  );\n}",
+        "signature": "(data: unknown): data is OverlayMessageRequest",
+        "props": []
+      },
+      {
+        "name": "isOverlayMessageResponse",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 572,
+        "end": 604,
+        "declaration": "isOverlayMessageResponse = (\n  data: unknown,\n): data is OverlayMessageResponse => {\n  if (typeof data !== 'object' || data === null) {\n    return false;\n  }\n  const candidate = data as Record<string, unknown>;\n  if (\n    typeof candidate.type !== 'string' ||\n    typeof candidate.requestId !== 'string'\n  ) {\n    return false;\n  }\n  const hasKnownResponseType = (\n    Object.values(OverlayRequestType) as string[]\n  ).some((requestType) => candidate.type === `${requestType}/RESPONSE`);\n  if (!hasKnownResponseType) {\n    return false;\n  }\n  if (!('error' in candidate)) {\n    return true;\n  }\n  const error = candidate.error;\n  return (\n    typeof error === 'object' &&\n    error !== null &&\n    typeof (error as Record<string, unknown>).code === 'string' &&\n    (Object.values(OverlayRequestErrorCode) as string[]).includes(\n      (error as Record<string, unknown>).code as string,\n    ) &&\n    typeof (error as Record<string, unknown>).message === 'string'\n  );\n}",
+        "signature": "(data: unknown): data is OverlayMessageResponse",
+        "props": []
+      },
+      {
+        "name": "isOverlayMessageEvent",
+        "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+        "start": 607,
+        "end": 619,
+        "declaration": "isOverlayMessageEvent = (\n  data: unknown,\n): data is OverlayMessageEvent => {\n  if (typeof data !== 'object' || data === null) {\n    return false;\n  }\n  const candidate = data as Record<string, unknown>;\n  return (\n    typeof candidate.type === 'string' &&\n    (Object.values(OverlayEventType) as string[]).includes(candidate.type) &&\n    !('requestId' in candidate)\n  );\n}",
+        "signature": "(data: unknown): data is OverlayMessageEvent",
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "resolveOverlayFeature",
+      "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+      "start": 214,
+      "end": 219,
+      "declaration": "resolveOverlayFeature = (\n  value: string,\n): OverlayFeature | undefined =>\n  OVERLAY_FEATURE_WIRE_VALUES.has(value)\n    ? (value as OverlayFeature)\n    : DEPRECATED_OVERLAY_FEATURE_ALIASES[value]",
+      "signature": "(value: string): OverlayFeature | undefined",
+      "props": [
+        {
+          "name": "toString",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "charAt",
+          "optional": false,
+          "type": "(pos: number) => string"
+        },
+        {
+          "name": "charCodeAt",
+          "optional": false,
+          "type": "(index: number) => number"
+        },
+        {
+          "name": "concat",
+          "optional": false,
+          "type": "(...strings: string[]) => string"
+        },
+        {
+          "name": "indexOf",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => number"
+        },
+        {
+          "name": "lastIndexOf",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => number"
+        },
+        {
+          "name": "localeCompare",
+          "optional": false,
+          "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+        },
+        {
+          "name": "match",
+          "optional": false,
+          "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+        },
+        {
+          "name": "replace",
+          "optional": false,
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+        },
+        {
+          "name": "search",
+          "optional": false,
+          "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+        },
+        {
+          "name": "slice",
+          "optional": false,
+          "type": "(start?: number, end?: number) => string"
+        },
+        {
+          "name": "split",
+          "optional": false,
+          "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+        },
+        {
+          "name": "substring",
+          "optional": false,
+          "type": "(start: number, end?: number) => string"
+        },
+        {
+          "name": "toLowerCase",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleLowerCase",
+          "optional": false,
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+        },
+        {
+          "name": "toUpperCase",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleUpperCase",
+          "optional": false,
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+        },
+        {
+          "name": "trim",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "length",
+          "optional": false,
+          "type": "number"
+        },
+        {
+          "name": "substr",
+          "optional": false,
+          "type": "(from: number, length?: number) => string"
+        },
+        {
+          "name": "valueOf",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "codePointAt",
+          "optional": false,
+          "type": "(pos: number) => number | undefined"
+        },
+        {
+          "name": "includes",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => boolean"
+        },
+        {
+          "name": "endsWith",
+          "optional": false,
+          "type": "(searchString: string, endPosition?: number) => boolean"
+        },
+        {
+          "name": "normalize",
+          "optional": false,
+          "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+        },
+        {
+          "name": "repeat",
+          "optional": false,
+          "type": "(count: number) => string"
+        },
+        {
+          "name": "startsWith",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => boolean"
+        },
+        {
+          "name": "anchor",
+          "optional": false,
+          "type": "(name: string) => string"
+        },
+        {
+          "name": "big",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "blink",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "bold",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "fixed",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "fontcolor",
+          "optional": false,
+          "type": "(color: string) => string"
+        },
+        {
+          "name": "fontsize",
+          "optional": false,
+          "type": "{ (size: number): string; (size: string): string; }"
+        },
+        {
+          "name": "italics",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "link",
+          "optional": false,
+          "type": "(url: string) => string"
+        },
+        {
+          "name": "small",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "strike",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "sub",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "sup",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "padStart",
+          "optional": false,
+          "type": "(maxLength: number, fillString?: string) => string"
+        },
+        {
+          "name": "padEnd",
+          "optional": false,
+          "type": "(maxLength: number, fillString?: string) => string"
+        },
+        {
+          "name": "trimEnd",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimStart",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimLeft",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimRight",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "matchAll",
+          "optional": false,
+          "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+        },
+        {
+          "name": "replaceAll",
+          "optional": false,
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+        },
+        {
+          "name": "at",
+          "optional": false,
+          "type": "(index: number) => string | undefined"
+        },
+        {
+          "name": "__@iterator@21491",
+          "optional": false,
+          "type": "() => StringIterator<string>"
+        }
+      ]
+    },
+    {
+      "name": "isOverlayMessageRequest",
+      "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+      "start": 554,
+      "end": 569,
+      "declaration": "isOverlayMessageRequest = (\n  data: unknown,\n): data is OverlayMessageRequest => {\n  if (typeof data !== 'object' || data === null) {\n    return false;\n  }\n  const candidate = data as Record<string, unknown>;\n  return (\n    typeof candidate.type === 'string' &&\n    (Object.values(OverlayRequestType) as string[]).includes(candidate.type) &&\n    typeof candidate.requestId === 'string' &&\n    (!('expiresAt' in candidate) ||\n      (typeof candidate.expiresAt === 'number' &&\n        Number.isFinite(candidate.expiresAt)))\n  );\n}",
+      "signature": "(data: unknown): data is OverlayMessageRequest",
+      "props": []
+    },
+    {
+      "name": "isOverlayMessageResponse",
+      "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+      "start": 572,
+      "end": 604,
+      "declaration": "isOverlayMessageResponse = (\n  data: unknown,\n): data is OverlayMessageResponse => {\n  if (typeof data !== 'object' || data === null) {\n    return false;\n  }\n  const candidate = data as Record<string, unknown>;\n  if (\n    typeof candidate.type !== 'string' ||\n    typeof candidate.requestId !== 'string'\n  ) {\n    return false;\n  }\n  const hasKnownResponseType = (\n    Object.values(OverlayRequestType) as string[]\n  ).some((requestType) => candidate.type === `${requestType}/RESPONSE`);\n  if (!hasKnownResponseType) {\n    return false;\n  }\n  if (!('error' in candidate)) {\n    return true;\n  }\n  const error = candidate.error;\n  return (\n    typeof error === 'object' &&\n    error !== null &&\n    typeof (error as Record<string, unknown>).code === 'string' &&\n    (Object.values(OverlayRequestErrorCode) as string[]).includes(\n      (error as Record<string, unknown>).code as string,\n    ) &&\n    typeof (error as Record<string, unknown>).message === 'string'\n  );\n}",
+      "signature": "(data: unknown): data is OverlayMessageResponse",
+      "props": []
+    },
+    {
+      "name": "isOverlayMessageEvent",
+      "file": "libs/chat-overlay/src/protocol/overlay-protocol.ts",
+      "start": 607,
+      "end": 619,
+      "declaration": "isOverlayMessageEvent = (\n  data: unknown,\n): data is OverlayMessageEvent => {\n  if (typeof data !== 'object' || data === null) {\n    return false;\n  }\n  const candidate = data as Record<string, unknown>;\n  return (\n    typeof candidate.type === 'string' &&\n    (Object.values(OverlayEventType) as string[]).includes(candidate.type) &&\n    !('requestId' in candidate)\n  );\n}",
+      "signature": "(data: unknown): data is OverlayMessageEvent",
+      "props": []
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/chat-overlay/src/lib/tests/ChatOverlay.spec.ts",
+      "assertions": [
+        "throws a descriptive error when the root selector matches nothing",
+        "creates an iframe with a non-empty accessible name",
+        "allows auth popups to open outside the iframe sandbox",
+        "styles the root, iframe, and loader from an injected stylesheet instead of inline styles",
+        "injects the stylesheet once per document",
+        "keeps a host loaderClass alongside the default loader class",
+        "does not add the positioning class to a root with existing non-static positioning",
+        "does not request microphone permission by default",
+        "requests microphone permission when voice input is enabled",
+        "hides the default loader on READY when loaderHideEvent is unset",
+        "keeps the loader visible until the configured loaderHideEvent",
+        "hides the loader even when loaderStyles pins an inline display",
+        "keeps non-display loaderStyles entries after the loader hides",
+        "reads the loader palette from themable custom properties",
+        "does not resolve ready() on READY alone",
+        "resolves ready() to true after the full handshake",
+        "does not post a request until ready() resolves",
+        "starts request timeout only after ready() resolves",
+        "resolves sendMessage with the response payload once ready",
+        "targets postMessage calls at the origin derived from options.domain",
+        "omits undefined optional fields from initial SET_OVERLAY_OPTIONS",
+        "includes non-empty auth provider UI modes in the initial handshake",
+        "omits an empty auth provider UI modes map from the handshake",
+        "includes the auto-sign-in provider in the initial handshake",
+        "omits the auto-sign-in provider when no auth option is given",
+        "omits a whitespace-only auto-sign-in provider",
+        "includes enabledFeatures from constructor options in the initial handshake send",
+        "replaces enabledFeatures and resends when setOverlayOptions is called",
+        "preserves the previous enabledFeatures value when a later call omits it",
+        "replaces auth provider UI modes when auth is provided",
+        "adds the auto-sign-in provider through setOverlayOptions",
+        "drops the auto-sign-in provider when a later auth update omits it",
+        "preserves auth provider UI modes when an update omits auth",
+        "does not retroactively change iframe allow permissions when enabledFeatures is set later",
+        "rejects a timed-out request with an error naming the type and timeout",
+        "rejects immediately with the structured error returned by the embedded chat",
+        "ignores a response whose requestId matches no pending request",
+        "ignores a response whose type does not match the pending request type",
+        "does not resolve or reject a later message reusing an already-consumed requestId",
+        "invokes only the remaining subscriber after one unsubscribes",
+        "invokes a subscriber once per repeated identical event",
+        "discards a message event whose source is not the created iframe",
+        "removes the message listener and rejects pending requests on destroy",
+        "does not throw when destroy is called twice",
+        "dispatches GET_CONVERSATIONS and resolves with the response payload",
+        "dispatches GET_SELECTED_CONVERSATIONS and resolves with the response payload",
+        "dispatches SELECT_CONVERSATION with the given id",
+        "dispatches DELETE_CONVERSATION with the given id",
+        "dispatches RENAME_CONVERSATION with the given id and newName",
+        "dispatches CREATE_CONVERSATION with deploymentId and firstMessage",
+        "posts a payload with no firstMessage for createConversation() and createLocalConversation()",
+        "waits for ready() before sending getConversations",
+        "rejects createConversation with a timeout error naming the type and timeout"
+      ]
+    },
+    {
+      "file": "libs/chat-overlay/src/lib/tests/ChatOverlayManager.spec.ts",
+      "assertions": [
+        "throws a descriptive error for an unknown overlayId",
+        "creates a toggle button with a non-empty accessible name",
+        "makes toggle, close, and fullscreen buttons keyboard-focusable in DOM order",
+        "grants fullscreen permission to the iframe when allowFullscreen is set",
+        "forwards ready() to the requested overlay",
+        "shows the panel and hides the toggle button on showOverlay",
+        "removes the container and toggle button on removeOverlay, and further calls throw",
+        "destroys all overlays and stops recomputing layout on resize",
+        "throws a descriptive error for an unknown overlayId for each new method",
+        "forwards each new method to the underlying ChatOverlay instance with the same arguments",
+        "forwards setOverlayOptions with enabledFeatures unchanged to the underlying ChatOverlay instance"
+      ]
+    },
+    {
+      "file": "libs/chat-overlay/src/protocol/tests/overlay-protocol.spec.ts",
+      "assertions": [
+        "contains exactly the external and same-window modes",
+        "leaves auth.autoSignInProvider optional on ChatOverlayOptions",
+        "accepts a provider id alongside providerUiModes",
+        "leaves authAutoSignInProvider optional on SetOverlayOptionsPayload",
+        "contains exactly the settled stage outcomes",
+        "accepts a well-formed request",
+        "rejects a response type",
+        "rejects a missing requestId",
+        "rejects a non-numeric expiresAt",
+        "rejects non-objects",
+        "accepts a well-formed response",
+        "rejects a bare request type",
+        "rejects an unknown request type response",
+        "accepts a response with a structured request error",
+        "rejects a response with an unknown request error code",
+        "has exactly 45 unique members",
+        "includes the hide-keyboard-shortcuts feature key",
+        "includes the hide-conversations-filter feature key",
+        "includes the hide-change-agent feature key",
+        "includes the prompts feature key",
+        "includes the skills feature key",
+        "includes the file-manager feature key",
+        "includes the show-all-starters feature key",
+        "includes the hide-footer-version feature key",
+        "includes the show-agent-description feature key",
+        "includes the removable-tools feature key",
+        "includes the schema-apps feature key, not its renamed predecessor",
+        "does not include the renamed marketplace keys",
+        "does not include keys whose behavior became unconditional",
+        "includes the pre-existing and newly-added transferable keys",
+        "does not include any of the 19 missing-status legacy keys",
+        "accepts a well-formed event",
+        "rejects an event-shaped object carrying a requestId",
+        "rejects an unknown type",
+        "resolves every current wire value to itself",
+        "resolves a deprecated alias to its replacement",
+        "returns undefined for an unrecognized value",
+        "maps every deprecated value onto a current OverlayFeature member"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat-overlay-sandbox/src/cases/ConversationListCase/ConversationListCase.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { ChatOverlay } from '@epam/ai-dial-chat-overlay';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/cases/EnabledFeaturesCase/EnabledFeaturesCase.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 6,
+          "excerpt": "import {\n  ChatOverlay,\n  OverlayEventType,\n  OverlayFeature,\n} from '@epam/ai-dial-chat-overlay';\nimport { Input, NeutralButton, PrimaryButton } from '@epam/ai-dial-ui-kit';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/cases/ManagerOverlayCase/ManagerOverlayCase.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 6,
+          "excerpt": "import {\n  ChatOverlayManager,\n  OverlayEventType,\n  OverlayPosition,\n} from '@epam/ai-dial-chat-overlay';\nimport { DangerButton, NeutralButton } from '@epam/ai-dial-ui-kit';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/cases/DirectOverlayCase/DirectOverlayCase.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { ChatOverlay, OverlayEventType } from '@epam/ai-dial-chat-overlay';\nimport { NeutralButton } from '@epam/ai-dial-ui-kit';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/CatalogView/CatalogView.tsx",
+      "matches": [
+        {
+          "start": 5,
+          "end": 15,
+          "excerpt": "} from '@epam/ai-dial-catalog';\nimport {\n  type CatalogEditNavigationLabels,\n  type CatalogEditNavigationUrls,\n  findDeploymentByIdOrReference,\n  type ToolsetCredentialsLabels,\n  useCatalogEditNavigation,\n  useCatalogToolsetCredentials,\n} from '@epam/ai-dial-chat-hooks';\nimport { OverlayFeature } from '@epam/ai-dial-chat-overlay';\nimport { CatalogEntityType } from '@epam/ai-dial-chat-shared';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/pages/SettingsPage/PreferencesTab/PreferencesTab.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { OverlayFeature } from '@epam/ai-dial-chat-overlay';\nimport { SendOnEnter } from '@epam/ai-dial-conversation-input';"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/cases/AuthUiModeCase/AuthUiModeCase.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 6,
+          "excerpt": "import {\n  ChatOverlay,\n  OverlayAuthUiMode,\n  OverlayEventType,\n} from '@epam/ai-dial-chat-overlay';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/Header/Header.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { OverlayFeature } from '@epam/ai-dial-chat-overlay';\nimport { mergeClasses } from '@epam/ai-dial-chat-shared';"
+        }
+      ]
+    }
+  ]
+}

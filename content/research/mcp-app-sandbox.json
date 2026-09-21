@@ -1,0 +1,507 @@
+{
+  "project": {
+    "id": "apps/mcp-app-sandbox",
+    "project": "mcp-app-sandbox",
+    "path": "apps/mcp-app-sandbox",
+    "package": "mcp-app-sandbox",
+    "purpose": "Research in progress",
+    "sources": [
+      "apps/mcp-app-sandbox/README.md",
+      "apps/mcp-app-sandbox/package.json",
+      "apps/chat-api/src/app-config/config-registry/config-registry.constants.ts",
+      "apps/chat-api/src/app-config/dto/client-config-response.dto.ts"
+    ],
+    "output": "decks/apps/mcp-app-sandbox.pptx",
+    "preview": "previews/apps/mcp-app-sandbox",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "build",
+      "serve",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "lint",
+      "start",
+      "prune-lockfile",
+      "copy-workspace-modules",
+      "prune"
+    ],
+    "dependencies": []
+  },
+  "package": {
+    "name": "mcp-app-sandbox",
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "private": true,
+    "scripts": {
+      "start": "nx serve mcp-app-sandbox"
+    },
+    "nx": {
+      "targets": {
+        "build": {
+          "executor": "nx:run-commands",
+          "options": {
+            "command": "webpack-cli build",
+            "args": [
+              "--config-node-env=production"
+            ],
+            "cwd": "apps/mcp-app-sandbox"
+          },
+          "configurations": {
+            "development": {
+              "args": [
+                "--config-node-env=development"
+              ]
+            }
+          }
+        },
+        "prune-lockfile": {
+          "dependsOn": [
+            "build"
+          ],
+          "cache": true,
+          "executor": "@nx/js:prune-lockfile",
+          "outputs": [
+            "{workspaceRoot}/apps/mcp-app-sandbox/dist/package.json",
+            "{workspaceRoot}/apps/mcp-app-sandbox/dist/package-lock.json"
+          ],
+          "options": {
+            "buildTarget": "build"
+          }
+        },
+        "copy-workspace-modules": {
+          "dependsOn": [
+            "build"
+          ],
+          "cache": true,
+          "outputs": [
+            "{workspaceRoot}/apps/mcp-app-sandbox/dist/workspace_modules"
+          ],
+          "executor": "@nx/js:copy-workspace-modules",
+          "options": {
+            "buildTarget": "build"
+          }
+        },
+        "prune": {
+          "dependsOn": [
+            "prune-lockfile",
+            "copy-workspace-modules"
+          ],
+          "executor": "nx:noop"
+        },
+        "serve": {
+          "continuous": true,
+          "executor": "@nx/js:node",
+          "defaultConfiguration": "development",
+          "dependsOn": [
+            "build"
+          ],
+          "options": {
+            "buildTarget": "mcp-app-sandbox:build",
+            "runBuildTargetDependencies": false
+          },
+          "configurations": {
+            "development": {
+              "buildTarget": "mcp-app-sandbox:build:development"
+            },
+            "production": {
+              "buildTarget": "mcp-app-sandbox:build:production"
+            }
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "@nestjs/common": "^11.0.0",
+      "@nestjs/config": "^4.0.4",
+      "@nestjs/core": "^11.0.0",
+      "@nestjs/platform-express": "^11.0.0",
+      "class-transformer": "^0.5.1",
+      "class-validator": "^0.15.1",
+      "helmet": "^8.1.0",
+      "multer": "2.3.0",
+      "reflect-metadata": "^0.2.2",
+      "rxjs": "^7.8.0",
+      "tslib": "^2.3.0"
+    },
+    "devDependencies": {
+      "@nestjs/testing": "^11.0.0"
+    },
+    "overrides": {
+      "multer": "2.3.0"
+    }
+  },
+  "nx": {
+    "root": "apps/mcp-app-sandbox",
+    "targets": {
+      "typecheck": {
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/mcp-app-sandbox",
+          "command": "tsc --build tsconfig.json --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "webpack-cli"
+            ]
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "extends",
+              "files",
+              "include"
+            ]
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/apps/mcp-app-sandbox/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "webpack"
+          ],
+          "description": "Runs Webpack build",
+          "help": {
+            "command": "npx webpack-cli build --help",
+            "example": {
+              "options": {
+                "json": "stats.json"
+              },
+              "args": [
+                "--profile"
+              ]
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/mcp-app-sandbox",
+          "env": {
+            "NODE_ENV": "production"
+          },
+          "command": "webpack-cli build",
+          "args": [
+            "--config-node-env=production"
+          ]
+        },
+        "configurations": {
+          "development": {
+            "env": {
+              "NODE_ENV": "development"
+            },
+            "args": [
+              "--config-node-env=development"
+            ]
+          }
+        },
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "mcp-app-sandbox:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "mcp-app-sandbox:build:development"
+          },
+          "production": {
+            "buildTarget": "mcp-app-sandbox:build:production"
+          }
+        },
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "webpack"
+          ],
+          "description": "Starts Webpack dev server in production mode",
+          "help": {
+            "command": "npx webpack-cli serve --help",
+            "example": {
+              "options": {
+                "args": [
+                  "--client-progress",
+                  "--history-api-fallback "
+                ]
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/mcp-app-sandbox",
+          "env": {
+            "NODE_ENV": "production"
+          },
+          "command": "webpack-cli serve"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects mcp-app-sandbox --includeDependencies -- npx nx build-deps mcp-app-sandbox"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/apps/mcp-app-sandbox/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/mcp-app-sandbox",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "start": {
+        "executor": "nx:run-script",
+        "metadata": {
+          "scriptContent": "nx serve mcp-app-sandbox",
+          "runCommand": "npm run start"
+        },
+        "options": {
+          "script": "start"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "prune-lockfile": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": true,
+        "executor": "@nx/js:prune-lockfile",
+        "outputs": [
+          "{workspaceRoot}/apps/mcp-app-sandbox/dist/package.json",
+          "{workspaceRoot}/apps/mcp-app-sandbox/dist/package-lock.json"
+        ],
+        "options": {
+          "buildTarget": "build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "copy-workspace-modules": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": true,
+        "outputs": [
+          "{workspaceRoot}/apps/mcp-app-sandbox/dist/workspace_modules"
+        ],
+        "executor": "@nx/js:copy-workspace-modules",
+        "options": {
+          "buildTarget": "build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "prune": {
+        "dependsOn": [
+          "prune-lockfile",
+          "copy-workspace-modules"
+        ],
+        "executor": "nx:noop",
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "application",
+    "metadata": {
+      "targetGroups": {
+        "NPM Scripts": [
+          "start"
+        ]
+      },
+      "js": {
+        "packageName": "mcp-app-sandbox",
+        "packageVersion": "0.0.1",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "mcp-app-sandbox",
+    "tags": [
+      "npm:private"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "apps/mcp-app-sandbox/src/config/environment.config.ts",
+    "apps/mcp-app-sandbox/src/config/validation.ts",
+    "apps/mcp-app-sandbox/src/main.ts",
+    "apps/mcp-app-sandbox/src/app/sandbox-page.ts",
+    "apps/mcp-app-sandbox/src/app/csp.ts",
+    "apps/mcp-app-sandbox/src/app/app.module.ts",
+    "apps/mcp-app-sandbox/src/app/sandbox.service.ts",
+    "apps/mcp-app-sandbox/src/app/sandbox.controller.ts",
+    "apps/mcp-app-sandbox/eslint.config.mjs",
+    "apps/mcp-app-sandbox/tsconfig.json",
+    "apps/mcp-app-sandbox/package.json",
+    "apps/mcp-app-sandbox/README.md",
+    "apps/mcp-app-sandbox/webpack.config.js",
+    "apps/mcp-app-sandbox/Dockerfile",
+    "apps/mcp-app-sandbox/tsconfig.app.json"
+  ],
+  "tests": [],
+  "consumers": [
+    "apps/chat-api/src/app-config/config-registry/config-registry.constants.ts",
+    "apps/chat-api/src/app-config/dto/client-config-response.dto.ts"
+  ],
+  "readme": "# MCP Apps Sandbox Proxy\n\nA minimal, standalone NestJS app implementing the MCP Apps double-iframe\nsandbox-proxy page that `@mcp-ui/client` (used by `libs/attachment-canvas`'s\n`McpAppCanvasRenderer`) requires to render a tool-supplied `ui://` resource\nsafely. Adapted from `modelcontextprotocol/ext-apps`'s reference\nimplementation (`examples/basic-host/{sandbox.html,src/sandbox.ts}`).\n\n## Why this is a separate app\n\nThe MCP Apps double-iframe architecture requires the sandbox-proxy page to be\nserved from an origin genuinely distinct from the host chat application's\norigin (different hostname and/or port) \u2014 this is what gives the untrusted\ntool HTML real cross-origin isolation, not just an iframe `sandbox`\nattribute. It must **not** be served from the same origin as `apps/chat`\n(unlike `apps/chat-overlay-sandbox`, which is intentionally same-origin).\n\n## Environment variables\n\n| Variable                               | Default | Description                                                                                                                                                                                                                                  |\n| -------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| `PORT`                                 | `3100`  | Port the app listens on.                                                                                                                                                                                                                     |\n| `MCP_APP_SANDBOX_ALLOWED_HOST_ORIGINS` | \u2014       | Comma-separated list of origins allowed to embed this page (e.g. `https://chat.example.com`). **Required** for the app to serve anything \u2014 every request is rejected with `403` until this is set, there is no insecure \"allow all\" default. |\n\nThen point `apps/chat-api`'s `MCP_APP_SANDBOX_URL` env var at this\ndeployment's base URL, so `apps/chat` can resolve it via the existing\nclient-config pipeline.\n\n## Deployment\n\nDeploy this app on its own host/port, distinct from `apps/chat`'s.\n\nBuild the production Docker image from the repo root:\n\n```bash\ndocker build -f apps/mcp-app-sandbox/Dockerfile -t mcp-app-sandbox .\n```\n\nRun the built image, mapping the port and setting the required allowed-origins\nenv var:\n\n```bash\ndocker run -p 3100:3100 \\\n  -e MCP_APP_SANDBOX_ALLOWED_HOST_ORIGINS=https://chat.example.com \\\n  mcp-app-sandbox\n```\n\n## Local development\n\n### directly\n\n```bash\nMCP_APP_SANDBOX_ALLOWED_HOST_ORIGINS=http://localhost:4207 npm exec nx serve mcp-app-sandbox\n```\n\n### docker image\n\n```bash\n    docker run -p 3100:3100 -e MCP_APP_SANDBOX_ALLOWED_HOST_ORIGINS=http://localhost:4207 mcp-app-sandbox\n```\n",
+  "exports": {},
+  "contracts": {},
+  "implementationEvidence": [],
+  "testEvidence": [],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat-api/src/app-config/config-registry/config-registry.constants.ts",
+      "matches": [
+        {
+          "start": 63,
+          "end": 73,
+          "excerpt": "  },\n  {\n    key: 'mcpApps.sandboxUrl',\n    type: 'config',\n    valueType: 'string',\n    visibility: 'client',\n    defaultValue: null,\n    critical: false,\n    description:\n      'Isolated-origin URL of the deployed MCP Apps sandbox-proxy app (apps/mcp-app-sandbox). Null when MCP_APP_SANDBOX_URL is not configured \u2014 the \"Open App\" trigger and auto-open simply do not appear.',\n    owner: 'chat-team',"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat-api/src/app-config/dto/client-config-response.dto.ts",
+      "matches": [
+        {
+          "start": 57,
+          "end": 67,
+          "excerpt": "    type: String,\n  })\n  @IsOptional()\n  @IsString()\n  dialCoreExternalUrl!: string | null;\n\n  @ApiPropertyOptional({\n    description:\n      'Isolated-origin URL of the deployed MCP Apps sandbox-proxy app. Null when MCP_APP_SANDBOX_URL is not configured.',\n    example: 'https://mcp-app-sandbox.example.com',\n    nullable: true,"
+        }
+      ]
+    }
+  ]
+}

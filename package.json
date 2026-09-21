@@ -1,0 +1,21 @@
+{
+  "name": "ai-dial-chat-presentations",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Source-verified English technical presentation series",
+  "type": "module",
+  "scripts": {
+    "generate": "node src/generate.mjs",
+    "render": "python3 src/render.py",
+    "check": "python3 src/check.py && python3 src/check-text-fit.py",
+    "check:examples": "node src/check-examples.mjs",
+    "index": "python3 src/build-index.py",
+    "check:resume": "python3 src/check-resume.py",
+    "check:bundle": "python3 src/check-bundle.py",
+    "site:build": "python3 src/build-site.py",
+    "site:check": "python3 src/check-site.py"
+  },
+  "dependencies": {
+    "pptxgenjs": "4.0.1"
+  }
+}

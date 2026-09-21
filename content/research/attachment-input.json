@@ -1,0 +1,3971 @@
+{
+  "project": {
+    "id": "libs/attachment-input",
+    "project": "@epam/ai-dial-attachment-input",
+    "path": "libs/attachment-input",
+    "package": "@epam/ai-dial-attachment-input",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/attachment-input/README.md",
+      "libs/attachment-input/package.json",
+      "libs/attachment-input/src/index.ts",
+      "libs/attachment-input/src/hooks/tests/useClipboardPaste.spec.ts",
+      "libs/attachment-input/src/hooks/tests/useLazyImageLoad.spec.tsx",
+      "libs/attachment-input/src/components/AttachmentTray/tests/AttachmentTray.spec.tsx",
+      "libs/attachment-input/src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx",
+      "libs/conversation-messages/src/components/MessageBubble/UserMessageBubble.tsx",
+      "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+      "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+      "libs/source-panel/src/components/FilesSection/FilesSection.tsx"
+    ],
+    "output": "decks/libs/attachment-input.pptx",
+    "preview": "previews/libs/attachment-input",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/AttachmentCard/tests/AttachmentCard.spec.tsx",
+      "test-ci--src/components/AttachmentGroup/tests/AttachmentGroup.spec.tsx",
+      "test-ci--src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx",
+      "test-ci--src/components/AttachmentTray/tests/AttachmentTray.spec.tsx",
+      "test-ci--src/components/FileDndOverlay/tests/FileDndOverlay.spec.tsx",
+      "test-ci--src/hooks/tests/useClipboardPaste.spec.ts",
+      "test-ci--src/hooks/tests/useLazyImageLoad.spec.tsx",
+      "test-ci--src/utils/tests/attachment-card-state.spec.ts",
+      "test-ci--src/utils/tests/attachment-mime.spec.ts",
+      "test-ci--src/utils/tests/name-without-extension.spec.ts",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-attachment-input",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-attachment-input",
+    "description": "File attachment input components with upload validation, drag-and-drop, and progress tracking",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0"
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-shared": "*",
+      "react": "^19.2.8",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9"
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/attachment-input",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/attachment-input/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-attachment-input --includeDependencies -- npx nx build-deps @epam/ai-dial-attachment-input"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/AttachmentCard/tests/AttachmentCard.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/AttachmentCard/tests/AttachmentCard.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/AttachmentCard/tests/AttachmentCard.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vitest run src/components/AttachmentCard/tests/AttachmentCard.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/AttachmentCard/tests/AttachmentCard.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/AttachmentGroup/tests/AttachmentGroup.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/AttachmentGroup/tests/AttachmentGroup.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/AttachmentGroup/tests/AttachmentGroup.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vitest run src/components/AttachmentGroup/tests/AttachmentGroup.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/AttachmentGroup/tests/AttachmentGroup.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vitest run src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/AttachmentTray/tests/AttachmentTray.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/AttachmentTray/tests/AttachmentTray.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/AttachmentTray/tests/AttachmentTray.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vitest run src/components/AttachmentTray/tests/AttachmentTray.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/AttachmentTray/tests/AttachmentTray.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/FileDndOverlay/tests/FileDndOverlay.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/FileDndOverlay/tests/FileDndOverlay.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/FileDndOverlay/tests/FileDndOverlay.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vitest run src/components/FileDndOverlay/tests/FileDndOverlay.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/FileDndOverlay/tests/FileDndOverlay.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/hooks/tests/useClipboardPaste.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/hooks/tests/useClipboardPaste.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/hooks/tests/useClipboardPaste.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vitest run src/hooks/tests/useClipboardPaste.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/hooks/tests/useClipboardPaste.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/hooks/tests/useLazyImageLoad.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/hooks/tests/useLazyImageLoad.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/hooks/tests/useLazyImageLoad.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vitest run src/hooks/tests/useLazyImageLoad.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/hooks/tests/useLazyImageLoad.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/attachment-card-state.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/attachment-card-state.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/attachment-card-state.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vitest run src/utils/tests/attachment-card-state.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/attachment-card-state.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/attachment-mime.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/attachment-mime.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/attachment-mime.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vitest run src/utils/tests/attachment-mime.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/attachment-mime.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/name-without-extension.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/name-without-extension.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/name-without-extension.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/attachment-input",
+          "command": "vitest run src/utils/tests/name-without-extension.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/name-without-extension.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/AttachmentCard/tests/AttachmentCard.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/AttachmentGroup/tests/AttachmentGroup.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/AttachmentTray/tests/AttachmentTray.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/FileDndOverlay/tests/FileDndOverlay.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/hooks/tests/useClipboardPaste.spec.ts",
+          "{projectRoot}/test-output/vitest/coverage/src/hooks/tests/useLazyImageLoad.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/attachment-card-state.spec.ts",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/attachment-mime.spec.ts",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/name-without-extension.spec.ts"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/AttachmentCard/tests/AttachmentCard.spec.tsx",
+          "test-ci--src/components/AttachmentGroup/tests/AttachmentGroup.spec.tsx",
+          "test-ci--src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx",
+          "test-ci--src/components/AttachmentTray/tests/AttachmentTray.spec.tsx",
+          "test-ci--src/components/FileDndOverlay/tests/FileDndOverlay.spec.tsx",
+          "test-ci--src/hooks/tests/useClipboardPaste.spec.ts",
+          "test-ci--src/hooks/tests/useLazyImageLoad.spec.tsx",
+          "test-ci--src/utils/tests/attachment-card-state.spec.ts",
+          "test-ci--src/utils/tests/attachment-mime.spec.ts",
+          "test-ci--src/utils/tests/name-without-extension.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-attachment-input --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/AttachmentCard/tests/AttachmentCard.spec.tsx",
+          "test-ci--src/components/AttachmentGroup/tests/AttachmentGroup.spec.tsx",
+          "test-ci--src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx",
+          "test-ci--src/components/AttachmentTray/tests/AttachmentTray.spec.tsx",
+          "test-ci--src/components/FileDndOverlay/tests/FileDndOverlay.spec.tsx",
+          "test-ci--src/hooks/tests/useClipboardPaste.spec.ts",
+          "test-ci--src/hooks/tests/useLazyImageLoad.spec.tsx",
+          "test-ci--src/utils/tests/attachment-card-state.spec.ts",
+          "test-ci--src/utils/tests/attachment-mime.spec.ts",
+          "test-ci--src/utils/tests/name-without-extension.spec.ts"
+        ]
+      },
+      "description": "File attachment input components with upload validation, drag-and-drop, and progress tracking",
+      "js": {
+        "packageName": "@epam/ai-dial-attachment-input",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-attachment-input",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/attachment-input/src/index.ts",
+    "libs/attachment-input/src/hooks/useLazyImageLoad.ts",
+    "libs/attachment-input/src/hooks/tests/useClipboardPaste.spec.ts",
+    "libs/attachment-input/src/hooks/tests/useLazyImageLoad.spec.tsx",
+    "libs/attachment-input/src/hooks/useClipboardPaste.ts",
+    "libs/attachment-input/src/vite-env.d.ts",
+    "libs/attachment-input/src/components/AttachmentTray/AttachmentTray.tsx",
+    "libs/attachment-input/src/components/AttachmentTray/tests/AttachmentTray.spec.tsx",
+    "libs/attachment-input/src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx",
+    "libs/attachment-input/src/components/AttachmentGroup/AttachmentGroup.tsx",
+    "libs/attachment-input/src/components/AttachmentGroup/tests/AttachmentGroup.spec.tsx",
+    "libs/attachment-input/src/components/AttachmentGroup/AttachmentGroup.module.scss",
+    "libs/attachment-input/src/components/FileDndOverlay/FileDndOverlay.module.scss",
+    "libs/attachment-input/src/components/FileDndOverlay/FileDndOverlay.tsx",
+    "libs/attachment-input/src/components/FileDndOverlay/tests/FileDndOverlay.spec.tsx",
+    "libs/attachment-input/src/components/AttachmentCard/Attachments/Image.tsx",
+    "libs/attachment-input/src/components/AttachmentCard/Attachments/Attachment.module.scss",
+    "libs/attachment-input/src/components/AttachmentCard/Attachments/File.tsx",
+    "libs/attachment-input/src/components/AttachmentCard/Attachments/Actions.tsx",
+    "libs/attachment-input/src/components/AttachmentCard/tests/AttachmentCard.spec.tsx",
+    "libs/attachment-input/src/components/AttachmentCard/AttachmentCard.tsx",
+    "libs/attachment-input/src/test-setup.ts",
+    "libs/attachment-input/src/models/attachment-card.ts",
+    "libs/attachment-input/src/models/attachment-file-row.ts",
+    "libs/attachment-input/src/models/attachment-group.ts",
+    "libs/attachment-input/src/models/attachment-tray.ts",
+    "libs/attachment-input/src/models/file-dnd-overlay.ts",
+    "libs/attachment-input/src/utils/attachment.ts",
+    "libs/attachment-input/src/utils/tests/attachment-card-state.spec.ts",
+    "libs/attachment-input/src/utils/tests/attachment-mime.spec.ts",
+    "libs/attachment-input/src/utils/tests/name-without-extension.spec.ts",
+    "libs/attachment-input/src/constants/public-class-names.ts",
+    "libs/attachment-input/src/constants/upload.ts",
+    "libs/attachment-input/src/constants/attachment-group.ts",
+    "libs/attachment-input/tsconfig.spec.json",
+    "libs/attachment-input/eslint.config.mjs",
+    "libs/attachment-input/postcss.config.js",
+    "libs/attachment-input/tsconfig.lib.json",
+    "libs/attachment-input/tsconfig.json",
+    "libs/attachment-input/package.json",
+    "libs/attachment-input/vite.config.mts",
+    "libs/attachment-input/README.md",
+    "libs/attachment-input/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/attachment-input/src/hooks/tests/useClipboardPaste.spec.ts",
+    "libs/attachment-input/src/hooks/tests/useLazyImageLoad.spec.tsx",
+    "libs/attachment-input/src/components/AttachmentTray/tests/AttachmentTray.spec.tsx",
+    "libs/attachment-input/src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx",
+    "libs/attachment-input/src/components/AttachmentGroup/tests/AttachmentGroup.spec.tsx",
+    "libs/attachment-input/src/components/FileDndOverlay/tests/FileDndOverlay.spec.tsx",
+    "libs/attachment-input/src/components/AttachmentCard/tests/AttachmentCard.spec.tsx",
+    "libs/attachment-input/src/utils/tests/attachment-card-state.spec.ts",
+    "libs/attachment-input/src/utils/tests/attachment-mime.spec.ts",
+    "libs/attachment-input/src/utils/tests/name-without-extension.spec.ts",
+    "libs/attachment-input/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "libs/conversation-messages/src/components/MessageBubble/UserMessageBubble.tsx",
+    "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+    "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+    "libs/source-panel/src/components/FilesSection/FilesSection.tsx",
+    "libs/source-panel/src/components/FilesSection/tests/FilesSection.spec.tsx",
+    "libs/conversation-stages/src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx",
+    "libs/conversation-stages/src/components/StagesPanel/tests/StagesPanel.spec.tsx",
+    "libs/conversation-stages/src/components/StageItem/tests/StageItem.spec.tsx",
+    "libs/conversation-input/src/hooks/useAttachments.ts",
+    "libs/chat-hooks/src/attachment/useAttachmentValidation/useAttachmentValidation.ts",
+    "libs/conversation-input/src/components/Input/Input.tsx",
+    "libs/chat-hooks/src/catalog/map-entity-details-to-catalog.ts",
+    "apps/chat/src/components/NewConversationComposer/NewConversationComposer.tsx",
+    "apps/chat/src/components/ConversationView/ConversationView.tsx",
+    "apps/chat/src/components/DialFileManagerModal/DialFileManagerModal.tsx"
+  ],
+  "readme": "# @epam/ai-dial-attachment-input\n\nFile attachment components with upload validation, progress tracking, clipboard paste, and drag-and-drop support.\n\n## Overview\n\n`@epam/ai-dial-attachment-input` provides everything needed to let users attach files to a conversation message and to display the attachments a message already carries. It covers the full lifecycle of an upload: MIME type and size validation before the file is sent, an `AttachmentCard` that shows per-file name, progress, error state, and removal or retry actions, an `AttachmentTray` that groups multiple cards in the input area, an `AttachmentGroup` that renders a sent message's images and file rows with a \"download all\" action, a drag-and-drop overlay for dropping files anywhere on the input zone, and a clipboard-paste hook for pasting images or long text directly from the clipboard. Use this library rather than building file handling from scratch whenever you need a production-quality attachment UX that enforces rate limits, shows meaningful error states, and lazily loads image previews only when they scroll into view.\n\nLike every lib in this workspace, it holds no i18n, no transport, and no state of its own \u2014 user-visible strings arrive through `labels` props with English defaults, and the host supplies the attachment data and the callbacks that act on it.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-attachment-input\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-attachment-input/styles.css';\n```\n\n## Peer Dependencies\n\n- `react`\n- `@epam/ai-dial-chat-shared`\n- `@epam/ai-dial-ui-kit`\n\n## Components\n\n### AttachmentCard\n\nDisplays a single attachment with its name, status, and actions. Every callback receives the attachment `id`. Passing `searchQuery` highlights matches in the file name.\n\nEach action the card renders \u2014 download, retry, open-in-new-tab, remove \u2014 gets its own accessible name from `labels`, so pass every label whose action the card can show. They are laid out as one row in the tile's corner.\n\n```tsx\nimport { AttachmentCard } from '@epam/ai-dial-attachment-input';\n\n<AttachmentCard\n  attachment={attachment}\n  searchQuery={searchQuery}\n  onRemove={handleRemove}\n  onRetry={handleRetry}\n  onDownload={handleDownload}\n  isSelected={attachment.id === selectedAttachmentId}\n  labels={{\n    removeLabel: 'Remove attachment',\n    retryLabel: 'Retry upload',\n    openInNewTabLabel: 'Open in new tab',\n    downloadLabel: 'Download attachment',\n    uploadingLabel: 'Uploading',\n  }}\n/>;\n```\n\n### AttachmentTray\n\nRenders the list of in-progress attachments above the composer.\n\nWhile a file's upload is in flight its tile carries `aria-busy` and renders an\nindeterminate `role=\"progressbar\"` named by `labels.uploadingLabel` (default\n`'Uploading'`), so the state is reachable without sight of the spinner. Pass a\ntranslated string.\n\n```tsx\nimport { AttachmentTray } from '@epam/ai-dial-attachment-input';\n\n<AttachmentTray\n  attachments={attachments}\n  onRemove={handleRemove}\n  onRetry={handleRetry}\n  onExpand={handleExpandPastedText}\n  onAttachmentClick={handleOpenInCanvas}\n/>;\n```\n\n### AttachmentGroup\n\nRenders a sent message's attachments \u2014 image tiles plus file rows \u2014 with a header action that downloads everything downloadable at once. Collapses beyond `ATTACHMENT_COLLAPSE_THRESHOLD` items.\n\n```tsx\nimport {\n  AttachmentGroup,\n  ATTACHMENT_COLLAPSE_THRESHOLD,\n} from '@epam/ai-dial-attachment-input';\n\n<AttachmentGroup\n  attachments={message.attachments}\n  onAttachmentClick={handleOpenInCanvas}\n  onDownloadAll={handleDownloadAll}\n  selectedAttachmentId={selectedAttachmentId}\n/>;\n```\n\n### FileDndOverlay\n\nFull-area drag-and-drop overlay. Set `isAttachmentsAllowed={false}` to render the denied state, which suppresses the drop instead of forwarding it.\n\n```tsx\nimport { FileDndOverlay } from '@epam/ai-dial-attachment-input';\n\n<FileDndOverlay\n  isVisible={isDragging}\n  isAttachmentsAllowed={isAttachmentsAllowed}\n  labels={{ title: 'Drop files to attach' }}\n/>;\n```\n\n## Hooks\n\n### useClipboardPaste\n\nReturns a `handlePaste` handler for a textarea. Pasted images become image attachments; pasted text longer than `threshold` characters becomes a pasted-text attachment instead of inline input content.\n\n`screenshotName` is a template, not the final name: the paste timestamp is inserted before the extension (`Screenshot 2026-09-14 09-05-03.png`), and a paste carrying several images appends the item's position, so each pasted image is stored under its own name.\n\n```tsx\nimport { useClipboardPaste } from '@epam/ai-dial-attachment-input';\n\nconst { handlePaste } = useClipboardPaste(handleAttachments, 1000, {\n  screenshotName: 'Screenshot.png',\n  pastedTextName: 'Pasted text',\n});\n\n<textarea onPaste={handlePaste} />;\n```\n\n### useLazyImageLoad\n\nDefers image loading until the element is visible, and reports the load state so the caller can keep a skeleton up.\n\n```tsx\nimport {\n  useLazyImageLoad,\n  LazyImageLoadStatus,\n} from '@epam/ai-dial-attachment-input';\n\nconst { imageRef, imageLoadStatus } = useLazyImageLoad({\n  enabled: isVisible,\n  src: previewUrl,\n});\n\n<img\n  ref={imageRef}\n  alt={fileName}\n  className={\n    imageLoadStatus === LazyImageLoadStatus.Loaded ? 'opacity-100' : 'opacity-0'\n  }\n/>;\n```\n\n`LazyImageLoadStatus` values: `Idle`, `Loading`, `Loaded`, `Error`.\n\n## Utilities\n\n```tsx\nimport {\n  generateAttachmentId,\n  getAttachmentCardState,\n  getAttachmentIcon,\n  getExtFromContentType,\n  getNameWithoutExtension,\n  mimeTypesToExtensionLabels,\n  isMimeTypeAllowed,\n  MAX_UPLOADS_PER_MINUTE,\n  ATTACHMENT_COLLAPSE_THRESHOLD,\n} from '@epam/ai-dial-attachment-input';\n\n// Check if a file type is permitted (an empty allowlist permits nothing)\nconst isAllowed = isMimeTypeAllowed(file.type, allowedMimeTypes);\n\n// Convert MIME types to a human-readable extension label string\nconst label = mimeTypesToExtensionLabels(['image/png', 'application/pdf']);\n\n// Resolve an extension and a Tabler icon from a content type\nconst ext = getExtFromContentType(file.type);\nconst Icon = getAttachmentIcon(file.type);\n\n// Derive everything a card needs to render (visual state, type label, preview)\nconst cardState = getAttachmentCardState(attachment, typeLabels);\n```\n\n## Public class names\n\nEvery tray and tile element a host is likely to restyle carries a stable\n`dial-ai-*` class in addition to its internal classes. Target those instead of\nhashed CSS-module names, DOM order, or ARIA attributes \u2014 all three change\nwithout notice. The names are exported so you never hardcode them:\n\n```tsx\nimport { ATTACHMENT_INPUT_CLASS } from '@epam/ai-dial-attachment-input';\n\nATTACHMENT_INPUT_CLASS.tile; // 'dial-ai-attachment-tile'\n```\n\n| Class                              | Element                                                   |\n| ---------------------------------- | --------------------------------------------------------- |\n| `dial-ai-attachment-tray`          | The tray's `role=\"list\"` root                             |\n| `dial-ai-attachment-tray-item`     | Each `role=\"listitem\"` wrapper in the tray                |\n| `dial-ai-attachment-tile`          | The square tile, for both image and non-previewable files |\n| `dial-ai-attachment-tile-selected` | The tile when selected, **additive** to the tile class    |\n| `dial-ai-attachment-tile-name`     | The tile's filename element                               |\n| `dial-ai-attachment-tile-type`     | The tile's type and size row                              |\n| `dial-ai-attachment-tile-action`   | Every corner action: download, retry, open-link, remove   |\n\nA selected tile carries both `dial-ai-attachment-tile` and\n`dial-ai-attachment-tile-selected`, so one rule can style all tiles and a second\ncan style the selected case. An empty tray renders nothing at all, so no class\nis emitted.\n\nThese classes carry no declarations of their own, so they change nothing until\nyou style them.\n\n### Replacing fragile selectors\n\n| Instead of                                        | Use                                       |\n| ------------------------------------------------- | ----------------------------------------- |\n| `[role='list'][aria-label='Attached files']`      | `.dial-ai-attachment-tray`                |\n| `[role='listitem']`                               | `.dial-ai-attachment-tray-item`           |\n| `[class*='_tile_']`                               | `.dial-ai-attachment-tile`                |\n| `[class*='_selected_']`                           | `.dial-ai-attachment-tile-selected`       |\n| `[class*='_nameText_']` / `[class*='_typeText_']` | `.dial-ai-attachment-tile-name` / `-type` |\n| `[class*='_actionButton_']`                       | `.dial-ai-attachment-tile-action`         |\n\nThe `aria-label` selector deserves a specific warning: the tray's label is\nlocalisable through `labels.ariaLabel`, so selecting by `'Attached files'`\nbreaks the moment your app translates it. Never use an ARIA attribute as a\nstyling hook.\n\nHover-reveal for the corner actions still comes from the tile's\n`group/attachment-tile` and the actions'\n`group-hover/attachment-tile:opacity-100` utilities. Those are Tailwind\nutilities in this package's JSX, not rules in its stylesheet, so they only\napply when your own Tailwind build scans this package.\n\n### Stability\n\nA `dial-ai-*` class is public API: renaming it, removing it, or moving it to a\ndifferent element is a breaking change, announced in the release notes and\nrecorded here with its replacement. The element itself stays free \u2014 its Tailwind\nutilities, its CSS-module class, and its position in the DOM may all change.\n\nYour own overrides are responsible for direction: the class names are\ndirection-agnostic and identical under `dir=\"rtl\"`, so use CSS logical\nproperties (`margin-inline-start`, `inset-inline-end`) rather than physical ones.\n\nThe full convention \u2014 naming grammar, why not BEM, and the rules these classes\nfollow \u2014 is in\n[`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\n## Types\n\nProps, labels, colors, typography, and styles interfaces are exported for every\ncomponent: `AttachmentCardProps` / `AttachmentCardLabels` /\n`AttachmentCardColors` / `AttachmentCardTypography` / `AttachmentCardStyles` /\n`AttachmentCardState` / `AttachmentTypeLabels`, `AttachmentTrayProps` /\n`AttachmentTrayLabels` / `AttachmentTrayStyles`, `AttachmentGroupProps` and its\nlabel/color/typography/style companions, `FileDndOverlayProps` and its\ncompanions, the `FileAttachment*` row types, and `UseClipboardPasteLabels`.\n",
+  "exports": {
+    "libs/attachment-input/src/index.ts": "export { AttachmentCard } from './components/AttachmentCard/AttachmentCard';\nexport { AttachmentTray } from './components/AttachmentTray/AttachmentTray';\nexport { AttachmentGroup } from './components/AttachmentGroup/AttachmentGroup';\nexport { FileDndOverlay } from './components/FileDndOverlay/FileDndOverlay';\n\nexport type {\n  AttachmentCardProps,\n  AttachmentCardColors,\n  AttachmentCardTypography,\n  AttachmentCardStyles,\n  AttachmentCardLabels,\n  AttachmentCardState,\n  AttachmentTypeLabels,\n} from './models/attachment-card';\nexport type {\n  AttachmentTrayProps,\n  AttachmentTrayLabels,\n  AttachmentTrayStyles,\n} from './models/attachment-tray';\nexport {\n  type AttachmentGroupProps,\n  type AttachmentGroupLabels,\n  type AttachmentGroupColors,\n  type AttachmentGroupTypography,\n  type AttachmentGroupStyles,\n} from './models/attachment-group';\nexport type {\n  FileDndOverlayProps,\n  FileDndOverlayLabels,\n  FileDndOverlayColors,\n  FileDndOverlayTypography,\n  FileDndOverlayStyles,\n} from './models/file-dnd-overlay';\nexport type {\n  FileAttachmentLabels,\n  FileAttachmentTypography,\n  FileAttachmentStyles,\n} from './models/attachment-file-row';\n\nexport {\n  useClipboardPaste,\n  type UseClipboardPasteLabels,\n} from './hooks/useClipboardPaste';\nexport {\n  useLazyImageLoad,\n  LazyImageLoadStatus,\n} from './hooks/useLazyImageLoad';\n\nexport {\n  generateAttachmentId,\n  getAttachmentCardState,\n  getExtFromContentType,\n  getAttachmentIcon,\n  getNameWithoutExtension,\n  mimeTypesToExtensionLabels,\n  isMimeTypeAllowed,\n} from './utils/attachment';\n\nexport { ATTACHMENT_COLLAPSE_THRESHOLD } from './constants/attachment-group';\nexport { ATTACHMENT_INPUT_CLASS } from './constants/public-class-names';\nexport { MAX_UPLOADS_PER_MINUTE } from './constants/upload';\n"
+  },
+  "contracts": {
+    "libs/attachment-input/src/index.ts": [
+      {
+        "name": "AttachmentCard",
+        "file": "libs/attachment-input/src/components/AttachmentCard/AttachmentCard.tsx",
+        "start": 9,
+        "end": 82,
+        "declaration": "AttachmentCard: FC<AttachmentCardProps> = ({\n  attachment,\n  searchQuery = '',\n  onRemove,\n  onRetry,\n  onExpand,\n  onClick,\n  onDownload,\n  labels,\n  styles: cardStyles,\n  isSelected,\n}) => {\n  const { colors } = cardStyles ?? {};\n  const isPasted = attachment.type === AttachmentType.Pasted;\n  const isExpandable = isPasted && onExpand !== undefined;\n\n  const cssVars = buildCssVars({\n    '--ai-tile-bg': colors?.background,\n    '--ai-tile-border': colors?.border,\n    '--ai-tile-bg-hover': colors?.backgroundHover,\n    '--ai-tile-border-hover': colors?.borderHover,\n    '--ai-tile-bg-selected': colors?.backgroundSelected,\n    '--ai-tile-border-selected': colors?.borderSelected,\n    '--ai-tile-focus-outline': colors?.focusOutline,\n    '--ai-tile-bg-error': colors?.backgroundError,\n    '--ai-tile-border-error': colors?.borderError,\n    '--ai-tile-error-text': colors?.errorText,\n    '--ai-tile-name-text': colors?.nameText,\n    '--ai-tile-type-text': colors?.typeText,\n    '--ai-tile-hover-icon-bg': colors?.hoverIconBackground,\n    '--ai-tile-hover-icon-color': colors?.hoverIconColor,\n    '--ai-tile-progress-track': colors?.trackBackground,\n  });\n\n  const { isImage, isLink } = useMemo(\n    () => getAttachmentCardState(attachment),\n    [attachment],\n  );\n\n  if (isImage) {\n    return (\n      <ImageAttachment\n        attachment={attachment}\n        labels={labels}\n        onClick={onClick}\n        onExpand={onExpand}\n        styles={cardStyles}\n        onRemove={onRemove}\n        cssVars={cssVars}\n        onDownload={onDownload}\n        isSelected={isSelected}\n      />\n    );\n  }\n\n  return (\n    <FileAttachment\n      attachment={attachment}\n      searchQuery={searchQuery}\n      onClick={onClick}\n      onRetry={onRetry}\n      onRemove={onRemove}\n      onDownload={onDownload}\n      isLink={isLink}\n      isPasted={isPasted}\n      styles={cardStyles}\n      labels={labels}\n      onExpand={onExpand}\n      cssVars={cssVars}\n      isExpandable={isExpandable}\n      isSelected={isSelected}\n    />\n  );\n}",
+        "signature": "(props: AttachmentCardProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "attachment",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-chat-shared\").DisplayAttachment"
+          },
+          {
+            "name": "searchQuery",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "onRemove",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "onRetry",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "onExpand",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "onClick",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").AttachmentCardLabels | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").AttachmentCardStyles | undefined"
+          },
+          {
+            "name": "onDownload",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "isSelected",
+            "optional": true,
+            "type": "boolean | undefined"
+          }
+        ]
+      },
+      {
+        "name": "AttachmentTray",
+        "file": "libs/attachment-input/src/components/AttachmentTray/AttachmentTray.tsx",
+        "start": 8,
+        "end": 56,
+        "declaration": "AttachmentTray: FC<AttachmentTrayProps> = ({\n  attachments,\n  onRemove,\n  onRetry,\n  onExpand,\n  onAttachmentClick,\n  labels,\n  styles,\n}) => {\n  const {\n    ariaLabel = 'Attached files',\n    removeLabel,\n    retryLabel,\n    clickLabel,\n    uploadingLabel,\n  } = labels ?? {};\n  const { className } = styles ?? {};\n\n  if (attachments.length === 0) return null;\n\n  return (\n    <div\n      role=\"list\"\n      aria-label={ariaLabel}\n      className={mergeClasses(\n        'flex w-full min-w-0 gap-2 overflow-x-auto',\n        className,\n        ATTACHMENT_INPUT_CLASS.tray,\n      )}\n    >\n      {attachments.map((attachment) => (\n        <div\n          key={attachment.id}\n          role=\"listitem\"\n          className={ATTACHMENT_INPUT_CLASS.trayItem}\n        >\n          <AttachmentCard\n            attachment={attachment}\n            onRemove={onRemove}\n            onRetry={onRetry}\n            onExpand={onExpand}\n            labels={{ removeLabel, retryLabel, clickLabel, uploadingLabel }}\n            onClick={onAttachmentClick}\n          />\n        </div>\n      ))}\n    </div>\n  );\n}",
+        "signature": "(props: AttachmentTrayProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "attachments",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[]"
+          },
+          {
+            "name": "onRemove",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "onRetry",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "onExpand",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "onAttachmentClick",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").AttachmentTrayLabels | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").AttachmentTrayStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "AttachmentGroup",
+        "file": "libs/attachment-input/src/components/AttachmentGroup/AttachmentGroup.tsx",
+        "start": 29,
+        "end": 166,
+        "declaration": "AttachmentGroup: FC<AttachmentGroupProps> = ({\n  attachments,\n  onAttachmentClick,\n  onDownloadAll,\n  onRetry,\n  labels,\n  styles: groupStyles,\n  selectedAttachmentId,\n}) => {\n  const {\n    ariaLabel = 'Attachments',\n    clickLabel = 'Download attachment',\n    retryLabel = 'Retry upload',\n    downloadAllLabel = 'Download all',\n    openInNewTabLabel,\n    getHeaderLabel = (count: number) => pluralize(count, 'attachment'),\n    promptLabel,\n    pastedLabel,\n    imageLabel,\n  } = labels ?? {};\n  const { typography, colors, className } = groupStyles ?? {};\n  const cssVars = buildCssVars({\n    '--ai-group-text': colors?.text,\n  });\n\n  if (attachments.length === 0) return null;\n\n  const hasImages = attachments.some((a) => a.type === AttachmentType.Image);\n  const hasFiles = attachments.some((a) => a.type !== AttachmentType.Image);\n  const isMixed = hasImages && hasFiles;\n  const isCollapsible = attachments.length >= ATTACHMENT_COLLAPSE_THRESHOLD;\n\n  const HeaderIcon = isMixed ? IconPaperclip : hasImages ? IconPhoto : IconFile;\n  const headerLabel = getHeaderLabel(attachments.length);\n\n  const handleDownloadAll = () => {\n    /*\n     * Skip attachments that individual tiles themselves wouldn't allow\n     * downloading (still uploading, or failed) \u2014 \"download all\" must not\n     * fire on a broken/incomplete attachment just because it's in the list.\n     */\n    const downloadableAttachments = attachments.filter(\n      (attachment) => attachment.status === RequestStatus.Idle,\n    );\n\n    if (onDownloadAll) {\n      onDownloadAll(downloadableAttachments);\n    } else {\n      downloadableAttachments.forEach((attachment) =>\n        onAttachmentClick?.(attachment.id),\n      );\n    }\n  };\n\n  const handleDownload = (id: string) => {\n    const downloadableAttachment = attachments.find(\n      (attachment) => attachment.id === id,\n    );\n    if (downloadableAttachment) {\n      onDownloadAll?.([downloadableAttachment]);\n    }\n  };\n\n  return (\n    <div\n      role=\"group\"\n      aria-label={ariaLabel}\n      style={cssVars}\n      className={mergeClasses(\n        'flex flex-col gap-1',\n        isCollapsible ? 'w-full min-w-0 max-w-[492px]' : 'max-w-[420px]',\n        styles.container,\n        className,\n      )}\n    >\n      <div className=\"flex items-center justify-between\">\n        <div className=\"flex items-center gap-1\">\n          <HeaderIcon\n            size={DIAL_ICON_SIZE.SM}\n            className={mergeClasses('shrink-0', styles.headerIcon)}\n            aria-hidden\n          />\n          <span\n            className={mergeClasses(\n              typography?.headerLabelClassName ?? 'dial-tiny-semi-text',\n              styles.headerLabel,\n            )}\n          >\n            {headerLabel}\n          </span>\n        </div>\n        {attachments.length >= 2 && (onDownloadAll || onAttachmentClick) && (\n          <GhostIconButton\n            icon={\n              <IconDownload\n                size={DIAL_ICON_SIZE.SM}\n                aria-hidden\n                stroke={DIAL_KIT_ICON_STROKE}\n              />\n            }\n            size={ElementSize.Small}\n            aria-label={downloadAllLabel}\n            onClick={handleDownloadAll}\n          />\n        )}\n      </div>\n\n      <div\n        role=\"list\"\n        aria-label={headerLabel}\n        className={mergeClasses(\n          'gap-3',\n          isCollapsible ? 'grid grid-cols-[repeat(5,83px)]' : 'flex flex-wrap',\n        )}\n      >\n        {attachments.map((attachment, index) => (\n          <div key={`${attachment.id}-${index}`} role=\"listitem\">\n            <AttachmentCard\n              attachment={attachment}\n              onClick={onAttachmentClick}\n              onDownload={handleDownload}\n              onRetry={onRetry}\n              labels={{\n                clickLabel,\n                retryLabel,\n                promptLabel,\n                pastedLabel,\n                imageLabel,\n                openInNewTabLabel,\n              }}\n              isSelected={attachment.id === selectedAttachmentId}\n            />\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: AttachmentGroupProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "attachments",
+            "optional": false,
+            "type": "import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[]"
+          },
+          {
+            "name": "onAttachmentClick",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "onDownloadAll",
+            "optional": true,
+            "type": "((attachments: import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[]) => void) | undefined"
+          },
+          {
+            "name": "onRetry",
+            "optional": true,
+            "type": "((id: string) => void) | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").AttachmentGroupLabels | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").AttachmentGroupStyles | undefined"
+          },
+          {
+            "name": "selectedAttachmentId",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "FileDndOverlay",
+        "file": "libs/attachment-input/src/components/FileDndOverlay/FileDndOverlay.tsx",
+        "start": 8,
+        "end": 78,
+        "declaration": "FileDndOverlay: FC<FileDndOverlayProps> = ({\n  isVisible,\n  isAttachmentsAllowed = true,\n  labels,\n  styles: overlayStyles,\n}) => {\n  const { title, subtitle } = labels ?? {};\n  const { colors, typography } = overlayStyles ?? {};\n\n  if (!isVisible) return null;\n\n  const cssVars = buildCssVars({\n    '--ai-fd-bg': colors?.background,\n    '--ai-fd-icon': colors?.icon,\n    '--ai-fd-denied-icon': colors?.deniedIcon,\n  });\n\n  const resolvedTitle =\n    title ?? (isAttachmentsAllowed ? 'Attach files' : 'No attachments allowed');\n  const resolvedSubtitle =\n    subtitle ??\n    (isAttachmentsAllowed\n      ? 'Drop files here to attach them to message'\n      : \"Attachments can't be added to message\");\n  const resolvedIconClassName = isAttachmentsAllowed\n    ? styles.icon\n    : styles.deniedIcon;\n\n  const suppressDrop = (e: DragEvent) => {\n    e.preventDefault();\n  };\n\n  const Icon = isAttachmentsAllowed ? IconFileDescription : IconFileX;\n\n  return (\n    <div\n      role=\"status\"\n      aria-live=\"polite\"\n      className={mergeClasses(\n        'fixed inset-0 z-[9999] flex items-center justify-center backdrop-blur-sm',\n        styles.overlay,\n        isAttachmentsAllowed\n          ? 'pointer-events-none'\n          : 'pointer-events-auto cursor-not-allowed',\n      )}\n      onDragOver={isAttachmentsAllowed ? undefined : suppressDrop}\n      onDrop={isAttachmentsAllowed ? undefined : suppressDrop}\n      style={cssVars}\n    >\n      <div className=\"flex flex-col items-center text-center\">\n        <Icon size={100} className={resolvedIconClassName} aria-hidden />\n        <span\n          className={mergeClasses(\n            'mt-5',\n            typography?.titleClassName ?? 'dial-h3-text',\n          )}\n        >\n          {resolvedTitle}\n        </span>\n        <span\n          className={mergeClasses(\n            'mt-4',\n            typography?.subtitleClassName ?? 'dial-small-text',\n          )}\n        >\n          {resolvedSubtitle}\n        </span>\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: FileDndOverlayProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "isVisible",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "isAttachmentsAllowed",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").FileDndOverlayLabels | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").FileDndOverlayStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "AttachmentCardProps",
+        "file": "libs/attachment-input/src/models/attachment-card.ts",
+        "start": 103,
+        "end": 124,
+        "declaration": "export interface AttachmentCardProps {\n  /** The attachment data to display. */\n  attachment: DisplayAttachment;\n  /** Current search query \u2014 when set, matches in the file name are highlighted. Defaults to `''`. */\n  searchQuery?: string;\n  /** Called when the user activates the remove button. */\n  onRemove?: (id: string) => void;\n  /** Called when the user activates the retry button (error state only). */\n  onRetry?: (id: string) => void;\n  /** Called when the user clicks or activates a pasted-text card to expand its content back into the input. */\n  onExpand?: (id: string) => void;\n  /** Called when the user clicks or keyboard-activates the card. Receives the attachment `id`. */\n  onClick?: (id: string) => void;\n  /** Localised accessible labels for the remove/retry actions, the interactive card root, and the non-extension attachment type names (prompt/pasted/image). */\n  labels?: AttachmentCardLabels;\n  /** Color, typography, and shape overrides for the card. */\n  styles?: AttachmentCardStyles;\n  /** Called when the user activates the download button. Receives the attachment `id`. */\n  onDownload?: (id: string) => void;\n  /** Whether this attachment is the one currently open in the canvas panel. Renders the tile's selected visual state. */\n  isSelected?: boolean;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentCardColors",
+        "file": "libs/attachment-input/src/models/attachment-card.ts",
+        "start": 31,
+        "end": 62,
+        "declaration": "export interface AttachmentCardColors {\n  /** Tile background color in the default state. */\n  background?: string;\n  /** Tile border color in the default state. */\n  border?: string;\n  /** Tile background color on hover. */\n  backgroundHover?: string;\n  /** Tile border color on hover. */\n  borderHover?: string;\n  /** Tile background color in the selected state. */\n  backgroundSelected?: string;\n  /** Tile border color in the selected state. */\n  borderSelected?: string;\n  /** Tile focus outline color. */\n  focusOutline?: string;\n  /** Tile background color in the error state. */\n  backgroundError?: string;\n  /** Tile border color in the error state. */\n  borderError?: string;\n  /** File name/type text color in the error state. */\n  errorText?: string;\n  /** File name text color. */\n  nameText?: string;\n  /** Type/meta text color. */\n  typeText?: string;\n  /** Hover download icon background color. */\n  hoverIconBackground?: string;\n  /** Hover download icon color. */\n  hoverIconColor?: string;\n  /** Upload progress track background color. */\n  trackBackground?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentCardTypography",
+        "file": "libs/attachment-input/src/models/attachment-card.ts",
+        "start": 65,
+        "end": 70,
+        "declaration": "export interface AttachmentCardTypography {\n  /** Utility class applied to the file name text. Defaults to `'dial-tiny-text'`. */\n  fontClassName?: string;\n  /** Utility class applied to the bottom meta label (file type / status). Defaults to `'dial-caption-text'`. */\n  metaClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentCardStyles",
+        "file": "libs/attachment-input/src/models/attachment-card.ts",
+        "start": 73,
+        "end": 80,
+        "declaration": "export interface AttachmentCardStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: AttachmentCardColors;\n  /** Typography overrides for text elements inside the card. */\n  typography?: AttachmentCardTypography;\n  /** Extra class name(s) merged onto the root element. */\n  className?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentCardLabels",
+        "file": "libs/attachment-input/src/models/attachment-card.ts",
+        "start": 83,
+        "end": 100,
+        "declaration": "export interface AttachmentCardLabels extends AttachmentTypeLabels {\n  /** Accessible label for the remove button. Defaults to `'Remove attachment'`. */\n  removeLabel?: string;\n  /** Accessible label for the retry button (error state only). Defaults to `'Retry upload'`. */\n  retryLabel?: string;\n  /** Accessible label applied to the card root when it is interactive via `onClick`. Defaults to `'Open attachment'`. */\n  clickLabel?: string;\n  /** Accessible label applied to the card root when it is interactive via `onExpand` (pasted-text cards). Defaults to `'Expand pasted text'`. */\n  expandLabel?: string;\n  /** Accessible label for the loading spinner shown while the attachment is uploading. Defaults to `'Loading attachment'`. */\n  loadingLabel?: string;\n  /** Accessible label for the file card's in-progress upload progress bar. Defaults to `'Uploading'`. */\n  uploadingLabel?: string;\n  /** Accessible label for the download button. Defaults to `'Download attachment'`. */\n  downloadLabel?: string;\n  /** Accessible label for the open-in-new-tab button. Defaults to `'Open in new tab'`. */\n  openInNewTabLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentCardState",
+        "file": "libs/attachment-input/src/models/attachment-card.ts",
+        "start": 15,
+        "end": 28,
+        "declaration": "export interface AttachmentCardState {\n  /** Whether the attachment is currently uploading. */\n  isLoading: boolean;\n  /** Whether the attachment's upload failed. */\n  isError: boolean;\n  /** Whether the attachment should render as a previewable image tile. */\n  isImage: boolean;\n  /** Whether the attachment should render as a link tile. */\n  isLink: boolean;\n  /** Icon component representing the attachment's type. */\n  BottomIcon: Icon | null;\n  /** Human-readable type/status label rendered next to `BottomIcon`. */\n  typeLabel: string | null;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentTypeLabels",
+        "file": "libs/attachment-input/src/models/attachment-card.ts",
+        "start": 5,
+        "end": 12,
+        "declaration": "export interface AttachmentTypeLabels {\n  /** Label shown for a prompt-type attachment. Defaults to `'Prompt'`. */\n  promptLabel?: string;\n  /** Label shown for a pasted-text attachment. Defaults to `'Pasted'`. */\n  pastedLabel?: string;\n  /** Label shown for an image attachment. Defaults to `'Image'`. */\n  imageLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentTrayProps",
+        "file": "libs/attachment-input/src/models/attachment-tray.ts",
+        "start": 24,
+        "end": 39,
+        "declaration": "export interface AttachmentTrayProps {\n  /** The list of attachments to display. */\n  attachments: DisplayAttachment[];\n  /** Called when the user removes an attachment card. */\n  onRemove?: (id: string) => void;\n  /** Called when the user retries a failed attachment upload. */\n  onRetry?: (id: string) => void;\n  /** Called when the user clicks a pasted-text card to expand its content back into the input. */\n  onExpand?: (id: string) => void;\n  /** Called when the user clicks or keyboard-activates an attachment card. Receives the full `DisplayAttachment` object. */\n  onAttachmentClick?: (id: string) => void;\n  /** Localised accessible labels for the tray region and each card's interactive elements. */\n  labels?: AttachmentTrayLabels;\n  /** Style overrides for the tray. */\n  styles?: AttachmentTrayStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentTrayLabels",
+        "file": "libs/attachment-input/src/models/attachment-tray.ts",
+        "start": 4,
+        "end": 15,
+        "declaration": "export interface AttachmentTrayLabels {\n  /** Accessible label for the tray region. Defaults to `'Attached files'`. */\n  ariaLabel?: string;\n  /** Accessible label for each card's remove button. */\n  removeLabel?: string;\n  /** Accessible label for each card's retry button (error state only). */\n  retryLabel?: string;\n  /** Accessible label forwarded to each card's root when it is interactive. When omitted, the card's own default (`'Open attachment'`) applies. */\n  clickLabel?: string;\n  /** Accessible label for each card's in-progress upload progress bar. Defaults to `'Uploading'`. */\n  uploadingLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentTrayStyles",
+        "file": "libs/attachment-input/src/models/attachment-tray.ts",
+        "start": 18,
+        "end": 21,
+        "declaration": "export interface AttachmentTrayStyles {\n  /** Extra class name(s) merged onto the root element. */\n  className?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentGroupProps",
+        "file": "libs/attachment-input/src/models/attachment-group.ts",
+        "start": 47,
+        "end": 66,
+        "declaration": "export interface AttachmentGroupProps {\n  /** The message's full attachment list (images and files together). */\n  attachments: DisplayAttachment[];\n  /** Called when the user clicks/activates a previewable image tile or a file row (downloads it). */\n  onAttachmentClick?: (id: string) => void;\n  /**\n   * Called with every currently downloadable attachment when the user\n   * activates the \"download all\" header action. Falls back to invoking\n   * `onAttachmentClick` once per downloadable attachment when omitted.\n   */\n  onDownloadAll?: (attachments: DisplayAttachment[]) => void;\n  /** Called when the user retries a failed upload. */\n  onRetry?: (id: string) => void;\n  /** Localised accessible labels for the group region, its actions, and the non-extension attachment type names (prompt/pasted/image), forwarded to each tile. */\n  labels?: AttachmentGroupLabels;\n  /** Style overrides for the group. */\n  styles?: AttachmentGroupStyles;\n  /** ID of the attachment currently open in the canvas panel, if any. Renders that tile's selected visual state. */\n  selectedAttachmentId?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentGroupLabels",
+        "file": "libs/attachment-input/src/models/attachment-group.ts",
+        "start": 5,
+        "end": 22,
+        "declaration": "export interface AttachmentGroupLabels extends AttachmentTypeLabels {\n  /** Accessible label for the group region. Defaults to `'Attachments'`. */\n  ariaLabel?: string;\n  /** Accessible label for each tile/row's click action. Defaults to `'Download attachment'`. */\n  clickLabel?: string;\n  /** Accessible label for each row's retry action. Defaults to `'Retry upload'`. */\n  retryLabel?: string;\n  /** Label for the \"download all\" header action, shown whenever the group has 2+ attachments. Defaults to `'Download all'`. */\n  downloadAllLabel?: string;\n  /** Accessible label for each tile's open-in-new-tab button. Defaults to `'Open in new tab'`. */\n  openInNewTabLabel?: string;\n  /**\n   * Resolves the header count label (e.g. `'3 attachments'`) for a given\n   * attachment count. Defaults to English `'{count} attachment'` /\n   * `'{count} attachments'` pluralization.\n   */\n  getHeaderLabel?: (count: number) => string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentGroupColors",
+        "file": "libs/attachment-input/src/models/attachment-group.ts",
+        "start": 25,
+        "end": 28,
+        "declaration": "export interface AttachmentGroupColors {\n  /** Header icon/label/download-all button text color. */\n  text?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentGroupTypography",
+        "file": "libs/attachment-input/src/models/attachment-group.ts",
+        "start": 31,
+        "end": 34,
+        "declaration": "export interface AttachmentGroupTypography {\n  /** Typography class applied to the header's attachment-count label. Defaults to `'dial-tiny-semi-text'`. */\n  headerLabelClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AttachmentGroupStyles",
+        "file": "libs/attachment-input/src/models/attachment-group.ts",
+        "start": 37,
+        "end": 44,
+        "declaration": "export interface AttachmentGroupStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: AttachmentGroupColors;\n  /** Typography overrides for the header label. */\n  typography?: AttachmentGroupTypography;\n  /** Extra class name(s) merged onto the root element. */\n  className?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FileDndOverlayProps",
+        "file": "libs/attachment-input/src/models/file-dnd-overlay.ts",
+        "start": 36,
+        "end": 49,
+        "declaration": "export interface FileDndOverlayProps {\n  /** When `true`, the full-screen overlay is rendered. */\n  isVisible: boolean;\n  /**\n   * When `false`, the overlay renders a denied state: `IconFileX` in error color,\n   * `cursor-not-allowed`, and drops are suppressed (not forwarded to the document).\n   * Defaults to `true`.\n   */\n  isAttachmentsAllowed?: boolean;\n  /** User-visible strings. */\n  labels?: FileDndOverlayLabels;\n  /** Style overrides for the icon, title, and subtitle. */\n  styles?: FileDndOverlayStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FileDndOverlayLabels",
+        "file": "libs/attachment-input/src/models/file-dnd-overlay.ts",
+        "start": 28,
+        "end": 33,
+        "declaration": "export interface FileDndOverlayLabels {\n  /** Title text rendered below the icon. Defaults differ by state: `'Attach files'` when allowed, `'No attachments allowed'` when denied. */\n  title?: string;\n  /** Subtitle text rendered below the title. Defaults differ by state: `'Drop files here to attach them to message'` when allowed, `\"Attachments can't be added to message\"` when denied. */\n  subtitle?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FileDndOverlayColors",
+        "file": "libs/attachment-input/src/models/file-dnd-overlay.ts",
+        "start": 2,
+        "end": 9,
+        "declaration": "export interface FileDndOverlayColors {\n  /** Overlay background color. */\n  background?: string;\n  /** Icon color in the allowed state. */\n  icon?: string;\n  /** Icon color in the denied state (`isAttachmentsAllowed={false}`). */\n  deniedIcon?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FileDndOverlayTypography",
+        "file": "libs/attachment-input/src/models/file-dnd-overlay.ts",
+        "start": 12,
+        "end": 17,
+        "declaration": "export interface FileDndOverlayTypography {\n  /** CSS class applied to the title. Defaults to `'dial-h3-text'`. */\n  titleClassName?: string;\n  /** CSS class applied to the subtitle. Defaults to `'dial-small-text'`. */\n  subtitleClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FileDndOverlayStyles",
+        "file": "libs/attachment-input/src/models/file-dnd-overlay.ts",
+        "start": 20,
+        "end": 25,
+        "declaration": "export interface FileDndOverlayStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: FileDndOverlayColors;\n  /** Typography overrides applied to the title and subtitle. */\n  typography?: FileDndOverlayTypography;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FileAttachmentLabels",
+        "file": "libs/attachment-input/src/models/attachment-file-row.ts",
+        "start": 9,
+        "end": 26,
+        "declaration": "export interface FileAttachmentLabels extends AttachmentTypeLabels {\n  /** Accessible label for the download action. Defaults to `'Download attachment'`. */\n  clickLabel?: string;\n  /** Accessible label for the retry action. Defaults to `'Retry upload'`. */\n  retryLabel?: string;\n  /** Accessible label for the remove action. Defaults to `'Remove attachment'`. */\n  removeLabel?: string;\n  /** Accessible label for the open-in-new-tab action on link attachments. Defaults to `'Open in new tab'`. */\n  openInNewTabLabel?: string;\n  /** Human-readable size text (e.g. `'2.4 MB'`), appended after the type label in the meta line (`'.pdf \u00b7 2.4 MB'`) when derivable; omitted from the meta line if absent. */\n  sizeLabel?: string;\n  /** Accessible label for the in-progress upload progress bar. Defaults to `'Uploading'`. */\n  uploadingLabel?: string;\n  /** Per-`AttachmentErrorReason` error title text, shown as the tile's tooltip/title in error state. Defaults to built-in English reason text. */\n  errorReasonLabels?: Partial<Record<AttachmentErrorReason, string>>;\n  /** Fallback error title used when `errorReason` is absent or has no entry in `errorReasonLabels`. Defaults to `'Upload failed'`. */\n  genericErrorLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FileAttachmentTypography",
+        "file": "libs/attachment-input/src/models/attachment-file-row.ts",
+        "start": 29,
+        "end": 34,
+        "declaration": "export interface FileAttachmentTypography {\n  /** Typography class applied to the file name text. Defaults to `'dial-caption-text'`. */\n  nameClassName?: string;\n  /** Typography class applied to the bottom meta label (file type / status). Defaults to `'dial-caption-text'`. */\n  metaClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FileAttachmentStyles",
+        "file": "libs/attachment-input/src/models/attachment-file-row.ts",
+        "start": 37,
+        "end": 42,
+        "declaration": "export interface FileAttachmentStyles {\n  /** Typography overrides for the file name and meta label text. */\n  typography?: FileAttachmentTypography;\n  /** Extra class name(s) merged onto the root element. */\n  className?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "useClipboardPaste",
+        "file": "libs/attachment-input/src/hooks/useClipboardPaste.ts",
+        "start": 52,
+        "end": 128,
+        "declaration": "useClipboardPaste = (\n  onAttachments: (attachments: Attachment[]) => void,\n  threshold: number,\n  labels: UseClipboardPasteLabels = {},\n): { handlePaste: ClipboardEventHandler<HTMLTextAreaElement> } => {\n  const { screenshotName = 'Screenshot.png', pastedTextName = 'Pasted text' } =\n    labels;\n\n  const handlePaste: ClipboardEventHandler<HTMLTextAreaElement> = useCallback(\n    (event) => {\n      if (!event.clipboardData) return;\n\n      const items = Array.from(event.clipboardData.items);\n      const imageItems = items.filter(\n        (item) => item.kind === 'file' && item.type.startsWith('image/'),\n      );\n      const hasText = event.clipboardData.getData('text/plain').length > 0;\n\n      if (imageItems.length > 0 && !hasText) {\n        const imageAttachments: Attachment[] = [];\n        const pastedAt = new Date();\n        for (const item of imageItems) {\n          const blob = item.getAsFile();\n          if (!blob) continue;\n          const name = buildPastedImageName(\n            screenshotName,\n            pastedAt,\n            imageAttachments.length,\n          );\n          const file = new File([blob], name, {\n            type: blob.type,\n          });\n          const attachment: Attachment = {\n            id: generateAttachmentId(),\n            name,\n            contentType: blob.type,\n            file,\n            type: AttachmentType.Image,\n            status: RequestStatus.Idle,\n            previewUrl: URL.createObjectURL(file),\n          };\n          imageAttachments.push(attachment);\n        }\n        event.preventDefault();\n        onAttachments(imageAttachments);\n        return;\n      }\n\n      const text = event.clipboardData.getData('text/plain');\n      if (text.length > threshold) {\n        const trimmed = text.trim();\n        const MAX_PREVIEW = 80;\n        const preview =\n          trimmed.length > MAX_PREVIEW\n            ? `${trimmed.slice(0, MAX_PREVIEW).trimEnd()}\u2026`\n            : trimmed;\n        const fileName = preview || pastedTextName;\n        const file = new File([text], fileName, {\n          type: 'text/plain',\n        });\n        const pastedAttachment: Attachment = {\n          id: generateAttachmentId(),\n          name: fileName,\n          contentType: 'text/plain',\n          file,\n          type: AttachmentType.Pasted,\n          status: RequestStatus.Idle,\n        };\n        event.preventDefault();\n        onAttachments([pastedAttachment]);\n      }\n    },\n    [onAttachments, threshold, screenshotName, pastedTextName],\n  );\n\n  return { handlePaste };\n}",
+        "signature": "(onAttachments: (attachments: Attachment[]) => void, threshold: number, labels?: UseClipboardPasteLabels): { handlePaste: ClipboardEventHandler<HTMLTextAreaElement>; }",
+        "props": []
+      },
+      {
+        "name": "UseClipboardPasteLabels",
+        "file": "libs/attachment-input/src/hooks/useClipboardPaste.ts",
+        "start": 7,
+        "end": 12,
+        "declaration": "export interface UseClipboardPasteLabels {\n  /** Name template a pasted image is derived from, with the paste timestamp inserted before the extension. Defaults to `'Screenshot.png'`. */\n  screenshotName?: string;\n  /** Default file name given to pasted plain text when it has no usable preview. Defaults to `'Pasted text'`. */\n  pastedTextName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "useLazyImageLoad",
+        "file": "libs/attachment-input/src/hooks/useLazyImageLoad.ts",
+        "start": 24,
+        "end": 71,
+        "declaration": "useLazyImageLoad = ({\n  enabled,\n  src,\n}: UseLazyImageLoadParams): {\n  imageRef: RefObject<HTMLImageElement | null>;\n  imageLoadStatus: LazyImageLoadStatus;\n} => {\n  const imageRef = useRef<HTMLImageElement>(null);\n  const [imageLoadStatus, setImageLoadStatus] = useState<LazyImageLoadStatus>(\n    LazyImageLoadStatus.Idle,\n  );\n\n  useEffect(() => {\n    setImageLoadStatus(\n      enabled && src ? LazyImageLoadStatus.Loading : LazyImageLoadStatus.Idle,\n    );\n  }, [enabled, src]);\n\n  useEffect(() => {\n    const imageElement = imageRef.current;\n    if (!imageElement || !enabled || !src) {\n      return;\n    }\n\n    const handleImageLoad = (): void =>\n      setImageLoadStatus(LazyImageLoadStatus.Loaded);\n    const handleImageError = (): void =>\n      setImageLoadStatus(LazyImageLoadStatus.Error);\n\n    imageElement.addEventListener('load', handleImageLoad);\n    imageElement.addEventListener('error', handleImageError);\n\n    if (imageElement.complete) {\n      setImageLoadStatus(\n        imageElement.naturalWidth > 0\n          ? LazyImageLoadStatus.Loaded\n          : LazyImageLoadStatus.Error,\n      );\n    }\n\n    return () => {\n      imageElement.removeEventListener('load', handleImageLoad);\n      imageElement.removeEventListener('error', handleImageError);\n    };\n  }, [enabled, src]);\n\n  return { imageRef, imageLoadStatus };\n}",
+        "signature": "({ enabled, src, }: UseLazyImageLoadParams): { imageRef: RefObject<HTMLImageElement | null>; imageLoadStatus: LazyImageLoadStatus; }",
+        "props": [
+          {
+            "name": "enabled",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "src",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "LazyImageLoadStatus",
+        "file": "libs/attachment-input/src/hooks/useLazyImageLoad.ts",
+        "start": 4,
+        "end": 13,
+        "declaration": "export enum LazyImageLoadStatus {\n  /** Not yet requested to load. */\n  Idle = 'idle',\n  /** Image request is in flight; skeleton should stay visible. */\n  Loading = 'loading',\n  /** Image loaded successfully and can be shown. */\n  Loaded = 'loaded',\n  /** The image failed to load. */\n  Error = 'error',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "generateAttachmentId",
+        "file": "libs/attachment-input/src/utils/attachment.ts",
+        "start": 45,
+        "end": 46,
+        "declaration": "generateAttachmentId = (): string =>\n  `${Date.now()}-${Math.random().toString(36).slice(2)}`",
+        "signature": "(): string",
+        "props": []
+      },
+      {
+        "name": "getAttachmentCardState",
+        "file": "libs/attachment-input/src/utils/attachment.ts",
+        "start": 256,
+        "end": 276,
+        "declaration": "getAttachmentCardState = (\n  attachment: DisplayAttachment,\n  typeLabels: AttachmentTypeLabels = {},\n): AttachmentCardState => {\n  const { type, status, previewUrl, url } = attachment;\n\n  const isLoading = status === RequestStatus.Loading;\n  const isError = status === RequestStatus.Error;\n  const isImage =\n    type === AttachmentType.Image && !!(previewUrl ?? url) && !isError;\n  const isLink = type === AttachmentType.Link && !isError;\n\n  return {\n    isLoading,\n    isError,\n    isImage,\n    isLink,\n    BottomIcon: isLink ? null : getBottomIcon(attachment),\n    typeLabel: isLink ? null : getBottomLabel(attachment, typeLabels),\n  };\n}",
+        "signature": "(attachment: DisplayAttachment, typeLabels?: AttachmentTypeLabels): AttachmentCardState",
+        "props": [
+          {
+            "name": "id",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "contentType",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "optional": false,
+            "type": "AttachmentType"
+          },
+          {
+            "name": "status",
+            "optional": false,
+            "type": "RequestStatus"
+          },
+          {
+            "name": "errorReason",
+            "optional": true,
+            "type": "import(\"@epam/ai-dial-chat-shared\").AttachmentErrorReason | undefined"
+          },
+          {
+            "name": "previewUrl",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "playUrl",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "url",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "referenceUrl",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "data",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "getExtFromContentType",
+        "file": "libs/attachment-input/src/utils/attachment.ts",
+        "start": 214,
+        "end": 226,
+        "declaration": "getExtFromContentType = (\n  contentType: string,\n): string | undefined => {\n  const mime = contentType.toLowerCase().split(';')[0].trim();\n  const override = MIME_TYPE_EXT_MAP[mime];\n  if (override) return override;\n  const subtype = mime.split('/')[1];\n  // Skip complex vendor/structured subtypes (e.g. vnd.openxmlformats-..., svg+xml)\n  if (subtype && !subtype.startsWith('vnd.') && !subtype.includes('+')) {\n    return subtype;\n  }\n  return undefined;\n}",
+        "signature": "(contentType: string): string | undefined",
+        "props": [
+          {
+            "name": "toString",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "charAt",
+            "optional": false,
+            "type": "(pos: number) => string"
+          },
+          {
+            "name": "charCodeAt",
+            "optional": false,
+            "type": "(index: number) => number"
+          },
+          {
+            "name": "concat",
+            "optional": false,
+            "type": "(...strings: string[]) => string"
+          },
+          {
+            "name": "indexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "lastIndexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "localeCompare",
+            "optional": false,
+            "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+          },
+          {
+            "name": "match",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+          },
+          {
+            "name": "replace",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "search",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+          },
+          {
+            "name": "slice",
+            "optional": false,
+            "type": "(start?: number, end?: number) => string"
+          },
+          {
+            "name": "split",
+            "optional": false,
+            "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+          },
+          {
+            "name": "substring",
+            "optional": false,
+            "type": "(start: number, end?: number) => string"
+          },
+          {
+            "name": "toLowerCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleLowerCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "toUpperCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleUpperCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "trim",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "length",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "substr",
+            "optional": false,
+            "type": "(from: number, length?: number) => string"
+          },
+          {
+            "name": "valueOf",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "codePointAt",
+            "optional": false,
+            "type": "(pos: number) => number | undefined"
+          },
+          {
+            "name": "includes",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "endsWith",
+            "optional": false,
+            "type": "(searchString: string, endPosition?: number) => boolean"
+          },
+          {
+            "name": "normalize",
+            "optional": false,
+            "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+          },
+          {
+            "name": "repeat",
+            "optional": false,
+            "type": "(count: number) => string"
+          },
+          {
+            "name": "startsWith",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "anchor",
+            "optional": false,
+            "type": "(name: string) => string"
+          },
+          {
+            "name": "big",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "blink",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "bold",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fixed",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fontcolor",
+            "optional": false,
+            "type": "(color: string) => string"
+          },
+          {
+            "name": "fontsize",
+            "optional": false,
+            "type": "{ (size: number): string; (size: string): string; }"
+          },
+          {
+            "name": "italics",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "link",
+            "optional": false,
+            "type": "(url: string) => string"
+          },
+          {
+            "name": "small",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "strike",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sub",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sup",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "padStart",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "padEnd",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "trimEnd",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimStart",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimLeft",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimRight",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "matchAll",
+            "optional": false,
+            "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+          },
+          {
+            "name": "replaceAll",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "at",
+            "optional": false,
+            "type": "(index: number) => string | undefined"
+          },
+          {
+            "name": "__@iterator@21491",
+            "optional": false,
+            "type": "() => StringIterator<string>"
+          }
+        ]
+      },
+      {
+        "name": "getAttachmentIcon",
+        "file": "libs/attachment-input/src/utils/attachment.ts",
+        "start": 113,
+        "end": 203,
+        "declaration": "getAttachmentIcon = (contentType: string): Icon => {\n  if (!contentType) return IconFile;\n  // Broad category checks first\n  if (contentType.startsWith('image/')) {\n    switch (contentType) {\n      case 'image/jpeg':\n      case 'image/jpg':\n        return IconFileTypeJpg;\n      case 'image/png':\n        return IconFileTypePng;\n      case 'image/svg+xml':\n        return IconFileTypeSvg;\n      case 'image/bmp':\n        return IconFileTypeBmp;\n      default:\n        return IconPhoto;\n    }\n  }\n\n  if (contentType.startsWith('video/')) return IconVideo;\n  if (contentType.startsWith('audio/')) return IconMusic;\n\n  // Specific MIME type switch\n  switch (contentType) {\n    // Documents\n    case 'application/pdf':\n      return IconFileTypePdf;\n    case 'application/msword':\n    case 'application/vnd.ms-word':\n      return IconFileTypeDoc;\n    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':\n      return IconFileTypeDocx;\n    case 'application/vnd.ms-powerpoint':\n      return IconFileTypePpt;\n    case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':\n      return IconFileTypePpt;\n    case 'application/vnd.ms-excel':\n      return IconFileTypeXls;\n    case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':\n      return IconFileTypeXls;\n\n    // Archives\n    case 'application/zip':\n    case 'application/x-zip-compressed':\n    case 'application/x-rar-compressed':\n    case 'application/x-7z-compressed':\n    case 'application/gzip':\n    case 'application/x-tar':\n      return IconFileTypeZip;\n\n    // Data / markup\n    case 'text/csv':\n      return IconFileTypeCsv;\n    case 'text/plain':\n      return IconFileTypeTxt;\n    case 'text/html':\n    case 'application/xhtml+xml':\n      return IconFileTypeHtml;\n    case 'text/xml':\n    case 'application/xml':\n      return IconFileTypeXml;\n    case 'application/sql':\n    case 'text/x-sql':\n      return IconFileTypeSql;\n\n    // Web / code\n    case 'text/javascript':\n    case 'application/javascript':\n      return IconFileTypeJs;\n    case 'text/jsx':\n      return IconFileTypeJsx;\n    case 'application/typescript':\n    case 'text/typescript':\n      return IconFileTypeTs;\n    case 'text/tsx':\n      return IconFileTypeTsx;\n    case 'text/css':\n      return IconFileTypeCss;\n    case 'text/x-php':\n    case 'application/x-php':\n      return IconFileTypePhp;\n    case 'text/x-rustsrc':\n    case 'application/x-rust':\n      return IconFileTypeRs;\n    case 'text/x-vue':\n      return IconFileTypeVue;\n\n    default:\n      return IconFile;\n  }\n}",
+        "signature": "(contentType: string): Icon",
+        "props": [
+          {
+            "name": "toString",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "charAt",
+            "optional": false,
+            "type": "(pos: number) => string"
+          },
+          {
+            "name": "charCodeAt",
+            "optional": false,
+            "type": "(index: number) => number"
+          },
+          {
+            "name": "concat",
+            "optional": false,
+            "type": "(...strings: string[]) => string"
+          },
+          {
+            "name": "indexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "lastIndexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "localeCompare",
+            "optional": false,
+            "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+          },
+          {
+            "name": "match",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+          },
+          {
+            "name": "replace",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "search",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+          },
+          {
+            "name": "slice",
+            "optional": false,
+            "type": "(start?: number, end?: number) => string"
+          },
+          {
+            "name": "split",
+            "optional": false,
+            "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+          },
+          {
+            "name": "substring",
+            "optional": false,
+            "type": "(start: number, end?: number) => string"
+          },
+          {
+            "name": "toLowerCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleLowerCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "toUpperCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleUpperCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "trim",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "length",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "substr",
+            "optional": false,
+            "type": "(from: number, length?: number) => string"
+          },
+          {
+            "name": "valueOf",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "codePointAt",
+            "optional": false,
+            "type": "(pos: number) => number | undefined"
+          },
+          {
+            "name": "includes",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "endsWith",
+            "optional": false,
+            "type": "(searchString: string, endPosition?: number) => boolean"
+          },
+          {
+            "name": "normalize",
+            "optional": false,
+            "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+          },
+          {
+            "name": "repeat",
+            "optional": false,
+            "type": "(count: number) => string"
+          },
+          {
+            "name": "startsWith",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "anchor",
+            "optional": false,
+            "type": "(name: string) => string"
+          },
+          {
+            "name": "big",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "blink",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "bold",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fixed",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fontcolor",
+            "optional": false,
+            "type": "(color: string) => string"
+          },
+          {
+            "name": "fontsize",
+            "optional": false,
+            "type": "{ (size: number): string; (size: string): string; }"
+          },
+          {
+            "name": "italics",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "link",
+            "optional": false,
+            "type": "(url: string) => string"
+          },
+          {
+            "name": "small",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "strike",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sub",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sup",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "padStart",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "padEnd",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "trimEnd",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimStart",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimLeft",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimRight",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "matchAll",
+            "optional": false,
+            "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+          },
+          {
+            "name": "replaceAll",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "at",
+            "optional": false,
+            "type": "(index: number) => string | undefined"
+          },
+          {
+            "name": "__@iterator@21491",
+            "optional": false,
+            "type": "() => StringIterator<string>"
+          }
+        ]
+      },
+      {
+        "name": "getNameWithoutExtension",
+        "file": "libs/attachment-input/src/utils/attachment.ts",
+        "start": 49,
+        "end": 53,
+        "declaration": "getNameWithoutExtension = (name: string): string => {\n  if (name == null) return '';\n  const dotIndex = name.lastIndexOf('.');\n  return dotIndex > 0 ? name.slice(0, dotIndex) : name;\n}",
+        "signature": "(name: string): string",
+        "props": [
+          {
+            "name": "toString",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "charAt",
+            "optional": false,
+            "type": "(pos: number) => string"
+          },
+          {
+            "name": "charCodeAt",
+            "optional": false,
+            "type": "(index: number) => number"
+          },
+          {
+            "name": "concat",
+            "optional": false,
+            "type": "(...strings: string[]) => string"
+          },
+          {
+            "name": "indexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "lastIndexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "localeCompare",
+            "optional": false,
+            "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+          },
+          {
+            "name": "match",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+          },
+          {
+            "name": "replace",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "search",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+          },
+          {
+            "name": "slice",
+            "optional": false,
+            "type": "(start?: number, end?: number) => string"
+          },
+          {
+            "name": "split",
+            "optional": false,
+            "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+          },
+          {
+            "name": "substring",
+            "optional": false,
+            "type": "(start: number, end?: number) => string"
+          },
+          {
+            "name": "toLowerCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleLowerCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "toUpperCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleUpperCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "trim",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "length",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "substr",
+            "optional": false,
+            "type": "(from: number, length?: number) => string"
+          },
+          {
+            "name": "valueOf",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "codePointAt",
+            "optional": false,
+            "type": "(pos: number) => number | undefined"
+          },
+          {
+            "name": "includes",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "endsWith",
+            "optional": false,
+            "type": "(searchString: string, endPosition?: number) => boolean"
+          },
+          {
+            "name": "normalize",
+            "optional": false,
+            "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+          },
+          {
+            "name": "repeat",
+            "optional": false,
+            "type": "(count: number) => string"
+          },
+          {
+            "name": "startsWith",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "anchor",
+            "optional": false,
+            "type": "(name: string) => string"
+          },
+          {
+            "name": "big",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "blink",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "bold",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fixed",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fontcolor",
+            "optional": false,
+            "type": "(color: string) => string"
+          },
+          {
+            "name": "fontsize",
+            "optional": false,
+            "type": "{ (size: number): string; (size: string): string; }"
+          },
+          {
+            "name": "italics",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "link",
+            "optional": false,
+            "type": "(url: string) => string"
+          },
+          {
+            "name": "small",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "strike",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sub",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sup",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "padStart",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "padEnd",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "trimEnd",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimStart",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimLeft",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimRight",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "matchAll",
+            "optional": false,
+            "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+          },
+          {
+            "name": "replaceAll",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "at",
+            "optional": false,
+            "type": "(index: number) => string | undefined"
+          },
+          {
+            "name": "__@iterator@21491",
+            "optional": false,
+            "type": "() => StringIterator<string>"
+          }
+        ]
+      },
+      {
+        "name": "mimeTypesToExtensionLabels",
+        "file": "libs/attachment-input/src/utils/attachment.ts",
+        "start": 68,
+        "end": 86,
+        "declaration": "mimeTypesToExtensionLabels = (\n  types: string[],\n  wildcardLabels: Record<string, string> = WILDCARD_TYPE_LABELS,\n): string => {\n  const labels = types.map((type) => {\n    const normalizedType = type.toLowerCase().split(';')[0].trim();\n    if (normalizedType.endsWith('/*')) {\n      const major = normalizedType.slice(0, -2);\n      return wildcardLabels[major] ?? `${major} files`;\n    }\n    const labelOverride = MIME_TYPE_LABEL_OVERRIDES[normalizedType];\n    if (labelOverride) return labelOverride;\n    const extension = MIME_TYPE_EXT_MAP[normalizedType];\n    if (extension) return extension.toUpperCase();\n    const subtype = normalizedType.split('/')[1];\n    return subtype != null ? subtype.toUpperCase() : type.toUpperCase();\n  });\n  return labels.join(', ');\n}",
+        "signature": "(types: string[], wildcardLabels?: Record<string, string>): string",
+        "props": [
+          {
+            "name": "length",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "toString",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleString",
+            "optional": false,
+            "type": "{ (): string; (locales: string | string[], options?: Intl.NumberFormatOptions & Intl.DateTimeFormatOptions): string; }"
+          },
+          {
+            "name": "pop",
+            "optional": false,
+            "type": "() => string | undefined"
+          },
+          {
+            "name": "push",
+            "optional": false,
+            "type": "(...items: string[]) => number"
+          },
+          {
+            "name": "concat",
+            "optional": false,
+            "type": "{ (...items: ConcatArray<string>[]): string[]; (...items: (string | ConcatArray<string>)[]): string[]; }"
+          },
+          {
+            "name": "join",
+            "optional": false,
+            "type": "(separator?: string) => string"
+          },
+          {
+            "name": "reverse",
+            "optional": false,
+            "type": "() => string[]"
+          },
+          {
+            "name": "shift",
+            "optional": false,
+            "type": "() => string | undefined"
+          },
+          {
+            "name": "slice",
+            "optional": false,
+            "type": "(start?: number, end?: number) => string[]"
+          },
+          {
+            "name": "sort",
+            "optional": false,
+            "type": "(compareFn?: ((a: string, b: string) => number) | undefined) => string[]"
+          },
+          {
+            "name": "splice",
+            "optional": false,
+            "type": "{ (start: number, deleteCount?: number): string[]; (start: number, deleteCount: number, ...items: string[]): string[]; }"
+          },
+          {
+            "name": "unshift",
+            "optional": false,
+            "type": "(...items: string[]) => number"
+          },
+          {
+            "name": "indexOf",
+            "optional": false,
+            "type": "(searchElement: string, fromIndex?: number) => number"
+          },
+          {
+            "name": "lastIndexOf",
+            "optional": false,
+            "type": "(searchElement: string, fromIndex?: number) => number"
+          },
+          {
+            "name": "every",
+            "optional": false,
+            "type": "{ <S extends string>(predicate: (value: string, index: number, array: string[]) => value is S, thisArg?: any): this is S[]; (predicate: (value: string, index: number, array: string[]) => unknown, thisArg?: any): boolean; }"
+          },
+          {
+            "name": "some",
+            "optional": false,
+            "type": "(predicate: (value: string, index: number, array: string[]) => unknown, thisArg?: any) => boolean"
+          },
+          {
+            "name": "forEach",
+            "optional": false,
+            "type": "(callbackfn: (value: string, index: number, array: string[]) => void, thisArg?: any) => void"
+          },
+          {
+            "name": "map",
+            "optional": false,
+            "type": "<U>(callbackfn: (value: string, index: number, array: string[]) => U, thisArg?: any) => U[]"
+          },
+          {
+            "name": "filter",
+            "optional": false,
+            "type": "{ <S extends string>(predicate: (value: string, index: number, array: string[]) => value is S, thisArg?: any): S[]; (predicate: (value: string, index: number, array: string[]) => unknown, thisArg?: any): string[]; }"
+          },
+          {
+            "name": "reduce",
+            "optional": false,
+            "type": "{ (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string): string; (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string, initialValue: string): string; <U>(callbackfn: (previousValue: U, currentValue: string, currentIndex: number, array: string[]) => U, initialValue: U): U; }"
+          },
+          {
+            "name": "reduceRight",
+            "optional": false,
+            "type": "{ (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string): string; (callbackfn: (previousValue: string, currentValue: string, currentIndex: number, array: string[]) => string, initialValue: string): string; <U>(callbackfn: (previousValue: U, currentValue: string, currentIndex: number, array: string[]) => U, initialValue: U): U; }"
+          },
+          {
+            "name": "find",
+            "optional": false,
+            "type": "{ <S extends string>(predicate: (value: string, index: number, obj: string[]) => value is S, thisArg?: any): S | undefined; (predicate: (value: string, index: number, obj: string[]) => unknown, thisArg?: any): string | undefined; }"
+          },
+          {
+            "name": "findIndex",
+            "optional": false,
+            "type": "(predicate: (value: string, index: number, obj: string[]) => unknown, thisArg?: any) => number"
+          },
+          {
+            "name": "fill",
+            "optional": false,
+            "type": "(value: string, start?: number, end?: number) => string[]"
+          },
+          {
+            "name": "copyWithin",
+            "optional": false,
+            "type": "(target: number, start: number, end?: number) => string[]"
+          },
+          {
+            "name": "entries",
+            "optional": false,
+            "type": "() => ArrayIterator<[number, string]>"
+          },
+          {
+            "name": "keys",
+            "optional": false,
+            "type": "() => ArrayIterator<number>"
+          },
+          {
+            "name": "values",
+            "optional": false,
+            "type": "() => ArrayIterator<string>"
+          },
+          {
+            "name": "includes",
+            "optional": false,
+            "type": "(searchElement: string, fromIndex?: number) => boolean"
+          },
+          {
+            "name": "flatMap",
+            "optional": false,
+            "type": "<U, This = undefined>(callback: (this: This, value: string, index: number, array: string[]) => U | readonly U[], thisArg?: This | undefined) => U[]"
+          },
+          {
+            "name": "flat",
+            "optional": false,
+            "type": "<A, D extends number = 1>(this: A, depth?: D | undefined) => FlatArray<A, D>[]"
+          },
+          {
+            "name": "at",
+            "optional": false,
+            "type": "(index: number) => string | undefined"
+          },
+          {
+            "name": "__@iterator@21491",
+            "optional": false,
+            "type": "() => ArrayIterator<string>"
+          },
+          {
+            "name": "__@unscopables@21517",
+            "optional": false,
+            "type": "{ [x: number]: boolean | undefined; length?: boolean | undefined; toString?: boolean | undefined; toLocaleString?: boolean | undefined; pop?: boolean | undefined; push?: boolean | undefined; concat?: boolean | undefined; join?: boolean | undefined; reverse?: boolean | undefined; shift?: boolean | undefined; slice?: boolean | undefined; sort?: boolean | undefined; splice?: boolean | undefined; unshift?: boolean | undefined; indexOf?: boolean | undefined; lastIndexOf?: boolean | undefined; every?: boolean | undefined; some?: boolean | undefined; forEach?: boolean | undefined; map?: boolean | undefined; filter?: boolean | undefined; reduce?: boolean | undefined; reduceRight?: boolean | undefined; find?: boolean | undefined; findIndex?: boolean | undefined; fill?: boolean | undefined; copyWithin?: boolean | undefined; entries?: boolean | undefined; keys?: boolean | undefined; values?: boolean | undefined; includes?: boolean | undefined; flatMap?: boolean | undefined; flat?: boolean | undefined; at?: boolean | undefined; [Symbol.iterator]?: boolean | undefined; readonly [Symbol.unscopables]?: boolean | undefined; }"
+          }
+        ]
+      },
+      {
+        "name": "isMimeTypeAllowed",
+        "file": "libs/attachment-input/src/utils/attachment.ts",
+        "start": 97,
+        "end": 110,
+        "declaration": "isMimeTypeAllowed = (\n  mimeType: string,\n  allowedTypes: string[],\n): boolean => {\n  if (allowedTypes.length === 0) return false;\n  return allowedTypes.some((allowed) => {\n    if (allowed === '*' || allowed === '*/*') return true;\n    if (allowed.endsWith('/*')) {\n      const prefix = allowed.slice(0, -2);\n      return mimeType.startsWith(`${prefix}/`);\n    }\n    return mimeType === allowed;\n  });\n}",
+        "signature": "(mimeType: string, allowedTypes: string[]): boolean",
+        "props": [
+          {
+            "name": "toString",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "charAt",
+            "optional": false,
+            "type": "(pos: number) => string"
+          },
+          {
+            "name": "charCodeAt",
+            "optional": false,
+            "type": "(index: number) => number"
+          },
+          {
+            "name": "concat",
+            "optional": false,
+            "type": "(...strings: string[]) => string"
+          },
+          {
+            "name": "indexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "lastIndexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "localeCompare",
+            "optional": false,
+            "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+          },
+          {
+            "name": "match",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+          },
+          {
+            "name": "replace",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "search",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+          },
+          {
+            "name": "slice",
+            "optional": false,
+            "type": "(start?: number, end?: number) => string"
+          },
+          {
+            "name": "split",
+            "optional": false,
+            "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+          },
+          {
+            "name": "substring",
+            "optional": false,
+            "type": "(start: number, end?: number) => string"
+          },
+          {
+            "name": "toLowerCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleLowerCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "toUpperCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleUpperCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "trim",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "length",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "substr",
+            "optional": false,
+            "type": "(from: number, length?: number) => string"
+          },
+          {
+            "name": "valueOf",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "codePointAt",
+            "optional": false,
+            "type": "(pos: number) => number | undefined"
+          },
+          {
+            "name": "includes",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "endsWith",
+            "optional": false,
+            "type": "(searchString: string, endPosition?: number) => boolean"
+          },
+          {
+            "name": "normalize",
+            "optional": false,
+            "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+          },
+          {
+            "name": "repeat",
+            "optional": false,
+            "type": "(count: number) => string"
+          },
+          {
+            "name": "startsWith",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "anchor",
+            "optional": false,
+            "type": "(name: string) => string"
+          },
+          {
+            "name": "big",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "blink",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "bold",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fixed",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fontcolor",
+            "optional": false,
+            "type": "(color: string) => string"
+          },
+          {
+            "name": "fontsize",
+            "optional": false,
+            "type": "{ (size: number): string; (size: string): string; }"
+          },
+          {
+            "name": "italics",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "link",
+            "optional": false,
+            "type": "(url: string) => string"
+          },
+          {
+            "name": "small",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "strike",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sub",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sup",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "padStart",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "padEnd",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "trimEnd",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimStart",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimLeft",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimRight",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "matchAll",
+            "optional": false,
+            "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+          },
+          {
+            "name": "replaceAll",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "at",
+            "optional": false,
+            "type": "(index: number) => string | undefined"
+          },
+          {
+            "name": "__@iterator@21491",
+            "optional": false,
+            "type": "() => StringIterator<string>"
+          }
+        ]
+      },
+      {
+        "name": "ATTACHMENT_COLLAPSE_THRESHOLD",
+        "file": "libs/attachment-input/src/constants/attachment-group.ts",
+        "start": 2,
+        "end": 2,
+        "declaration": "ATTACHMENT_COLLAPSE_THRESHOLD = 5",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ATTACHMENT_INPUT_CLASS",
+        "file": "libs/attachment-input/src/constants/public-class-names.ts",
+        "start": 13,
+        "end": 28,
+        "declaration": "ATTACHMENT_INPUT_CLASS = {\n  /** The tray's `role=\"list\"` root. */\n  tray: 'dial-ai-attachment-tray',\n  /** Each `role=\"listitem\"` wrapper inside the tray. */\n  trayItem: 'dial-ai-attachment-tray-item',\n  /** The square tile element, for both image and non-previewable attachments. */\n  tile: 'dial-ai-attachment-tile',\n  /** The tile when selected, additive to `tile`. */\n  tileSelected: 'dial-ai-attachment-tile-selected',\n  /** The tile's filename element. */\n  tileName: 'dial-ai-attachment-tile-name',\n  /** The tile's type and size row. */\n  tileType: 'dial-ai-attachment-tile-type',\n  /** Every corner action button: download, retry, open-link, remove. */\n  tileAction: 'dial-ai-attachment-tile-action',\n} as const",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "MAX_UPLOADS_PER_MINUTE",
+        "file": "libs/attachment-input/src/constants/upload.ts",
+        "start": 2,
+        "end": 2,
+        "declaration": "MAX_UPLOADS_PER_MINUTE = 100",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "AttachmentCard",
+      "file": "libs/attachment-input/src/components/AttachmentCard/AttachmentCard.tsx",
+      "start": 9,
+      "end": 82,
+      "declaration": "AttachmentCard: FC<AttachmentCardProps> = ({\n  attachment,\n  searchQuery = '',\n  onRemove,\n  onRetry,\n  onExpand,\n  onClick,\n  onDownload,\n  labels,\n  styles: cardStyles,\n  isSelected,\n}) => {\n  const { colors } = cardStyles ?? {};\n  const isPasted = attachment.type === AttachmentType.Pasted;\n  const isExpandable = isPasted && onExpand !== undefined;\n\n  const cssVars = buildCssVars({\n    '--ai-tile-bg': colors?.background,\n    '--ai-tile-border': colors?.border,\n    '--ai-tile-bg-hover': colors?.backgroundHover,\n    '--ai-tile-border-hover': colors?.borderHover,\n    '--ai-tile-bg-selected': colors?.backgroundSelected,\n    '--ai-tile-border-selected': colors?.borderSelected,\n    '--ai-tile-focus-outline': colors?.focusOutline,\n    '--ai-tile-bg-error': colors?.backgroundError,\n    '--ai-tile-border-error': colors?.borderError,\n    '--ai-tile-error-text': colors?.errorText,\n    '--ai-tile-name-text': colors?.nameText,\n    '--ai-tile-type-text': colors?.typeText,\n    '--ai-tile-hover-icon-bg': colors?.hoverIconBackground,\n    '--ai-tile-hover-icon-color': colors?.hoverIconColor,\n    '--ai-tile-progress-track': colors?.trackBackground,\n  });\n\n  const { isImage, isLink } = useMemo(\n    () => getAttachmentCardState(attachment),\n    [attachment],\n  );\n\n  if (isImage) {\n    return (\n      <ImageAttachment\n        attachment={attachment}\n        labels={labels}\n        onClick={onClick}\n        onExpand={onExpand}\n        styles={cardStyles}\n        onRemove={onRemove}\n        cssVars={cssVars}\n        onDownload={onDownload}\n        isSelected={isSelected}\n      />\n    );\n  }\n\n  return (\n    <FileAttachment\n      attachment={attachment}\n      searchQuery={searchQuery}\n      onClick={onClick}\n      onRetry={onRetry}\n      onRemove={onRemove}\n      onDownload={onDownload}\n      isLink={isLink}\n      isPasted={isPasted}\n      styles={cardStyles}\n      labels={labels}\n      onExpand={onExpand}\n      cssVars={cssVars}\n      isExpandable={isExpandable}\n      isSelected={isSelected}\n    />\n  );\n}",
+      "signature": "(props: AttachmentCardProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "attachment",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-chat-shared\").DisplayAttachment"
+        },
+        {
+          "name": "searchQuery",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "onRemove",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "onRetry",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "onExpand",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "onClick",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").AttachmentCardLabels | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").AttachmentCardStyles | undefined"
+        },
+        {
+          "name": "onDownload",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "isSelected",
+          "optional": true,
+          "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
+      "name": "AttachmentTray",
+      "file": "libs/attachment-input/src/components/AttachmentTray/AttachmentTray.tsx",
+      "start": 8,
+      "end": 56,
+      "declaration": "AttachmentTray: FC<AttachmentTrayProps> = ({\n  attachments,\n  onRemove,\n  onRetry,\n  onExpand,\n  onAttachmentClick,\n  labels,\n  styles,\n}) => {\n  const {\n    ariaLabel = 'Attached files',\n    removeLabel,\n    retryLabel,\n    clickLabel,\n    uploadingLabel,\n  } = labels ?? {};\n  const { className } = styles ?? {};\n\n  if (attachments.length === 0) return null;\n\n  return (\n    <div\n      role=\"list\"\n      aria-label={ariaLabel}\n      className={mergeClasses(\n        'flex w-full min-w-0 gap-2 overflow-x-auto',\n        className,\n        ATTACHMENT_INPUT_CLASS.tray,\n      )}\n    >\n      {attachments.map((attachment) => (\n        <div\n          key={attachment.id}\n          role=\"listitem\"\n          className={ATTACHMENT_INPUT_CLASS.trayItem}\n        >\n          <AttachmentCard\n            attachment={attachment}\n            onRemove={onRemove}\n            onRetry={onRetry}\n            onExpand={onExpand}\n            labels={{ removeLabel, retryLabel, clickLabel, uploadingLabel }}\n            onClick={onAttachmentClick}\n          />\n        </div>\n      ))}\n    </div>\n  );\n}",
+      "signature": "(props: AttachmentTrayProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "attachments",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[]"
+        },
+        {
+          "name": "onRemove",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "onRetry",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "onExpand",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "onAttachmentClick",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").AttachmentTrayLabels | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").AttachmentTrayStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "AttachmentGroup",
+      "file": "libs/attachment-input/src/components/AttachmentGroup/AttachmentGroup.tsx",
+      "start": 29,
+      "end": 166,
+      "declaration": "AttachmentGroup: FC<AttachmentGroupProps> = ({\n  attachments,\n  onAttachmentClick,\n  onDownloadAll,\n  onRetry,\n  labels,\n  styles: groupStyles,\n  selectedAttachmentId,\n}) => {\n  const {\n    ariaLabel = 'Attachments',\n    clickLabel = 'Download attachment',\n    retryLabel = 'Retry upload',\n    downloadAllLabel = 'Download all',\n    openInNewTabLabel,\n    getHeaderLabel = (count: number) => pluralize(count, 'attachment'),\n    promptLabel,\n    pastedLabel,\n    imageLabel,\n  } = labels ?? {};\n  const { typography, colors, className } = groupStyles ?? {};\n  const cssVars = buildCssVars({\n    '--ai-group-text': colors?.text,\n  });\n\n  if (attachments.length === 0) return null;\n\n  const hasImages = attachments.some((a) => a.type === AttachmentType.Image);\n  const hasFiles = attachments.some((a) => a.type !== AttachmentType.Image);\n  const isMixed = hasImages && hasFiles;\n  const isCollapsible = attachments.length >= ATTACHMENT_COLLAPSE_THRESHOLD;\n\n  const HeaderIcon = isMixed ? IconPaperclip : hasImages ? IconPhoto : IconFile;\n  const headerLabel = getHeaderLabel(attachments.length);\n\n  const handleDownloadAll = () => {\n    /*\n     * Skip attachments that individual tiles themselves wouldn't allow\n     * downloading (still uploading, or failed) \u2014 \"download all\" must not\n     * fire on a broken/incomplete attachment just because it's in the list.\n     */\n    const downloadableAttachments = attachments.filter(\n      (attachment) => attachment.status === RequestStatus.Idle,\n    );\n\n    if (onDownloadAll) {\n      onDownloadAll(downloadableAttachments);\n    } else {\n      downloadableAttachments.forEach((attachment) =>\n        onAttachmentClick?.(attachment.id),\n      );\n    }\n  };\n\n  const handleDownload = (id: string) => {\n    const downloadableAttachment = attachments.find(\n      (attachment) => attachment.id === id,\n    );\n    if (downloadableAttachment) {\n      onDownloadAll?.([downloadableAttachment]);\n    }\n  };\n\n  return (\n    <div\n      role=\"group\"\n      aria-label={ariaLabel}\n      style={cssVars}\n      className={mergeClasses(\n        'flex flex-col gap-1',\n        isCollapsible ? 'w-full min-w-0 max-w-[492px]' : 'max-w-[420px]',\n        styles.container,\n        className,\n      )}\n    >\n      <div className=\"flex items-center justify-between\">\n        <div className=\"flex items-center gap-1\">\n          <HeaderIcon\n            size={DIAL_ICON_SIZE.SM}\n            className={mergeClasses('shrink-0', styles.headerIcon)}\n            aria-hidden\n          />\n          <span\n            className={mergeClasses(\n              typography?.headerLabelClassName ?? 'dial-tiny-semi-text',\n              styles.headerLabel,\n            )}\n          >\n            {headerLabel}\n          </span>\n        </div>\n        {attachments.length >= 2 && (onDownloadAll || onAttachmentClick) && (\n          <GhostIconButton\n            icon={\n              <IconDownload\n                size={DIAL_ICON_SIZE.SM}\n                aria-hidden\n                stroke={DIAL_KIT_ICON_STROKE}\n              />\n            }\n            size={ElementSize.Small}\n            aria-label={downloadAllLabel}\n            onClick={handleDownloadAll}\n          />\n        )}\n      </div>\n\n      <div\n        role=\"list\"\n        aria-label={headerLabel}\n        className={mergeClasses(\n          'gap-3',\n          isCollapsible ? 'grid grid-cols-[repeat(5,83px)]' : 'flex flex-wrap',\n        )}\n      >\n        {attachments.map((attachment, index) => (\n          <div key={`${attachment.id}-${index}`} role=\"listitem\">\n            <AttachmentCard\n              attachment={attachment}\n              onClick={onAttachmentClick}\n              onDownload={handleDownload}\n              onRetry={onRetry}\n              labels={{\n                clickLabel,\n                retryLabel,\n                promptLabel,\n                pastedLabel,\n                imageLabel,\n                openInNewTabLabel,\n              }}\n              isSelected={attachment.id === selectedAttachmentId}\n            />\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: AttachmentGroupProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "attachments",
+          "optional": false,
+          "type": "import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[]"
+        },
+        {
+          "name": "onAttachmentClick",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "onDownloadAll",
+          "optional": true,
+          "type": "((attachments: import(\"@epam/ai-dial-chat-shared\").DisplayAttachment[]) => void) | undefined"
+        },
+        {
+          "name": "onRetry",
+          "optional": true,
+          "type": "((id: string) => void) | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").AttachmentGroupLabels | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").AttachmentGroupStyles | undefined"
+        },
+        {
+          "name": "selectedAttachmentId",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "FileDndOverlay",
+      "file": "libs/attachment-input/src/components/FileDndOverlay/FileDndOverlay.tsx",
+      "start": 8,
+      "end": 78,
+      "declaration": "FileDndOverlay: FC<FileDndOverlayProps> = ({\n  isVisible,\n  isAttachmentsAllowed = true,\n  labels,\n  styles: overlayStyles,\n}) => {\n  const { title, subtitle } = labels ?? {};\n  const { colors, typography } = overlayStyles ?? {};\n\n  if (!isVisible) return null;\n\n  const cssVars = buildCssVars({\n    '--ai-fd-bg': colors?.background,\n    '--ai-fd-icon': colors?.icon,\n    '--ai-fd-denied-icon': colors?.deniedIcon,\n  });\n\n  const resolvedTitle =\n    title ?? (isAttachmentsAllowed ? 'Attach files' : 'No attachments allowed');\n  const resolvedSubtitle =\n    subtitle ??\n    (isAttachmentsAllowed\n      ? 'Drop files here to attach them to message'\n      : \"Attachments can't be added to message\");\n  const resolvedIconClassName = isAttachmentsAllowed\n    ? styles.icon\n    : styles.deniedIcon;\n\n  const suppressDrop = (e: DragEvent) => {\n    e.preventDefault();\n  };\n\n  const Icon = isAttachmentsAllowed ? IconFileDescription : IconFileX;\n\n  return (\n    <div\n      role=\"status\"\n      aria-live=\"polite\"\n      className={mergeClasses(\n        'fixed inset-0 z-[9999] flex items-center justify-center backdrop-blur-sm',\n        styles.overlay,\n        isAttachmentsAllowed\n          ? 'pointer-events-none'\n          : 'pointer-events-auto cursor-not-allowed',\n      )}\n      onDragOver={isAttachmentsAllowed ? undefined : suppressDrop}\n      onDrop={isAttachmentsAllowed ? undefined : suppressDrop}\n      style={cssVars}\n    >\n      <div className=\"flex flex-col items-center text-center\">\n        <Icon size={100} className={resolvedIconClassName} aria-hidden />\n        <span\n          className={mergeClasses(\n            'mt-5',\n            typography?.titleClassName ?? 'dial-h3-text',\n          )}\n        >\n          {resolvedTitle}\n        </span>\n        <span\n          className={mergeClasses(\n            'mt-4',\n            typography?.subtitleClassName ?? 'dial-small-text',\n          )}\n        >\n          {resolvedSubtitle}\n        </span>\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: FileDndOverlayProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "isVisible",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "isAttachmentsAllowed",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").FileDndOverlayLabels | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").FileDndOverlayStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "useClipboardPaste",
+      "file": "libs/attachment-input/src/hooks/useClipboardPaste.ts",
+      "start": 52,
+      "end": 128,
+      "declaration": "useClipboardPaste = (\n  onAttachments: (attachments: Attachment[]) => void,\n  threshold: number,\n  labels: UseClipboardPasteLabels = {},\n): { handlePaste: ClipboardEventHandler<HTMLTextAreaElement> } => {\n  const { screenshotName = 'Screenshot.png', pastedTextName = 'Pasted text' } =\n    labels;\n\n  const handlePaste: ClipboardEventHandler<HTMLTextAreaElement> = useCallback(\n    (event) => {\n      if (!event.clipboardData) return;\n\n      const items = Array.from(event.clipboardData.items);\n      const imageItems = items.filter(\n        (item) => item.kind === 'file' && item.type.startsWith('image/'),\n      );\n      const hasText = event.clipboardData.getData('text/plain').length > 0;\n\n      if (imageItems.length > 0 && !hasText) {\n        const imageAttachments: Attachment[] = [];\n        const pastedAt = new Date();\n        for (const item of imageItems) {\n          const blob = item.getAsFile();\n          if (!blob) continue;\n          const name = buildPastedImageName(\n            screenshotName,\n            pastedAt,\n            imageAttachments.length,\n          );\n          const file = new File([blob], name, {\n            type: blob.type,\n          });\n          const attachment: Attachment = {\n            id: generateAttachmentId(),\n            name,\n            contentType: blob.type,\n            file,\n            type: AttachmentType.Image,\n            status: RequestStatus.Idle,\n            previewUrl: URL.createObjectURL(file),\n          };\n          imageAttachments.push(attachment);\n        }\n        event.preventDefault();\n        onAttachments(imageAttachments);\n        return;\n      }\n\n      const text = event.clipboardData.getData('text/plain');\n      if (text.length > threshold) {\n        const trimmed = text.trim();\n        const MAX_PREVIEW = 80;\n        const preview =\n          trimmed.length > MAX_PREVIEW\n            ? `${trimmed.slice(0, MAX_PREVIEW).trimEnd()}\u2026`\n            : trimmed;\n        const fileName = preview || pastedTextName;\n        const file = new File([text], fileName, {\n          type: 'text/plain',\n        });\n        const pastedAttachment: Attachment = {\n          id: generateAttachmentId(),\n          name: fileName,\n          contentType: 'text/plain',\n          file,\n          type: AttachmentType.Pasted,\n          status: RequestStatus.Idle,\n        };\n        event.preventDefault();\n        onAttachments([pastedAttachment]);\n      }\n    },\n    [onAttachments, threshold, screenshotName, pastedTextName],\n  );\n\n  return { handlePaste };\n}",
+      "signature": "(onAttachments: (attachments: Attachment[]) => void, threshold: number, labels?: UseClipboardPasteLabels): { handlePaste: ClipboardEventHandler<HTMLTextAreaElement>; }",
+      "props": []
+    },
+    {
+      "name": "useLazyImageLoad",
+      "file": "libs/attachment-input/src/hooks/useLazyImageLoad.ts",
+      "start": 24,
+      "end": 71,
+      "declaration": "useLazyImageLoad = ({\n  enabled,\n  src,\n}: UseLazyImageLoadParams): {\n  imageRef: RefObject<HTMLImageElement | null>;\n  imageLoadStatus: LazyImageLoadStatus;\n} => {\n  const imageRef = useRef<HTMLImageElement>(null);\n  const [imageLoadStatus, setImageLoadStatus] = useState<LazyImageLoadStatus>(\n    LazyImageLoadStatus.Idle,\n  );\n\n  useEffect(() => {\n    setImageLoadStatus(\n      enabled && src ? LazyImageLoadStatus.Loading : LazyImageLoadStatus.Idle,\n    );\n  }, [enabled, src]);\n\n  useEffect(() => {\n    const imageElement = imageRef.current;\n    if (!imageElement || !enabled || !src) {\n      return;\n    }\n\n    const handleImageLoad = (): void =>\n      setImageLoadStatus(LazyImageLoadStatus.Loaded);\n    const handleImageError = (): void =>\n      setImageLoadStatus(LazyImageLoadStatus.Error);\n\n    imageElement.addEventListener('load', handleImageLoad);\n    imageElement.addEventListener('error', handleImageError);\n\n    if (imageElement.complete) {\n      setImageLoadStatus(\n        imageElement.naturalWidth > 0\n          ? LazyImageLoadStatus.Loaded\n          : LazyImageLoadStatus.Error,\n      );\n    }\n\n    return () => {\n      imageElement.removeEventListener('load', handleImageLoad);\n      imageElement.removeEventListener('error', handleImageError);\n    };\n  }, [enabled, src]);\n\n  return { imageRef, imageLoadStatus };\n}",
+      "signature": "({ enabled, src, }: UseLazyImageLoadParams): { imageRef: RefObject<HTMLImageElement | null>; imageLoadStatus: LazyImageLoadStatus; }",
+      "props": [
+        {
+          "name": "enabled",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "src",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "generateAttachmentId",
+      "file": "libs/attachment-input/src/utils/attachment.ts",
+      "start": 45,
+      "end": 46,
+      "declaration": "generateAttachmentId = (): string =>\n  `${Date.now()}-${Math.random().toString(36).slice(2)}`",
+      "signature": "(): string",
+      "props": []
+    },
+    {
+      "name": "getAttachmentCardState",
+      "file": "libs/attachment-input/src/utils/attachment.ts",
+      "start": 256,
+      "end": 276,
+      "declaration": "getAttachmentCardState = (\n  attachment: DisplayAttachment,\n  typeLabels: AttachmentTypeLabels = {},\n): AttachmentCardState => {\n  const { type, status, previewUrl, url } = attachment;\n\n  const isLoading = status === RequestStatus.Loading;\n  const isError = status === RequestStatus.Error;\n  const isImage =\n    type === AttachmentType.Image && !!(previewUrl ?? url) && !isError;\n  const isLink = type === AttachmentType.Link && !isError;\n\n  return {\n    isLoading,\n    isError,\n    isImage,\n    isLink,\n    BottomIcon: isLink ? null : getBottomIcon(attachment),\n    typeLabel: isLink ? null : getBottomLabel(attachment, typeLabels),\n  };\n}",
+      "signature": "(attachment: DisplayAttachment, typeLabels?: AttachmentTypeLabels): AttachmentCardState",
+      "props": [
+        {
+          "name": "id",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "contentType",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "optional": false,
+          "type": "AttachmentType"
+        },
+        {
+          "name": "status",
+          "optional": false,
+          "type": "RequestStatus"
+        },
+        {
+          "name": "errorReason",
+          "optional": true,
+          "type": "import(\"@epam/ai-dial-chat-shared\").AttachmentErrorReason | undefined"
+        },
+        {
+          "name": "previewUrl",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "playUrl",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "url",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "referenceUrl",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "data",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "getExtFromContentType",
+      "file": "libs/attachment-input/src/utils/attachment.ts",
+      "start": 214,
+      "end": 226,
+      "declaration": "getExtFromContentType = (\n  contentType: string,\n): string | undefined => {\n  const mime = contentType.toLowerCase().split(';')[0].trim();\n  const override = MIME_TYPE_EXT_MAP[mime];\n  if (override) return override;\n  const subtype = mime.split('/')[1];\n  // Skip complex vendor/structured subtypes (e.g. vnd.openxmlformats-..., svg+xml)\n  if (subtype && !subtype.startsWith('vnd.') && !subtype.includes('+')) {\n    return subtype;\n  }\n  return undefined;\n}",
+      "signature": "(contentType: string): string | undefined",
+      "props": [
+        {
+          "name": "toString",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "charAt",
+          "optional": false,
+          "type": "(pos: number) => string"
+        },
+        {
+          "name": "charCodeAt",
+          "optional": false,
+          "type": "(index: number) => number"
+        },
+        {
+          "name": "concat",
+          "optional": false,
+          "type": "(...strings: string[]) => string"
+        },
+        {
+          "name": "indexOf",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => number"
+        },
+        {
+          "name": "lastIndexOf",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => number"
+        },
+        {
+          "name": "localeCompare",
+          "optional": false,
+          "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+        },
+        {
+          "name": "match",
+          "optional": false,
+          "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+        },
+        {
+          "name": "replace",
+          "optional": false,
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+        },
+        {
+          "name": "search",
+          "optional": false,
+          "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+        },
+        {
+          "name": "slice",
+          "optional": false,
+          "type": "(start?: number, end?: number) => string"
+        },
+        {
+          "name": "split",
+          "optional": false,
+          "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+        },
+        {
+          "name": "substring",
+          "optional": false,
+          "type": "(start: number, end?: number) => string"
+        },
+        {
+          "name": "toLowerCase",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleLowerCase",
+          "optional": false,
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+        },
+        {
+          "name": "toUpperCase",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleUpperCase",
+          "optional": false,
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+        },
+        {
+          "name": "trim",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "length",
+          "optional": false,
+          "type": "number"
+        },
+        {
+          "name": "substr",
+          "optional": false,
+          "type": "(from: number, length?: number) => string"
+        },
+        {
+          "name": "valueOf",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "codePointAt",
+          "optional": false,
+          "type": "(pos: number) => number | undefined"
+        },
+        {
+          "name": "includes",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => boolean"
+        },
+        {
+          "name": "endsWith",
+          "optional": false,
+          "type": "(searchString: string, endPosition?: number) => boolean"
+        },
+        {
+          "name": "normalize",
+          "optional": false,
+          "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+        },
+        {
+          "name": "repeat",
+          "optional": false,
+          "type": "(count: number) => string"
+        },
+        {
+          "name": "startsWith",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => boolean"
+        },
+        {
+          "name": "anchor",
+          "optional": false,
+          "type": "(name: string) => string"
+        },
+        {
+          "name": "big",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "blink",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "bold",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "fixed",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "fontcolor",
+          "optional": false,
+          "type": "(color: string) => string"
+        },
+        {
+          "name": "fontsize",
+          "optional": false,
+          "type": "{ (size: number): string; (size: string): string; }"
+        },
+        {
+          "name": "italics",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "link",
+          "optional": false,
+          "type": "(url: string) => string"
+        },
+        {
+          "name": "small",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "strike",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "sub",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "sup",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "padStart",
+          "optional": false,
+          "type": "(maxLength: number, fillString?: string) => string"
+        },
+        {
+          "name": "padEnd",
+          "optional": false,
+          "type": "(maxLength: number, fillString?: string) => string"
+        },
+        {
+          "name": "trimEnd",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimStart",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimLeft",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimRight",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "matchAll",
+          "optional": false,
+          "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+        },
+        {
+          "name": "replaceAll",
+          "optional": false,
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+        },
+        {
+          "name": "at",
+          "optional": false,
+          "type": "(index: number) => string | undefined"
+        },
+        {
+          "name": "__@iterator@21491",
+          "optional": false,
+          "type": "() => StringIterator<string>"
+        }
+      ]
+    },
+    {
+      "name": "getAttachmentIcon",
+      "file": "libs/attachment-input/src/utils/attachment.ts",
+      "start": 113,
+      "end": 203,
+      "declaration": "getAttachmentIcon = (contentType: string): Icon => {\n  if (!contentType) return IconFile;\n  // Broad category checks first\n  if (contentType.startsWith('image/')) {\n    switch (contentType) {\n      case 'image/jpeg':\n      case 'image/jpg':\n        return IconFileTypeJpg;\n      case 'image/png':\n        return IconFileTypePng;\n      case 'image/svg+xml':\n        return IconFileTypeSvg;\n      case 'image/bmp':\n        return IconFileTypeBmp;\n      default:\n        return IconPhoto;\n    }\n  }\n\n  if (contentType.startsWith('video/')) return IconVideo;\n  if (contentType.startsWith('audio/')) return IconMusic;\n\n  // Specific MIME type switch\n  switch (contentType) {\n    // Documents\n    case 'application/pdf':\n      return IconFileTypePdf;\n    case 'application/msword':\n    case 'application/vnd.ms-word':\n      return IconFileTypeDoc;\n    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':\n      return IconFileTypeDocx;\n    case 'application/vnd.ms-powerpoint':\n      return IconFileTypePpt;\n    case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':\n      return IconFileTypePpt;\n    case 'application/vnd.ms-excel':\n      return IconFileTypeXls;\n    case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':\n      return IconFileTypeXls;\n\n    // Archives\n    case 'application/zip':\n    case 'application/x-zip-compressed':\n    case 'application/x-rar-compressed':\n    case 'application/x-7z-compressed':\n    case 'application/gzip':\n    case 'application/x-tar':\n      return IconFileTypeZip;\n\n    // Data / markup\n    case 'text/csv':\n      return IconFileTypeCsv;\n    case 'text/plain':\n      return IconFileTypeTxt;\n    case 'text/html':\n    case 'application/xhtml+xml':\n      return IconFileTypeHtml;\n    case 'text/xml':\n    case 'application/xml':\n      return IconFileTypeXml;\n    case 'application/sql':\n    case 'text/x-sql':\n      return IconFileTypeSql;\n\n    // Web / code\n    case 'text/javascript':\n    case 'application/javascript':\n      return IconFileTypeJs;\n    case 'text/jsx':\n      return IconFileTypeJsx;\n    case 'application/typescript':\n    case 'text/typescript':\n      return IconFileTypeTs;\n    case 'text/tsx':\n      return IconFileTypeTsx;\n    case 'text/css':\n      return IconFileTypeCss;\n    case 'text/x-php':\n    case 'application/x-php':\n      return IconFileTypePhp;\n    case 'text/x-rustsrc':\n    case 'application/x-rust':\n      return IconFileTypeRs;\n    case 'text/x-vue':\n      return IconFileTypeVue;\n\n    default:\n      return IconFile;\n  }\n}",
+      "signature": "(contentType: string): Icon",
+      "props": [
+        {
+          "name": "toString",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "charAt",
+          "optional": false,
+          "type": "(pos: number) => string"
+        },
+        {
+          "name": "charCodeAt",
+          "optional": false,
+          "type": "(index: number) => number"
+        },
+        {
+          "name": "concat",
+          "optional": false,
+          "type": "(...strings: string[]) => string"
+        },
+        {
+          "name": "indexOf",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => number"
+        },
+        {
+          "name": "lastIndexOf",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => number"
+        },
+        {
+          "name": "localeCompare",
+          "optional": false,
+          "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+        },
+        {
+          "name": "match",
+          "optional": false,
+          "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+        },
+        {
+          "name": "replace",
+          "optional": false,
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+        },
+        {
+          "name": "search",
+          "optional": false,
+          "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+        },
+        {
+          "name": "slice",
+          "optional": false,
+          "type": "(start?: number, end?: number) => string"
+        },
+        {
+          "name": "split",
+          "optional": false,
+          "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+        },
+        {
+          "name": "substring",
+          "optional": false,
+          "type": "(start: number, end?: number) => string"
+        },
+        {
+          "name": "toLowerCase",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleLowerCase",
+          "optional": false,
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+        },
+        {
+          "name": "toUpperCase",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleUpperCase",
+          "optional": false,
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+        },
+        {
+          "name": "trim",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "length",
+          "optional": false,
+          "type": "number"
+        },
+        {
+          "name": "substr",
+          "optional": false,
+          "type": "(from: number, length?: number) => string"
+        },
+        {
+          "name": "valueOf",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "codePointAt",
+          "optional": false,
+          "type": "(pos: number) => number | undefined"
+        },
+        {
+          "name": "includes",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => boolean"
+        },
+        {
+          "name": "endsWith",
+          "optional": false,
+          "type": "(searchString: string, endPosition?: number) => boolean"
+        },
+        {
+          "name": "normalize",
+          "optional": false,
+          "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+        },
+        {
+          "name": "repeat",
+          "optional": false,
+          "type": "(count: number) => string"
+        },
+        {
+          "name": "startsWith",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => boolean"
+        },
+        {
+          "name": "anchor",
+          "optional": false,
+          "type": "(name: string) => string"
+        },
+        {
+          "name": "big",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "blink",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "bold",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "fixed",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "fontcolor",
+          "optional": false,
+          "type": "(color: string) => string"
+        },
+        {
+          "name": "fontsize",
+          "optional": false,
+          "type": "{ (size: number): string; (size: string): string; }"
+        },
+        {
+          "name": "italics",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "link",
+          "optional": false,
+          "type": "(url: string) => string"
+        },
+        {
+          "name": "small",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "strike",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "sub",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "sup",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "padStart",
+          "optional": false,
+          "type": "(maxLength: number, fillString?: string) => string"
+        },
+        {
+          "name": "padEnd",
+          "optional": false,
+          "type": "(maxLength: number, fillString?: string) => string"
+        },
+        {
+          "name": "trimEnd",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimStart",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimLeft",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimRight",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "matchAll",
+          "optional": false,
+          "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+        },
+        {
+          "name": "replaceAll",
+          "optional": false,
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+        },
+        {
+          "name": "at",
+          "optional": false,
+          "type": "(index: number) => string | undefined"
+        },
+        {
+          "name": "__@iterator@21491",
+          "optional": false,
+          "type": "() => StringIterator<string>"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/attachment-input/src/hooks/tests/useClipboardPaste.spec.ts",
+      "assertions": [
+        "handles null clipboardData without throwing",
+        "image paste creates an Image attachment and prevents default",
+        "stamps a pasted image name with the paste time, keeping base and extension",
+        "gives each image of a multi-image paste a distinct name",
+        "gives images pasted at different times distinct names",
+        "long text creates a Pasted attachment with preview name",
+        "preview name is truncated to 80 chars with ellipsis when text is very long",
+        "ignores the image and pastes text when clipboard contains both image and text",
+        "short text does not create an attachment"
+      ]
+    },
+    {
+      "file": "libs/attachment-input/src/hooks/tests/useLazyImageLoad.spec.tsx",
+      "assertions": [
+        "starts in loading state when enabled with a source",
+        "moves to loaded when the image loads",
+        "moves to error when the image fails to load",
+        "resets to idle when disabled",
+        "resets to loading when the source changes"
+      ]
+    },
+    {
+      "file": "libs/attachment-input/src/components/AttachmentTray/tests/AttachmentTray.spec.tsx",
+      "assertions": [
+        "returns null when attachments list is empty",
+        "renders a card for each attachment",
+        "renders cards as read-only when no remove handler is provided",
+        "cards receive onClick and clickLabel when onAttachmentClick is provided",
+        "disappears when last card is removed (empty list passed)"
+      ]
+    },
+    {
+      "file": "libs/attachment-input/src/components/AttachmentTray/tests/AttachmentTray.classes.spec.tsx",
+      "assertions": [
+        "marks the tray root and one item per attachment",
+        "keeps the tray addressable when the host localises its label",
+        "emits nothing at all for an empty list",
+        "marks both the file tile and the image tile",
+        "marks the tile name and type row",
+        "keeps the tile marked while the upload is in progress",
+        "emits the same classes under rtl as under ltr",
+        "adds the selected class alongside the tile class when selected",
+        "omits the selected class when not selected",
+        "marks every corner action and leaves their ARIA wiring intact"
+      ]
+    },
+    {
+      "file": "libs/attachment-input/src/components/AttachmentGroup/tests/AttachmentGroup.spec.tsx",
+      "assertions": [
+        "renders nothing for an empty attachment list",
+        "renders a single image as a uniform tile, same as any other count",
+        "shows a wrapping flex row for 2-4 images with no collapsing",
+        "renders every tile in a fixed 5-column grid at the collapse threshold, with no \"+N\" tile",
+        "renders every tile with no hidden subset when well above the collapse threshold",
+        "does not force a fixed width on a group below the collapse threshold",
+        "shrinks to fit a narrower parent instead of overflowing it on mobile",
+        "exposes the group as an accessible, labeled region"
+      ]
+    },
+    {
+      "file": "libs/attachment-input/src/components/FileDndOverlay/tests/FileDndOverlay.spec.tsx",
+      "assertions": [
+        "renders nothing when isVisible is false",
+        "renders default title and subtitle when isVisible is true",
+        "renders custom title and subtitle",
+        "renders denied title and subtitle when isAttachmentsAllowed is false",
+        "applies cursor-not-allowed when isAttachmentsAllowed is false",
+        "calls preventDefault on drop when isAttachmentsAllowed is false"
+      ]
+    },
+    {
+      "file": "libs/attachment-input/src/components/AttachmentCard/tests/AttachmentCard.spec.tsx",
+      "assertions": [
+        "names retry and remove distinctly",
+        "hides retry for a file-too-large error, keeping remove",
+        "uses the host-supplied labels for both actions",
+        "lays both actions out in a single row instead of stacking them",
+        "calls only the clicked action",
+        "does not fire the tile action when a corner button handles a key press",
+        "still activates the tile itself on Enter",
+        "exposes the in-flight upload as a named, indeterminate progressbar",
+        "uses the host-supplied uploading label",
+        "marks the tile busy while uploading and not busy once settled",
+        "constrains the name to the tile width so it wraps and clamps"
+      ]
+    },
+    {
+      "file": "libs/attachment-input/src/utils/tests/attachment-card-state.spec.ts",
+      "assertions": [
+        "returns .md for text/markdown contentType with a sentence-ending name",
+        "returns .md for text/markdown contentType even when name contains .pdf",
+        "returns .txt for text/plain contentType",
+        "returns .pdf for application/pdf contentType",
+        "falls back to name extension for vendor MIME types",
+        "does not produce a bare dot when name ends with a period and no contentType",
+        "returns Prompt for Prompt type",
+        "returns Pasted for Pasted type"
+      ]
+    },
+    {
+      "file": "libs/attachment-input/src/utils/tests/attachment-mime.spec.ts",
+      "assertions": [
+        "converts exact MIME types to uppercase subtype labels",
+        "converts common vendor and structured MIME types to extension labels",
+        "converts wildcard MIME types to human-readable group labels",
+        "falls back to \"<major> files\" for unrecognised wildcard groups",
+        "converts the catch-all \"*/*\" wildcard to \"All files\"",
+        "joins multiple types with \", \"",
+        "returns an empty string for an empty array",
+        "returns true for an exact MIME match",
+        "returns false when the MIME type is not in the allowed list",
+        "returns true when a wildcard covers the given MIME type",
+        "returns false when a wildcard does not cover the given MIME type",
+        "does not match partial major type without wildcard",
+        "returns false (reject all) when allowedTypes is empty",
+        "returns true when allowedTypes contains the global wildcard \"*\"",
+        "returns true when allowedTypes contains \"*/*\""
+      ]
+    },
+    {
+      "file": "libs/attachment-input/src/utils/tests/name-without-extension.spec.ts",
+      "assertions": [
+        "removes extension from a file name",
+        "keeps hidden files unchanged",
+        "keeps names without extension unchanged",
+        "uses the last dot for names with multiple dots",
+        "removes trailing dot",
+        "returns an empty string for null",
+        "returns an empty string for undefined"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "libs/conversation-messages/src/components/MessageBubble/UserMessageBubble.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { AttachmentGroup } from '@epam/ai-dial-attachment-input';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { AttachmentGroup } from '@epam/ai-dial-attachment-input';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "libs/source-panel/src/components/FilesSection/FilesSection.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { AttachmentCard } from '@epam/ai-dial-attachment-input';\nimport type { DisplayAttachment } from '@epam/ai-dial-chat-shared';"
+        }
+      ]
+    },
+    {
+      "file": "libs/conversation-input/src/hooks/useAttachments.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 5,
+          "excerpt": "import {\n  MAX_UPLOADS_PER_MINUTE,\n  generateAttachmentId,\n} from '@epam/ai-dial-attachment-input';\nimport type {"
+        }
+      ]
+    },
+    {
+      "file": "libs/chat-hooks/src/attachment/useAttachmentValidation/useAttachmentValidation.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 5,
+          "excerpt": "import {\n  isMimeTypeAllowed,\n  mimeTypesToExtensionLabels,\n} from '@epam/ai-dial-attachment-input';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "libs/conversation-input/src/components/Input/Input.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 5,
+          "excerpt": "import {\n  AttachmentTray,\n  useClipboardPaste,\n} from '@epam/ai-dial-attachment-input';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "libs/chat-hooks/src/catalog/map-entity-details-to-catalog.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { mimeTypesToExtensionLabels } from '@epam/ai-dial-attachment-input';\nimport type {"
+        }
+      ]
+    },
+    {
+      "file": "apps/chat/src/components/NewConversationComposer/NewConversationComposer.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 6,
+          "excerpt": "import { useOpenAttachmentCanvas } from '@epam/ai-dial-attachment-canvas';\nimport {\n  FileDndOverlay,\n  isMimeTypeAllowed,\n} from '@epam/ai-dial-attachment-input';\nimport type { DeploymentItemDto } from '@epam/ai-dial-chat-api-client';"
+        }
+      ]
+    }
+  ]
+}

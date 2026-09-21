@@ -1,0 +1,2471 @@
+[
+  {
+    "id": "overview",
+    "slides": 21,
+    "notes": 21,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "overview-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/overview/slide-01.png"
+      },
+      {
+        "id": "overview-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/overview/slide-02.png"
+      },
+      {
+        "id": "overview-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/overview/slide-03.png"
+      },
+      {
+        "id": "overview-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/overview/slide-04.png"
+      },
+      {
+        "id": "overview-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/overview/slide-05.png"
+      },
+      {
+        "id": "overview-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/overview/slide-06.png"
+      },
+      {
+        "id": "overview-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/overview/slide-07.png"
+      },
+      {
+        "id": "overview-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/overview/slide-08.png"
+      },
+      {
+        "id": "overview-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/overview/slide-09.png"
+      },
+      {
+        "id": "overview-10",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/overview/slide-10.png"
+      },
+      {
+        "id": "overview-21",
+        "slide": 11,
+        "errors": [],
+        "render": "previews/overview/slide-11.png"
+      },
+      {
+        "id": "overview-11",
+        "slide": 12,
+        "errors": [],
+        "render": "previews/overview/slide-12.png"
+      },
+      {
+        "id": "overview-12",
+        "slide": 13,
+        "errors": [],
+        "render": "previews/overview/slide-13.png"
+      },
+      {
+        "id": "overview-13",
+        "slide": 14,
+        "errors": [],
+        "render": "previews/overview/slide-14.png"
+      },
+      {
+        "id": "overview-14",
+        "slide": 15,
+        "errors": [],
+        "render": "previews/overview/slide-15.png"
+      },
+      {
+        "id": "overview-15",
+        "slide": 16,
+        "errors": [],
+        "render": "previews/overview/slide-16.png"
+      },
+      {
+        "id": "overview-16",
+        "slide": 17,
+        "errors": [],
+        "render": "previews/overview/slide-17.png"
+      },
+      {
+        "id": "overview-17",
+        "slide": 18,
+        "errors": [],
+        "render": "previews/overview/slide-18.png"
+      },
+      {
+        "id": "overview-18",
+        "slide": 19,
+        "errors": [],
+        "render": "previews/overview/slide-19.png"
+      },
+      {
+        "id": "overview-19",
+        "slide": 20,
+        "errors": [],
+        "render": "previews/overview/slide-20.png"
+      },
+      {
+        "id": "overview-20",
+        "slide": 21,
+        "errors": [],
+        "render": "previews/overview/slide-21.png"
+      }
+    ]
+  },
+  {
+    "id": "apps/chat",
+    "slides": 15,
+    "notes": 15,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "apps-chat-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/apps/chat/slide-01.png"
+      },
+      {
+        "id": "apps-chat-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/apps/chat/slide-02.png"
+      },
+      {
+        "id": "apps-chat-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/apps/chat/slide-03.png"
+      },
+      {
+        "id": "apps-chat-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/apps/chat/slide-04.png"
+      },
+      {
+        "id": "apps-chat-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/apps/chat/slide-05.png"
+      },
+      {
+        "id": "apps-chat-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/apps/chat/slide-06.png"
+      },
+      {
+        "id": "apps-chat-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/apps/chat/slide-07.png"
+      },
+      {
+        "id": "apps-chat-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/apps/chat/slide-08.png"
+      },
+      {
+        "id": "apps-chat-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/apps/chat/slide-09.png"
+      },
+      {
+        "id": "apps-chat-10",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/apps/chat/slide-10.png"
+      },
+      {
+        "id": "apps-chat-15",
+        "slide": 11,
+        "errors": [],
+        "render": "previews/apps/chat/slide-11.png"
+      },
+      {
+        "id": "apps-chat-11",
+        "slide": 12,
+        "errors": [],
+        "render": "previews/apps/chat/slide-12.png"
+      },
+      {
+        "id": "apps-chat-12",
+        "slide": 13,
+        "errors": [],
+        "render": "previews/apps/chat/slide-13.png"
+      },
+      {
+        "id": "apps-chat-13",
+        "slide": 14,
+        "errors": [],
+        "render": "previews/apps/chat/slide-14.png"
+      },
+      {
+        "id": "apps-chat-14",
+        "slide": 15,
+        "errors": [],
+        "render": "previews/apps/chat/slide-15.png"
+      }
+    ]
+  },
+  {
+    "id": "apps/chat-api",
+    "slides": 14,
+    "notes": 14,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "apps-chat-api-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-01.png"
+      },
+      {
+        "id": "apps-chat-api-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-02.png"
+      },
+      {
+        "id": "apps-chat-api-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-03.png"
+      },
+      {
+        "id": "apps-chat-api-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-04.png"
+      },
+      {
+        "id": "apps-chat-api-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-05.png"
+      },
+      {
+        "id": "apps-chat-api-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-06.png"
+      },
+      {
+        "id": "apps-chat-api-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-07.png"
+      },
+      {
+        "id": "apps-chat-api-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-08.png"
+      },
+      {
+        "id": "apps-chat-api-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-09.png"
+      },
+      {
+        "id": "apps-chat-api-10",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-10.png"
+      },
+      {
+        "id": "apps-chat-api-11",
+        "slide": 11,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-11.png"
+      },
+      {
+        "id": "apps-chat-api-12",
+        "slide": 12,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-12.png"
+      },
+      {
+        "id": "apps-chat-api-13",
+        "slide": 13,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-13.png"
+      },
+      {
+        "id": "apps-chat-api-14",
+        "slide": 14,
+        "errors": [],
+        "render": "previews/apps/chat-api/slide-14.png"
+      }
+    ]
+  },
+  {
+    "id": "apps/chat-overlay-sandbox",
+    "slides": 8,
+    "notes": 8,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "apps-chat-overlay-sandbox-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/apps/chat-overlay-sandbox/slide-01.png"
+      },
+      {
+        "id": "apps-chat-overlay-sandbox-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/apps/chat-overlay-sandbox/slide-02.png"
+      },
+      {
+        "id": "apps-chat-overlay-sandbox-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/apps/chat-overlay-sandbox/slide-03.png"
+      },
+      {
+        "id": "apps-chat-overlay-sandbox-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/apps/chat-overlay-sandbox/slide-04.png"
+      },
+      {
+        "id": "apps-chat-overlay-sandbox-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/apps/chat-overlay-sandbox/slide-05.png"
+      },
+      {
+        "id": "apps-chat-overlay-sandbox-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/apps/chat-overlay-sandbox/slide-06.png"
+      },
+      {
+        "id": "apps-chat-overlay-sandbox-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/apps/chat-overlay-sandbox/slide-07.png"
+      },
+      {
+        "id": "apps-chat-overlay-sandbox-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/apps/chat-overlay-sandbox/slide-08.png"
+      }
+    ]
+  },
+  {
+    "id": "apps/mcp-app-sandbox",
+    "slides": 8,
+    "notes": 8,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "apps-mcp-app-sandbox-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/apps/mcp-app-sandbox/slide-01.png"
+      },
+      {
+        "id": "apps-mcp-app-sandbox-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/apps/mcp-app-sandbox/slide-02.png"
+      },
+      {
+        "id": "apps-mcp-app-sandbox-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/apps/mcp-app-sandbox/slide-03.png"
+      },
+      {
+        "id": "apps-mcp-app-sandbox-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/apps/mcp-app-sandbox/slide-04.png"
+      },
+      {
+        "id": "apps-mcp-app-sandbox-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/apps/mcp-app-sandbox/slide-05.png"
+      },
+      {
+        "id": "apps-mcp-app-sandbox-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/apps/mcp-app-sandbox/slide-06.png"
+      },
+      {
+        "id": "apps-mcp-app-sandbox-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/apps/mcp-app-sandbox/slide-07.png"
+      },
+      {
+        "id": "apps-mcp-app-sandbox-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/apps/mcp-app-sandbox/slide-08.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/attachment-canvas",
+    "slides": 10,
+    "notes": 10,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-attachment-canvas-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/attachment-canvas/slide-01.png"
+      },
+      {
+        "id": "lib-attachment-canvas-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/attachment-canvas/slide-02.png"
+      },
+      {
+        "id": "lib-attachment-canvas-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/attachment-canvas/slide-03.png"
+      },
+      {
+        "id": "lib-attachment-canvas-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/attachment-canvas/slide-04.png"
+      },
+      {
+        "id": "lib-attachment-canvas-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/attachment-canvas/slide-05.png"
+      },
+      {
+        "id": "lib-attachment-canvas-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/attachment-canvas/slide-06.png"
+      },
+      {
+        "id": "lib-attachment-canvas-10",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/attachment-canvas/slide-07.png"
+      },
+      {
+        "id": "lib-attachment-canvas-07",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/attachment-canvas/slide-08.png"
+      },
+      {
+        "id": "lib-attachment-canvas-08",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/attachment-canvas/slide-09.png"
+      },
+      {
+        "id": "lib-attachment-canvas-09",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/libs/attachment-canvas/slide-10.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/attachment-input",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-attachment-input-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/attachment-input/slide-01.png"
+      },
+      {
+        "id": "lib-attachment-input-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/attachment-input/slide-02.png"
+      },
+      {
+        "id": "lib-attachment-input-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/attachment-input/slide-03.png"
+      },
+      {
+        "id": "lib-attachment-input-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/attachment-input/slide-04.png"
+      },
+      {
+        "id": "lib-attachment-input-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/attachment-input/slide-05.png"
+      },
+      {
+        "id": "lib-attachment-input-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/attachment-input/slide-06.png"
+      },
+      {
+        "id": "lib-attachment-input-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/attachment-input/slide-07.png"
+      },
+      {
+        "id": "lib-attachment-input-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/attachment-input/slide-08.png"
+      },
+      {
+        "id": "lib-attachment-input-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/attachment-input/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/builder-form",
+    "slides": 10,
+    "notes": 10,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-builder-form-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/builder-form/slide-01.png"
+      },
+      {
+        "id": "lib-builder-form-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/builder-form/slide-02.png"
+      },
+      {
+        "id": "lib-builder-form-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/builder-form/slide-03.png"
+      },
+      {
+        "id": "lib-builder-form-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/builder-form/slide-04.png"
+      },
+      {
+        "id": "lib-builder-form-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/builder-form/slide-05.png"
+      },
+      {
+        "id": "lib-builder-form-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/builder-form/slide-06.png"
+      },
+      {
+        "id": "lib-builder-form-10",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/builder-form/slide-07.png"
+      },
+      {
+        "id": "lib-builder-form-07",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/builder-form/slide-08.png"
+      },
+      {
+        "id": "lib-builder-form-08",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/builder-form/slide-09.png"
+      },
+      {
+        "id": "lib-builder-form-09",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/libs/builder-form/slide-10.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/catalog",
+    "slides": 10,
+    "notes": 10,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-catalog-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/catalog/slide-01.png"
+      },
+      {
+        "id": "lib-catalog-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/catalog/slide-02.png"
+      },
+      {
+        "id": "lib-catalog-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/catalog/slide-03.png"
+      },
+      {
+        "id": "lib-catalog-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/catalog/slide-04.png"
+      },
+      {
+        "id": "lib-catalog-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/catalog/slide-05.png"
+      },
+      {
+        "id": "lib-catalog-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/catalog/slide-06.png"
+      },
+      {
+        "id": "lib-catalog-10",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/catalog/slide-07.png"
+      },
+      {
+        "id": "lib-catalog-07",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/catalog/slide-08.png"
+      },
+      {
+        "id": "lib-catalog-08",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/catalog/slide-09.png"
+      },
+      {
+        "id": "lib-catalog-09",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/libs/catalog/slide-10.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/chat-api-client",
+    "slides": 10,
+    "notes": 10,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-chat-api-client-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/chat-api-client/slide-01.png"
+      },
+      {
+        "id": "lib-chat-api-client-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/chat-api-client/slide-02.png"
+      },
+      {
+        "id": "lib-chat-api-client-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/chat-api-client/slide-03.png"
+      },
+      {
+        "id": "lib-chat-api-client-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/chat-api-client/slide-04.png"
+      },
+      {
+        "id": "lib-chat-api-client-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/chat-api-client/slide-05.png"
+      },
+      {
+        "id": "lib-chat-api-client-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/chat-api-client/slide-06.png"
+      },
+      {
+        "id": "lib-chat-api-client-10",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/chat-api-client/slide-07.png"
+      },
+      {
+        "id": "lib-chat-api-client-07",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/chat-api-client/slide-08.png"
+      },
+      {
+        "id": "lib-chat-api-client-08",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/chat-api-client/slide-09.png"
+      },
+      {
+        "id": "lib-chat-api-client-09",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/libs/chat-api-client/slide-10.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/chat-hooks",
+    "slides": 10,
+    "notes": 10,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-chat-hooks-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/chat-hooks/slide-01.png"
+      },
+      {
+        "id": "lib-chat-hooks-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/chat-hooks/slide-02.png"
+      },
+      {
+        "id": "lib-chat-hooks-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/chat-hooks/slide-03.png"
+      },
+      {
+        "id": "lib-chat-hooks-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/chat-hooks/slide-04.png"
+      },
+      {
+        "id": "lib-chat-hooks-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/chat-hooks/slide-05.png"
+      },
+      {
+        "id": "lib-chat-hooks-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/chat-hooks/slide-06.png"
+      },
+      {
+        "id": "lib-chat-hooks-10",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/chat-hooks/slide-07.png"
+      },
+      {
+        "id": "lib-chat-hooks-07",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/chat-hooks/slide-08.png"
+      },
+      {
+        "id": "lib-chat-hooks-08",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/chat-hooks/slide-09.png"
+      },
+      {
+        "id": "lib-chat-hooks-09",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/libs/chat-hooks/slide-10.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/chat-overlay",
+    "slides": 10,
+    "notes": 10,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-chat-overlay-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/chat-overlay/slide-01.png"
+      },
+      {
+        "id": "lib-chat-overlay-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/chat-overlay/slide-02.png"
+      },
+      {
+        "id": "lib-chat-overlay-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/chat-overlay/slide-03.png"
+      },
+      {
+        "id": "lib-chat-overlay-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/chat-overlay/slide-04.png"
+      },
+      {
+        "id": "lib-chat-overlay-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/chat-overlay/slide-05.png"
+      },
+      {
+        "id": "lib-chat-overlay-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/chat-overlay/slide-06.png"
+      },
+      {
+        "id": "lib-chat-overlay-10",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/chat-overlay/slide-07.png"
+      },
+      {
+        "id": "lib-chat-overlay-07",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/chat-overlay/slide-08.png"
+      },
+      {
+        "id": "lib-chat-overlay-08",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/chat-overlay/slide-09.png"
+      },
+      {
+        "id": "lib-chat-overlay-09",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/libs/chat-overlay/slide-10.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/chat-shared",
+    "slides": 10,
+    "notes": 10,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-chat-shared-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/chat-shared/slide-01.png"
+      },
+      {
+        "id": "lib-chat-shared-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/chat-shared/slide-02.png"
+      },
+      {
+        "id": "lib-chat-shared-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/chat-shared/slide-03.png"
+      },
+      {
+        "id": "lib-chat-shared-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/chat-shared/slide-04.png"
+      },
+      {
+        "id": "lib-chat-shared-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/chat-shared/slide-05.png"
+      },
+      {
+        "id": "lib-chat-shared-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/chat-shared/slide-06.png"
+      },
+      {
+        "id": "lib-chat-shared-10",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/chat-shared/slide-07.png"
+      },
+      {
+        "id": "lib-chat-shared-07",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/chat-shared/slide-08.png"
+      },
+      {
+        "id": "lib-chat-shared-08",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/chat-shared/slide-09.png"
+      },
+      {
+        "id": "lib-chat-shared-09",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/libs/chat-shared/slide-10.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/conversation-input",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-conversation-input-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/conversation-input/slide-01.png"
+      },
+      {
+        "id": "lib-conversation-input-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/conversation-input/slide-02.png"
+      },
+      {
+        "id": "lib-conversation-input-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/conversation-input/slide-03.png"
+      },
+      {
+        "id": "lib-conversation-input-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/conversation-input/slide-04.png"
+      },
+      {
+        "id": "lib-conversation-input-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/conversation-input/slide-05.png"
+      },
+      {
+        "id": "lib-conversation-input-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/conversation-input/slide-06.png"
+      },
+      {
+        "id": "lib-conversation-input-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/conversation-input/slide-07.png"
+      },
+      {
+        "id": "lib-conversation-input-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/conversation-input/slide-08.png"
+      },
+      {
+        "id": "lib-conversation-input-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/conversation-input/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/conversation-messages",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-conversation-messages-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/conversation-messages/slide-01.png"
+      },
+      {
+        "id": "lib-conversation-messages-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/conversation-messages/slide-02.png"
+      },
+      {
+        "id": "lib-conversation-messages-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/conversation-messages/slide-03.png"
+      },
+      {
+        "id": "lib-conversation-messages-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/conversation-messages/slide-04.png"
+      },
+      {
+        "id": "lib-conversation-messages-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/conversation-messages/slide-05.png"
+      },
+      {
+        "id": "lib-conversation-messages-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/conversation-messages/slide-06.png"
+      },
+      {
+        "id": "lib-conversation-messages-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/conversation-messages/slide-07.png"
+      },
+      {
+        "id": "lib-conversation-messages-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/conversation-messages/slide-08.png"
+      },
+      {
+        "id": "lib-conversation-messages-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/conversation-messages/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/conversation-panel",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-conversation-panel-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/conversation-panel/slide-01.png"
+      },
+      {
+        "id": "lib-conversation-panel-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/conversation-panel/slide-02.png"
+      },
+      {
+        "id": "lib-conversation-panel-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/conversation-panel/slide-03.png"
+      },
+      {
+        "id": "lib-conversation-panel-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/conversation-panel/slide-04.png"
+      },
+      {
+        "id": "lib-conversation-panel-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/conversation-panel/slide-05.png"
+      },
+      {
+        "id": "lib-conversation-panel-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/conversation-panel/slide-06.png"
+      },
+      {
+        "id": "lib-conversation-panel-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/conversation-panel/slide-07.png"
+      },
+      {
+        "id": "lib-conversation-panel-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/conversation-panel/slide-08.png"
+      },
+      {
+        "id": "lib-conversation-panel-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/conversation-panel/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/conversation-stages",
+    "slides": 10,
+    "notes": 10,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-conversation-stages-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/conversation-stages/slide-01.png"
+      },
+      {
+        "id": "lib-conversation-stages-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/conversation-stages/slide-02.png"
+      },
+      {
+        "id": "lib-conversation-stages-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/conversation-stages/slide-03.png"
+      },
+      {
+        "id": "lib-conversation-stages-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/conversation-stages/slide-04.png"
+      },
+      {
+        "id": "lib-conversation-stages-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/conversation-stages/slide-05.png"
+      },
+      {
+        "id": "lib-conversation-stages-10",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/conversation-stages/slide-06.png"
+      },
+      {
+        "id": "lib-conversation-stages-06",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/conversation-stages/slide-07.png"
+      },
+      {
+        "id": "lib-conversation-stages-07",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/conversation-stages/slide-08.png"
+      },
+      {
+        "id": "lib-conversation-stages-08",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/conversation-stages/slide-09.png"
+      },
+      {
+        "id": "lib-conversation-stages-09",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/libs/conversation-stages/slide-10.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/mcp-apps",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-mcp-apps-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/mcp-apps/slide-01.png"
+      },
+      {
+        "id": "lib-mcp-apps-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/mcp-apps/slide-02.png"
+      },
+      {
+        "id": "lib-mcp-apps-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/mcp-apps/slide-03.png"
+      },
+      {
+        "id": "lib-mcp-apps-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/mcp-apps/slide-04.png"
+      },
+      {
+        "id": "lib-mcp-apps-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/mcp-apps/slide-05.png"
+      },
+      {
+        "id": "lib-mcp-apps-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/mcp-apps/slide-06.png"
+      },
+      {
+        "id": "lib-mcp-apps-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/mcp-apps/slide-07.png"
+      },
+      {
+        "id": "lib-mcp-apps-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/mcp-apps/slide-08.png"
+      },
+      {
+        "id": "lib-mcp-apps-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/mcp-apps/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/navigation-panel",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-navigation-panel-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/navigation-panel/slide-01.png"
+      },
+      {
+        "id": "lib-navigation-panel-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/navigation-panel/slide-02.png"
+      },
+      {
+        "id": "lib-navigation-panel-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/navigation-panel/slide-03.png"
+      },
+      {
+        "id": "lib-navigation-panel-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/navigation-panel/slide-04.png"
+      },
+      {
+        "id": "lib-navigation-panel-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/navigation-panel/slide-05.png"
+      },
+      {
+        "id": "lib-navigation-panel-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/navigation-panel/slide-06.png"
+      },
+      {
+        "id": "lib-navigation-panel-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/navigation-panel/slide-07.png"
+      },
+      {
+        "id": "lib-navigation-panel-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/navigation-panel/slide-08.png"
+      },
+      {
+        "id": "lib-navigation-panel-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/navigation-panel/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/prompt-editor",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-prompt-editor-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/prompt-editor/slide-01.png"
+      },
+      {
+        "id": "lib-prompt-editor-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/prompt-editor/slide-02.png"
+      },
+      {
+        "id": "lib-prompt-editor-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/prompt-editor/slide-03.png"
+      },
+      {
+        "id": "lib-prompt-editor-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/prompt-editor/slide-04.png"
+      },
+      {
+        "id": "lib-prompt-editor-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/prompt-editor/slide-05.png"
+      },
+      {
+        "id": "lib-prompt-editor-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/prompt-editor/slide-06.png"
+      },
+      {
+        "id": "lib-prompt-editor-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/prompt-editor/slide-07.png"
+      },
+      {
+        "id": "lib-prompt-editor-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/prompt-editor/slide-08.png"
+      },
+      {
+        "id": "lib-prompt-editor-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/prompt-editor/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/prompts",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-prompts-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/prompts/slide-01.png"
+      },
+      {
+        "id": "lib-prompts-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/prompts/slide-02.png"
+      },
+      {
+        "id": "lib-prompts-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/prompts/slide-03.png"
+      },
+      {
+        "id": "lib-prompts-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/prompts/slide-04.png"
+      },
+      {
+        "id": "lib-prompts-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/prompts/slide-05.png"
+      },
+      {
+        "id": "lib-prompts-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/prompts/slide-06.png"
+      },
+      {
+        "id": "lib-prompts-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/prompts/slide-07.png"
+      },
+      {
+        "id": "lib-prompts-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/prompts/slide-08.png"
+      },
+      {
+        "id": "lib-prompts-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/prompts/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/publish-panel",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-publish-panel-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/publish-panel/slide-01.png"
+      },
+      {
+        "id": "lib-publish-panel-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/publish-panel/slide-02.png"
+      },
+      {
+        "id": "lib-publish-panel-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/publish-panel/slide-03.png"
+      },
+      {
+        "id": "lib-publish-panel-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/publish-panel/slide-04.png"
+      },
+      {
+        "id": "lib-publish-panel-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/publish-panel/slide-05.png"
+      },
+      {
+        "id": "lib-publish-panel-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/publish-panel/slide-06.png"
+      },
+      {
+        "id": "lib-publish-panel-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/publish-panel/slide-07.png"
+      },
+      {
+        "id": "lib-publish-panel-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/publish-panel/slide-08.png"
+      },
+      {
+        "id": "lib-publish-panel-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/publish-panel/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/quotations",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-quotations-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/quotations/slide-01.png"
+      },
+      {
+        "id": "lib-quotations-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/quotations/slide-02.png"
+      },
+      {
+        "id": "lib-quotations-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/quotations/slide-03.png"
+      },
+      {
+        "id": "lib-quotations-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/quotations/slide-04.png"
+      },
+      {
+        "id": "lib-quotations-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/quotations/slide-05.png"
+      },
+      {
+        "id": "lib-quotations-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/quotations/slide-06.png"
+      },
+      {
+        "id": "lib-quotations-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/quotations/slide-07.png"
+      },
+      {
+        "id": "lib-quotations-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/quotations/slide-08.png"
+      },
+      {
+        "id": "lib-quotations-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/quotations/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/scheduled-tasks",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-scheduled-tasks-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/scheduled-tasks/slide-01.png"
+      },
+      {
+        "id": "lib-scheduled-tasks-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/scheduled-tasks/slide-02.png"
+      },
+      {
+        "id": "lib-scheduled-tasks-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/scheduled-tasks/slide-03.png"
+      },
+      {
+        "id": "lib-scheduled-tasks-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/scheduled-tasks/slide-04.png"
+      },
+      {
+        "id": "lib-scheduled-tasks-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/scheduled-tasks/slide-05.png"
+      },
+      {
+        "id": "lib-scheduled-tasks-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/scheduled-tasks/slide-06.png"
+      },
+      {
+        "id": "lib-scheduled-tasks-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/scheduled-tasks/slide-07.png"
+      },
+      {
+        "id": "lib-scheduled-tasks-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/scheduled-tasks/slide-08.png"
+      },
+      {
+        "id": "lib-scheduled-tasks-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/scheduled-tasks/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/settings-panel",
+    "slides": 10,
+    "notes": 10,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-settings-panel-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/settings-panel/slide-01.png"
+      },
+      {
+        "id": "lib-settings-panel-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/settings-panel/slide-02.png"
+      },
+      {
+        "id": "lib-settings-panel-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/settings-panel/slide-03.png"
+      },
+      {
+        "id": "lib-settings-panel-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/settings-panel/slide-04.png"
+      },
+      {
+        "id": "lib-settings-panel-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/settings-panel/slide-05.png"
+      },
+      {
+        "id": "lib-settings-panel-10",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/settings-panel/slide-06.png"
+      },
+      {
+        "id": "lib-settings-panel-06",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/settings-panel/slide-07.png"
+      },
+      {
+        "id": "lib-settings-panel-07",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/settings-panel/slide-08.png"
+      },
+      {
+        "id": "lib-settings-panel-08",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/settings-panel/slide-09.png"
+      },
+      {
+        "id": "lib-settings-panel-09",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/libs/settings-panel/slide-10.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/share",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-share-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/share/slide-01.png"
+      },
+      {
+        "id": "lib-share-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/share/slide-02.png"
+      },
+      {
+        "id": "lib-share-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/share/slide-03.png"
+      },
+      {
+        "id": "lib-share-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/share/slide-04.png"
+      },
+      {
+        "id": "lib-share-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/share/slide-05.png"
+      },
+      {
+        "id": "lib-share-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/share/slide-06.png"
+      },
+      {
+        "id": "lib-share-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/share/slide-07.png"
+      },
+      {
+        "id": "lib-share-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/share/slide-08.png"
+      },
+      {
+        "id": "lib-share-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/share/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/sidebar",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-sidebar-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/sidebar/slide-01.png"
+      },
+      {
+        "id": "lib-sidebar-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/sidebar/slide-02.png"
+      },
+      {
+        "id": "lib-sidebar-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/sidebar/slide-03.png"
+      },
+      {
+        "id": "lib-sidebar-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/sidebar/slide-04.png"
+      },
+      {
+        "id": "lib-sidebar-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/sidebar/slide-05.png"
+      },
+      {
+        "id": "lib-sidebar-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/sidebar/slide-06.png"
+      },
+      {
+        "id": "lib-sidebar-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/sidebar/slide-07.png"
+      },
+      {
+        "id": "lib-sidebar-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/sidebar/slide-08.png"
+      },
+      {
+        "id": "lib-sidebar-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/sidebar/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/skill-editor",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-skill-editor-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/skill-editor/slide-01.png"
+      },
+      {
+        "id": "lib-skill-editor-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/skill-editor/slide-02.png"
+      },
+      {
+        "id": "lib-skill-editor-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/skill-editor/slide-03.png"
+      },
+      {
+        "id": "lib-skill-editor-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/skill-editor/slide-04.png"
+      },
+      {
+        "id": "lib-skill-editor-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/skill-editor/slide-05.png"
+      },
+      {
+        "id": "lib-skill-editor-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/skill-editor/slide-06.png"
+      },
+      {
+        "id": "lib-skill-editor-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/skill-editor/slide-07.png"
+      },
+      {
+        "id": "lib-skill-editor-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/skill-editor/slide-08.png"
+      },
+      {
+        "id": "lib-skill-editor-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/skill-editor/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/skills",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-skills-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/skills/slide-01.png"
+      },
+      {
+        "id": "lib-skills-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/skills/slide-02.png"
+      },
+      {
+        "id": "lib-skills-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/skills/slide-03.png"
+      },
+      {
+        "id": "lib-skills-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/skills/slide-04.png"
+      },
+      {
+        "id": "lib-skills-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/skills/slide-05.png"
+      },
+      {
+        "id": "lib-skills-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/skills/slide-06.png"
+      },
+      {
+        "id": "lib-skills-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/skills/slide-07.png"
+      },
+      {
+        "id": "lib-skills-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/skills/slide-08.png"
+      },
+      {
+        "id": "lib-skills-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/skills/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/source-panel",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-source-panel-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/source-panel/slide-01.png"
+      },
+      {
+        "id": "lib-source-panel-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/source-panel/slide-02.png"
+      },
+      {
+        "id": "lib-source-panel-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/source-panel/slide-03.png"
+      },
+      {
+        "id": "lib-source-panel-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/source-panel/slide-04.png"
+      },
+      {
+        "id": "lib-source-panel-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/source-panel/slide-05.png"
+      },
+      {
+        "id": "lib-source-panel-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/source-panel/slide-06.png"
+      },
+      {
+        "id": "lib-source-panel-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/source-panel/slide-07.png"
+      },
+      {
+        "id": "lib-source-panel-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/source-panel/slide-08.png"
+      },
+      {
+        "id": "lib-source-panel-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/source-panel/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/starter-buttons",
+    "slides": 9,
+    "notes": 9,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-starter-buttons-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/starter-buttons/slide-01.png"
+      },
+      {
+        "id": "lib-starter-buttons-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/starter-buttons/slide-02.png"
+      },
+      {
+        "id": "lib-starter-buttons-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/starter-buttons/slide-03.png"
+      },
+      {
+        "id": "lib-starter-buttons-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/starter-buttons/slide-04.png"
+      },
+      {
+        "id": "lib-starter-buttons-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/starter-buttons/slide-05.png"
+      },
+      {
+        "id": "lib-starter-buttons-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/starter-buttons/slide-06.png"
+      },
+      {
+        "id": "lib-starter-buttons-07",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/starter-buttons/slide-07.png"
+      },
+      {
+        "id": "lib-starter-buttons-08",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/starter-buttons/slide-08.png"
+      },
+      {
+        "id": "lib-starter-buttons-09",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/starter-buttons/slide-09.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/toolset-editor",
+    "slides": 10,
+    "notes": 10,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-toolset-editor-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/toolset-editor/slide-01.png"
+      },
+      {
+        "id": "lib-toolset-editor-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/toolset-editor/slide-02.png"
+      },
+      {
+        "id": "lib-toolset-editor-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/toolset-editor/slide-03.png"
+      },
+      {
+        "id": "lib-toolset-editor-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/toolset-editor/slide-04.png"
+      },
+      {
+        "id": "lib-toolset-editor-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/toolset-editor/slide-05.png"
+      },
+      {
+        "id": "lib-toolset-editor-06",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/toolset-editor/slide-06.png"
+      },
+      {
+        "id": "lib-toolset-editor-10",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/toolset-editor/slide-07.png"
+      },
+      {
+        "id": "lib-toolset-editor-07",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/toolset-editor/slide-08.png"
+      },
+      {
+        "id": "lib-toolset-editor-08",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/toolset-editor/slide-09.png"
+      },
+      {
+        "id": "lib-toolset-editor-09",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/libs/toolset-editor/slide-10.png"
+      }
+    ]
+  },
+  {
+    "id": "libs/usage-dashboard",
+    "slides": 10,
+    "notes": 10,
+    "fonts": [
+      "Arial-BoldMT",
+      "ArialMT",
+      "CourierNewPSMT"
+    ],
+    "structuralPassed": true,
+    "errors": [],
+    "warnings": [],
+    "slideChecks": [
+      {
+        "id": "lib-usage-dashboard-01",
+        "slide": 1,
+        "errors": [],
+        "render": "previews/libs/usage-dashboard/slide-01.png"
+      },
+      {
+        "id": "lib-usage-dashboard-02",
+        "slide": 2,
+        "errors": [],
+        "render": "previews/libs/usage-dashboard/slide-02.png"
+      },
+      {
+        "id": "lib-usage-dashboard-03",
+        "slide": 3,
+        "errors": [],
+        "render": "previews/libs/usage-dashboard/slide-03.png"
+      },
+      {
+        "id": "lib-usage-dashboard-04",
+        "slide": 4,
+        "errors": [],
+        "render": "previews/libs/usage-dashboard/slide-04.png"
+      },
+      {
+        "id": "lib-usage-dashboard-05",
+        "slide": 5,
+        "errors": [],
+        "render": "previews/libs/usage-dashboard/slide-05.png"
+      },
+      {
+        "id": "lib-usage-dashboard-10",
+        "slide": 6,
+        "errors": [],
+        "render": "previews/libs/usage-dashboard/slide-06.png"
+      },
+      {
+        "id": "lib-usage-dashboard-06",
+        "slide": 7,
+        "errors": [],
+        "render": "previews/libs/usage-dashboard/slide-07.png"
+      },
+      {
+        "id": "lib-usage-dashboard-07",
+        "slide": 8,
+        "errors": [],
+        "render": "previews/libs/usage-dashboard/slide-08.png"
+      },
+      {
+        "id": "lib-usage-dashboard-08",
+        "slide": 9,
+        "errors": [],
+        "render": "previews/libs/usage-dashboard/slide-09.png"
+      },
+      {
+        "id": "lib-usage-dashboard-09",
+        "slide": 10,
+        "errors": [],
+        "render": "previews/libs/usage-dashboard/slide-10.png"
+      }
+    ]
+  }
+]

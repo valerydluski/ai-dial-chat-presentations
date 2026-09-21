@@ -1,0 +1,867 @@
+{
+  "id": "overview",
+  "shortTitle": "AI DIAL Chat",
+  "series": "Repository overview",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "overview-01",
+      "title": "AI DIAL Chat",
+      "layout": "cover",
+      "sources": [
+        {
+          "file": "docs/architecture.md",
+          "start": 1,
+          "end": 765
+        },
+        {
+          "file": "package.json",
+          "start": 1,
+          "end": 199
+        }
+      ],
+      "notes": "This series is grounded in the local working tree and Nx graph. It includes one overview plus one deck per application and library. The auxiliary attachment-canvas-consumer-fixture project is in the Nx graph but is not a separate app/library topic. Publishing scripts remain auxiliary tooling. Untracked skill and OpenSpec artifacts are recorded in the manifest. No performance benchmark or production-readiness assertion is made.",
+      "subtitle": "A modular chat application, a backend edge, and reusable workspace libraries.",
+      "chips": [
+        "4 applications",
+        "28 libraries",
+        "33 technical sessions"
+      ],
+      "caption": "Source snapshot 23fa39459d89 \u00b7 2026-09-21"
+    },
+    {
+      "id": "overview-02",
+      "title": "Start with the user workflows",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/chat/src/types/routes.ts",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "apps/chat/src/pages/Conversation/Conversation.tsx",
+          "start": 1,
+          "end": 757
+        }
+      ],
+      "notes": "The route tree and conversation assembly expose the user workflows shown here. Individual UI libraries implement parts of these flows, while the app supplies state, permissions and backend behavior. Some capabilities depend on configuration and the selected deployment; route existence is not a guarantee that every user can access every feature.",
+      "cards": [
+        {
+          "title": "Converse with context",
+          "body": "Choose a deployment, attach files, send messages and inspect evidence."
+        },
+        {
+          "title": "Reuse knowledge",
+          "body": "Browse prompts and skills, then apply them to a conversation."
+        },
+        {
+          "title": "Manage shared work",
+          "body": "Share or publish resources and inspect scheduled task runs."
+        }
+      ]
+    },
+    {
+      "id": "overview-03",
+      "title": "Four apps have different responsibilities",
+      "layout": "table",
+      "sources": [
+        {
+          "file": "apps/chat/README.md",
+          "start": 1,
+          "end": 392
+        },
+        {
+          "file": "apps/chat-api/README.md",
+          "start": 1,
+          "end": 1047
+        },
+        {
+          "file": "apps/chat-overlay-sandbox/README.md",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "apps/mcp-app-sandbox/README.md",
+          "start": 1,
+          "end": 60
+        }
+      ],
+      "notes": "Nx resolves four non-empty projects under apps. The two sandboxes have different purposes: overlay-sandbox is a developer demonstration host, whereas mcp-app-sandbox serves the isolated proxy page required by MCP Apps rendering. Do not merge them into a single deployment assumption.",
+      "headers": [
+        "Application",
+        "Responsibility"
+      ],
+      "rows": [
+        [
+          "chat",
+          "React SPA and application integration"
+        ],
+        [
+          "chat-api",
+          "NestJS BFF, auth, persistence and Core access"
+        ],
+        [
+          "chat-overlay-sandbox",
+          "Browser host for overlay integration cases"
+        ],
+        [
+          "mcp-app-sandbox",
+          "Separate-origin sandbox proxy for MCP UI"
+        ]
+      ]
+    },
+    {
+      "id": "overview-04",
+      "title": "Libraries for the conversation workspace",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "libs/conversation-input/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/attachment-canvas/src/index.ts",
+          "start": 1,
+          "end": 89
+        },
+        {
+          "file": "libs/navigation-panel/src/index.ts",
+          "start": 1,
+          "end": 54
+        }
+      ],
+      "notes": "These twelve libraries form the main conversation workspace. The input emits send intent, messages display state, history selects conversations, and stages display intermediate progress. Evidence viewers are kept distinct from transport and source derivation. Navigation and sidebar shells let an embedding host choose its own routing and layout.",
+      "cards": [
+        {
+          "title": "Conversation",
+          "body": "conversation-input, conversation-messages, conversation-panel, conversation-stages"
+        },
+        {
+          "title": "Evidence",
+          "body": "attachment-input, attachment-canvas, source-panel, quotations"
+        },
+        {
+          "title": "Navigation",
+          "body": "navigation-panel, sidebar, starter-buttons, settings-panel"
+        }
+      ]
+    },
+    {
+      "id": "overview-05",
+      "title": "Libraries for knowledge and integration",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "libs/catalog/src/index.ts",
+          "start": 1,
+          "end": 157
+        },
+        {
+          "file": "libs/chat-hooks/src/index.ts",
+          "start": 1,
+          "end": 184
+        },
+        {
+          "file": "libs/chat-overlay/src/index.ts",
+          "start": 1,
+          "end": 4
+        },
+        {
+          "file": "libs/mcp-apps/src/index.ts",
+          "start": 1,
+          "end": 31
+        }
+      ],
+      "notes": "These sixteen libraries complete the set of twenty-eight. The editor packages are distinct from pickers; sharing and publication have separate contracts. The generated client, headless hooks and shared foundations form different layers. Overlay and MCP packages cross browser-frame boundaries and therefore deserve protocol-specific treatment.",
+      "cards": [
+        {
+          "title": "Author and discover",
+          "body": "catalog, builder-form, prompt-editor, prompts, skill-editor, skills, toolset-editor"
+        },
+        {
+          "title": "Automate and distribute",
+          "body": "scheduled-tasks, share, publish-panel, usage-dashboard"
+        },
+        {
+          "title": "Integrate and share code",
+          "body": "chat-api-client, chat-hooks, chat-shared, chat-overlay, mcp-apps"
+        }
+      ]
+    },
+    {
+      "id": "overview-06",
+      "title": "Application edges connect the layers",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "apps/chat/src/main.tsx",
+          "start": 1,
+          "end": 108
+        },
+        {
+          "file": "apps/chat-api/src/app/app.module.ts",
+          "start": 1,
+          "end": 79
+        }
+      ],
+      "notes": "Frontend and backend apps own external integration. Most UI libraries should not know REST paths, identity-provider setup, storage keys or navigation targets. The generated client is a deliberate exception; chat-hooks has a narrower exception for injected generated operations. Some source dependencies currently exceed the stated rule, so the report separates intended isolation from observed dependencies.",
+      "kicker": "A simplified ownership map, not a complete dependency graph.",
+      "nodes": [
+        {
+          "title": "Host / browser",
+          "body": "Optional embedding page"
+        },
+        {
+          "title": "apps/chat",
+          "body": "Routes, providers, adapters"
+        },
+        {
+          "title": "apps/chat-api",
+          "body": "Auth and domain services"
+        },
+        {
+          "title": "External systems",
+          "body": "Core, identity and theme services"
+        }
+      ],
+      "takeaway": "UI libraries receive data and behavior through public contracts."
+    },
+    {
+      "id": "overview-07",
+      "title": "One message enters the backend",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "apps/chat/src/pages/Conversation/Conversation.tsx",
+          "start": 1,
+          "end": 757
+        },
+        {
+          "file": "apps/chat/src/server-api/chat-stream.api.ts",
+          "start": 1,
+          "end": 17
+        },
+        {
+          "file": "libs/chat-hooks/src/conversation/create-chat-stream-api.ts",
+          "start": 1,
+          "end": 242
+        },
+        {
+          "file": "apps/chat-api/src/conversations/conversation.controller.ts",
+          "start": 1,
+          "end": 852
+        }
+      ],
+      "notes": "The browser hands message intent to the app. The app integrates the headless stream behavior and createChatStreamApi, supplying the conversation base path and CSRF callbacks. This endpoint differs from the direct /api/v1/chat/completions proxy. The backend validates the request and owns the persisted conversation lifecycle.",
+      "nodes": [
+        {
+          "title": "ConversationInput",
+          "body": "onSend intent"
+        },
+        {
+          "title": "Conversation page",
+          "body": "Handlers and stream hook"
+        },
+        {
+          "title": "App stream adapter",
+          "body": "Host paths and CSRF"
+        },
+        {
+          "title": "Conversation API",
+          "body": "POST completions"
+        }
+      ],
+      "takeaway": "POST /api/v1/conversations/completions"
+    },
+    {
+      "id": "overview-08",
+      "title": "Chunks return through a shared lifecycle",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "apps/chat-api/src/conversations/streaming/conversation-streaming.service.ts",
+          "start": 1,
+          "end": 773
+        },
+        {
+          "file": "apps/chat-api/src/conversations/conversation.controller.ts",
+          "start": 1,
+          "end": 852
+        },
+        {
+          "file": "libs/chat-hooks/src/conversation/useConversationStream/useConversationStream.ts",
+          "start": 1,
+          "end": 606
+        }
+      ],
+      "notes": "Conversation generation is registered by principal and conversation. The backend saves initial and final or partial state, even when the originating tab disconnects. A dedicated stop request aborts generation, while attach supports resuming a view of active output. The registry is in memory; this is an operational constraint, not durable distributed execution.",
+      "nodes": [
+        {
+          "title": "DIAL Core",
+          "body": "Upstream response events"
+        },
+        {
+          "title": "Backend relay",
+          "body": "Normalize and persist"
+        },
+        {
+          "title": "Stream hook",
+          "body": "Merge message changes"
+        },
+        {
+          "title": "Message components",
+          "body": "Text, stages and citations"
+        }
+      ],
+      "takeaway": "Closing the browser connection is different from explicitly stopping generation."
+    },
+    {
+      "id": "overview-09",
+      "title": "Separate clients, hooks and adapters",
+      "layout": "table",
+      "sources": [
+        {
+          "file": "libs/chat-api-client/src/generated/src/runtime.ts",
+          "start": 1,
+          "end": 511
+        },
+        {
+          "file": "libs/chat-hooks/src/useShareLink/useShareLink.ts",
+          "start": 1,
+          "end": 109
+        },
+        {
+          "file": "apps/chat/src/server-api/api-client.ts",
+          "start": 1,
+          "end": 106
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ],
+      "notes": "The generated client is not the server-side DIAL TypeScript SDK. It targets this chat BFF. The backend separately uses DialClientService and the DIAL SDK to call Core. Hooks can depend on generated operation signatures under the documented exception, while the configured client instance remains app-owned.",
+      "headers": [
+        "Layer",
+        "Concrete role"
+      ],
+      "rows": [
+        [
+          "Generated API client",
+          "Fetch operations and DTO serialization"
+        ],
+        [
+          "Headless hooks",
+          "Request/UI lifecycles with injected dependencies"
+        ],
+        [
+          "Application adapters",
+          "Client configuration, CSRF, origin and route mapping"
+        ],
+        [
+          "UI libraries",
+          "Render state and emit typed user actions"
+        ]
+      ]
+    },
+    {
+      "id": "overview-10",
+      "title": "Compose a view from focused parts",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "apps/chat/src/components/ConversationView/ConversationView.tsx",
+          "start": 1,
+          "end": 1263
+        },
+        {
+          "file": "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+          "start": 1,
+          "end": 898
+        },
+        {
+          "file": "apps/chat/src/pages/Conversation/Conversation.tsx",
+          "start": 1,
+          "end": 757
+        }
+      ],
+      "notes": "The application assembles components around its contexts and hooks. AssistantMessageBubble accepts afterContent, so the same message component can display a stages panel without owning stage fetching. The canvas is controlled through a provider at the app root. This demonstrates a concrete modularity benefit: presentation composition can change without moving the HTTP contract into the component.",
+      "nodes": [
+        {
+          "title": "Application state",
+          "body": "Messages and deployment"
+        },
+        {
+          "title": "Composer + bubbles",
+          "body": "Input and transcript"
+        },
+        {
+          "title": "Evidence surfaces",
+          "body": "Stages, citations, canvas"
+        },
+        {
+          "title": "Host callbacks",
+          "body": "Send, load and navigate"
+        }
+      ],
+      "takeaway": "A library can be adopted without copying the whole route implementation."
+    },
+    {
+      "id": "overview-21",
+      "title": "See three libraries in one host",
+      "layout": "image",
+      "kicker": "Reproducible demo \u00b7 actual workspace source components",
+      "image": "assets/component-demo.png",
+      "sideTitle": "Compose a screen",
+      "body": "The host selects rows, formats amounts and supplies stage data. Each library renders its own part.",
+      "notes": "This is a real browser screenshot of the standalone demo in demo/main.tsx, captured by src/capture-demo.mjs. It renders SettingsPanel, UsageLimitCard and StagesPanel directly from the recorded source snapshot with local stylesheet dependencies. It is an illustrative host, not a screenshot of a deployed DIAL product. All data is synthetic and no backend request is made. Run the Vite command in examples/README.md, then the capture script. Expected behavior: Usage starts selected; selecting Profile updates the controlled active row. The amount and stage remain demo data. The host explicitly supplies dark-theme color overrides. Desktop and phone captures are retained under assets/.",
+      "sources": [
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 1,
+          "end": 170
+        },
+        {
+          "file": "libs/usage-dashboard/src/components/UsageLimitCard/UsageLimitCard.tsx",
+          "start": 1,
+          "end": 191
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 1,
+          "end": 229
+        }
+      ]
+    },
+    {
+      "id": "overview-11",
+      "title": "Choose a reuse boundary",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "libs/chat-hooks/package.json",
+          "start": 1,
+          "end": 266
+        },
+        {
+          "file": "libs/chat-overlay/README.md",
+          "start": 1,
+          "end": 307
+        },
+        {
+          "file": "tools/publish-lib.mjs",
+          "start": 1,
+          "end": 282
+        }
+      ],
+      "notes": "All twenty-eight source manifests are private in this snapshot. The verified path is the current workspace with its aliases and Nx graph. Publish and pack tooling exists, but a tag or script is not proof of npm availability. For a separate host, validate the produced package and its peer matrix before proposing installation.",
+      "cards": [
+        {
+          "title": "Reuse a component",
+          "body": "Bring typed data, callbacks, labels and its stylesheet."
+        },
+        {
+          "title": "Build a custom UI",
+          "body": "Use chat-hooks and configured generated operations."
+        },
+        {
+          "title": "Embed the full app",
+          "body": "Use ChatOverlay with an existing chat deployment."
+        }
+      ]
+    },
+    {
+      "id": "overview-12",
+      "title": "Theme tokens travel from host to component",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "docs/theme-customization.md",
+          "start": 1,
+          "end": 396
+        },
+        {
+          "file": "apps/chat-api/src/themes/theme.controller.ts",
+          "start": 1,
+          "end": 131
+        },
+        {
+          "file": "apps/chat/src/context/ThemeContext.tsx",
+          "start": 1,
+          "end": 171
+        },
+        {
+          "file": "libs/chat-shared/src/utils/build-css-vars.ts",
+          "start": 1,
+          "end": 14
+        }
+      ],
+      "notes": "The actual ThemeController is unversioned and exposes /api/themes and /api/themes/icon despite the broader business-route versioning rule. ThemeProvider sets colors as CSS variables. Library props can override local variables, and stable public classes support host styling. The supplied favicon is copied from the adjacent SDK website unchanged.",
+      "nodes": [
+        {
+          "title": "Theme service",
+          "body": "config.json and images"
+        },
+        {
+          "title": "BFF theme proxy",
+          "body": "/api/themes"
+        },
+        {
+          "title": "ThemeProvider",
+          "body": "CSS vars on html"
+        },
+        {
+          "title": "Library styles",
+          "body": "Tokens and overrides"
+        }
+      ],
+      "takeaway": "Theme selection is app-owned; reusable libraries consume resolved styling."
+    },
+    {
+      "id": "overview-13",
+      "title": "Localization support has a clear current limit",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/chat/src/i18n/config.ts",
+          "start": 1,
+          "end": 32
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "libs/navigation-panel/src/models/navigation-panel-props.ts",
+          "start": 1,
+          "end": 73
+        }
+      ],
+      "notes": "Do not equate RTL direction handling with a completed Arabic translation. The current config imports only en.json and falls back to English. The direction hook updates both html.lang and html.dir on language changes. The repository instructions require RTL and accessibility support, but this bundle does not claim a full accessibility conformance audit.",
+      "cards": [
+        {
+          "title": "English resources",
+          "body": "The current i18n initialization registers en translations."
+        },
+        {
+          "title": "RTL switching",
+          "body": "ar, he, fa and ur set document direction to rtl."
+        },
+        {
+          "title": "Host-localized libraries",
+          "body": "Labels and logical CSS keep language ownership at the edge."
+        }
+      ]
+    },
+    {
+      "id": "overview-14",
+      "title": "Authentication belongs at the BFF",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "docs/auth/auth-bff-encrypted-cookie.md",
+          "start": 1,
+          "end": 442
+        },
+        {
+          "file": "apps/chat-api/src/auth/session/session.guard.ts",
+          "start": 1,
+          "end": 112
+        },
+        {
+          "file": "apps/chat-api/src/auth/session/session.service.ts",
+          "start": 1,
+          "end": 58
+        },
+        {
+          "file": "apps/chat-api/src/auth/refresh/refresh.service.ts",
+          "start": 1,
+          "end": 115
+        }
+      ],
+      "notes": "The default browser flow uses an encrypted HttpOnly session cookie. The backend performs OIDC and refreshes tokens; JavaScript receives user state rather than access or refresh tokens. A separately configured header-token strategy exists. Secure cookie and same-site behavior depend on deployment and overlay mode. This is a description of this source, not general identity-provider setup guidance.",
+      "nodes": [
+        {
+          "title": "Browser",
+          "body": "Opaque session cookie"
+        },
+        {
+          "title": "Session guard",
+          "body": "Validate and refresh"
+        },
+        {
+          "title": "Identity provider",
+          "body": "OIDC code flow"
+        },
+        {
+          "title": "Core request",
+          "body": "Verified user token"
+        }
+      ],
+      "takeaway": "Configured clients and session details stay outside ordinary UI libraries."
+    },
+    {
+      "id": "overview-15",
+      "title": "Two upstream APIs share the browser stream",
+      "layout": "table",
+      "sources": [
+        {
+          "file": "docs/responses-api-integration.md",
+          "start": 1,
+          "end": 460
+        },
+        {
+          "file": "apps/chat-api/src/conversations/streaming/conversation-streaming.service.ts",
+          "start": 1,
+          "end": 773
+        },
+        {
+          "file": "apps/chat-api/src/conversations/generation/generation-api.ts",
+          "start": 1,
+          "end": 27
+        }
+      ],
+      "notes": "Both the server operator flag and the deployment capability must be true to select Responses. The resolver function alone checks only the capability, so reading it without its caller gives an incomplete rule. The BFF normalizes upstream events to the browser contract. There is no automatic retry through the other API after an error.",
+      "headers": [
+        "Server flag and deployment",
+        "Upstream path"
+      ],
+      "rows": [
+        [
+          "Server flag = false",
+          "Chat Completions"
+        ],
+        [
+          "Flag true; capability missing/false",
+          "Chat Completions"
+        ],
+        [
+          "Flag true; responsesApi = true",
+          "Responses adapter"
+        ]
+      ],
+      "kicker": "Server flag: RESPONSES_API_ENABLED \u00b7 deployment feature: responsesApi"
+    },
+    {
+      "id": "overview-16",
+      "title": "Run the applications locally",
+      "layout": "code",
+      "sources": [
+        {
+          "file": "package.json",
+          "start": 1,
+          "end": 199
+        },
+        {
+          "file": "apps/chat/vite.config.mts",
+          "start": 1,
+          "end": 267
+        },
+        {
+          "file": "apps/chat-api/README.md",
+          "start": 1,
+          "end": 1047
+        },
+        {
+          "file": "apps/mcp-app-sandbox/README.md",
+          "start": 1,
+          "end": 60
+        }
+      ],
+      "notes": "These are documented commands, not operations run against the source repository for this task. Configure DIAL_CORE_URL and the required auth/session settings from apps/chat-api/README.md and .env.template. Configure MCP_APP_SANDBOX_ALLOWED_HOST_ORIGINS before using the separate sandbox. npm ci modifies the consuming checkout, so it is shown for reproducibility and was not run here.",
+      "kicker": "From the repository root, after configuring backend environment values.",
+      "code": "npm ci\nnpm run start:all\n\n# Frontend: http://localhost:4207\n# Backend:  http://localhost:5000\n\nnpm exec nx serve chat-overlay-sandbox\nnpm run start:mcp-app-sandbox",
+      "caption": "Use a Node version compatible with the locked Nx/Vite stack."
+    },
+    {
+      "id": "overview-17",
+      "title": "Use the checks that match the change",
+      "layout": "table",
+      "sources": [
+        {
+          "file": "package.json",
+          "start": 1,
+          "end": 199
+        },
+        {
+          "file": "nx.json",
+          "start": 1,
+          "end": 121
+        }
+      ],
+      "notes": "The repository scripts use Nx targets and affected project selection. The lint script itself applies fixes, while lint:check is the non-mutating alternative used in verification. Full workspace builds and suites were not run for this output-only task. The presentation bundle has its own generation, structural, rendering and example checks.",
+      "headers": [
+        "Purpose",
+        "Repository command"
+      ],
+      "rows": [
+        [
+          "Types, lint and tests",
+          "npm run verify:full"
+        ],
+        [
+          "Build the apps/libraries",
+          "npm run build:all"
+        ],
+        [
+          "Check docs and manifests",
+          "npm run validate:docs"
+        ],
+        [
+          "Check generated client drift",
+          "npm run openapi:check"
+        ]
+      ]
+    },
+    {
+      "id": "overview-18",
+      "title": "Modularity gives specific engineering benefits",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "libs/builder-form/src/index.ts",
+          "start": 1,
+          "end": 65
+        },
+        {
+          "file": "libs/toolset-editor/src/components/GeneralForm/GeneralForm.tsx",
+          "start": 1,
+          "end": 151
+        },
+        {
+          "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+          "start": 1,
+          "end": 620
+        },
+        {
+          "file": "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+          "start": 1,
+          "end": 898
+        }
+      ],
+      "notes": "These are source-backed structural benefits. Shared validation reduces duplicated rule implementations; typed renderers centralize content display; explicit callbacks permit a different host behavior. No speedup, maintenance percentage, adoption count or benchmark is inferred from this structure.",
+      "cards": [
+        {
+          "title": "One editor field set",
+          "body": "builder-form validation and fields are reused by multiple editors."
+        },
+        {
+          "title": "Reusable evidence UI",
+          "body": "The same canvas displays several typed content kinds."
+        },
+        {
+          "title": "Replaceable host behavior",
+          "body": "Callbacks let a host choose its own routing and persistence."
+        }
+      ]
+    },
+    {
+      "id": "overview-19",
+      "title": "Tradeoffs remain visible",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        },
+        {
+          "file": "libs/toolset-editor/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/usage-dashboard/src/utils/map-user-usage-to-model-limits.ts",
+          "start": 1,
+          "end": 494
+        },
+        {
+          "file": "apps/chat-api/src/conversations/conversation-generation.service.ts",
+          "start": 1,
+          "end": 340
+        }
+      ],
+      "notes": "Isolation is a useful design constraint but not a description of every current import. The quality report records concrete counterexamples. Stateful runtime mechanisms also impose deployment and lifecycle concerns. Use these limitations when deciding between component reuse and full-app embedding.",
+      "cards": [
+        {
+          "title": "Integration is real work",
+          "body": "A host must supply data, labels, adapters and the correct peer dependencies."
+        },
+        {
+          "title": "Boundaries have drift",
+          "body": "Some current libs import broader packages than the written rules permit."
+        },
+        {
+          "title": "Runtime state is local",
+          "body": "Generation and several caches rely on process/browser memory."
+        }
+      ]
+    },
+    {
+      "id": "overview-20",
+      "title": "Start with a vertical path through the code",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/chat/src/main.tsx",
+          "start": 1,
+          "end": 108
+        },
+        {
+          "file": "apps/chat/src/app/app.tsx",
+          "start": 1,
+          "end": 582
+        },
+        {
+          "file": "apps/chat/src/server-api/api-client.ts",
+          "start": 1,
+          "end": 106
+        }
+      ],
+      "notes": "The series index links all thirty-three decks and their previews. Each library deck includes a diagram, a checked example and source locators. Use manifest.json to see generation and verification status, and qa-report.md to understand the scope and remaining limits. Source paths refer to the recorded working tree snapshot.",
+      "cards": [
+        {
+          "title": "Understand the assembly",
+          "body": "Read main.tsx, app.tsx and one conversation or editor route."
+        },
+        {
+          "title": "Trace its contract",
+          "body": "Follow a component prop into the host adapter and backend domain."
+        },
+        {
+          "title": "Reuse one piece",
+          "body": "Open that library deck, its full example and its source references."
+        }
+      ]
+    }
+  ],
+  "output": "decks/overview.pptx"
+}

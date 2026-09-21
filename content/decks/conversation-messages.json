@@ -1,0 +1,497 @@
+{
+  "id": "libs/conversation-messages",
+  "shortTitle": "Conversation messages",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-conversation-messages-01",
+      "title": "Conversation messages",
+      "layout": "cover",
+      "subtitle": "Render a transcript from host-owned messages and actions.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-conversation-messages",
+      "notes": "This session explains render a transcript from host-owned messages and actions. The library is a local private workspace package at libs/conversation-messages. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/conversation-messages/README.md",
+          "start": 1,
+          "end": 236
+        },
+        {
+          "file": "libs/conversation-messages/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-messages/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+          "start": 28,
+          "end": 236,
+          "symbol": "AssistantMessageBubble"
+        },
+        {
+          "file": "libs/conversation-messages/src/models/message-bubble.ts",
+          "start": 143,
+          "end": 170,
+          "symbol": "AssistantMessageBubbleProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-messages-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Render a transcript from host-owned messages and actions.",
+      "cards": [
+        {
+          "title": "Display roles",
+          "body": "Use user, assistant and status bubble variants."
+        },
+        {
+          "title": "Reveal a response",
+          "body": "Render updated Markdown while a generation is active."
+        },
+        {
+          "title": "Compose evidence",
+          "body": "Place stages, citations and attachments beside the answer."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Display roles: Use user, assistant and status bubble variants. Reveal a response: Render updated Markdown while a generation is active. Compose evidence: Place stages, citations and attachments beside the answer. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/conversation-messages/README.md",
+          "start": 1,
+          "end": 236
+        },
+        {
+          "file": "libs/conversation-messages/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-messages/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+          "start": 28,
+          "end": 236,
+          "symbol": "AssistantMessageBubble"
+        },
+        {
+          "file": "libs/conversation-messages/src/models/message-bubble.ts",
+          "start": 143,
+          "end": 170,
+          "symbol": "AssistantMessageBubbleProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-messages-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host message",
+          "body": "Text and display props"
+        },
+        {
+          "title": "Assistant bubble",
+          "body": "Markdown and slots"
+        },
+        {
+          "title": "User action",
+          "body": "Copy, rate or regenerate"
+        },
+        {
+          "title": "Host callback",
+          "body": "Perform domain behavior"
+        }
+      ],
+      "takeaway": "Library: Bubble layout, Markdown display and action controls.",
+      "notes": "The library owns Bubble layout, Markdown display and action controls. The host owns Message ordering, network streams, persistence, ratings and attachment access.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/conversation-messages/README.md",
+          "start": 1,
+          "end": 236
+        },
+        {
+          "file": "libs/conversation-messages/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-messages/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+          "start": 28,
+          "end": 236,
+          "symbol": "AssistantMessageBubble"
+        },
+        {
+          "file": "libs/conversation-messages/src/models/message-bubble.ts",
+          "start": 143,
+          "end": 170,
+          "symbol": "AssistantMessageBubbleProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-messages-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "AssistantMessageBubble \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "text (optional)",
+          "string"
+        ],
+        [
+          "isStreaming (optional)",
+          "boolean"
+        ],
+        [
+          "afterContent (optional)",
+          "ReactNode"
+        ],
+        [
+          "onAttachmentClick (optional)",
+          "((attachment: DisplayAttachment) => void)"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/conversation-messages/README.md",
+          "start": 1,
+          "end": 236
+        },
+        {
+          "file": "libs/conversation-messages/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-messages/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+          "start": 28,
+          "end": 236,
+          "symbol": "AssistantMessageBubble"
+        },
+        {
+          "file": "libs/conversation-messages/src/models/message-bubble.ts",
+          "start": 143,
+          "end": 170,
+          "symbol": "AssistantMessageBubbleProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-messages-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "function MessageDemo() {\n  return <AssistantMessageBubble text=\"**Demo:** evidence collected.\"\n    isStreaming={false} deploymentDisplayName=\"Demo assistant\"\n    afterContent={<StagesPanel stages={[]} isStreaming={false} />} />;\n}",
+      "caption": "Full example: examples/conversation-messages.tsx \u00b7 uses @epam/ai-dial-conversation-messages",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/conversation-messages.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Use user, assistant and status bubble variants. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/conversation-messages/README.md",
+          "start": 1,
+          "end": 236
+        },
+        {
+          "file": "libs/conversation-messages/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-messages/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+          "start": 28,
+          "end": 236,
+          "symbol": "AssistantMessageBubble"
+        },
+        {
+          "file": "libs/conversation-messages/src/models/message-bubble.ts",
+          "start": 143,
+          "end": 170,
+          "symbol": "AssistantMessageBubbleProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-messages-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep conversation messages focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Prepare a message",
+          "body": "The host supplies response text and streaming state."
+        },
+        {
+          "title": "Compose evidence",
+          "body": "Insert StagesPanel through the afterContent slot."
+        },
+        {
+          "title": "Connect actions",
+          "body": "Keep regeneration, feedback and persistence in the host."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Prepare a message: The host supplies response text and streaming state. Compose evidence: Insert StagesPanel through the afterContent slot. Connect actions: Keep regeneration, feedback and persistence in the host. The complete typed module in examples/conversation-messages.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/conversation-messages/README.md",
+          "start": 1,
+          "end": 236
+        },
+        {
+          "file": "libs/conversation-messages/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-messages/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+          "start": 28,
+          "end": 236,
+          "symbol": "AssistantMessageBubble"
+        },
+        {
+          "file": "libs/conversation-messages/src/models/message-bubble.ts",
+          "start": 143,
+          "end": 170,
+          "symbol": "AssistantMessageBubbleProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-messages-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Extension slots",
+          "body": "beforeContent and afterContent add skill chips or stage panels."
+        },
+        {
+          "title": "Host URL rewriting",
+          "body": "markdownUrlTransform maps resource references before rendering."
+        },
+        {
+          "title": "Transcript controls",
+          "body": "Supply MessageActions props and localized action labels."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Extension slots: beforeContent and afterContent add skill chips or stage panels. Host URL rewriting: markdownUrlTransform maps resource references before rendering. Transcript controls: Supply MessageActions props and localized action labels. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/conversation-messages/README.md",
+          "start": 1,
+          "end": 236
+        },
+        {
+          "file": "libs/conversation-messages/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-messages/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+          "start": 28,
+          "end": 236,
+          "symbol": "AssistantMessageBubble"
+        },
+        {
+          "file": "libs/conversation-messages/src/models/message-bubble.ts",
+          "start": 143,
+          "end": 170,
+          "symbol": "AssistantMessageBubbleProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-messages-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat/components/ConversationView/ConversationMessageItem.tsx"
+        ],
+        [
+          "Test evidence",
+          "calls onEdit when Edit button is clicked"
+        ],
+        [
+          "Test evidence",
+          "marks the bubble that wraps the message text"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: apps/chat/src/components/ConversationView/ConversationMessageItem.tsx; apps/chat/src/components/ConversationView/ConversationView.tsx; apps/chat/src/components/ConversationView/utils/build-message-actions.ts. Existing test evidence: [{\"file\": \"libs/conversation-messages/src/components/MessageActions/tests/MessageActions.spec.tsx\", \"assertions\": [\"MessageActions\", \"role=User (default)\", \"renders Edit and Delete buttons\", \"does not render Agent action buttons\", \"calls onEdit when Edit button is clicked\", \"calls onDelete when Delete button is clicked\", \"role=Assistant\", \"renders Regenerate, Copy, Markdown, Like, and Dislike buttons\", \"does not render User action buttons\", \"calls onRegenerate when Regenerate button is clicked\", \"calls onCopy when Copy button is clicked\", \"calls onCopyMarkdown when Markdown button is clicked\", \"calls onLike when Like button is clicked\", \"calls onDislike when Dislike button is clicked\", \"isDisabled\"]}, {\"file\": \"libs/conversation-messages/src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx\", \"assertions\": [\"UserMessageBubble \\u2014 public class names\", \"marks the bubble that wraps the message text\", \"emits no bubble class when there is no text or before-content\", \"keeps a caller-supplied bubbleClassName alongside the public class\", \"AssistantMessageBubble \\u2014 public class names\", \"marks the live content region for a settled message\", \"marks the live content region while streaming\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-conversation-messages:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately. Existing test evidence includes: calls onEdit when Edit button is clicked.",
+      "sources": [
+        {
+          "file": "libs/conversation-messages/README.md",
+          "start": 1,
+          "end": 236
+        },
+        {
+          "file": "libs/conversation-messages/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-messages/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+          "start": 28,
+          "end": 236,
+          "symbol": "AssistantMessageBubble"
+        },
+        {
+          "file": "libs/conversation-messages/src/models/message-bubble.ts",
+          "start": 143,
+          "end": 170,
+          "symbol": "AssistantMessageBubbleProps"
+        },
+        {
+          "file": "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+          "start": 1,
+          "end": 898
+        },
+        {
+          "file": "libs/conversation-messages/src/components/MessageActions/tests/MessageActions.spec.tsx",
+          "start": 1,
+          "end": 269
+        },
+        {
+          "file": "libs/conversation-messages/src/components/MessageBubble/tests/MessageBubble.classes.spec.tsx",
+          "start": 1,
+          "end": 92
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-messages-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Streaming is visual",
+          "body": "isStreaming does not open a network stream."
+        },
+        {
+          "title": "Status messages",
+          "body": "Shared MessageRole.Status is a UI event, not an upstream author role."
+        },
+        {
+          "title": "Source integrations",
+          "body": "Citation components and canvas actions require host wiring."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Streaming is visual: isStreaming does not open a network stream. Status messages: Shared MessageRole.Status is a UI event, not an upstream author role. Source integrations: Citation components and canvas actions require host wiring. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/conversation-messages/README.md",
+          "start": 1,
+          "end": 236
+        },
+        {
+          "file": "libs/conversation-messages/src/index.ts",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/conversation-messages/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/conversation-messages/src/components/MessageBubble/AssistantMessageBubble.tsx",
+          "start": 28,
+          "end": 236,
+          "symbol": "AssistantMessageBubble"
+        },
+        {
+          "file": "libs/conversation-messages/src/models/message-bubble.ts",
+          "start": 143,
+          "end": 170,
+          "symbol": "AssistantMessageBubbleProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/conversation-messages.pptx"
+}

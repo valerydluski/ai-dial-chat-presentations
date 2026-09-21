@@ -1,0 +1,35 @@
+{
+  "base": "http://127.0.0.1:4390/_site/",
+  "browser": "153.0.8010.52",
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "galleryCards": 33,
+      "galleryOverflow": false,
+      "overviewSlides": 21,
+      "notesOpened": true,
+      "viewerOverflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "galleryCards": 33,
+      "galleryOverflow": false,
+      "overviewSlides": 21,
+      "notesOpened": true,
+      "viewerOverflow": false
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "galleryCards": 33,
+      "galleryOverflow": false,
+      "overviewSlides": 21,
+      "notesOpened": true,
+      "viewerOverflow": false
+    }
+  ],
+  "downloadHashMatches": true,
+  "errors": []
+}

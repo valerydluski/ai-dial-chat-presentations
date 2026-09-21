@@ -1,0 +1,7 @@
+{
+  "typescript": "6.0.3",
+  "mode": "Strict no-emit check against workspace source exports; inherited dependency diagnostics are reported separately.",
+  "exampleFiles": 28,
+  "exampleErrors": [],
+  "dependencyErrors": []
+}

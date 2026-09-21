@@ -1,0 +1,1010 @@
+{
+  "project": {
+    "id": "apps/chat-overlay-sandbox",
+    "project": "chat-overlay-sandbox",
+    "path": "apps/chat-overlay-sandbox",
+    "package": "chat-overlay-sandbox",
+    "purpose": "Research in progress",
+    "sources": [
+      "apps/chat-overlay-sandbox/README.md",
+      "apps/chat-overlay-sandbox/package.json",
+      "apps/chat-overlay-sandbox/src/components/EventLog/tests/EventLog.spec.tsx",
+      "apps/chat-overlay-sandbox/src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx",
+      "apps/chat-overlay-sandbox/src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx",
+      "apps/chat-overlay-sandbox/src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx",
+      "apps/chat-api/src/app/static-assets.ts",
+      "apps/chat-api/src/app/tests/static-assets.spec.ts"
+    ],
+    "output": "decks/apps/chat-overlay-sandbox.pptx",
+    "preview": "previews/apps/chat-overlay-sandbox",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/app/tests/app.spec.tsx",
+      "test-ci--src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx",
+      "test-ci--src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx",
+      "test-ci--src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx",
+      "test-ci--src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx",
+      "test-ci--src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx",
+      "test-ci--src/components/EventLog/tests/EventLog.spec.tsx",
+      "test-ci"
+    ],
+    "dependencies": [
+      {
+        "source": "chat-overlay-sandbox",
+        "target": "@epam/ai-dial-chat-overlay",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "chat-overlay-sandbox",
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "private": true,
+    "dependencies": {
+      "@epam/ai-dial-chat-overlay": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9"
+    }
+  },
+  "nx": {
+    "root": "apps/chat-overlay-sandbox",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/apps/chat-overlay-sandbox/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects chat-overlay-sandbox --includeDependencies -- npx nx build-deps chat-overlay-sandbox"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/app/tests/app.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/app/tests/app.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/tests/app.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "vitest run src/app/tests/app.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/app/tests/app.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "vitest run src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "vitest run src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "vitest run src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "vitest run src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "vitest run src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/EventLog/tests/EventLog.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/EventLog/tests/EventLog.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/EventLog/tests/EventLog.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "apps/chat-overlay-sandbox",
+          "command": "vitest run src/components/EventLog/tests/EventLog.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/EventLog/tests/EventLog.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/app/tests/app.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/EventLog/tests/EventLog.spec.tsx"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/tests/app.spec.tsx",
+          "test-ci--src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx",
+          "test-ci--src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx",
+          "test-ci--src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx",
+          "test-ci--src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx",
+          "test-ci--src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx",
+          "test-ci--src/components/EventLog/tests/EventLog.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "application",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/tests/app.spec.tsx",
+          "test-ci--src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx",
+          "test-ci--src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx",
+          "test-ci--src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx",
+          "test-ci--src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx",
+          "test-ci--src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx",
+          "test-ci--src/components/EventLog/tests/EventLog.spec.tsx"
+        ]
+      },
+      "js": {
+        "packageName": "chat-overlay-sandbox",
+        "packageVersion": "0.0.1",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "chat-overlay-sandbox",
+    "tags": [
+      "npm:private"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "apps/chat-overlay-sandbox/src/logOverlayAction.ts",
+    "apps/chat-overlay-sandbox/src/env.ts",
+    "apps/chat-overlay-sandbox/src/vite-env.d.ts",
+    "apps/chat-overlay-sandbox/src/components/MissingEnvNotice/MissingEnvNotice.tsx",
+    "apps/chat-overlay-sandbox/src/components/EventLog/tests/EventLog.spec.tsx",
+    "apps/chat-overlay-sandbox/src/components/EventLog/EventLog.tsx",
+    "apps/chat-overlay-sandbox/src/tailwind.css",
+    "apps/chat-overlay-sandbox/src/test-setup.ts",
+    "apps/chat-overlay-sandbox/src/cases/ConversationListCase/ConversationListCase.tsx",
+    "apps/chat-overlay-sandbox/src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/cases/EnabledFeaturesCase/EnabledFeaturesCase.tsx",
+    "apps/chat-overlay-sandbox/src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/cases/ManagerOverlayCase/ManagerOverlayCase.tsx",
+    "apps/chat-overlay-sandbox/src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/cases/DirectOverlayCase/DirectOverlayCase.tsx",
+    "apps/chat-overlay-sandbox/src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/cases/AuthUiModeCase/AuthUiModeCase.tsx",
+    "apps/chat-overlay-sandbox/src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/app/tests/app.spec.tsx",
+    "apps/chat-overlay-sandbox/src/app/app.tsx",
+    "apps/chat-overlay-sandbox/src/main.tsx",
+    "apps/chat-overlay-sandbox/tsconfig.spec.json",
+    "apps/chat-overlay-sandbox/eslint.config.mjs",
+    "apps/chat-overlay-sandbox/postcss.config.js",
+    "apps/chat-overlay-sandbox/tsconfig.json",
+    "apps/chat-overlay-sandbox/package.json",
+    "apps/chat-overlay-sandbox/public/favicon.ico",
+    "apps/chat-overlay-sandbox/vite.config.mts",
+    "apps/chat-overlay-sandbox/README.md",
+    "apps/chat-overlay-sandbox/tsconfig.app.json",
+    "apps/chat-overlay-sandbox/tailwind.config.js",
+    "apps/chat-overlay-sandbox/index.html"
+  ],
+  "tests": [
+    "apps/chat-overlay-sandbox/src/components/EventLog/tests/EventLog.spec.tsx",
+    "apps/chat-overlay-sandbox/src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx",
+    "apps/chat-overlay-sandbox/src/app/tests/app.spec.tsx",
+    "apps/chat-overlay-sandbox/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat-api/src/app/static-assets.ts",
+    "apps/chat-api/src/app/tests/static-assets.spec.ts"
+  ],
+  "readme": "# Chat Overlay Sandbox\n\nStatic sandbox for exercising `@epam/ai-dial-chat-overlay` against a deployed\n`apps/chat` instance running in overlay mode.\n\n## Cases\n\nOne page per integration scenario, under `src/cases/`:\n\n| Case                   | Exercises                                                                      |\n| ---------------------- | ------------------------------------------------------------------------------ |\n| `DirectOverlayCase`    | `new ChatOverlay(...)` mounted into a host-owned layout                        |\n| `ManagerOverlayCase`   | `ChatOverlayManager` \u2014 floating widget chrome, toggle/close/fullscreen         |\n| `ConversationListCase` | `getConversations`, `createConversation`, `selectConversation`, rename, delete |\n| `EnabledFeaturesCase`  | Live `enabledFeatures` and `setOverlayOptions()` experimentation               |\n| `AuthUiModeCase`       | Per-provider `auth.providerUiModes` login UI modes                             |\n\n## Deployment\n\nThe root workspace `Dockerfile` builds this app into the same image as\n`apps/chat` and `apps/chat-api`. When enabled, `chat-api` serves the sandbox at:\n\n```bash\nhttps://<chat-host>/overlay-sandbox/\n```\n\nEnable the sandbox route and overlay runtime mode in the embedded chat\nenvironment:\n\n```bash\nOVERLAY_ENABLED=true\nOVERLAY_SANDBOX_ENABLED=true\nALLOWED_IFRAME_ORIGINS=https://<chat-host>\n```\n\nThe deployed sandbox embeds `window.location.origin`, so no separate sandbox\nimage or runtime host variable is required.\n\nIts HTML receives a fresh style nonce from `chat-api`; the application build\nadapts the overlay's generated styles to use it. The sandbox follows\n[`CSP_MODE`](../chat-api/README.md#content-security-policy), and its own HTML\ndoes not allow WebAssembly. The embedded chat document has its own policy.\n\nThe **Provider auth UI mode case** accepts two deployment-specific provider\nIDs and lets you apply `OverlayAuthUiMode.External` or\n`OverlayAuthUiMode.SameWindow` through `auth.providerUiModes`. Sign out of the\nembedded chat before testing the login picker. Same-window mode should only be\nused after verifying iframe compatibility for the provider's exact tenant and\nconfiguration.\n\n## Local Development\n\nLocal Vite runs can override the embedded chat host:\n\n```bash\nVITE_CHAT_OVERLAY_HOST=http://localhost:4207\nnpm exec nx serve chat-overlay-sandbox\n```\n\nThe sandbox itself is served on port **4300**. The chat instance it points at\nstill needs `OVERLAY_ENABLED=true` and the sandbox's own origin in\n`ALLOWED_IFRAME_ORIGINS` \u2014 otherwise the embedded app's CSP `frame-ancestors`\ndenies the embed and the iframe stays blank.\n\n```bash\nnpm exec nx test chat-overlay-sandbox\nnpm exec nx build chat-overlay-sandbox\n```\n\nSee [`libs/chat-overlay/README.md`](../../libs/chat-overlay/README.md) for the\nfull `ChatOverlay` / `ChatOverlayManager` API and\n[`docs/chat-overlay-migration-guide.md`](../../docs/chat-overlay-migration-guide.md)\nfor migrating a host page off the legacy overlay package.\n",
+  "exports": {},
+  "contracts": {},
+  "implementationEvidence": [],
+  "testEvidence": [
+    {
+      "file": "apps/chat-overlay-sandbox/src/components/EventLog/tests/EventLog.spec.tsx",
+      "assertions": [
+        "opens the inspector, closes it with Escape, and restores trigger focus",
+        "renders the event count on an opaque contrasting badge",
+        "copies and clears populated entries"
+      ]
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/cases/ConversationListCase/tests/ConversationListCase.spec.tsx",
+      "assertions": [
+        "calls getConversations on the overlay",
+        "shows conversation titles in the id selector while preserving selected ids",
+        "calls getSelectedConversations on the overlay",
+        "calls createConversation with deploymentId and firstMessage from the direct section inputs",
+        "calls createConversation with undefined fields when the create inputs are left blank",
+        "calls createLocalConversation with no inputs",
+        "calls selectConversation/renameConversation/deleteConversation with the typed id",
+        "re-runs getConversations when Refresh list is clicked",
+        "destroys the overlay instance on unmount"
+      ]
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/cases/EnabledFeaturesCase/tests/EnabledFeaturesCase.spec.tsx",
+      "assertions": [
+        "calls setOverlayOptions with the \"Header + sharing only\" preset",
+        "calls setOverlayOptions with an empty array for the \"Empty set\" preset",
+        "calls setOverlayOptions with an unrecognized value for the intentionally-invalid preset",
+        "normalizes and applies a custom comma-separated list"
+      ]
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/cases/ManagerOverlayCase/tests/ManagerOverlayCase.spec.tsx",
+      "assertions": [
+        "creates an overlay with position and allowFullscreen set",
+        "calls showOverlay, hideOverlay, and removeOverlay for the created overlayId",
+        "calls openFullscreen for the created overlayId",
+        "calls v1 overlay methods through the manager controls",
+        "ignores ready() rejection from a cleaned-up manager instance",
+        "destroys the manager on unmount"
+      ]
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/cases/DirectOverlayCase/tests/DirectOverlayCase.spec.tsx",
+      "assertions": [
+        "constructs ChatOverlay with the configured domain and loaderHideEvent",
+        "subscribes to bootstrap and v1 events",
+        "calls setOverlayOptions with theme and modelId when \"Update theme + model\" is clicked",
+        "calls setOverlayOptions with light theme when \"Update theme to light\" is clicked",
+        "calls sendMessage when \"Send message\" is clicked",
+        "reports rejected actions in the console and Event log",
+        "shows a configuration hint when the overlay handshake stays pending",
+        "ignores ready() rejection from a cleaned-up overlay instance",
+        "destroys the overlay and unsubscribes on unmount"
+      ]
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/cases/AuthUiModeCase/tests/AuthUiModeCase.spec.tsx",
+      "assertions": [
+        "constructs the overlay with two provider UI modes",
+        "applies edited provider IDs and modes at runtime",
+        "omits blank provider IDs from the applied map",
+        "adds another provider field and applies its settings",
+        "removes providers but keeps at least one field",
+        "clears all provider settings at runtime"
+      ]
+    },
+    {
+      "file": "apps/chat-overlay-sandbox/src/app/tests/app.spec.tsx",
+      "assertions": [
+        "lists the v1-scoped cases and the conversation-list case",
+        "does not present still-deferred playback/import-export cases",
+        "navigates to the direct case and back",
+        "navigates to the manager case",
+        "navigates to the conversation-list case",
+        "navigates to the enabledFeatures case",
+        "navigates to the provider auth UI mode case"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat-api/src/app/static-assets.ts",
+      "matches": [
+        {
+          "start": 45,
+          "end": 55,
+          "excerpt": "  const candidates = getAppRootPathCandidates(baseDir, 'chat');\n\n  return candidates.find(pathExists) ?? candidates[0];\n};\n\nexport const resolveOverlaySandboxRootPath = (\n  baseDir = __dirname,\n  pathExists: PathExists = existsSync,\n): string => {\n  const candidates = getAppRootPathCandidates(baseDir, 'chat-overlay-sandbox');\n"
+        }
+      ]
+    }
+  ]
+}

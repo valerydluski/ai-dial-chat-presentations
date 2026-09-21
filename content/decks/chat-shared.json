@@ -1,0 +1,475 @@
+{
+  "id": "libs/chat-shared",
+  "shortTitle": "Chat shared",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-chat-shared-01",
+      "title": "Chat shared",
+      "layout": "cover",
+      "subtitle": "Share domain vocabulary, utilities and common UI primitives.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-chat-shared",
+      "notes": "This session explains share domain vocabulary, utilities and common ui primitives. The library is a local private workspace package at libs/chat-shared. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/chat-shared/README.md",
+          "start": 1,
+          "end": 986
+        },
+        {
+          "file": "libs/chat-shared/src/index.ts",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "libs/chat-shared/package.json",
+          "start": 1,
+          "end": 80
+        },
+        {
+          "file": "libs/chat-shared/src/utils/build-css-vars.ts",
+          "start": 4,
+          "end": 14,
+          "symbol": "buildCssVars"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-shared-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Share domain vocabulary, utilities and common UI primitives.",
+      "cards": [
+        {
+          "title": "Agree on shapes",
+          "body": "Use the same message, stage and attachment types."
+        },
+        {
+          "title": "Reuse common UI",
+          "body": "Share Markdown, icons and resource summaries."
+        },
+        {
+          "title": "Bridge file managers",
+          "body": "Use a typed controller without host persistence knowledge."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Agree on shapes: Use the same message, stage and attachment types. Reuse common UI: Share Markdown, icons and resource summaries. Bridge file managers: Use a typed controller without host persistence knowledge. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/chat-shared/README.md",
+          "start": 1,
+          "end": 986
+        },
+        {
+          "file": "libs/chat-shared/src/index.ts",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "libs/chat-shared/package.json",
+          "start": 1,
+          "end": 80
+        },
+        {
+          "file": "libs/chat-shared/src/utils/build-css-vars.ts",
+          "start": 4,
+          "end": 14,
+          "symbol": "buildCssVars"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-shared-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host domain",
+          "body": "Resolved values"
+        },
+        {
+          "title": "Shared contracts",
+          "body": "Types and utilities"
+        },
+        {
+          "title": "Feature library",
+          "body": "Consistent interpretation"
+        },
+        {
+          "title": "Host composition",
+          "body": "One application view"
+        }
+      ],
+      "takeaway": "Library: Shared models, pure utilities, UI primitives and narrow file-manager event bindings.",
+      "notes": "The library owns Shared models, pure utilities, UI primitives and narrow file-manager event bindings. The host owns App providers, authentication, routing, storage keys and external-system configuration.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/chat-shared/README.md",
+          "start": 1,
+          "end": 986
+        },
+        {
+          "file": "libs/chat-shared/src/index.ts",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "libs/chat-shared/package.json",
+          "start": 1,
+          "end": 80
+        },
+        {
+          "file": "libs/chat-shared/src/utils/build-css-vars.ts",
+          "start": 4,
+          "end": 14,
+          "symbol": "buildCssVars"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-shared-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "buildCssVars \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "MessageRole / Stage",
+          "Shared enums and domain records"
+        ],
+        [
+          "buildCssVars(vars)",
+          "CSSProperties, omitting empty values"
+        ],
+        [
+          "/markdown",
+          "MarkdownRenderer and related exports"
+        ],
+        [
+          "/file-manager",
+          "Shell, controller types and bindings"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/chat-shared/README.md",
+          "start": 1,
+          "end": 986
+        },
+        {
+          "file": "libs/chat-shared/src/index.ts",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "libs/chat-shared/package.json",
+          "start": 1,
+          "end": 80
+        },
+        {
+          "file": "libs/chat-shared/src/utils/build-css-vars.ts",
+          "start": 4,
+          "end": 14,
+          "symbol": "buildCssVars"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-shared-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "const style = buildCssVars({\n  '--text-primary': '#EDF2F7',\n  '--unused': undefined,\n});\n// Undefined values are omitted.\nconst role = MessageRole.Assistant;",
+      "caption": "Full example: examples/chat-shared.tsx \u00b7 uses @epam/ai-dial-chat-shared",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/chat-shared.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Use the same message, stage and attachment types. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/chat-shared/README.md",
+          "start": 1,
+          "end": 986
+        },
+        {
+          "file": "libs/chat-shared/src/index.ts",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "libs/chat-shared/package.json",
+          "start": 1,
+          "end": 80
+        },
+        {
+          "file": "libs/chat-shared/src/utils/build-css-vars.ts",
+          "start": 4,
+          "end": 14,
+          "symbol": "buildCssVars"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-shared-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep chat shared focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Resolve host values",
+          "body": "Choose the text and theme values in the application."
+        },
+        {
+          "title": "Render shared content",
+          "body": "Use MarkdownRenderer and buildCssVars in a host view."
+        },
+        {
+          "title": "Keep integration local",
+          "body": "Wire file-manager callbacks and persistence in the host."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Resolve host values: Choose the text and theme values in the application. Render shared content: Use MarkdownRenderer and buildCssVars in a host view. Keep integration local: Wire file-manager callbacks and persistence in the host. The complete typed module in examples/chat-shared.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/chat-shared/README.md",
+          "start": 1,
+          "end": 986
+        },
+        {
+          "file": "libs/chat-shared/src/index.ts",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "libs/chat-shared/package.json",
+          "start": 1,
+          "end": 80
+        },
+        {
+          "file": "libs/chat-shared/src/utils/build-css-vars.ts",
+          "start": 4,
+          "end": 14,
+          "symbol": "buildCssVars"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-shared-10",
+      "title": "Reuse the Markdown entry",
+      "layout": "code",
+      "kicker": "A common renderer keeps display behavior consistent.",
+      "code": "import { MarkdownRenderer }\n  from '@epam/ai-dial-chat-shared/markdown';\n\n<MarkdownRenderer\n  content=\"**Demo:** shared Markdown rendering\"\n/>",
+      "caption": "Focused source-backed example \u00b7 see examples/ and content/api-index.md.",
+      "notes": "This fragment is part of SharedDemo. The renderer needs the host stylesheet and the dependencies of the selected entry point. Do not treat the shared package as types-only.",
+      "sources": [
+        {
+          "file": "libs/chat-shared/README.md",
+          "start": 1,
+          "end": 986
+        },
+        {
+          "file": "libs/chat-shared/src/index.ts",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "libs/chat-shared/package.json",
+          "start": 1,
+          "end": 80
+        },
+        {
+          "file": "libs/chat-shared/src/utils/build-css-vars.ts",
+          "start": 4,
+          "end": 14,
+          "symbol": "buildCssVars"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-shared-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Focused entries",
+          "body": "/markdown and /file-manager expose narrower entry points."
+        },
+        {
+          "title": "CSS variable builder",
+          "body": "buildCssVars drops undefined and empty values."
+        },
+        {
+          "title": "Canonical grid hook",
+          "body": "useGridEditingScroll lives here and is re-exported by chat-hooks."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Focused entries: /markdown and /file-manager expose narrower entry points. CSS variable builder: buildCssVars drops undefined and empty values. Canonical grid hook: useGridEditingScroll lives here and is re-exported by chat-hooks. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/chat-shared/README.md",
+          "start": 1,
+          "end": 986
+        },
+        {
+          "file": "libs/chat-shared/src/index.ts",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "libs/chat-shared/package.json",
+          "start": 1,
+          "end": 80
+        },
+        {
+          "file": "libs/chat-shared/src/utils/build-css-vars.ts",
+          "start": 4,
+          "end": 14,
+          "symbol": "buildCssVars"
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-shared-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "prompt-editor/src/components/PromptEditor/PromptEditor.tsx"
+        ],
+        [
+          "Test evidence",
+          "disables the Attach button when no paths are selected"
+        ],
+        [
+          "Test evidence",
+          "calls ensureIndexVisible with the row index when inline rename starts"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx; libs/prompt-editor/src/components/PromptFolderField/PromptFolderField.tsx; libs/skills/src/hooks/useSkillSelectorOverlay/useSkillSelectorOverlay.tsx; libs/usage-dashboard/src/components/UsageLimitCard/UsageLimitCard.tsx; libs/skills/src/components/ChatSkill/ChatSkill.tsx; libs/usage-dashboard/src/components/ModelLimitsSection/PeriodStatusIndicator.tsx. Existing test evidence: [{\"file\": \"libs/chat-shared/src/file-manager/FileManagerAttachModal/tests/FileManagerAttachModal.spec.tsx\", \"assertions\": [\"FileManagerAttachModal\", \"Attach button disabled state\", \"disables the Attach button when no paths are selected\", \"disables the Attach button while the controller is loading\", \"disables the Attach button while an operation is in progress\", \"enables the Attach button when a file is selected and idle\", \"Attach button click\", \"calls onAttach with the selected file when Attach is clicked\", \"calls onAttach with the resolved folder path when a folder is selected\", \"skips folders whose resolveFolderPath returns null\", \"count limit exceeded\", \"calls onCountLimitExceeded and does not call onAttach when the limit is exceeded\", \"unsupported file type\", \"calls onSkippedUnsupportedFiles when a file with a disallowed type is selected\", \"shell callback forwarding\"]}, {\"file\": \"libs/chat-shared/src/file-manager/useGridEditingScroll/tests/useGridEditingScroll.spec.ts\", \"assertions\": [\"useGridEditingScroll\", \"calls ensureIndexVisible with the row index when inline rename starts\", \"does not call ensureIndexVisible when the grid api is destroyed\", \"seeds known row ids on the first rowDataUpdated after mount without scrolling\", \"scrolls the temporary new-folder row into view when a new row appears\", \"does not scroll when rowDataUpdated introduces no new row ids\", \"removes listeners from the previous grid api when a new api instance is passed\", \"removes listeners from the subscribed api when the hook unmounts\", \"does not attach duplicate listeners when the same api instance is passed twice\", \"treats the first rowDataUpdated after reset() as a fresh seed with no scroll\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-chat-shared:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately. Existing test evidence includes: disables the Attach button when no paths are selected.",
+      "sources": [
+        {
+          "file": "libs/chat-shared/README.md",
+          "start": 1,
+          "end": 986
+        },
+        {
+          "file": "libs/chat-shared/src/index.ts",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "libs/chat-shared/package.json",
+          "start": 1,
+          "end": 80
+        },
+        {
+          "file": "libs/chat-shared/src/utils/build-css-vars.ts",
+          "start": 4,
+          "end": 14,
+          "symbol": "buildCssVars"
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+          "start": 1,
+          "end": 310
+        },
+        {
+          "file": "libs/chat-shared/src/file-manager/FileManagerAttachModal/tests/FileManagerAttachModal.spec.tsx",
+          "start": 1,
+          "end": 484
+        },
+        {
+          "file": "libs/chat-shared/src/file-manager/useGridEditingScroll/tests/useGridEditingScroll.spec.ts",
+          "start": 1,
+          "end": 258
+        }
+      ]
+    },
+    {
+      "id": "lib-chat-shared-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "More than types",
+          "body": "The source includes runtime utilities and rendered UI."
+        },
+        {
+          "title": "Entry-specific peers",
+          "body": "The file-manager entry needs its optional peer pair installed."
+        },
+        {
+          "title": "Legacy boundary assumptions",
+          "body": "The old no-dependencies description is not the current graph."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. More than types: The source includes runtime utilities and rendered UI. Entry-specific peers: The file-manager entry needs its optional peer pair installed. Legacy boundary assumptions: The old no-dependencies description is not the current graph. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/chat-shared/README.md",
+          "start": 1,
+          "end": 986
+        },
+        {
+          "file": "libs/chat-shared/src/index.ts",
+          "start": 1,
+          "end": 73
+        },
+        {
+          "file": "libs/chat-shared/package.json",
+          "start": 1,
+          "end": 80
+        },
+        {
+          "file": "libs/chat-shared/src/utils/build-css-vars.ts",
+          "start": 4,
+          "end": 14,
+          "symbol": "buildCssVars"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/chat-shared.pptx"
+}

@@ -1,0 +1,550 @@
+{
+  "id": "apps/chat-api",
+  "shortTitle": "Chat backend",
+  "series": "Application deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "apps-chat-api-01",
+      "title": "Chat backend",
+      "layout": "cover",
+      "sources": [
+        {
+          "file": "apps/chat-api/src/main.ts",
+          "start": 1,
+          "end": 213
+        },
+        {
+          "file": "apps/chat-api/src/app/app.module.ts",
+          "start": 1,
+          "end": 79
+        }
+      ],
+      "notes": "chat-api is the backend-for-frontend for the React application. It also serves production frontend assets and coordinates several external systems. Distinguish its generated browser client from the server-side DIAL TypeScript SDK.",
+      "subtitle": "The NestJS edge that authenticates users, persists conversations and adapts DIAL Core.",
+      "chips": [
+        "Backend contracts",
+        "Generation lifecycle",
+        "Port 5000"
+      ],
+      "caption": "apps/chat-api \u00b7 @epam/chat-api"
+    },
+    {
+      "id": "apps-chat-api-02",
+      "title": "Keep three boundaries explicit",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/chat-api/src/main.ts",
+          "start": 1,
+          "end": 213
+        },
+        {
+          "file": "apps/chat-api/src/app/app.module.ts",
+          "start": 1,
+          "end": 79
+        },
+        {
+          "file": "apps/chat-api/src/dial/dial-client.service.ts",
+          "start": 1,
+          "end": 64
+        }
+      ],
+      "notes": "Controllers delegate to services. DialClientService centralizes Core SDK configuration and the fetch user-agent behavior. Non-Core integrations can use their own transport where required; do not describe all outbound calls as one SDK operation.",
+      "cards": [
+        {
+          "title": "Browser contract",
+          "body": "Validated HTTP requests, DTOs and SSE responses."
+        },
+        {
+          "title": "Application services",
+          "body": "Conversation lifecycle, auth policy and domain coordination."
+        },
+        {
+          "title": "External systems",
+          "body": "DIAL Core, OIDC providers, theme host and telemetry exporters."
+        }
+      ]
+    },
+    {
+      "id": "apps-chat-api-03",
+      "title": "Bootstrap establishes cross-cutting behavior",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "apps/chat-api/src/main.ts",
+          "start": 1,
+          "end": 213
+        },
+        {
+          "file": "apps/chat-api/src/app/app.module.ts",
+          "start": 1,
+          "end": 79
+        }
+      ],
+      "notes": "main.ts imports telemetry first, sets validation, CORS, cookie handling, URI versioning and static middleware, and enables graceful shutdown. Source comments explain ordering constraints. The environment schema controls boot-time validation; the source contains both ConfigService reads and some direct process.env reads.",
+      "nodes": [
+        {
+          "title": "Telemetry import",
+          "body": "Before framework loading"
+        },
+        {
+          "title": "Nest application",
+          "body": "Modules and config"
+        },
+        {
+          "title": "Middleware / guards",
+          "body": "Headers and validation"
+        },
+        {
+          "title": "Routes + assets",
+          "body": "API and SPA responses"
+        }
+      ],
+      "takeaway": "Strict ValidationPipe rejects unknown request fields."
+    },
+    {
+      "id": "apps-chat-api-04",
+      "title": "Domain modules organize the backend",
+      "layout": "table",
+      "sources": [
+        {
+          "file": "apps/chat-api/src/app/app.module.ts",
+          "start": 1,
+          "end": 79
+        }
+      ],
+      "notes": "Domain folders sit directly under src. Auxiliary concerns such as schemas, offline credentials, health and user configuration are also wired by AppModule. The table groups the modules for readability and does not replace the source module index.",
+      "headers": [
+        "Domain family",
+        "Examples"
+      ],
+      "rows": [
+        [
+          "Conversation execution",
+          "conversations, chat, client-channel"
+        ],
+        [
+          "Knowledge and resources",
+          "deployments, applications, files, skills, prompts"
+        ],
+        [
+          "Sharing and automation",
+          "share, publish, scheduled-tasks"
+        ],
+        [
+          "Platform behavior",
+          "auth, app-config, themes, telemetry"
+        ]
+      ]
+    },
+    {
+      "id": "apps-chat-api-05",
+      "title": "Representative HTTP contracts",
+      "layout": "table",
+      "sources": [
+        {
+          "file": "apps/chat-api/src/deployments/deployments.controller.ts",
+          "start": 1,
+          "end": 194
+        },
+        {
+          "file": "apps/chat-api/src/conversations/conversation.controller.ts",
+          "start": 1,
+          "end": 852
+        },
+        {
+          "file": "apps/chat-api/src/auth/auth.controller.ts",
+          "start": 1,
+          "end": 702
+        },
+        {
+          "file": "apps/chat-api/src/themes/theme.controller.ts",
+          "start": 1,
+          "end": 131
+        }
+      ],
+      "notes": "The main business domains use URI versioning, but themes are still unversioned in the implementation. This is a concrete exception to the written rule, not a typo to silently correct in the slides. Swagger handler names feed operation ids and the generated client.",
+      "headers": [
+        "Operation",
+        "Current path"
+      ],
+      "rows": [
+        [
+          "List deployments",
+          "GET /api/v1/deployments"
+        ],
+        [
+          "Generate a conversation",
+          "POST /api/v1/conversations/completions"
+        ],
+        [
+          "Current user",
+          "GET /api/v1/auth/me"
+        ],
+        [
+          "Theme configuration",
+          "GET /api/themes"
+        ]
+      ]
+    },
+    {
+      "id": "apps-chat-api-06",
+      "title": "A completion has a persisted lifecycle",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "apps/chat-api/src/conversations/conversation.controller.ts",
+          "start": 1,
+          "end": 852
+        },
+        {
+          "file": "apps/chat-api/src/conversations/streaming/conversation-streaming.service.ts",
+          "start": 1,
+          "end": 773
+        },
+        {
+          "file": "apps/chat-api/src/conversations/conversation-generation.service.ts",
+          "start": 1,
+          "end": 340
+        }
+      ],
+      "notes": "The controller intentionally does not stop generation when the response disconnects. Generation services retain the active operation in memory and persist terminal or partial results. Dedicated stop and attach operations support user control and reopening a running conversation. Process-local state requires deployment consideration.",
+      "nodes": [
+        {
+          "title": "Request / principal",
+          "body": "Validate and authorize"
+        },
+        {
+          "title": "Save start state",
+          "body": "User and placeholder"
+        },
+        {
+          "title": "Relay generation",
+          "body": "Accumulate chunks"
+        },
+        {
+          "title": "Save terminal state",
+          "body": "Complete, stopped or failed"
+        }
+      ],
+      "takeaway": "Backend persistence survives the originating browser disconnect."
+    },
+    {
+      "id": "apps-chat-api-07",
+      "title": "Upstream dispatch is controlled on the server",
+      "layout": "table",
+      "sources": [
+        {
+          "file": "apps/chat-api/src/conversations/streaming/conversation-streaming.service.ts",
+          "start": 1,
+          "end": 773
+        },
+        {
+          "file": "apps/chat-api/src/conversations/generation/generation-api.ts",
+          "start": 1,
+          "end": 27
+        },
+        {
+          "file": "docs/responses-api-integration.md",
+          "start": 1,
+          "end": 460
+        }
+      ],
+      "notes": "The deployment is re-resolved under the current user token. Both the operator flag and capability matter; the small pure resolver by itself shows only the capability check. The browser sees the same normalized completion contract. Failed requests are not automatically retried through another generation API.",
+      "headers": [
+        "Condition",
+        "Outcome"
+      ],
+      "rows": [
+        [
+          "Operator flag disabled",
+          "Use Chat Completions"
+        ],
+        [
+          "Flag enabled; capability absent",
+          "Use Chat Completions"
+        ],
+        [
+          "Flag enabled; responsesApi true",
+          "Use ResponsesAdapter"
+        ]
+      ]
+    },
+    {
+      "id": "apps-chat-api-08",
+      "title": "Authentication has explicit request scope",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "apps/chat-api/src/auth/session/session.guard.ts",
+          "start": 1,
+          "end": 112
+        },
+        {
+          "file": "apps/chat-api/src/auth/strategies/cookie-session.strategy.ts",
+          "start": 1,
+          "end": 147
+        },
+        {
+          "file": "apps/chat-api/src/auth/strategies/header-token.strategy.ts",
+          "start": 1,
+          "end": 256
+        },
+        {
+          "file": "apps/chat-api/src/auth/session/session.service.ts",
+          "start": 1,
+          "end": 58
+        }
+      ],
+      "notes": "The cookie payload carries encrypted tokens; browser JavaScript does not receive their values. The header strategy is enabled through configuration and verifies allowed issuer/provider identity. Per-request principal and auth data must not be stored in a mutable service singleton.",
+      "nodes": [
+        {
+          "title": "Browser cookie",
+          "body": "Encrypted session"
+        },
+        {
+          "title": "Session strategy",
+          "body": "Verify / refresh"
+        },
+        {
+          "title": "SessionGuard",
+          "body": "Set request identity"
+        },
+        {
+          "title": "Domain service",
+          "body": "Call Core with token"
+        }
+      ],
+      "takeaway": "Header-token authentication is a separately configured strategy."
+    },
+    {
+      "id": "apps-chat-api-09",
+      "title": "Keep controller and DTO changes synchronized",
+      "layout": "code",
+      "sources": [
+        {
+          "file": "apps/chat-api/src/chat/chat.controller.ts",
+          "start": 1,
+          "end": 33
+        },
+        {
+          "file": "apps/chat-api/src/chat/dto/chat-completion.dto.ts",
+          "start": 1,
+          "end": 104
+        }
+      ],
+      "notes": "This is an abridged source excerpt, not a new runnable controller. Imports, constructor injection and Swagger decorators are omitted for readability; the original source contains them. This direct /chat/completions endpoint is distinct from the conversation persistence and streaming workflow. Full source excerpts are retained by path and range in the index.",
+      "kicker": "Source excerpt from ChatController \u00b7 direct completion proxy.",
+      "code": "@Controller({ path: 'chat', version: '1' })\nexport class ChatController {\n  @Post('completions')\n  sendCompletion(@Req() req: Request,\n                 @Body() dto: ChatCompletionDto) {\n    const { at } = req.user as SessionUser;\n    return this.chatService.sendCompletion(dto, at);\n  }\n}"
+    },
+    {
+      "id": "apps-chat-api-10",
+      "title": "Regenerate the contract after API changes",
+      "layout": "flow",
+      "sources": [
+        {
+          "file": "package.json",
+          "start": 1,
+          "end": 199
+        },
+        {
+          "file": "tools/openapi/check-client.mjs",
+          "start": 1,
+          "end": 46
+        },
+        {
+          "file": "apps/chat-api/src/openapi/openapi.config.ts",
+          "start": 1,
+          "end": 30
+        },
+        {
+          "file": "libs/chat-api-client/src/index.ts",
+          "start": 1,
+          "end": 1
+        }
+      ],
+      "notes": "The generated client is checked in. Update server definitions rather than editing generated methods. The operationIdFactory uses handler names, so naming the handler changes the browser-facing method. Commands shown here were not run because they would modify the repository artifacts.",
+      "nodes": [
+        {
+          "title": "Controller + DTO",
+          "body": "Swagger annotations"
+        },
+        {
+          "title": "OpenAPI export",
+          "body": "openapi-spec"
+        },
+        {
+          "title": "Client generation",
+          "body": "openapi-sdk"
+        },
+        {
+          "title": "Drift check",
+          "body": "openapi:check"
+        }
+      ],
+      "takeaway": "npm run openapi runs the complete regeneration workflow."
+    },
+    {
+      "id": "apps-chat-api-11",
+      "title": "Configure the runtime deliberately",
+      "layout": "table",
+      "sources": [
+        {
+          "file": "apps/chat-api/README.md",
+          "start": 1,
+          "end": 1047
+        },
+        {
+          "file": "apps/chat-api/src/config/environment.config.ts",
+          "start": 1,
+          "end": 960
+        }
+      ],
+      "notes": "The exact required fields and defaults are in the backend README and environment schema. Use obvious demo values when experimenting; do not embed real secrets in code examples. Invalid required configuration fails at boot. The runtime also supports feature, theme, cookie and telemetry settings.",
+      "headers": [
+        "Configuration",
+        "Responsibility"
+      ],
+      "rows": [
+        [
+          "DIAL_CORE_URL",
+          "Core transport endpoint"
+        ],
+        [
+          "AUTH_* settings",
+          "Session keys and provider configuration"
+        ],
+        [
+          "RESPONSES_API_ENABLED",
+          "Server-only upstream dispatch switch"
+        ],
+        [
+          "MCP_APP_SANDBOX_URL",
+          "Separate-origin MCP proxy URL"
+        ]
+      ],
+      "colW": [
+        5.4,
+        6.64
+      ]
+    },
+    {
+      "id": "apps-chat-api-12",
+      "title": "Run and verify the backend",
+      "layout": "code",
+      "sources": [
+        {
+          "file": "package.json",
+          "start": 1,
+          "end": 199
+        },
+        {
+          "file": "apps/chat-api/src/main.ts",
+          "start": 1,
+          "end": 213
+        }
+      ],
+      "notes": "Nx resolves @epam/chat-api as the project name. The serve target builds/runs the backend, while the separate start:api:dev script uses HMR tooling. These application commands are documented, not run during presentation generation. Backend integration tests use mocked external clients.",
+      "kicker": "From the repository root with configured environment values.",
+      "code": "npm run start:api\n\nnpm exec nx run @epam/chat-api:typecheck\nnpm exec nx run @epam/chat-api:test\nnpm run build:api\n\n# API documentation is configured in main.ts.\n# Use the deployment environment reference for auth."
+    },
+    {
+      "id": "apps-chat-api-13",
+      "title": "Existing tests exercise contracts and failures",
+      "layout": "table",
+      "sources": [
+        {
+          "file": "apps/chat-api/src/conversations/tests/conversation.controller.integration.spec.ts",
+          "start": 1,
+          "end": 911
+        },
+        {
+          "file": "apps/chat-api/src/auth/session/tests/session.guard.spec.ts",
+          "start": 1,
+          "end": 147
+        },
+        {
+          "file": "apps/chat-api/src/chat/tests/chat.controller.integration.spec.ts",
+          "start": 1,
+          "end": 117
+        }
+      ],
+      "notes": "The inspected test files provide concrete behavior expectations. Test presence alone is not a passing suite result, and the presentation QA does not substitute for backend security testing. Run focused tests and repository verification for a code change.",
+      "headers": [
+        "Area",
+        "Source evidence"
+      ],
+      "rows": [
+        [
+          "Conversation controller",
+          "SSE, attach, errors and persistence integration specs"
+        ],
+        [
+          "Authentication",
+          "Session, CSRF and strategy specs"
+        ],
+        [
+          "Domain transport",
+          "Chat controller and service specs"
+        ],
+        [
+          "Sandbox/static assets",
+          "App-owned asset and policy behavior tests"
+        ]
+      ]
+    },
+    {
+      "id": "apps-chat-api-14",
+      "title": "Operational tradeoffs shape deployment",
+      "layout": "cards",
+      "sources": [
+        {
+          "file": "apps/chat-api/src/conversations/conversation-generation.service.ts",
+          "start": 1,
+          "end": 340
+        },
+        {
+          "file": "apps/chat-api/src/app/cache.config.ts",
+          "start": 1,
+          "end": 28
+        },
+        {
+          "file": "apps/chat-api/src/themes/theme.controller.ts",
+          "start": 1,
+          "end": 131
+        }
+      ],
+      "notes": "Encrypted-cookie authentication enables stateless session decryption across correctly configured pods, but it does not make every runtime mechanism distributed. Distinguish session storage from in-memory active-generation coordination. Use deployment-specific operational checks before adopting a multi-instance topology.",
+      "cards": [
+        {
+          "title": "Process-local state",
+          "body": "Generation registries and caches are not durable cross-pod coordination."
+        },
+        {
+          "title": "External dependencies",
+          "body": "Core and identity-provider availability affect user workflows."
+        },
+        {
+          "title": "Policy exceptions exist",
+          "body": "Unversioned themes and documented transport gaps remain in the source."
+        }
+      ]
+    }
+  ],
+  "output": "decks/apps/chat-api.pptx"
+}

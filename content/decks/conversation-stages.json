@@ -1,0 +1,524 @@
+{
+  "id": "libs/conversation-stages",
+  "shortTitle": "Conversation stages",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-conversation-stages-01",
+      "title": "Conversation stages",
+      "layout": "cover",
+      "subtitle": "Make streamed execution progress visible inside a response.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-conversation-stages",
+      "notes": "This session explains make streamed execution progress visible inside a response. The library is a local private workspace package at libs/conversation-stages. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/conversation-stages/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/conversation-stages/src/index.ts",
+          "start": 1,
+          "end": 17
+        },
+        {
+          "file": "libs/conversation-stages/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 161,
+          "end": 229,
+          "symbol": "StagesPanel"
+        },
+        {
+          "file": "libs/conversation-stages/src/models/stages-props.ts",
+          "start": 78,
+          "end": 89,
+          "symbol": "StagesPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-stages-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Make streamed execution progress visible inside a response.",
+      "cards": [
+        {
+          "title": "Explain waiting",
+          "body": "Show named running stages while content arrives."
+        },
+        {
+          "title": "Inspect a step",
+          "body": "Expand stage Markdown and copy useful details."
+        },
+        {
+          "title": "Reduce noise",
+          "body": "Collapse related work into a compact group."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Explain waiting: Show named running stages while content arrives. Inspect a step: Expand stage Markdown and copy useful details. Reduce noise: Collapse related work into a compact group. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/conversation-stages/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/conversation-stages/src/index.ts",
+          "start": 1,
+          "end": 17
+        },
+        {
+          "file": "libs/conversation-stages/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 161,
+          "end": 229,
+          "symbol": "StagesPanel"
+        },
+        {
+          "file": "libs/conversation-stages/src/models/stages-props.ts",
+          "start": 78,
+          "end": 89,
+          "symbol": "StagesPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-stages-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Stream consumer",
+          "body": "Merge stage updates"
+        },
+        {
+          "title": "Stage[]",
+          "body": "Index, name, status"
+        },
+        {
+          "title": "StagesPanel",
+          "body": "Progress display"
+        },
+        {
+          "title": "User inspection",
+          "body": "Expand or copy"
+        }
+      ],
+      "takeaway": "Library: Stage display, expansion, status icons and Markdown details.",
+      "notes": "The library owns Stage display, expansion, status icons and Markdown details. The host owns Receiving and merging stage updates, status truth and generation lifecycle.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/conversation-stages/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/conversation-stages/src/index.ts",
+          "start": 1,
+          "end": 17
+        },
+        {
+          "file": "libs/conversation-stages/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 161,
+          "end": 229,
+          "symbol": "StagesPanel"
+        },
+        {
+          "file": "libs/conversation-stages/src/models/stages-props.ts",
+          "start": 78,
+          "end": 89,
+          "symbol": "StagesPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-stages-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "StagesPanel \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "stages",
+          "Stage[]"
+        ],
+        [
+          "isStreaming",
+          "boolean"
+        ],
+        [
+          "labels (optional)",
+          "StagesPanelLabels"
+        ],
+        [
+          "styles (optional)",
+          "StagesPanelStyles"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/conversation-stages/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/conversation-stages/src/index.ts",
+          "start": 1,
+          "end": 17
+        },
+        {
+          "file": "libs/conversation-stages/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 161,
+          "end": 229,
+          "symbol": "StagesPanel"
+        },
+        {
+          "file": "libs/conversation-stages/src/models/stages-props.ts",
+          "start": 78,
+          "end": 89,
+          "symbol": "StagesPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-stages-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "<StagesPanel\n  isStreaming\n  stages={[{\n    index: 0, name: 'Read demo sources', status: null,\n    content: 'Retrieving evidence',\n  }]}\n  labels={{ runningAriaLabel: 'Running' }}\n/>",
+      "caption": "Full example: examples/conversation-stages.tsx \u00b7 uses @epam/ai-dial-conversation-stages",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/conversation-stages.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Show named running stages while content arrives. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/conversation-stages/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/conversation-stages/src/index.ts",
+          "start": 1,
+          "end": 17
+        },
+        {
+          "file": "libs/conversation-stages/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 161,
+          "end": 229,
+          "symbol": "StagesPanel"
+        },
+        {
+          "file": "libs/conversation-stages/src/models/stages-props.ts",
+          "start": 78,
+          "end": 89,
+          "symbol": "StagesPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-stages-10",
+      "title": "See a streaming stage in context",
+      "layout": "image",
+      "kicker": "Reproducible demo \u00b7 actual workspace source components",
+      "image": "assets/component-demo.png",
+      "sideTitle": "Host-owned stream",
+      "body": "The host passes one stage and isStreaming. The panel renders its name, running state and Markdown content.",
+      "notes": "This is a real browser screenshot of the standalone demo in demo/main.tsx, captured by src/capture-demo.mjs. It renders SettingsPanel, UsageLimitCard and StagesPanel directly from the recorded source snapshot with local stylesheet dependencies. It is an illustrative host, not a screenshot of a deployed DIAL product. All data is synthetic and no backend request is made. Run the Vite command in examples/README.md, then the capture script. Expected behavior: Usage starts selected; selecting Profile updates the controlled active row. The amount and stage remain demo data. The host explicitly supplies dark-theme color overrides. Desktop and phone captures are retained under assets/.",
+      "sources": [
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 1,
+          "end": 170
+        },
+        {
+          "file": "libs/usage-dashboard/src/components/UsageLimitCard/UsageLimitCard.tsx",
+          "start": 1,
+          "end": 191
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 1,
+          "end": 229
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-stages-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep conversation stages focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Read stream updates",
+          "body": "The host obtains the current stage records."
+        },
+        {
+          "title": "Supply stage state",
+          "body": "Pass stages and isStreaming into StagesPanel."
+        },
+        {
+          "title": "Inspect the details",
+          "body": "The panel renders stage status and expandable content."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Read stream updates: The host obtains the current stage records. Supply stage state: Pass stages and isStreaming into StagesPanel. Inspect the details: The panel renders stage status and expandable content. The complete typed module in examples/conversation-stages.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/conversation-stages/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/conversation-stages/src/index.ts",
+          "start": 1,
+          "end": 17
+        },
+        {
+          "file": "libs/conversation-stages/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 161,
+          "end": 229,
+          "symbol": "StagesPanel"
+        },
+        {
+          "file": "libs/conversation-stages/src/models/stages-props.ts",
+          "start": 78,
+          "end": 89,
+          "symbol": "StagesPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-stages-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Explicit running state",
+          "body": "null status represents a running stage in the shared Stage model."
+        },
+        {
+          "title": "Streaming awareness",
+          "body": "isStreaming controls the active presentation lifecycle."
+        },
+        {
+          "title": "Grouped detail",
+          "body": "CollapsedGroup provides a compact wrapper for related stages."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Explicit running state: null status represents a running stage in the shared Stage model. Streaming awareness: isStreaming controls the active presentation lifecycle. Grouped detail: CollapsedGroup provides a compact wrapper for related stages. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/conversation-stages/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/conversation-stages/src/index.ts",
+          "start": 1,
+          "end": 17
+        },
+        {
+          "file": "libs/conversation-stages/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 161,
+          "end": 229,
+          "symbol": "StagesPanel"
+        },
+        {
+          "file": "libs/conversation-stages/src/models/stages-props.ts",
+          "start": 78,
+          "end": 89,
+          "symbol": "StagesPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-stages-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat/components/ConversationView/ConversationMessageItem.tsx"
+        ],
+        [
+          "Test evidence",
+          "renders nothing for an empty stage list"
+        ],
+        [
+          "Test evidence",
+          "renders all stage rows"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: apps/chat/src/components/ConversationView/ConversationMessageItem.tsx. Existing test evidence: [{\"file\": \"libs/conversation-stages/src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx\", \"assertions\": [\"CollapsedGroup \\u2014 collapsed states\", \"renders nothing for an empty stage list\", \"renders a single stage directly, with no summary wrapper\", \"collapses to a finished summary line by default once the run finishes\", \"collapses to a failed summary with the failed count called out\", \"shows elapsed time without double-counting parallel stages\", \"is expanded by default while running, showing progress through the live step\", \"keeps a long live stage name on one truncated line\", \"announces the running summary via a polite live region\", \"CollapsedGroup \\u2014 collapse-by-default-when-finished transition\", \"auto-collapses the moment a running group finishes\", \"CollapsedGroup \\u2014 labels\", \"uses the supplied executedLabel/stepsLabel for the finished summary\", \"conversation-stages \\u2014 public class names\", \"stamps the panel root behind a collapsed group\"]}, {\"file\": \"libs/conversation-stages/src/components/StagesPanel/tests/StagesPanel.spec.tsx\", \"assertions\": [\"StagesPanel\", \"renders all stage rows\", \"applies custom className and the new row-level CSS variable colors\", \"applies typography.fontClassName to each stage row name\", \"defaults the row name to dial-small-text and expanded content to dial-tiny-text\", \"defaults every heading level in expanded content to dial-small-semi-text (14px, semibold)\", \"applies typography.headingClassName to every heading level in expanded content\", \"renders a stage with content as a disclosure button that toggles the content\", \"renders a stage without expandable content as a plain row (no button)\", \"does not show a running spinner for null-status stages when not streaming\", \"keeps every null-status stage running until its completed status arrives\", \"collapses repeated identical names into one \\u00d7N row that expands to the individual attempts\", \"keeps a repeated-stage group running while any attempt is unresolved\", \"does not double-count overlapping attempts in a collapsed stage row\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-conversation-stages:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/conversation-stages/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/conversation-stages/src/index.ts",
+          "start": 1,
+          "end": 17
+        },
+        {
+          "file": "libs/conversation-stages/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 161,
+          "end": 229,
+          "symbol": "StagesPanel"
+        },
+        {
+          "file": "libs/conversation-stages/src/models/stages-props.ts",
+          "start": 78,
+          "end": 89,
+          "symbol": "StagesPanelProps"
+        },
+        {
+          "file": "apps/chat/src/components/ConversationView/ConversationMessageItem.tsx",
+          "start": 1,
+          "end": 898
+        },
+        {
+          "file": "libs/conversation-stages/src/components/CollapsedGroup/tests/CollapsedGroup.spec.tsx",
+          "start": 1,
+          "end": 245
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/tests/StagesPanel.spec.tsx",
+          "start": 1,
+          "end": 315
+        }
+      ]
+    },
+    {
+      "id": "lib-conversation-stages-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Progress is supplied",
+          "body": "The component cannot infer the backend work completed."
+        },
+        {
+          "title": "Keep identity stable",
+          "body": "Stage index is used when upstream updates are merged."
+        },
+        {
+          "title": "Content sensitivity",
+          "body": "Only pass execution details intended for the user to see."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Progress is supplied: The component cannot infer the backend work completed. Keep identity stable: Stage index is used when upstream updates are merged. Content sensitivity: Only pass execution details intended for the user to see. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/conversation-stages/README.md",
+          "start": 1,
+          "end": 142
+        },
+        {
+          "file": "libs/conversation-stages/src/index.ts",
+          "start": 1,
+          "end": 17
+        },
+        {
+          "file": "libs/conversation-stages/package.json",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 161,
+          "end": 229,
+          "symbol": "StagesPanel"
+        },
+        {
+          "file": "libs/conversation-stages/src/models/stages-props.ts",
+          "start": 78,
+          "end": 89,
+          "symbol": "StagesPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/conversation-stages.pptx"
+}

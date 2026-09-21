@@ -1,0 +1,1091 @@
+{
+  "project": {
+    "id": "libs/sidebar",
+    "project": "@epam/ai-dial-sidebar",
+    "path": "libs/sidebar",
+    "package": "@epam/ai-dial-sidebar",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/sidebar/README.md",
+      "libs/sidebar/package.json",
+      "libs/sidebar/src/index.ts",
+      "libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.spec.tsx",
+      "libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx",
+      "libs/sidebar/tsconfig.spec.json",
+      "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+      "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+      "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+      "libs/source-panel/src/constants/public-class-names.ts"
+    ],
+    "output": "decks/libs/sidebar.pptx",
+    "preview": "previews/libs/sidebar",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx",
+      "test-ci--src/components/SidebarPanel/tests/SidebarPanel.spec.tsx",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-sidebar",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-sidebar",
+    "description": "Resizable sidebar panel shell with header, search, and empty state components",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0"
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-shared": "*",
+      "react": "^19.2.8",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9"
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/sidebar",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/sidebar",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/sidebar/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/sidebar",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/sidebar",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/sidebar",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/sidebar",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/sidebar",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-sidebar --includeDependencies -- npx nx build-deps @epam/ai-dial-sidebar"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/sidebar",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/sidebar",
+          "command": "vitest run src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/SidebarPanel/tests/SidebarPanel.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SidebarPanel/tests/SidebarPanel.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/SidebarPanel/tests/SidebarPanel.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/sidebar",
+          "command": "vitest run src/components/SidebarPanel/tests/SidebarPanel.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/SidebarPanel/tests/SidebarPanel.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/SidebarPanel/tests/SidebarPanel.spec.tsx"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx",
+          "test-ci--src/components/SidebarPanel/tests/SidebarPanel.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-sidebar --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx",
+          "test-ci--src/components/SidebarPanel/tests/SidebarPanel.spec.tsx"
+        ]
+      },
+      "description": "Resizable sidebar panel shell with header, search, and empty state components",
+      "js": {
+        "packageName": "@epam/ai-dial-sidebar",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-sidebar",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/sidebar/src/index.ts",
+    "libs/sidebar/src/vite-env.d.ts",
+    "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+    "libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.spec.tsx",
+    "libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx",
+    "libs/sidebar/src/components/SidebarPanel/SidebarPanel.module.scss",
+    "libs/sidebar/src/components/Header/Header.tsx",
+    "libs/sidebar/src/components/PanelEmptyState/PanelEmpty.tsx",
+    "libs/sidebar/src/components/PanelEmptyState/PanelNoResults.tsx",
+    "libs/sidebar/src/test-setup.ts",
+    "libs/sidebar/src/models/panel-props.ts",
+    "libs/sidebar/src/constants/public-class-names.ts",
+    "libs/sidebar/src/types/orientation.ts",
+    "libs/sidebar/tsconfig.spec.json",
+    "libs/sidebar/eslint.config.mjs",
+    "libs/sidebar/postcss.config.js",
+    "libs/sidebar/tsconfig.lib.json",
+    "libs/sidebar/tsconfig.json",
+    "libs/sidebar/package.json",
+    "libs/sidebar/vite.config.mts",
+    "libs/sidebar/README.md",
+    "libs/sidebar/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.spec.tsx",
+    "libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx",
+    "libs/sidebar/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.classes.spec.tsx",
+    "libs/source-panel/src/components/ConversationSourcesPanel/tests/ConversationSourcesPanel.spec.tsx",
+    "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+    "libs/source-panel/src/constants/public-class-names.ts",
+    "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+    "libs/conversation-panel/src/components/ConversationPanel/tests/ConversationPanel.spec.tsx",
+    "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+    "libs/attachment-canvas/src/components/AttachmentCanvas/tests/AttachmentCanvas.spec.tsx",
+    "libs/attachment-canvas/src/models/attachment-canvas.ts",
+    "libs/attachment-canvas/src/constants/public-class-names.ts",
+    "libs/attachment-canvas/src/utils/vite-external-matcher.ts"
+  ],
+  "readme": "# @epam/ai-dial-sidebar\n\nResizable sidebar panel shell with a header bar, action slots, and empty/no-results states.\n\n## Overview\n\n`@epam/ai-dial-sidebar` provides the reusable structural shell for every sidebar-style panel in AI DIAL Chat \u2014 conversation history, sources, catalog, and any future panels. Without a shared shell, each panel would implement its own header, close button, scroll container, resize handle, empty state, and no-results state independently, leading to visual inconsistencies and duplicated layout code. This library solves that by offering a single `SidebarPanel` wrapper with a 48 px header bar (title plus start/end action slots), a scrollable body, opt-in drag-to-resize with persisted width, and two ready-made states (`PanelEmpty`, `PanelNoResults`) for when the content area has nothing to show. The panel supports both left and right orientation via the `SidebarOrientation` enum so it can be anchored to either edge of the viewport. Feature libraries like `conversation-panel`, `source-panel`, and `catalog` use this shell as their layout foundation, keeping their own focus on domain-specific content rather than chrome.\n\nThe shell owns no search field of its own \u2014 a panel that needs one renders it in\n`children` or in a header action slot, which is why `conversation-panel` and\n`source-panel` each pass their own.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-sidebar\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-sidebar/styles.css';\n```\n\n## Peer Dependencies\n\n- `react`\n- `@epam/ai-dial-chat-shared`\n- `@epam/ai-dial-ui-kit`\n\n## Components\n\n### SidebarPanel\n\nRoot container. Renders the header bar and a scrollable content area.\n`isOpen`, `orientation`, `labels`, and `children` are required. `onClose` is what\nmakes the close button appear \u2014 omit it to hide the button. With `resizable`, the\nhandle sits on the edge opposite `orientation`, and width defaults to `360` px\n(min `280`, max `600`).\n\nBy default the panel opens and closes by animating its layout width, so it pushes\nthe content it sits beside. Pass `isOverlay` when the host positions the panel\n_over_ the content instead (a mobile drawer, for example): the panel then keeps\nits full width in both states and slides in and out of the `orientation` edge,\nwhich keeps its content from reflowing mid-animation. Positioning stays the\nhost's job \u2014 `isOverlay` only changes how the panel animates.\n\n```tsx\nimport { SidebarPanel, SidebarOrientation } from '@epam/ai-dial-sidebar';\n\n<SidebarPanel\n  isOpen={isOpen}\n  title=\"Conversations\"\n  orientation={SidebarOrientation.Left}\n  labels={{ ariaLabel: 'Conversations', closeLabel: 'Close' }}\n  leftActions={<CollapseButton />}\n  rightActions={<NewChatButton />}\n  resizable\n  onClose={handleClose}\n  onResizeStop={setStoredWidth}\n>\n  {children}\n</SidebarPanel>;\n```\n\n### PanelEmpty\n\nEmpty-state block shown when a panel has no items at all.\n\n```tsx\nimport { PanelEmpty } from '@epam/ai-dial-sidebar';\n\n<PanelEmpty label=\"No conversations\" />;\n```\n\n### PanelNoResults\n\nNo-results state shown when a search or filter produces no matches.\n\n```tsx\nimport { PanelNoResults } from '@epam/ai-dial-sidebar';\n\n<PanelNoResults label=\"No results\" />;\n```\n\n## Public class names\n\nThe panel chrome carries stable `dial-sb-*` classes in addition to its internal\nclasses. Target those instead of `[role='complementary']` and its\n`> div:nth-child(n)` descendants \u2014 the role is an accessibility contract, not a\nstyling one, and the child order changes without notice. The names are exported\nso you never hardcode them:\n\n```tsx\nimport { SIDEBAR_CLASS } from '@epam/ai-dial-sidebar';\n\nSIDEBAR_CLASS.aside; // 'dial-sb-aside'\n```\n\n| Class            | Element                                    |\n| ---------------- | ------------------------------------------ |\n| `dial-sb-aside`  | The panel's `<aside role=\"complementary\">` |\n| `dial-sb-header` | The 48 px header bar rendered by `Header`  |\n\nThese classes carry no declarations of their own, so they change nothing until\nyou style them, and they are additive to the `className`, `headerClassName`, and\n`styles` props, which keep working exactly as before.\n\n`dial-sb-aside` is on the region, **not** on the wrapper around it. The wrapper\nis where `styles.className` lands, which is how the libs built on this panel\nmark themselves \u2014 [`@epam/ai-dial-attachment-canvas`](../attachment-canvas/README.md)\nwith `dial-attachment-canvas-panel` and\n[`@epam/ai-dial-source-panel`](../source-panel/README.md) with\n`dial-source-panel-panel`. Size or position the wrapper, and descend from it to\nreach the region:\n\n```css\n.dial-attachment-canvas-panel {\n  inline-size: 720px;\n}\n\n.dial-attachment-canvas-panel .dial-sb-aside {\n  background: var(--bg-layer-base);\n}\n```\n\n### Replacing fragile selectors\n\n| Instead of                                 | Use               |\n| ------------------------------------------ | ----------------- |\n| `[role='complementary']`                   | `.dial-sb-aside`  |\n| `[role='complementary'] > div:first-child` | `.dial-sb-header` |\n\n### Stability\n\nA `dial-sb-*` class is public API: renaming it, removing it, or moving it to a\ndifferent element is a breaking change, announced in the release notes and\nrecorded here with its replacement. The element itself stays free \u2014 its Tailwind\nutilities, its CSS-module class, and its position in the DOM may all change.\n\nYour own overrides are responsible for direction: the class names are\ndirection-agnostic and identical under `dir=\"rtl\"`, so use CSS logical\nproperties (`border-inline-end`, `inset-inline-start`) rather than physical ones.\n\nThe full convention is in\n[`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\n## Enums\n\n```tsx\nimport { SidebarOrientation } from '@epam/ai-dial-sidebar';\n\nSidebarOrientation.Left; // panel anchored to the left edge\nSidebarOrientation.Right; // panel anchored to the right edge\n```\n\n## Types\n\n```tsx\nimport type {\n  SidebarPanelProps,\n  SidebarPanelStyles,\n  SidebarPanelColors,\n  SidebarPanelLabels,\n  SidebarPanelTypography,\n  PanelEmptyProps,\n  PanelNoResultsProps,\n} from '@epam/ai-dial-sidebar';\n```\n",
+  "exports": {
+    "libs/sidebar/src/index.ts": "export { SIDEBAR_CLASS } from './constants/public-class-names';\nexport { SidebarPanel } from './components/SidebarPanel/SidebarPanel';\nexport { PanelEmpty } from './components/PanelEmptyState/PanelEmpty';\nexport { PanelNoResults } from './components/PanelEmptyState/PanelNoResults';\nexport { SidebarOrientation } from './types/orientation';\nexport type { PanelEmptyProps } from './components/PanelEmptyState/PanelEmpty';\nexport type { PanelNoResultsProps } from './components/PanelEmptyState/PanelNoResults';\nexport type {\n  SidebarPanelProps,\n  SidebarPanelStyles,\n  SidebarPanelColors,\n  SidebarPanelLabels,\n  SidebarPanelTypography,\n} from './models/panel-props';\n"
+  },
+  "contracts": {
+    "libs/sidebar/src/index.ts": [
+      {
+        "name": "SIDEBAR_CLASS",
+        "file": "libs/sidebar/src/constants/public-class-names.ts",
+        "start": 13,
+        "end": 27,
+        "declaration": "SIDEBAR_CLASS = {\n  /**\n   * The panel's `<aside role=\"complementary\">` element \u2014 the region itself,\n   * not the wrapper around it. The wrapper is where `styles.className` lands,\n   * which is how the libs built on this panel mark themselves:\n   * `@epam/ai-dial-attachment-canvas` puts `dial-attachment-canvas-panel`\n   * there and `@epam/ai-dial-source-panel` puts `dial-source-panel-panel`. A\n   * host targeting one of those panels therefore descends from its class to\n   * this one (`.dial-attachment-canvas-panel .dial-sb-aside`), and sizes or\n   * positions the wrapper rather than the region.\n   */\n  aside: 'dial-sb-aside',\n  /** The 48 px header bar rendered by `Header`. */\n  header: 'dial-sb-header',\n} as const",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SidebarPanel",
+        "file": "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+        "start": 25,
+        "end": 266,
+        "declaration": "SidebarPanel: FC<SidebarPanelProps> = ({\n  isOpen,\n  orientation,\n  title,\n  leftActions,\n  rightActions,\n  onClose,\n  labels,\n  children,\n  styles: panelStyles,\n  resizable,\n  isOverlay = false,\n  defaultWidth = 360,\n  minWidth = 280,\n  maxWidth = 600,\n  onResizeStop,\n}) => {\n  const {\n    colors,\n    typography,\n    bodyClassName,\n    cssVars,\n    titleClassName,\n    className,\n    headerClassName,\n  } = panelStyles ?? {};\n\n  const panelCssVars = useMemo(\n    () =>\n      buildCssVars({\n        '--sb-bg': colors?.background,\n        '--sb-border': colors?.border,\n        '--sb-text': colors?.text,\n        '--sb-resize-handler': colors?.resizeHandler,\n      }),\n    [colors],\n  );\n\n  /*\n   * Track actual panel width so the closing animation matches the real size,\n   * not the defaultWidth prop (relevant when the panel has been resized).\n   */\n  const currentWidthRef = useRef(defaultWidth);\n  const [animationMaxWidth, setAnimationMaxWidth] = useState(\n    isOpen ? defaultWidth : 0,\n  );\n\n  /* Suppress the width transition while the user is actively dragging so the\n   * outer div tracks the inner re-resizable element without lag.  The\n   * transition is still applied for the open/close animation. */\n  const [isResizing, setIsResizing] = useState(false);\n\n  /* Stores the user's manually chosen width together with the defaultWidth it\n   * was set for. On breakpoint crossing the stored width is restored only when\n   * defaultWidth returns to the same value (e.g. desktop\u2192mobile\u2192desktop\n   * brings back the desktop custom size). Cleared on panel close. */\n  const userChosenWidthRef = useRef<{\n    forDefault: number;\n    width: number;\n  } | null>(null);\n\n  useEffect(() => {\n    if (!isOpen) {\n      setAnimationMaxWidth(defaultWidth);\n      currentWidthRef.current = defaultWidth;\n      setIsResizing(false);\n      userChosenWidthRef.current = null;\n    } else {\n      const stored = userChosenWidthRef.current;\n      const targetWidth =\n        stored?.forDefault === defaultWidth ? stored.width : defaultWidth;\n      setAnimationMaxWidth(targetWidth);\n      currentWidthRef.current = targetWidth;\n    }\n  }, [isOpen, defaultWidth]);\n\n  const handleResize = useCallback((width: number) => {\n    setIsResizing(true);\n    setAnimationMaxWidth(width);\n  }, []);\n\n  const handleResizeStop = useCallback(\n    (width: number) => {\n      userChosenWidthRef.current = { forDefault: defaultWidth, width };\n      currentWidthRef.current = width;\n      setAnimationMaxWidth(width);\n      setIsResizing(false);\n      onResizeStop?.(width);\n    },\n    [defaultWidth, onResizeStop],\n  );\n\n  const panelWidth = isOpen ? animationMaxWidth || currentWidthRef.current : 0;\n\n  /*\n   * Check if the className contains w-full to allow full-width override.\n   * When w-full is present, don't set inline width so the class takes effect.\n   */\n  const hasFullWidthClass = className?.includes('w-full');\n\n  /*\n   * An overlay panel keeps its full size in both states and only moves, so no\n   * inline width may be applied - a width animating towards 0 would reflow the\n   * header actions and the list rows on every frame of the transition.\n   */\n  const shouldSetInlineWidth = !isOverlay && !hasFullWidthClass;\n\n  /*\n   * Resting positions of an overlay panel. A closed one leaves through the edge\n   * it is anchored to, which flips with the writing direction; the open state\n   * declares translate-x-0 explicitly so a transform is present in both states\n   * and the browser has two transform lists to interpolate between.\n   */\n  const getOverlayTransformClass = () => {\n    if (isOpen) {\n      return 'translate-x-0';\n    }\n    return orientation === SidebarOrientation.Left\n      ? 'ltr:-translate-x-full rtl:translate-x-full'\n      : 'ltr:translate-x-full rtl:-translate-x-full';\n  };\n\n  /*\n   * Only one property animates per mode, so the transition-property utility\n   * is never left unset - the CSS default (`all`) would otherwise animate\n   * every computed change, including the ones a resize drag makes per frame.\n   */\n  const getTransitionClass = () => {\n    if (isOverlay) {\n      return 'transition-transform duration-200 ease-in-out motion-reduce:transition-none';\n    }\n    if (isResizing) {\n      return undefined;\n    }\n    return 'transition-[width] duration-200 ease-in-out motion-reduce:transition-none';\n  };\n\n  /*\n   * A Left-anchored panel sits next to the navigation rail with no divider\n   * of its own on that edge; add one (reusing the same --sb-border /\n   * --stroke-tertiary token the wrapper's border-color already resolves to)\n   * once the panel is open, so the rail and the panel read as two distinct\n   * surfaces. The panel's other edge (facing the main content) stays\n   * divider-less.\n   */\n  const navDividerClass =\n    orientation === SidebarOrientation.Left && isOpen ? 'border-s' : undefined;\n  const resizableSide =\n    orientation === SidebarOrientation.Right\n      ? ResizableContainerSide.Left\n      : ResizableContainerSide.Right;\n  const closeButton = onClose ? (\n    <GhostIconButton\n      icon={\n        <IconX\n          size={DIAL_ICON_SIZE.LG}\n          stroke={DIAL_KIT_ICON_STROKE}\n          aria-hidden\n        />\n      }\n      aria-label={labels.closeLabel}\n      tooltipProps={{ tooltip: labels.closeLabel }}\n      onClick={onClose}\n    />\n  ) : null;\n\n  return (\n    <div\n      style={shouldSetInlineWidth ? { width: panelWidth } : undefined}\n      className={mergeClasses(\n        'h-full flex-shrink-0 gap-3 overflow-hidden shadow-sm',\n        orientation === SidebarOrientation.Left &&\n          '[clip-path:inset(-24px_-24px_-24px_0)] rtl:[clip-path:inset(-24px_0_-24px_-24px)]',\n        getTransitionClass(),\n        /*\n         * The stacking context has to outlive the close transition. Tying it to\n         * isOpen dropped the panel a layer the moment the animation started, so\n         * the main content painted over the still-visible panel for its whole\n         * duration.\n         */\n        'relative z-50',\n        className,\n        /*\n         * Applied after className so an overlay panel keeps its full width in\n         * both states: it slides out of view instead of collapsing in place.\n         */\n        isOverlay && mergeClasses('w-full', getOverlayTransformClass()),\n        styles.panel,\n      )}\n    >\n      <ConditionalResizableContainer\n        enabled={(resizable ?? false) && isOpen}\n        side={resizableSide}\n        ariaLabel={labels.resizeLabel ?? 'Resize panel'}\n        width={\n          isOpen ? animationMaxWidth || currentWidthRef.current : undefined\n        }\n        defaultWidth={defaultWidth}\n        minWidth={minWidth}\n        maxWidth={maxWidth}\n        resizeHandlerClassName={styles.resizeHandler}\n        onResizeStop={handleResizeStop}\n        onResize={handleResize}\n      >\n        <aside\n          role=\"complementary\"\n          aria-label={labels.ariaLabel}\n          inert={!isOpen}\n          style={{ ...cssVars, ...panelCssVars }}\n          className={mergeClasses(\n            styles.wrapper,\n            'flex h-full w-full flex-col gap-3',\n            navDividerClass,\n            typography?.fontClassName,\n            SIDEBAR_CLASS.aside,\n          )}\n        >\n          <Header\n            title={title}\n            className={headerClassName}\n            titleClassName={titleClassName}\n            leftActions={leftActions}\n            rightActions={\n              <>\n                {rightActions}\n                {closeButton}\n              </>\n            }\n          />\n          <div\n            className={mergeClasses(\n              'flex-1 overflow-y-auto p-4 pt-0',\n              bodyClassName,\n            )}\n          >\n            {children}\n          </div>\n        </aside>\n      </ConditionalResizableContainer>\n    </div>\n  );\n}",
+        "signature": "(props: SidebarPanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "isOpen",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "orientation",
+            "optional": false,
+            "type": "SidebarOrientation"
+          },
+          {
+            "name": "title",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "leftActions",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "rightActions",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "onClose",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").SidebarPanelLabels"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").SidebarPanelStyles | undefined"
+          },
+          {
+            "name": "resizable",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isOverlay",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "defaultWidth",
+            "optional": true,
+            "type": "number | undefined"
+          },
+          {
+            "name": "minWidth",
+            "optional": true,
+            "type": "number | undefined"
+          },
+          {
+            "name": "maxWidth",
+            "optional": true,
+            "type": "number | undefined"
+          },
+          {
+            "name": "onResizeStop",
+            "optional": true,
+            "type": "((width: number) => void) | undefined"
+          }
+        ]
+      },
+      {
+        "name": "PanelEmpty",
+        "file": "libs/sidebar/src/components/PanelEmptyState/PanelEmpty.tsx",
+        "start": 11,
+        "end": 13,
+        "declaration": "PanelEmpty: FC<PanelEmptyProps> = memo(({ label }) => (\n  <PanelEmptyState label={label} />\n))",
+        "signature": "(props: PanelEmptyProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "label",
+            "optional": false,
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "PanelNoResults",
+        "file": "libs/sidebar/src/components/PanelEmptyState/PanelNoResults.tsx",
+        "start": 11,
+        "end": 13,
+        "declaration": "PanelNoResults: FC<PanelNoResultsProps> = memo(({ label }) => (\n  <PanelEmptyState label={label} containerClassName=\"pt-6\" />\n))",
+        "signature": "(props: PanelNoResultsProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "label",
+            "optional": false,
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "SidebarOrientation",
+        "file": "libs/sidebar/src/types/orientation.ts",
+        "start": 2,
+        "end": 7,
+        "declaration": "export enum SidebarOrientation {\n  /** Panel anchors to the left edge. */\n  Left = 'left',\n  /** Panel anchors to the right edge. */\n  Right = 'right',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PanelEmptyProps",
+        "file": "libs/sidebar/src/components/PanelEmptyState/PanelEmpty.tsx",
+        "start": 5,
+        "end": 8,
+        "declaration": "export interface PanelEmptyProps {\n  /** Primary message of the empty state. */\n  label: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "PanelNoResultsProps",
+        "file": "libs/sidebar/src/components/PanelEmptyState/PanelNoResults.tsx",
+        "start": 5,
+        "end": 8,
+        "declaration": "export interface PanelNoResultsProps {\n  /** Primary message of the empty state. */\n  label: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SidebarPanelProps",
+        "file": "libs/sidebar/src/models/panel-props.ts",
+        "start": 51,
+        "end": 90,
+        "declaration": "export interface SidebarPanelProps {\n  /** Whether the panel is open; drives the open/close animation and sets `inert` on the panel region when closed. */\n  isOpen: boolean;\n  /** Edge the panel anchors to; drives the divider side and close-button placement. */\n  orientation: SidebarOrientation;\n  /** Title rendered in the header bar between the start and end action slots. */\n  title?: ReactNode;\n\n  /** Rendered in the left group of the 48 px header bar. */\n  leftActions?: ReactNode;\n  /** Content for the end (right) slot of the header bar. */\n  rightActions?: ReactNode;\n  /** Called when the user closes the panel; omit to hide the close button. */\n  onClose?: () => void;\n  /** Localised accessible labels for the panel region and close button. */\n  labels: SidebarPanelLabels;\n  /** Body content rendered below the header bar in the scrollable region. */\n  children: ReactNode;\n  /** Style overrides for colors, typography, and element class names. */\n  styles?: SidebarPanelStyles;\n  /** Enables drag-to-resize on the panel edge opposite to `orientation`. Defaults to `false`. */\n  resizable?: boolean;\n  /**\n   * Renders the panel as a drawer that keeps its full width in both states and\n   * slides in and out of the `orientation` edge, instead of animating its\n   * layout width. Set it when the host positions the panel over the content\n   * (rather than beside it) so the panel content does not reflow mid-animation\n   * and the content underneath never shows through a half-open panel. The host\n   * still owns the positioning itself. Defaults to `false`.\n   */\n  isOverlay?: boolean;\n  /** Initial panel width in px used when `resizable` is true. Defaults to `360`. */\n  defaultWidth?: number;\n  /** Minimum panel width in px used when `resizable` is true. Defaults to `280`. */\n  minWidth?: number;\n  /** Maximum panel width in px used when `resizable` is true. Defaults to `600`. */\n  maxWidth?: number;\n  /** Called with the new width in px when the user finishes a resize drag. */\n  onResizeStop?: (width: number) => void;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SidebarPanelStyles",
+        "file": "libs/sidebar/src/models/panel-props.ts",
+        "start": 33,
+        "end": 48,
+        "declaration": "export interface SidebarPanelStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: SidebarPanelColors;\n  /** Typography overrides applied via CSS custom properties. */\n  typography?: SidebarPanelTypography;\n  /** CSS class applied to the header title element. Defaults to `'dial-h1-text'`. */\n  titleClassName?: string;\n  /** Extra class name(s) merged onto the scrollable body `<div>`. */\n  bodyClassName?: string;\n  /** Extra class name(s) merged onto the panel width wrapper `<div>`. */\n  className?: string;\n  /** CSS class applied to the header element. */\n  headerClassName?: string;\n  /** CSS custom properties applied to the panel `<aside>` element. */\n  cssVars?: CSSProperties;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SidebarPanelColors",
+        "file": "libs/sidebar/src/models/panel-props.ts",
+        "start": 5,
+        "end": 14,
+        "declaration": "export interface SidebarPanelColors {\n  /** Panel background color. */\n  background?: string;\n  /** Divider border color on the inner edge. */\n  border?: string;\n  /** Header text color. */\n  text?: string;\n  /** Resize handle color (icon and background). */\n  resizeHandler?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SidebarPanelLabels",
+        "file": "libs/sidebar/src/models/panel-props.ts",
+        "start": 23,
+        "end": 30,
+        "declaration": "export interface SidebarPanelLabels {\n  /** Accessible label for the panel region. */\n  ariaLabel: string;\n  /** Accessible label and tooltip for the close button. Required when `onClose` is provided. */\n  closeLabel?: string;\n  /** Accessible label for the drag-to-resize handle, used when `resizable` is true. Defaults to `'Resize panel'`. */\n  resizeLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SidebarPanelTypography",
+        "file": "libs/sidebar/src/models/panel-props.ts",
+        "start": 17,
+        "end": 20,
+        "declaration": "export interface SidebarPanelTypography {\n  /** CSS class applied to the panel root, inherited by all panel content. */\n  fontClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "SidebarPanel",
+      "file": "libs/sidebar/src/components/SidebarPanel/SidebarPanel.tsx",
+      "start": 25,
+      "end": 266,
+      "declaration": "SidebarPanel: FC<SidebarPanelProps> = ({\n  isOpen,\n  orientation,\n  title,\n  leftActions,\n  rightActions,\n  onClose,\n  labels,\n  children,\n  styles: panelStyles,\n  resizable,\n  isOverlay = false,\n  defaultWidth = 360,\n  minWidth = 280,\n  maxWidth = 600,\n  onResizeStop,\n}) => {\n  const {\n    colors,\n    typography,\n    bodyClassName,\n    cssVars,\n    titleClassName,\n    className,\n    headerClassName,\n  } = panelStyles ?? {};\n\n  const panelCssVars = useMemo(\n    () =>\n      buildCssVars({\n        '--sb-bg': colors?.background,\n        '--sb-border': colors?.border,\n        '--sb-text': colors?.text,\n        '--sb-resize-handler': colors?.resizeHandler,\n      }),\n    [colors],\n  );\n\n  /*\n   * Track actual panel width so the closing animation matches the real size,\n   * not the defaultWidth prop (relevant when the panel has been resized).\n   */\n  const currentWidthRef = useRef(defaultWidth);\n  const [animationMaxWidth, setAnimationMaxWidth] = useState(\n    isOpen ? defaultWidth : 0,\n  );\n\n  /* Suppress the width transition while the user is actively dragging so the\n   * outer div tracks the inner re-resizable element without lag.  The\n   * transition is still applied for the open/close animation. */\n  const [isResizing, setIsResizing] = useState(false);\n\n  /* Stores the user's manually chosen width together with the defaultWidth it\n   * was set for. On breakpoint crossing the stored width is restored only when\n   * defaultWidth returns to the same value (e.g. desktop\u2192mobile\u2192desktop\n   * brings back the desktop custom size). Cleared on panel close. */\n  const userChosenWidthRef = useRef<{\n    forDefault: number;\n    width: number;\n  } | null>(null);\n\n  useEffect(() => {\n    if (!isOpen) {\n      setAnimationMaxWidth(defaultWidth);\n      currentWidthRef.current = defaultWidth;\n      setIsResizing(false);\n      userChosenWidthRef.current = null;\n    } else {\n      const stored = userChosenWidthRef.current;\n      const targetWidth =\n        stored?.forDefault === defaultWidth ? stored.width : defaultWidth;\n      setAnimationMaxWidth(targetWidth);\n      currentWidthRef.current = targetWidth;\n    }\n  }, [isOpen, defaultWidth]);\n\n  const handleResize = useCallback((width: number) => {\n    setIsResizing(true);\n    setAnimationMaxWidth(width);\n  }, []);\n\n  const handleResizeStop = useCallback(\n    (width: number) => {\n      userChosenWidthRef.current = { forDefault: defaultWidth, width };\n      currentWidthRef.current = width;\n      setAnimationMaxWidth(width);\n      setIsResizing(false);\n      onResizeStop?.(width);\n    },\n    [defaultWidth, onResizeStop],\n  );\n\n  const panelWidth = isOpen ? animationMaxWidth || currentWidthRef.current : 0;\n\n  /*\n   * Check if the className contains w-full to allow full-width override.\n   * When w-full is present, don't set inline width so the class takes effect.\n   */\n  const hasFullWidthClass = className?.includes('w-full');\n\n  /*\n   * An overlay panel keeps its full size in both states and only moves, so no\n   * inline width may be applied - a width animating towards 0 would reflow the\n   * header actions and the list rows on every frame of the transition.\n   */\n  const shouldSetInlineWidth = !isOverlay && !hasFullWidthClass;\n\n  /*\n   * Resting positions of an overlay panel. A closed one leaves through the edge\n   * it is anchored to, which flips with the writing direction; the open state\n   * declares translate-x-0 explicitly so a transform is present in both states\n   * and the browser has two transform lists to interpolate between.\n   */\n  const getOverlayTransformClass = () => {\n    if (isOpen) {\n      return 'translate-x-0';\n    }\n    return orientation === SidebarOrientation.Left\n      ? 'ltr:-translate-x-full rtl:translate-x-full'\n      : 'ltr:translate-x-full rtl:-translate-x-full';\n  };\n\n  /*\n   * Only one property animates per mode, so the transition-property utility\n   * is never left unset - the CSS default (`all`) would otherwise animate\n   * every computed change, including the ones a resize drag makes per frame.\n   */\n  const getTransitionClass = () => {\n    if (isOverlay) {\n      return 'transition-transform duration-200 ease-in-out motion-reduce:transition-none';\n    }\n    if (isResizing) {\n      return undefined;\n    }\n    return 'transition-[width] duration-200 ease-in-out motion-reduce:transition-none';\n  };\n\n  /*\n   * A Left-anchored panel sits next to the navigation rail with no divider\n   * of its own on that edge; add one (reusing the same --sb-border /\n   * --stroke-tertiary token the wrapper's border-color already resolves to)\n   * once the panel is open, so the rail and the panel read as two distinct\n   * surfaces. The panel's other edge (facing the main content) stays\n   * divider-less.\n   */\n  const navDividerClass =\n    orientation === SidebarOrientation.Left && isOpen ? 'border-s' : undefined;\n  const resizableSide =\n    orientation === SidebarOrientation.Right\n      ? ResizableContainerSide.Left\n      : ResizableContainerSide.Right;\n  const closeButton = onClose ? (\n    <GhostIconButton\n      icon={\n        <IconX\n          size={DIAL_ICON_SIZE.LG}\n          stroke={DIAL_KIT_ICON_STROKE}\n          aria-hidden\n        />\n      }\n      aria-label={labels.closeLabel}\n      tooltipProps={{ tooltip: labels.closeLabel }}\n      onClick={onClose}\n    />\n  ) : null;\n\n  return (\n    <div\n      style={shouldSetInlineWidth ? { width: panelWidth } : undefined}\n      className={mergeClasses(\n        'h-full flex-shrink-0 gap-3 overflow-hidden shadow-sm',\n        orientation === SidebarOrientation.Left &&\n          '[clip-path:inset(-24px_-24px_-24px_0)] rtl:[clip-path:inset(-24px_0_-24px_-24px)]',\n        getTransitionClass(),\n        /*\n         * The stacking context has to outlive the close transition. Tying it to\n         * isOpen dropped the panel a layer the moment the animation started, so\n         * the main content painted over the still-visible panel for its whole\n         * duration.\n         */\n        'relative z-50',\n        className,\n        /*\n         * Applied after className so an overlay panel keeps its full width in\n         * both states: it slides out of view instead of collapsing in place.\n         */\n        isOverlay && mergeClasses('w-full', getOverlayTransformClass()),\n        styles.panel,\n      )}\n    >\n      <ConditionalResizableContainer\n        enabled={(resizable ?? false) && isOpen}\n        side={resizableSide}\n        ariaLabel={labels.resizeLabel ?? 'Resize panel'}\n        width={\n          isOpen ? animationMaxWidth || currentWidthRef.current : undefined\n        }\n        defaultWidth={defaultWidth}\n        minWidth={minWidth}\n        maxWidth={maxWidth}\n        resizeHandlerClassName={styles.resizeHandler}\n        onResizeStop={handleResizeStop}\n        onResize={handleResize}\n      >\n        <aside\n          role=\"complementary\"\n          aria-label={labels.ariaLabel}\n          inert={!isOpen}\n          style={{ ...cssVars, ...panelCssVars }}\n          className={mergeClasses(\n            styles.wrapper,\n            'flex h-full w-full flex-col gap-3',\n            navDividerClass,\n            typography?.fontClassName,\n            SIDEBAR_CLASS.aside,\n          )}\n        >\n          <Header\n            title={title}\n            className={headerClassName}\n            titleClassName={titleClassName}\n            leftActions={leftActions}\n            rightActions={\n              <>\n                {rightActions}\n                {closeButton}\n              </>\n            }\n          />\n          <div\n            className={mergeClasses(\n              'flex-1 overflow-y-auto p-4 pt-0',\n              bodyClassName,\n            )}\n          >\n            {children}\n          </div>\n        </aside>\n      </ConditionalResizableContainer>\n    </div>\n  );\n}",
+      "signature": "(props: SidebarPanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "isOpen",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "orientation",
+          "optional": false,
+          "type": "SidebarOrientation"
+        },
+        {
+          "name": "title",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "leftActions",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "rightActions",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "onClose",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").SidebarPanelLabels"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").SidebarPanelStyles | undefined"
+        },
+        {
+          "name": "resizable",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isOverlay",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "defaultWidth",
+          "optional": true,
+          "type": "number | undefined"
+        },
+        {
+          "name": "minWidth",
+          "optional": true,
+          "type": "number | undefined"
+        },
+        {
+          "name": "maxWidth",
+          "optional": true,
+          "type": "number | undefined"
+        },
+        {
+          "name": "onResizeStop",
+          "optional": true,
+          "type": "((width: number) => void) | undefined"
+        }
+      ]
+    },
+    {
+      "name": "PanelEmpty",
+      "file": "libs/sidebar/src/components/PanelEmptyState/PanelEmpty.tsx",
+      "start": 11,
+      "end": 13,
+      "declaration": "PanelEmpty: FC<PanelEmptyProps> = memo(({ label }) => (\n  <PanelEmptyState label={label} />\n))",
+      "signature": "(props: PanelEmptyProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "PanelNoResults",
+      "file": "libs/sidebar/src/components/PanelEmptyState/PanelNoResults.tsx",
+      "start": 11,
+      "end": 13,
+      "declaration": "PanelNoResults: FC<PanelNoResultsProps> = memo(({ label }) => (\n  <PanelEmptyState label={label} containerClassName=\"pt-6\" />\n))",
+      "signature": "(props: PanelNoResultsProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.spec.tsx",
+      "assertions": [
+        "renders children in the body",
+        "has role=complementary and aria-label",
+        "renders leftActions in the left header group",
+        "renders rightActions in the right header group",
+        "side=right: close button is in the right group (last button)",
+        "side=right: renders without a divider",
+        "side=left: close button is rendered after right actions (last button)",
+        "side=left, open: applies the border-s divider facing the navigation rail",
+        "side=left, closed: renders without a divider",
+        "close button calls onClose",
+        "colors prop emits CSS custom properties",
+        "no inline style when colors and typography are omitted",
+        "w-full className overrides inline width",
+        "applies inline width when w-full className is absent",
+        "keeps the stacking context while closed so the closing panel is not painted over",
+        "does not fade the panel region in, which would show the content behind a half-open panel",
+        "overlay mode: keeps full width and sets no inline width, so the content does not reflow",
+        "overlay mode: animates the transform instead of the layout width",
+        "overlay mode, left orientation, closed: slides out through the start edge in both directions",
+        "overlay mode, right orientation, closed: slides out through the end edge in both directions",
+        "overlay mode, open: rests at translate-x-0 so both states declare a transform",
+        "non-overlay mode: still animates the layout width",
+        "honours a reduced-motion preference",
+        "keeps the header actions mounted while closed so they do not pop in mid-animation",
+        "marks the closed panel region inert so the mounted actions stay out of the tab order"
+      ]
+    },
+    {
+      "file": "libs/sidebar/src/components/SidebarPanel/tests/SidebarPanel.classes.spec.tsx",
+      "assertions": [
+        "marks the aside element found by its role",
+        "marks the header bar that carries the title",
+        "keeps the aside addressable when the host localises its label"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "libs/source-panel/src/components/ConversationSourcesPanel/ConversationSourcesPanel.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 7,
+          "excerpt": "import { BASE_LG_ICON_PROPS } from '@epam/ai-dial-chat-shared';\nimport {\n  PanelNoResults,\n  SidebarOrientation,\n  SidebarPanel,\n} from '@epam/ai-dial-sidebar';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "libs/source-panel/src/constants/public-class-names.ts",
+      "matches": [
+        {
+          "start": 4,
+          "end": 14,
+          "excerpt": " * Hosts style the sources panel through these instead of hashed CSS-module\n * locals, DOM order, or ARIA attributes. They carry no declarations of their\n * own; they exist only as stable selectors.\n *\n * Read the \"Public class names\" section of openspec/lib-styling-guide.md before\n * renaming one or moving it to a different element \u2014 both are breaking changes.\n */\nexport const SOURCE_PANEL_CLASS = {\n  /**\n   * The panel wrapper \u2014 the element `@epam/ai-dial-sidebar` gives the panel's\n   * width and slide transition, which is the outer box a host sizes or"
+        }
+      ]
+    },
+    {
+      "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+      "matches": [
+        {
+          "start": 2,
+          "end": 12,
+          "excerpt": "  buildCssVars,\n  FilterTab,\n  mergeClasses,\n} from '@epam/ai-dial-chat-shared';\nimport {\n  PanelEmpty,\n  PanelNoResults,\n  SidebarOrientation,\n  SidebarPanel,\n} from '@epam/ai-dial-sidebar';\nimport { Search, Skeleton } from '@epam/ai-dial-ui-kit';"
+        }
+      ]
+    },
+    {
+      "file": "libs/attachment-canvas/src/components/AttachmentCanvas/AttachmentCanvas.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 3,
+          "excerpt": "import { buildCssVars, mergeClasses } from '@epam/ai-dial-chat-shared';\nimport { SidebarOrientation, SidebarPanel } from '@epam/ai-dial-sidebar';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "libs/attachment-canvas/src/models/attachment-canvas.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 7,
+          "excerpt": "import type {\n  CodeBlockTheme,\n  CustomVisualizerDataLayout,\n  GroupedAttachmentItem,\n} from '@epam/ai-dial-chat-shared';\nimport type { SidebarPanelStyles } from '@epam/ai-dial-sidebar';\nimport type { InputHighlightData } from '@epam/pdf-highlighter-kit';"
+        }
+      ]
+    },
+    {
+      "file": "libs/attachment-canvas/src/constants/public-class-names.ts",
+      "matches": [
+        {
+          "start": 4,
+          "end": 14,
+          "excerpt": " * Hosts style the canvas through these instead of hashed CSS-module locals,\n * DOM order, or ARIA attributes. They carry no declarations of their own; they\n * exist only as stable selectors.\n *\n * Read the \"Public class names\" section of openspec/lib-styling-guide.md before\n * renaming one or moving it to a different element \u2014 both are breaking changes.\n */\nexport const ATTACHMENT_CANVAS_CLASS = {\n  /**\n   * The canvas panel wrapper \u2014 the element `@epam/ai-dial-sidebar` gives the\n   * panel's width and slide transition, which is the outer box a host sizes or"
+        }
+      ]
+    },
+    {
+      "file": "libs/attachment-canvas/src/utils/vite-external-matcher.ts",
+      "matches": [
+        {
+          "start": 4,
+          "end": 14,
+          "excerpt": " * app already installs) or a dependency (npm installs it alongside this\n * package), and either way the import stays external so consumers get one\n * shared copy rather than a second one inlined here.\n */\nexport const EXTERNAL_PACKAGE_NAMES = [\n  'react',\n  '@silurus/ooxml',\n  '@epam/ai-dial-chat-shared',\n  '@epam/ai-dial-shared',\n  '@epam/ai-dial-sidebar',\n  '@epam/ai-dial-ui-kit',"
+        }
+      ]
+    }
+  ]
+}

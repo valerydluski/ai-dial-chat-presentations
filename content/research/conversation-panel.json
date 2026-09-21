@@ -1,0 +1,2340 @@
+{
+  "project": {
+    "id": "libs/conversation-panel",
+    "project": "@epam/ai-dial-conversation-panel",
+    "path": "libs/conversation-panel",
+    "package": "@epam/ai-dial-conversation-panel",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/conversation-panel/README.md",
+      "libs/conversation-panel/package.json",
+      "libs/conversation-panel/src/index.ts",
+      "libs/conversation-panel/src/components/FilterTabs/tests/FilterTabs.spec.tsx",
+      "libs/conversation-panel/src/components/ConversationRow/tests/ConversationRow.spec.tsx",
+      "libs/conversation-panel/src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx",
+      "libs/conversation-panel/src/components/ConversationPanel/tests/ConversationPanel.spec.tsx",
+      "apps/chat/src/components/ConversationPanel/ConversationPanelView.tsx",
+      "apps/chat/src/components/ConversationPanel/tests/ConversationPanelView.spec.tsx"
+    ],
+    "output": "decks/libs/conversation-panel.pptx",
+    "preview": "previews/libs/conversation-panel",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/ConversationPanel/tests/ConversationPanel.spec.tsx",
+      "test-ci--src/components/ConversationRow/tests/ConversationRow.spec.tsx",
+      "test-ci--src/components/FilterTabs/tests/FilterTabs.spec.tsx",
+      "test-ci--src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx",
+      "test-ci--src/components/RenameConversationPopup/tests/RenameConversationPopup.spec.tsx",
+      "test-ci--src/utils/tests/conversation-row.spec.ts",
+      "test-ci--src/utils/tests/drag.spec.ts",
+      "test-ci--src/utils/tests/transfer-file.spec.ts",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-conversation-panel",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      },
+      {
+        "source": "@epam/ai-dial-conversation-panel",
+        "target": "@epam/ai-dial-sidebar",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-conversation-panel",
+    "description": "Virtualized sidebar panel for browsing conversation history with grouping, tabs, and search",
+    "version": "0.0.1",
+    "private": true,
+    "license": "Apache-2.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "react-window": "^2.2.7",
+      "@tabler/icons-react": "^3.44.0",
+      "@epam/ai-dial-sidebar": "*"
+    },
+    "peerDependencies": {
+      "react": "^19.2.8",
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9"
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/conversation-panel",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/conversation-panel/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-conversation-panel --includeDependencies -- npx nx build-deps @epam/ai-dial-conversation-panel"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/ConversationPanel/tests/ConversationPanel.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ConversationPanel/tests/ConversationPanel.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/ConversationPanel/tests/ConversationPanel.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vitest run src/components/ConversationPanel/tests/ConversationPanel.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/ConversationPanel/tests/ConversationPanel.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/ConversationRow/tests/ConversationRow.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ConversationRow/tests/ConversationRow.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/ConversationRow/tests/ConversationRow.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vitest run src/components/ConversationRow/tests/ConversationRow.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/ConversationRow/tests/ConversationRow.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/FilterTabs/tests/FilterTabs.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/FilterTabs/tests/FilterTabs.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/FilterTabs/tests/FilterTabs.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vitest run src/components/FilterTabs/tests/FilterTabs.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/FilterTabs/tests/FilterTabs.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vitest run src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/RenameConversationPopup/tests/RenameConversationPopup.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/RenameConversationPopup/tests/RenameConversationPopup.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/RenameConversationPopup/tests/RenameConversationPopup.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vitest run src/components/RenameConversationPopup/tests/RenameConversationPopup.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/RenameConversationPopup/tests/RenameConversationPopup.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/conversation-row.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/conversation-row.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/conversation-row.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vitest run src/utils/tests/conversation-row.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/conversation-row.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/drag.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/drag.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/drag.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vitest run src/utils/tests/drag.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/drag.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/tests/transfer-file.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/transfer-file.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/tests/transfer-file.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/conversation-panel",
+          "command": "vitest run src/utils/tests/transfer-file.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/tests/transfer-file.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/ConversationPanel/tests/ConversationPanel.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/ConversationRow/tests/ConversationRow.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/FilterTabs/tests/FilterTabs.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/RenameConversationPopup/tests/RenameConversationPopup.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/conversation-row.spec.ts",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/drag.spec.ts",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/tests/transfer-file.spec.ts"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/ConversationPanel/tests/ConversationPanel.spec.tsx",
+          "test-ci--src/components/ConversationRow/tests/ConversationRow.spec.tsx",
+          "test-ci--src/components/FilterTabs/tests/FilterTabs.spec.tsx",
+          "test-ci--src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx",
+          "test-ci--src/components/RenameConversationPopup/tests/RenameConversationPopup.spec.tsx",
+          "test-ci--src/utils/tests/conversation-row.spec.ts",
+          "test-ci--src/utils/tests/drag.spec.ts",
+          "test-ci--src/utils/tests/transfer-file.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-conversation-panel --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/ConversationPanel/tests/ConversationPanel.spec.tsx",
+          "test-ci--src/components/ConversationRow/tests/ConversationRow.spec.tsx",
+          "test-ci--src/components/FilterTabs/tests/FilterTabs.spec.tsx",
+          "test-ci--src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx",
+          "test-ci--src/components/RenameConversationPopup/tests/RenameConversationPopup.spec.tsx",
+          "test-ci--src/utils/tests/conversation-row.spec.ts",
+          "test-ci--src/utils/tests/drag.spec.ts",
+          "test-ci--src/utils/tests/transfer-file.spec.ts"
+        ]
+      },
+      "description": "Virtualized sidebar panel for browsing conversation history with grouping, tabs, and search",
+      "js": {
+        "packageName": "@epam/ai-dial-conversation-panel",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-conversation-panel",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/conversation-panel/src/index.ts",
+    "libs/conversation-panel/src/vite-env.d.ts",
+    "libs/conversation-panel/src/components/FilterTabs/FilterTabs.tsx",
+    "libs/conversation-panel/src/components/FilterTabs/tests/FilterTabs.spec.tsx",
+    "libs/conversation-panel/src/components/ImportExportQueueHeader/ImportExportQueueHeader.tsx",
+    "libs/conversation-panel/src/components/ConversationRow/ConversationRow.tsx",
+    "libs/conversation-panel/src/components/ConversationRow/tests/ConversationRow.spec.tsx",
+    "libs/conversation-panel/src/components/ImportExportQueueRow/ImportExportQueueRow.tsx",
+    "libs/conversation-panel/src/components/ImportExportQueue/ImportExportQueue.tsx",
+    "libs/conversation-panel/src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx",
+    "libs/conversation-panel/src/components/ImportExportQueue/ImportExportQueue.module.scss",
+    "libs/conversation-panel/src/components/ConversationPanel/utils.tsx",
+    "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.module.scss",
+    "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+    "libs/conversation-panel/src/components/ConversationPanel/tests/ConversationPanel.spec.tsx",
+    "libs/conversation-panel/src/components/RenameConversationPopup/RenameConversationPopup.tsx",
+    "libs/conversation-panel/src/components/RenameConversationPopup/tests/RenameConversationPopup.spec.tsx",
+    "libs/conversation-panel/src/components/RowRenderer/RowRenderer.tsx",
+    "libs/conversation-panel/src/components/NewChatButton/NewChatButton.tsx",
+    "libs/conversation-panel/src/components/NewChatButton/NewChatButton.module.scss",
+    "libs/conversation-panel/src/components/ConversationGroupHeader/ConversationGroupHeader.tsx",
+    "libs/conversation-panel/src/test-setup.ts",
+    "libs/conversation-panel/src/models/import-export-queue.ts",
+    "libs/conversation-panel/src/models/virtual-row.ts",
+    "libs/conversation-panel/src/models/panel-props.ts",
+    "libs/conversation-panel/src/models/rename-conversation-popup.ts",
+    "libs/conversation-panel/src/utils/drag.ts",
+    "libs/conversation-panel/src/utils/tests/drag.spec.ts",
+    "libs/conversation-panel/src/utils/tests/conversation-row.spec.ts",
+    "libs/conversation-panel/src/utils/tests/transfer-file.spec.ts",
+    "libs/conversation-panel/src/utils/transfer-file.ts",
+    "libs/conversation-panel/src/utils/conversation-row.ts",
+    "libs/conversation-panel/src/constants/public-class-names.ts",
+    "libs/conversation-panel/src/constants/import-export-queue.ts",
+    "libs/conversation-panel/src/constants/virtual-list.ts",
+    "libs/conversation-panel/src/types/virtual-row.ts",
+    "libs/conversation-panel/tsconfig.spec.json",
+    "libs/conversation-panel/eslint.config.mjs",
+    "libs/conversation-panel/postcss.config.js",
+    "libs/conversation-panel/tsconfig.lib.json",
+    "libs/conversation-panel/tsconfig.json",
+    "libs/conversation-panel/package.json",
+    "libs/conversation-panel/vite.config.mts",
+    "libs/conversation-panel/README.md",
+    "libs/conversation-panel/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/conversation-panel/src/components/FilterTabs/tests/FilterTabs.spec.tsx",
+    "libs/conversation-panel/src/components/ConversationRow/tests/ConversationRow.spec.tsx",
+    "libs/conversation-panel/src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx",
+    "libs/conversation-panel/src/components/ConversationPanel/tests/ConversationPanel.spec.tsx",
+    "libs/conversation-panel/src/components/RenameConversationPopup/tests/RenameConversationPopup.spec.tsx",
+    "libs/conversation-panel/src/utils/tests/drag.spec.ts",
+    "libs/conversation-panel/src/utils/tests/conversation-row.spec.ts",
+    "libs/conversation-panel/src/utils/tests/transfer-file.spec.ts",
+    "libs/conversation-panel/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "apps/chat/src/components/ConversationPanel/ConversationPanelView.tsx",
+    "apps/chat/src/components/ConversationPanel/tests/ConversationPanelView.spec.tsx"
+  ],
+  "readme": "# @epam/ai-dial-conversation-panel\n\nPanel component for browsing conversation history with virtual scrolling, grouped views, tab filtering, and search.\n\n## Overview\n\n`@epam/ai-dial-conversation-panel` renders the conversation history sidebar that lets users navigate between past chats. It addresses the performance and UX challenges that come with displaying large conversation histories: rows are rendered through `react-window` so the DOM stays small even with thousands of entries; conversations are grouped into a Pinned section plus per-source sections (`FilterTab`) with collapsible headers, so users can quickly locate work; and a tab bar with a search field narrows the list without a full page reload. Rows support drag-and-drop reordering between groups, per-row action menus, task badges, and unread indicators. Use this library whenever an application needs a left-rail or slide-in drawer that shows the user's chat history with standard navigation affordances. The library is intentionally data-agnostic \u2014 it accepts an already-ordered flat list of `ConversationItem` objects and emits callbacks for selection, actions, and moves, leaving sorting, storage, and routing entirely to the consuming app.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-conversation-panel\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-conversation-panel/styles.css';\n```\n\n## Peer Dependencies\n\n- `react`\n- `@epam/ai-dial-chat-shared`\n- `@epam/ai-dial-ui-kit`\n\n## Components\n\n### ConversationPanel\n\nRoot component. Renders the full panel with header, search, tab filters, grouped list, and empty states.\n\n`isOpen` animates the panel's layout width so it pushes the content beside it.\nWhen the host positions the panel over the content instead \u2014 via `className`, as\nthe mobile layout does \u2014 pass `isOverlay` so the panel slides in and out at full\nwidth rather than collapsing in place.\n\n```tsx\nimport { ConversationPanel } from '@epam/ai-dial-conversation-panel';\nimport type { ConversationPanelProps } from '@epam/ai-dial-conversation-panel';\n\n<ConversationPanel\n  conversations={historyItems}\n  isOpen={isPanelOpen}\n  onSelectConversation={handleSelectConversation}\n  activeConversationId={activeConversationId}\n  onNewChat={handleNewChat}\n  getActions={buildRowActions}\n  onMoveConversation={handleMove}\n  labels={{\n    title: 'Chats',\n    emptyLabel: 'No conversations yet',\n    noResultsLabel: 'No results found',\n    newChatLabel: 'New chat',\n    searchPlaceholder: 'Search\u2026',\n    searchClearLabel: 'Clear search',\n    filterLabels: {\n      all: 'All',\n      myChats: 'My chats',\n      shared: 'Shared',\n      organization: 'Organization',\n      groupAriaLabel: 'Filter chats',\n    },\n  }}\n/>;\n```\n\nPass `isFilterTabsHidden` to drop the All / My chats / Shared / Organization\nrow. The list then stays on whichever tab is active \u2014 `FilterTab.All` unless\n`activeFilter` says otherwise \u2014 so every group remains visible; only the\ncontrol disappears. `labels.filterLabels` stays required either way.\n\nThe row is the ui-kit's `FilterChips`, which draws each filter as a `Tag` in\nits `TagAppearance.Selectable` appearance, so the chips take their colors from\nthe active theme's tag tokens. This component only maps the panel's vocabulary\nonto it: `FilterTab` values, the host's `filterLabels`, and `hiddenSources` as\nan exclusion list.\nIt is a named `role=\"group\"` of toggle chips \u2014 the selected one carries\n`aria-pressed` \u2014 not a `tablist`, because the chips filter the list in place\nrather than switching between panels. `labels.filterLabels.groupAriaLabel` names\nthe group and defaults to `\"Filter chats\"`;\n`styles.typography.tabClassName` sets the label typography and defaults to\n`'dial-tiny-semi-text'`.\n\n### Corner radii\n\nThe panel's controls take their corner radius from CSS custom properties, so a\nhost sets them once instead of passing a class per control. Each falls back to\nthe value the panel has always rendered:\n\n| Property             | Applies to                     | Default   |\n| -------------------- | ------------------------------ | --------- |\n| `--cp-row-radius`    | Each conversation row's button | `0.75rem` |\n| `--cp-search-radius` | The search field               | `9999px`  |\n\n```css\n/* a host that wants 8px rows under a 12px search field */\n:root {\n  --cp-row-radius: 8px;\n  --cp-search-radius: 12px;\n}\n```\n\nThe New chat button is not on this list on purpose: it is a labelled button, so\nit reads the ui-kit's own `--radius-control` and stays in step with every other\nbutton in the host app.\n\n`styles.searchWrapperClassName` remains for anything else the search wrapper\nneeds; a `rounded-*` utility passed there still wins over `--cp-search-radius`,\nsince a host's utilities are emitted after this package's stylesheet.\n\n## Public class names\n\nThe panel's controls carry stable `dial-cp-*` classes in addition to their\ninternal classes. Target those instead of DOM-order selectors or hashed\nCSS-module names. The names are exported so you never hardcode them:\n\n```tsx\nimport { CONVERSATION_PANEL_CLASS } from '@epam/ai-dial-conversation-panel';\n\nCONVERSATION_PANEL_CLASS.search; // 'dial-cp-search'\n```\n\n| Class                     | Element                                             |\n| ------------------------- | --------------------------------------------------- |\n| `dial-cp-new-chat-button` | The new-chat button                                 |\n| `dial-cp-search`          | The `role=\"search\"` wrapper around the search field |\n\nThe panel renders inside `SidebarPanel`, so `dial-sb-aside` and\n`dial-sb-header` from `@epam/ai-dial-sidebar` are available on the surrounding\nchrome.\n\nThese classes carry no declarations of their own, so they change nothing until\nyou style them.\n\n### Replacing fragile selectors\n\n| Instead of                                                             | Use                               |\n| ---------------------------------------------------------------------- | --------------------------------- |\n| `[role='complementary'] > div:nth-child(2) > div:first-child > button` | `.dial-cp-new-chat-button`        |\n| `[role='search'] .dial-kit-input`                                      | `.dial-cp-search .dial-kit-input` |\n\n`dial-kit-input` is itself a public class of `@epam/ai-dial-ui-kit`, so\ndescending to it from `dial-cp-search` is supported \u2014 what was fragile was the\n`role='search'` half.\n\n### Stability\n\nA `dial-cp-*` class is public API: renaming it, removing it, or moving it to a\ndifferent element is a breaking change, announced in the release notes and\nrecorded here with its replacement. The element itself stays free \u2014 its Tailwind\nutilities, its CSS-module class, and its position in the DOM may all change.\n\nYour own overrides are responsible for direction: the class names are\ndirection-agnostic and identical under `dir=\"rtl\"`, so use CSS logical\nproperties (`padding-inline-start`, `inset-inline-end`) rather than physical ones.\n\nThe full convention is in\n[`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\n## Enums\n\n`FilterTab` is owned and exported by `@epam/ai-dial-chat-shared`, and this\npackage does not re-export it \u2014 import it from its own package alongside this\none. It identifies a filter tab, a collapsible group, and a conversation's\nsource/ownership.\n\n```tsx\nimport { FilterTab } from '@epam/ai-dial-chat-shared';\n\nFilterTab.All; // 'all'\nFilterTab.Pinned; // 'pinned' \u2014 also identifies the Pinned collapsible group\nFilterTab.MyChats; // 'my-chats' \u2014 also used as a conversation's source/ownership\nFilterTab.Shared; // 'shared'\nFilterTab.Organization; // 'organization'\n```\n\n## Types\n\n```tsx\nimport type {\n  ConversationPanelProps,\n  ConversationPanelLabels,\n  ConversationPanelStyles,\n  ConversationPanelTypography,\n  ConversationColors,\n  NewChatButtonColors,\n  ConversationItem,\n  ConversationMove,\n  FilterLabels,\n} from '@epam/ai-dial-conversation-panel';\n```\n\n### ConversationItem\n\nData shape for each conversation entry in the list. Only `id` and `title` are\nrequired.\n\n```tsx\ninterface ConversationItem {\n  id: string;\n  title: string;\n  isPinned?: boolean;\n  source?: FilterTab;\n  iconUrl?: string;\n  iconTooltip?: string;\n  isIconLoading?: boolean;\n  href?: string;\n  showTaskBadge?: boolean;\n  taskBadgeLabel?: string;\n  isUnread?: boolean;\n}\n```\n\nThe panel does not sort \u2014 it renders `conversations` in the order given, so\nrecency ordering is the host's job. Grouping is derived from `isPinned` and\n`source`.\n\n### ConversationMove\n\nPayload for a completed drag-and-drop move: the dragged `draggedId`, the\n`targetGroupKey` it landed in, and `afterId` \u2014 the item to insert after, or\n`null` for the top of that group.\n\n## ImportExportQueue\n\nFloating queue panel that shows the status of in-flight or recently completed export/import jobs. Each row is identified by the **file** the job transfers \u2014 a file-type icon derived from the extension plus the file name, truncated with a tooltip \u2014 and ends in a fixed-footprint status slot: the UI kit `Spinner` while in progress, a check on success, a filled alert icon whose accessible name and tooltip carry the failure reason, or a `Canceled` label with the file name dimmed.\n\nReturns `null` when `jobs` is empty. Auto-closes 8 seconds after **every** job succeeds; a failed, in-progress, or canceled job suppresses the countdown. Prompts for confirmation before closing when any job is still in progress or has failed \u2014 a canceled job needs no confirmation, since the user already chose to stop that work.\n\nThe `title` is rendered verbatim; the host composes any count into it (`t(key, { count: jobs.length })`).\n\nThe panel is 370px wide but never wider than the viewport minus a 1rem gutter on each side, so it stays fully on screen at the 360px mobile floor. Position it with a matching 1rem inset (`bottom-4 end-4`) \u2014 a larger inset needs a tighter cap via `styles.rootClassName`.\n\n```tsx\nimport {\n  ConversationTransferErrorCode,\n  ConversationTransferJobStatus,\n  ConversationTransferSubjectKind,\n  ConversationTransferUnitKind,\n} from '@epam/ai-dial-chat-shared';\nimport {\n  ImportExportQueue,\n  type ImportExportQueueColors,\n  type ImportExportQueueLabels,\n  type ImportExportQueueProps,\n  type ImportExportQueueStyles,\n  type ImportExportQueueTypography,\n} from '@epam/ai-dial-conversation-panel';\n\nconst labels: ImportExportQueueLabels = {\n  cancelJobAriaLabel: (fileName) => `Cancel ${fileName}`,\n  canceledLabel: 'Canceled',\n  jobErrorMessage: (code) =>\n    code === ConversationTransferErrorCode.FileTooLarge\n      ? 'Export failed. File is too large'\n      : 'Export failed. Please try again',\n  jobProgressAriaLabel: (fileName) => `Exporting ${fileName}`,\n  jobWarningMessage: () => 'Some attachments could not be exported.',\n  queueProgressAriaLabel: 'Export progress',\n  queueProgressValueText: (completed, total) =>\n    `${completed} of ${total} files done`,\n  collapseQueueAriaLabel: 'Collapse queue',\n  expandQueueAriaLabel: 'Expand queue',\n  closeQueueAriaLabel: 'Close queue',\n  closeQueueConfirmHeader: 'Cancel export?',\n  closeQueueConfirmDescriptionInProgress: 'Export is still in progress.',\n  closeQueueConfirmDescriptionFailed: 'Some exports failed.',\n  closeQueueConfirmDescriptionMixed: 'Some exports are in progress or failed.',\n  closeLabel: 'Close',\n  cancelLabel: 'Cancel',\n};\n\n<ImportExportQueue\n  title=\"Exporting 1 file\"\n  jobs={[\n    {\n      id: 'job-1',\n      subject: {\n        kind: ConversationTransferSubjectKind.Single,\n        title: 'My chat',\n      },\n      status: ConversationTransferJobStatus.InProgress,\n      fileName: '2026-09-01_ai_dial_chat_with_attachments.dial',\n      progress: {\n        percent: 36,\n        units: {\n          completed: 3,\n          total: 10,\n          kind: ConversationTransferUnitKind.Attachment,\n        },\n      },\n    },\n  ]}\n  onClose={handleClose}\n  onCancel={handleCancel}\n  labels={labels}\n  styles={{\n    colors: { background: '#fff', text: '#161b2d' },\n    typography: { titleClassName: 'dial-small-semi-text' },\n  }}\n/>;\n```\n\nThe component has no retry control. `retryJob` stays on `useConversationExport` / `useConversationImport` in `@epam/ai-dial-chat-hooks` for hosts that want to re-expose it.\n\nAn `InProgress` row shows an indeterminate spinner, never its own percentage. The one place `progress.percent` is rendered is the **collapsed** queue: while collapsed with at least one job still in progress, a determinate progress bar sits under the header showing the mean percent across all jobs. Expanded, the per-row spinners already convey activity, so no bar is drawn.\n\nA job with status `Warning` \u2014 one that delivered its file but skipped part of it, such as an attachment that could not be downloaded \u2014 renders an amber icon named by `jobWarningMessage(job.warningCode, job.warningNames)`. It is not counted in the failed-count badge and raises no close confirmation, but it does suppress the success-only auto-close, so a warning is never dismissed before it is read.\n\nImport jobs provide unique skipped attachment names in `job.warningNames`. Use the optional second label argument to interpolate the host translation, and provide generic text when names are absent. The callback result is used for both the tooltip and accessible name. Existing callbacks that accept only the code continue to work.\n\n### ImportExportQueueLabels\n\n| Field                                    | Type                                                                               | Description                                                              |\n| ---------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |\n| `cancelJobAriaLabel`                     | `(fileName: string) => string`                                                     | Accessible name for cancelling an in-progress job                        |\n| `canceledLabel`                          | `string`                                                                           | Trailing text shown on a canceled row                                    |\n| `jobErrorMessage`                        | `(code: ConversationTransferErrorCode \\| undefined) => string`                     | Tooltip and accessible name explaining why a job failed                  |\n| `jobProgressAriaLabel`                   | `(fileName: string) => string`                                                     | Accessible name for a row's in-progress spinner                          |\n| `jobWarningMessage`                      | `(code: ConversationTransferWarningCode \\| undefined, names?: string[]) => string` | Tooltip and accessible name explaining what a warned job left out        |\n| `queueProgressAriaLabel`                 | `string`                                                                           | Accessible name for the collapsed queue's aggregate progress bar         |\n| `queueProgressValueText`                 | `(completed: number, total: number) => string`                                     | The aggregate bar's `aria-valuetext`, given settled and total job counts |\n| `collapseQueueAriaLabel`                 | `string`                                                                           | Accessible name for the collapse toggle                                  |\n| `expandQueueAriaLabel`                   | `string`                                                                           | Accessible name for the expand toggle                                    |\n| `closeQueueAriaLabel`                    | `string`                                                                           | Accessible name for the close button                                     |\n| `closeQueueConfirmHeader`                | `string`                                                                           | Heading of the close-confirmation dialog                                 |\n| `closeQueueConfirmDescriptionInProgress` | `string`                                                                           | Dialog description when jobs are in progress                             |\n| `closeQueueConfirmDescriptionFailed`     | `string`                                                                           | Dialog description when jobs have failed                                 |\n| `closeQueueConfirmDescriptionMixed`      | `string`                                                                           | Dialog description when jobs are both in-progress and failed             |\n| `closeLabel`                             | `string`                                                                           | Confirm button label in the dialog                                       |\n| `cancelLabel`                            | `string`                                                                           | Cancel button label in the dialog                                        |\n\n### ImportExportQueueStyles\n\n`styles?: ImportExportQueueStyles` groups all customization hooks. `colors?: ImportExportQueueColors` overrides the panel background, primary/secondary text, status icons (success, error, and warning), header divider, and failed-count badge through CSS custom properties. The aggregate progress bar has no entry: it is the UI kit's `ProgressBar`, which themes its own track and fill. `typography?: ImportExportQueueTypography` provides classes for the title, job file name, canceled label, and failed-count badge. `rootClassName` and `bodyClassName` target the queue root and scrollable job list; `cssVars` is the last-resort CSS-variable escape hatch.\n\n## Utilities\n\n### getTransferFileIcon\n\nReturns the Tabler icon component a transfer row shows for a file name: the\narchive icon for `.dial`/`.zip`, the JSON icon for `.json`, and a generic file\nicon for anything else. `ImportExportQueue` uses it per row; it is exported for\nhosts that render the same file identity elsewhere.\n\n```tsx\nimport { getTransferFileIcon } from '@epam/ai-dial-conversation-panel';\n\nconst FileIcon = getTransferFileIcon('2026-09-01_ai_dial_chat.dial');\n```\n\n## RenameConversationPopup\n\nModal dialog for renaming a conversation. Validates the name (non-empty, \u2264 255 UTF-8 bytes, sanitized of DIAL-prohibited characters), shows a byte-length error, supports AI-generated names via `onGenerateWithAi`, and guards against concurrent generation requests.\n\n```tsx\nimport {\n  RenameConversationPopup,\n  type RenameConversationPopupLabels,\n  type RenameConversationPopupProps,\n  type RenameConversationPopupStyles,\n} from '@epam/ai-dial-conversation-panel';\n\nconst labels: RenameConversationPopupLabels = {\n  popupTitle: 'Rename conversation',\n  inputPlaceholder: 'Enter conversation name',\n  renameWithAiLabel: 'Rename with AI',\n  renameWithAiError: 'Failed to generate name with AI',\n  nameTooLongError: 'Name is too long',\n  saveLabel: 'Save',\n  cancelLabel: 'Cancel',\n};\n\n<RenameConversationPopup\n  isOpen={isRenameOpen}\n  currentTitle={conversation.title}\n  isSaving={isRenaming}\n  error={renameError}\n  onSave={handleSave}\n  onCancel={handleCancel}\n  onGenerateWithAi={generateConversationTitle}\n  labels={labels}\n  styles={{ bodyClassName: 'my-popup-body' }}\n/>;\n```\n\n### RenameConversationPopupLabels\n\n| Field               | Type     | Description                                               |\n| ------------------- | -------- | --------------------------------------------------------- |\n| `popupTitle`        | `string` | Popup dialog heading                                      |\n| `inputPlaceholder`  | `string` | Placeholder text for the name input                       |\n| `renameWithAiLabel` | `string` | Accessible name and tooltip for the AI-generation button  |\n| `renameWithAiError` | `string` | Error shown when AI name generation fails                 |\n| `nameTooLongError`  | `string` | Error shown when the trimmed name exceeds 255 UTF-8 bytes |\n| `saveLabel`         | `string` | Label for the save/confirm button                         |\n| `cancelLabel`       | `string` | Label for the cancel button                               |\n\n### RenameConversationPopupStyles\n\n`styles?: RenameConversationPopupStyles` exposes `bodyClassName` for the popup content wrapper and `cssVars` for custom properties inherited by the input, spinner, and AI-generation control. The popup shell and action buttons continue to use the UI kit theme.\n",
+  "exports": {
+    "libs/conversation-panel/src/index.ts": "export { CONVERSATION_PANEL_CLASS } from './constants/public-class-names';\nexport { ConversationPanel } from './components/ConversationPanel/ConversationPanel';\nexport { ImportExportQueue } from './components/ImportExportQueue/ImportExportQueue';\nexport { RenameConversationPopup } from './components/RenameConversationPopup/RenameConversationPopup';\nexport type {\n  RenameConversationPopupProps,\n  RenameConversationPopupLabels,\n  RenameConversationPopupStyles,\n} from './models/rename-conversation-popup';\nexport type {\n  ImportExportQueueProps,\n  ImportExportQueueLabels,\n  ImportExportQueueColors,\n  ImportExportQueueTypography,\n  ImportExportQueueStyles,\n} from './models/import-export-queue';\nexport { getTransferFileIcon } from './utils/transfer-file';\nexport type {\n  ConversationMove,\n  ConversationPanelProps,\n  ConversationPanelStyles,\n  ConversationColors,\n  NewChatButtonColors,\n  ConversationPanelTypography,\n  ConversationPanelLabels,\n  ConversationItem,\n  FilterLabels,\n} from './models/panel-props';\n"
+  },
+  "contracts": {
+    "libs/conversation-panel/src/index.ts": [
+      {
+        "name": "CONVERSATION_PANEL_CLASS",
+        "file": "libs/conversation-panel/src/constants/public-class-names.ts",
+        "start": 14,
+        "end": 19,
+        "declaration": "CONVERSATION_PANEL_CLASS = {\n  /** The new-chat button. */\n  newChatButton: 'dial-cp-new-chat-button',\n  /** The `role=\"search\"` wrapper around the conversation search field. */\n  search: 'dial-cp-search',\n} as const",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ConversationPanel",
+        "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+        "start": 52,
+        "end": 507,
+        "declaration": "ConversationPanel: FC<ConversationPanelProps> = memo(\n  ({\n    conversations,\n    isLoading,\n    isOpen,\n    onSelectConversation,\n    activeConversationId,\n    labels,\n    onNewChat,\n    styles: panelStyles,\n    className,\n    isOverlay = false,\n    getActions,\n    onActionMenuOpen,\n    onToggle,\n    headerActions,\n    onMoveConversation,\n    activeFilter,\n    onActiveFilterChange,\n    isFilterTabsHidden = false,\n    hiddenSources,\n  }) => {\n    const {\n      colors,\n      typography,\n      newChatButton: newChatButtonColors,\n      searchWrapperClassName,\n    } = panelStyles ?? {};\n\n    const {\n      title,\n      emptyLabel,\n      noResultsLabel,\n      loadingLabel = 'Loading conversations',\n      newChatLabel,\n      searchPlaceholder,\n      searchClearLabel,\n      filterLabels,\n      groupLabels,\n      actionsLabel,\n      unreadIndicatorLabel,\n      closeAriaLabel,\n    } = labels;\n    const [searchQuery, setSearchQuery] = useState('');\n    const [activeTab, setActiveTab] = useState(FilterTab.All);\n\n    useEffect(() => {\n      if (activeFilter == null) return;\n      setActiveTab(activeFilter);\n    }, [activeFilter]);\n\n    /*\n     * Dropped before any tab/search filtering so a hidden source never\n     * surfaces under `All` or as a group heading, not just off its own tab.\n     */\n    const visibleConversations = useMemo(\n      () =>\n        hiddenSources?.length\n          ? conversations.filter(\n              (item) =>\n                item.source == null || !hiddenSources.includes(item.source),\n            )\n          : conversations,\n      [conversations, hiddenSources],\n    );\n\n    const [expandedGroups, setExpandedGroups] = useState<Set<string>>(\n      () => ALL_GROUP_KEYS,\n    );\n    const [overscanCount, setOverscanCount] = useState(5);\n    const listId = useId();\n    const listRef = useRef<ListImperativeAPI>(null);\n    const lastScrolledIdRef = useRef<string | null>(null);\n\n    const [draggingId, setDraggingId] = useState<string | null>(null);\n    const [dragOverId, setDragOverId] = useState<string | null>(null);\n    const [allowedDropGroups, setAllowedDropGroups] =\n      useState<Set<FilterTab> | null>(null);\n\n    /*\n     * Refs let the drop handler read current values without being in the useCallback dep array,\n     * avoiding recreating the handler (and remounting rows) on every drag-state change.\n     */\n    const draggingIdRef = useRef<string | null>(null);\n    const allowedDropGroupsRef = useRef<Set<FilterTab> | null>(null);\n\n    const handleListResize = useCallback(({ height }: { height: number }) => {\n      setOverscanCount(Math.ceil((height / ITEM_ROW_HEIGHT) * 2));\n    }, []);\n\n    const handleSearchChange = useCallback((value?: string) => {\n      setSearchQuery(value ?? '');\n    }, []);\n\n    const handleToggleGroup = useCallback((key: string) => {\n      setExpandedGroups((prev) => {\n        const next = new Set(prev);\n        if (next.has(key)) {\n          next.delete(key);\n        } else {\n          next.add(key);\n        }\n        return next;\n      });\n    }, []);\n\n    const clearDragState = useCallback(() => {\n      draggingIdRef.current = null;\n      allowedDropGroupsRef.current = null;\n      setDraggingId(null);\n      setDragOverId(null);\n      setAllowedDropGroups(null);\n    }, []);\n\n    const handleDragStart = useCallback(\n      (id: string, rows: VirtualRow[]) => {\n        const groupKey = findGroupKeyForItem(rows, id);\n        const allowed = computeAllowedDropGroups(\n          id,\n          groupKey,\n          visibleConversations,\n        );\n        draggingIdRef.current = id;\n        allowedDropGroupsRef.current = allowed;\n        setDraggingId(id);\n        setAllowedDropGroups(allowed);\n      },\n      [visibleConversations],\n    );\n\n    const handleDragEnd = useCallback(() => {\n      clearDragState();\n    }, [clearDragState]);\n\n    const handleDragOver = useCallback((id: string) => {\n      setDragOverId(id);\n    }, []);\n\n    const handleDragLeave = useCallback(() => {\n      setDragOverId(null);\n    }, []);\n\n    const handleDrop = useCallback(\n      (targetId: string, targetGroupKey: FilterTab, afterId: string | null) => {\n        const currentDraggingId = draggingIdRef.current;\n        const currentAllowed = allowedDropGroupsRef.current;\n        clearDragState();\n        if (\n          currentDraggingId != null &&\n          currentDraggingId !== targetId &&\n          currentAllowed?.has(targetGroupKey)\n        ) {\n          onMoveConversation?.({\n            draggedId: currentDraggingId,\n            targetGroupKey,\n            afterId,\n          });\n        }\n      },\n      [clearDragState, onMoveConversation],\n    );\n\n    const cssVars = buildCssVars({\n      '--cp-item-hover': colors?.itemHover,\n      '--cp-item-active': colors?.itemActive,\n      '--cp-text': colors?.text,\n      '--cp-text-secondary': colors?.textSecondary,\n      '--cp-new-chat-bg': newChatButtonColors?.background,\n      '--cp-new-chat-text': newChatButtonColors?.text,\n      '--cp-new-chat-focus-outline': newChatButtonColors?.focusOutline,\n      '--cp-drop-zone-ring': colors?.dropZoneRing,\n      '--cp-trigger-bg': colors?.triggerBackground,\n      '--cp-trigger-icon': colors?.triggerIcon,\n      '--cp-trigger-icon-idle': colors?.triggerIconIdle,\n      '--cp-skeleton-color': colors?.skeletonColor,\n      '--cp-task-badge-border': colors?.taskBadgeBorder,\n      '--cp-task-badge-bg': colors?.taskBadgeBackground,\n      '--cp-task-badge-text': colors?.taskBadgeText,\n      '--cp-unread-dot': colors?.unreadDot,\n    });\n\n    const filteredItems = useMemo(\n      () =>\n        visibleConversations.filter(\n          (item) =>\n            matchesTab(item, activeTab) && matchesSearch(item, searchQuery),\n        ),\n      [visibleConversations, activeTab, searchQuery],\n    );\n\n    const pinnedItems = useMemo(\n      () => filteredItems.filter((item) => item.isPinned),\n      [filteredItems],\n    );\n\n    const myChatsItems = useMemo(\n      () =>\n        filteredItems.filter(\n          (item) =>\n            !item.isPinned &&\n            item.source !== FilterTab.Shared &&\n            item.source !== FilterTab.Organization,\n        ),\n      [filteredItems],\n    );\n\n    const sharedItems = useMemo(\n      () =>\n        filteredItems.filter(\n          (item) => !item.isPinned && item.source === FilterTab.Shared,\n        ),\n      [filteredItems],\n    );\n\n    const organizationItems = useMemo(\n      () =>\n        filteredItems.filter(\n          (item) => !item.isPinned && item.source === FilterTab.Organization,\n        ),\n      [filteredItems],\n    );\n\n    const groups = useMemo(\n      () => [\n        {\n          key: FilterTab.Pinned,\n          label: groupLabels?.pinned ?? 'Pinned',\n          items: pinnedItems,\n        },\n        {\n          key: FilterTab.MyChats,\n          label: groupLabels?.myChats ?? 'My chats',\n          items: myChatsItems,\n        },\n        {\n          key: FilterTab.Shared,\n          label: groupLabels?.shared ?? 'Shared',\n          items: sharedItems,\n        },\n        {\n          key: FilterTab.Organization,\n          label: groupLabels?.organization ?? 'Organization',\n          items: organizationItems,\n        },\n      ],\n      [groupLabels, pinnedItems, myChatsItems, sharedItems, organizationItems],\n    );\n\n    const virtualRows = useMemo(() => {\n      const rows: VirtualRow[] = [];\n      for (const group of groups) {\n        if (group.items.length === 0) continue;\n        rows.push({\n          kind: VirtualRowKind.Header,\n          groupKey: group.key,\n          label: group.label,\n        });\n        if (expandedGroups.has(group.key)) {\n          for (const item of group.items) {\n            rows.push({ kind: VirtualRowKind.Item, item, groupKey: group.key });\n          }\n        }\n      }\n      return rows;\n    }, [groups, expandedGroups]);\n\n    useEffect(() => {\n      if (!activeConversationId) return;\n\n      if (lastScrolledIdRef.current === activeConversationId) return;\n\n      const index = virtualRows.findIndex(\n        (row) =>\n          row.kind === VirtualRowKind.Item &&\n          row.item.id === activeConversationId,\n      );\n      if (index >= 0) {\n        listRef.current?.scrollToRow({\n          index,\n          align: 'smart',\n          behavior: 'smooth',\n        });\n        lastScrolledIdRef.current = activeConversationId;\n      }\n    }, [activeConversationId, groups, expandedGroups, virtualRows]);\n\n    const rowProps = useMemo<RowRendererData>(\n      () => ({\n        rows: virtualRows,\n        expandedGroups,\n        onToggleGroup: handleToggleGroup,\n        listId,\n        activeConversationId,\n        searchQuery,\n        onSelectConversation,\n        getActions,\n        onActionMenuOpen,\n        actionsLabel,\n        unreadIndicatorLabel,\n        styles: {\n          groupHeaderClassName: typography?.groupHeaderClassName,\n          itemTitleClassName: typography?.itemTitleClassName,\n          itemIconBadgeClassName: panelStyles?.itemIconBadgeClassName,\n          taskBadgeClassName: panelStyles?.taskBadgeClassName,\n        },\n        draggingId,\n        dragOverId,\n        allowedDropGroups,\n        onDragStart: (id: string) => handleDragStart(id, virtualRows),\n        onDragEnd: handleDragEnd,\n        onDragOver: handleDragOver,\n        onDragLeave: handleDragLeave,\n        onDrop: handleDrop,\n      }),\n      [\n        virtualRows,\n        expandedGroups,\n        handleToggleGroup,\n        listId,\n        activeConversationId,\n        searchQuery,\n        onSelectConversation,\n        getActions,\n        onActionMenuOpen,\n        actionsLabel,\n        unreadIndicatorLabel,\n        typography?.groupHeaderClassName,\n        typography?.itemTitleClassName,\n        panelStyles?.itemIconBadgeClassName,\n        panelStyles?.taskBadgeClassName,\n        draggingId,\n        dragOverId,\n        allowedDropGroups,\n        handleDragStart,\n        handleDragEnd,\n        handleDragOver,\n        handleDragLeave,\n        handleDrop,\n      ],\n    );\n\n    const isNoConversations = visibleConversations.length === 0;\n    const isNoResults =\n      visibleConversations.length > 0 && filteredItems.length === 0;\n\n    return (\n      <SidebarPanel\n        isOpen={isOpen}\n        isOverlay={isOverlay}\n        orientation={SidebarOrientation.Left}\n        title={title}\n        labels={{ ariaLabel: title, closeLabel: closeAriaLabel }}\n        onClose={onToggle}\n        styles={{\n          colors: {\n            background: colors?.background,\n            border: colors?.border,\n          },\n          typography: {\n            fontClassName: typography?.fontClassName,\n          },\n          bodyClassName: 'flex flex-col overflow-hidden p-0 gap-3',\n          cssVars,\n          titleClassName: typography?.fontClassName,\n          headerClassName: 'h-[64px]',\n          className: mergeClasses(\n            isOpen ? 'w-[324px] mobile:w-full' : 'w-0',\n            className,\n          ),\n        }}\n        rightActions={headerActions}\n      >\n        <NewChatButton\n          label={newChatLabel}\n          onClick={onNewChat}\n          labelClassName={typography?.newChatLabelClassName}\n          colors={newChatButtonColors}\n        />\n\n        <div\n          role=\"search\"\n          className={mergeClasses('px-3 py-2', CONVERSATION_PANEL_CLASS.search)}\n        >\n          <Search\n            wrapperClassName={mergeClasses(\n              styles.search,\n              searchWrapperClassName,\n            )}\n            value={searchQuery}\n            onChange={handleSearchChange}\n            placeholder={searchPlaceholder}\n            clearLabel={searchClearLabel}\n            aria-label={searchPlaceholder}\n          />\n        </div>\n\n        {!isFilterTabsHidden && (\n          <FilterTabs\n            activeTab={activeTab}\n            labels={filterLabels}\n            onChange={(tab) => {\n              setActiveTab(tab);\n              onActiveFilterChange?.(tab);\n            }}\n            tabClassName={typography?.tabClassName}\n            hiddenSources={hiddenSources}\n          />\n        )}\n\n        <span role=\"status\" aria-live=\"polite\" className=\"sr-only\">\n          {isLoading\n            ? loadingLabel\n            : isNoConversations\n              ? emptyLabel\n              : isNoResults\n                ? noResultsLabel\n                : ''}\n        </span>\n\n        <div className=\"flex-1 overflow-hidden py-1 pe-3 ps-2\">\n          {isLoading ? (\n            <div className=\"flex flex-col gap-3 px-2 py-3\">\n              {Array.from({ length: SKELETON_ROW_COUNT }, (_, i) => (\n                <Skeleton\n                  key={i}\n                  avatar={{ size: 24 }}\n                  showTitle={{ width: getSkeletonWidth(i) }}\n                  paragraph={false}\n                  active\n                  color={styles.skeletonColor}\n                />\n              ))}\n            </div>\n          ) : isNoConversations ? (\n            <PanelEmpty label={emptyLabel} />\n          ) : isNoResults ? (\n            <PanelNoResults label={noResultsLabel} />\n          ) : (\n            <List<RowRendererData>\n              listRef={listRef}\n              id={listId}\n              role=\"list\"\n              style={{ height: '100%' }}\n              rowComponent={RowRenderer}\n              rowCount={virtualRows.length}\n              rowHeight={getRowHeight}\n              overscanCount={overscanCount}\n              onResize={handleListResize}\n              rowProps={rowProps}\n            />\n          )}\n        </div>\n      </SidebarPanel>\n    );\n  },\n)",
+        "signature": "(props: ConversationPanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "conversations",
+            "optional": false,
+            "type": "import(\"../..\").ConversationItem[]"
+          },
+          {
+            "name": "isLoading",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isOpen",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "onSelectConversation",
+            "optional": false,
+            "type": "(id: string) => void"
+          },
+          {
+            "name": "activeConversationId",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").ConversationPanelLabels"
+          },
+          {
+            "name": "onNewChat",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").ConversationPanelStyles | undefined"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "isOverlay",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "getActions",
+            "optional": true,
+            "type": "((item: import(\"../..\").ConversationItem) => import(\"@epam/ai-dial-ui-kit\").DropdownItem[]) | undefined"
+          },
+          {
+            "name": "onActionMenuOpen",
+            "optional": true,
+            "type": "((item: import(\"../..\").ConversationItem, trigger: HTMLButtonElement) => void) | undefined"
+          },
+          {
+            "name": "onToggle",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "headerActions",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "onMoveConversation",
+            "optional": true,
+            "type": "((move: import(\"../..\").ConversationMove) => void) | undefined"
+          },
+          {
+            "name": "activeFilter",
+            "optional": true,
+            "type": "FilterTab | undefined"
+          },
+          {
+            "name": "onActiveFilterChange",
+            "optional": true,
+            "type": "((tab: FilterTab) => void) | undefined"
+          },
+          {
+            "name": "isFilterTabsHidden",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "hiddenSources",
+            "optional": true,
+            "type": "FilterTab[] | undefined"
+          }
+        ]
+      },
+      {
+        "name": "ImportExportQueue",
+        "file": "libs/conversation-panel/src/components/ImportExportQueue/ImportExportQueue.tsx",
+        "start": 61,
+        "end": 196,
+        "declaration": "ImportExportQueue: FC<ImportExportQueueProps> = memo(\n  ({ title, jobs, onClose, onCancel, labels, styles }) => {\n    const [isCollapsed, setIsCollapsed] = useState(false);\n    const jobsId = useId();\n    const [isConfirmOpen, setIsConfirmOpen] = useState(false);\n    const colors = styles?.colors;\n    const cssVars = {\n      ...buildCssVars({\n        '--cp-transfer-queue-bg': colors?.background,\n        '--cp-transfer-queue-text': colors?.text,\n        '--cp-transfer-queue-text-secondary': colors?.textSecondary,\n        '--cp-transfer-queue-success-icon': colors?.successIcon,\n        '--cp-transfer-queue-error-icon': colors?.errorIcon,\n        '--cp-transfer-queue-warning-icon': colors?.warningIcon,\n        '--cp-transfer-queue-divider': colors?.divider,\n        '--cp-transfer-queue-failure-count-bg': colors?.failureCountBackground,\n        '--cp-transfer-queue-failure-count-text': colors?.failureCountText,\n      }),\n      ...styles?.cssVars,\n    };\n\n    const hasInProgress = jobs.some(\n      (job) => job.status === ConversationTransferJobStatus.InProgress,\n    );\n    const hasFailed = jobs.some(\n      (job) => job.status === ConversationTransferJobStatus.Failed,\n    );\n    const isEverySucceeded =\n      jobs.length > 0 &&\n      jobs.every((job) => job.status === ConversationTransferJobStatus.Success);\n\n    const handleClose = useCallback(() => {\n      if (hasInProgress || hasFailed) {\n        setIsConfirmOpen(true);\n      } else {\n        onClose();\n      }\n    }, [hasInProgress, hasFailed, onClose]);\n\n    const handleConfirmClose = useCallback(() => {\n      setIsConfirmOpen(false);\n      onClose();\n    }, [onClose]);\n\n    const handleToggleCollapse = useCallback(() => {\n      setIsCollapsed((value) => !value);\n    }, []);\n\n    useEffect(() => {\n      if (!isEverySucceeded) return undefined;\n\n      const timeoutId = setTimeout(onClose, AUTO_CLOSE_DELAY_MS);\n      return () => clearTimeout(timeoutId);\n    }, [isEverySucceeded, onClose]);\n\n    if (jobs.length === 0) return null;\n\n    const failedCount = jobs.filter(\n      (job) => job.status === ConversationTransferJobStatus.Failed,\n    ).length;\n\n    return (\n      <div\n        role=\"status\"\n        aria-live=\"polite\"\n        style={cssVars}\n        className={mergeClasses(\n          classes.root,\n          'w-[370px] max-w-[calc(100vw-2rem)] rounded-xl shadow-md',\n          styles?.rootClassName,\n        )}\n      >\n        <ImportExportQueueHeader\n          title={title}\n          failedCount={failedCount}\n          isCollapsed={isCollapsed}\n          jobsId={jobsId}\n          labels={labels}\n          styles={styles}\n          onToggleCollapse={handleToggleCollapse}\n          onClose={handleClose}\n        />\n        {isCollapsed && hasInProgress && (\n          /*\n           * Only while collapsed: expanded, every row already carries its own\n           * spinner, so an aggregate bar would restate what is on screen.\n           * Collapsed, the rows are unmounted and nothing else says work\n           * continues.\n           */\n          <ProgressBar\n            value={getAggregatePercent(jobs)}\n            size={ElementSize.Small}\n            aria-label={labels.queueProgressAriaLabel}\n            aria-valuetext={labels.queueProgressValueText(\n              getSettledCount(jobs),\n              jobs.length,\n            )}\n          />\n        )}\n        {!isCollapsed && (\n          <div\n            id={jobsId}\n            className={mergeClasses(\n              'flex max-h-[40vh] flex-col overflow-y-auto py-1',\n              styles?.bodyClassName,\n            )}\n          >\n            {jobs.map((job) => (\n              <ImportExportQueueRow\n                key={job.id}\n                job={job}\n                labels={labels}\n                onCancel={onCancel}\n                styles={styles}\n              />\n            ))}\n          </div>\n        )}\n        <ConfirmationPopup\n          open={isConfirmOpen}\n          header={labels.closeQueueConfirmHeader}\n          description={getCloseConfirmDescription(\n            hasInProgress,\n            hasFailed,\n            labels,\n          )}\n          confirmLabel={labels.closeLabel}\n          cancelLabel={labels.cancelLabel}\n          variant={ConfirmationPopupVariant.Danger}\n          onConfirm={handleConfirmClose}\n          onClose={() => setIsConfirmOpen(false)}\n        />\n      </div>\n    );\n  },\n)",
+        "signature": "(props: ImportExportQueueProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "title",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "jobs",
+            "optional": false,
+            "type": "ConversationTransferJob[]"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onCancel",
+            "optional": false,
+            "type": "(jobId: string) => void"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "ImportExportQueueLabels"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"./ImportExportQueue\").ImportExportQueueStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "RenameConversationPopup",
+        "file": "libs/conversation-panel/src/components/RenameConversationPopup/RenameConversationPopup.tsx",
+        "start": 29,
+        "end": 178,
+        "declaration": "RenameConversationPopup: FC<RenameConversationPopupProps> = memo(\n  ({\n    isOpen,\n    currentTitle,\n    isSaving,\n    error,\n    onSave,\n    onCancel,\n    onGenerateWithAi,\n    labels,\n    styles,\n  }) => {\n    const [value, setValue] = useState(currentTitle);\n    const [isGenerating, setIsGenerating] = useState(false);\n    const [generateError, setGenerateError] = useState<string | null>(null);\n    const inputRef = useRef<HTMLInputElement>(null);\n    const wasOpenRef = useRef(false);\n    const generationIdRef = useRef(0);\n\n    useEffect(() => {\n      const hasJustOpened = isOpen && !wasOpenRef.current;\n      wasOpenRef.current = isOpen;\n      if (!isOpen) {\n        generationIdRef.current += 1;\n        setIsGenerating(false);\n        return undefined;\n      }\n      if (!hasJustOpened) return undefined;\n\n      generationIdRef.current += 1;\n      setValue(currentTitle);\n      setGenerateError(null);\n      setIsGenerating(false);\n      /* Defer focus so the popup has time to mount and become visible. */\n      const timeoutId = setTimeout(() => inputRef.current?.focus(), 0);\n      return () => clearTimeout(timeoutId);\n    }, [isOpen, currentTitle]);\n\n    useEffect(\n      () => () => {\n        generationIdRef.current += 1;\n      },\n      [],\n    );\n\n    const trimmed = stripTrailingDots(value.trim());\n    const isTooLong = getUtf8ByteLength(trimmed) > 255;\n    const isSaveDisabled =\n      isSaving ||\n      trimmed === '' ||\n      trimmed === currentTitle.trim() ||\n      isTooLong;\n\n    const handleSave = useCallback(() => {\n      if (!isSaveDisabled) onSave(trimmed);\n    }, [isSaveDisabled, onSave, trimmed]);\n\n    const handleKeyDown = useCallback(\n      (e: KeyboardEvent<HTMLInputElement>) => {\n        if (e.key === 'Enter') handleSave();\n      },\n      [handleSave],\n    );\n\n    const handleGenerateWithAi = useCallback(async () => {\n      if (isGenerating) return;\n      const generationId = ++generationIdRef.current;\n      setIsGenerating(true);\n      setGenerateError(null);\n      try {\n        const generatedName = await onGenerateWithAi();\n        if (generationId !== generationIdRef.current) return;\n        setValue(sanitizeConversationName(generatedName));\n      } catch {\n        if (generationId !== generationIdRef.current) return;\n        setGenerateError(labels.renameWithAiError);\n      } finally {\n        if (generationId === generationIdRef.current) {\n          setIsGenerating(false);\n        }\n      }\n    }, [isGenerating, onGenerateWithAi, labels.renameWithAiError]);\n\n    let inputError: string | undefined;\n    if (isTooLong) {\n      inputError = labels.nameTooLongError;\n    } else {\n      inputError = generateError ?? error ?? undefined;\n    }\n\n    return (\n      <Popup\n        open={isOpen}\n        header={labels.popupTitle}\n        size={PopupSize.Sm}\n        onClose={onCancel}\n        mainButtons={\n          isSaving\n            ? undefined\n            : [\n                { label: labels.cancelLabel, onClick: onCancel },\n                {\n                  label: labels.saveLabel,\n                  variant: ButtonVariant.Primary,\n                  disabled: isSaveDisabled,\n                  onClick: handleSave,\n                },\n              ]\n        }\n      >\n        <div className={styles?.bodyClassName} style={styles?.cssVars}>\n          {isSaving ? (\n            <div className=\"h-[120px] px-6 py-4\">\n              <Spinner size={50} />\n            </div>\n          ) : (\n            <div className=\"flex items-start gap-2 px-6 py-3\">\n              <div className=\"min-w-0 flex-1\">\n                <Input\n                  inputRef={inputRef}\n                  value={value}\n                  placeholder={labels.inputPlaceholder}\n                  error={inputError}\n                  onChange={(v) => setValue(sanitizeConversationName(v ?? ''))}\n                  onKeyDown={handleKeyDown}\n                />\n              </div>\n              <GhostIconButton\n                aria-label={labels.renameWithAiLabel}\n                tooltipProps={{ tooltip: labels.renameWithAiLabel }}\n                disabled={isGenerating || isSaving}\n                onClick={handleGenerateWithAi}\n                icon={\n                  isGenerating ? (\n                    <Spinner size={DIAL_ICON_SIZE.MD} />\n                  ) : (\n                    <IconSparkles\n                      size={DIAL_ICON_SIZE.MD}\n                      stroke={DIAL_KIT_ICON_STROKE}\n                    />\n                  )\n                }\n              />\n            </div>\n          )}\n        </div>\n      </Popup>\n    );\n  },\n)",
+        "signature": "(props: RenameConversationPopupProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "isOpen",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "currentTitle",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "isSaving",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "error",
+            "optional": false,
+            "type": "string | null"
+          },
+          {
+            "name": "onSave",
+            "optional": false,
+            "type": "(newTitle: string) => void"
+          },
+          {
+            "name": "onCancel",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onGenerateWithAi",
+            "optional": false,
+            "type": "() => Promise<string>"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").RenameConversationPopupLabels"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").RenameConversationPopupStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "RenameConversationPopupProps",
+        "file": "libs/conversation-panel/src/models/rename-conversation-popup.ts",
+        "start": 30,
+        "end": 49,
+        "declaration": "export interface RenameConversationPopupProps {\n  /** Whether the popup is visible. */\n  isOpen: boolean;\n  /** The conversation's current name, pre-filled into the input on open. */\n  currentTitle: string;\n  /** While `true`, the input/buttons are replaced by a loading indicator. */\n  isSaving: boolean;\n  /** API-level error message, or `null` when none. */\n  error: string | null;\n  /** Called with the trimmed, sanitized new name when the user confirms. */\n  onSave: (newTitle: string) => void;\n  /** Called when the user cancels or closes the popup. */\n  onCancel: () => void;\n  /** Called to request an AI-generated name; must resolve with the generated string. */\n  onGenerateWithAi: () => Promise<string>;\n  /** User-visible string labels. */\n  labels: RenameConversationPopupLabels;\n  /** Class and CSS-variable overrides for the popup content. */\n  styles?: RenameConversationPopupStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "RenameConversationPopupLabels",
+        "file": "libs/conversation-panel/src/models/rename-conversation-popup.ts",
+        "start": 4,
+        "end": 19,
+        "declaration": "export interface RenameConversationPopupLabels {\n  /** Popup dialog heading. */\n  popupTitle: string;\n  /** Placeholder text for the name input. */\n  inputPlaceholder: string;\n  /** Accessible name and tooltip for the AI-generation trigger button. */\n  renameWithAiLabel: string;\n  /** Error shown when the AI name generation request fails. */\n  renameWithAiError: string;\n  /** Error shown when the trimmed name's UTF-8 byte length exceeds 255. */\n  nameTooLongError: string;\n  /** Label for the save/confirm button. */\n  saveLabel: string;\n  /** Label for the cancel button. */\n  cancelLabel: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "RenameConversationPopupStyles",
+        "file": "libs/conversation-panel/src/models/rename-conversation-popup.ts",
+        "start": 22,
+        "end": 27,
+        "declaration": "export interface RenameConversationPopupStyles {\n  /** Extra class name(s) merged onto the popup body wrapper. */\n  bodyClassName?: string;\n  /** Arbitrary CSS custom properties inherited by the popup content. */\n  cssVars?: CSSProperties;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ImportExportQueueProps",
+        "file": "libs/conversation-panel/src/models/import-export-queue.ts",
+        "start": 104,
+        "end": 124,
+        "declaration": "export interface ImportExportQueueProps {\n  /**\n   * Queue panel heading, rendered verbatim. The host composes any count into\n   * it (e.g. `t(key, { count: jobs.length })`); the component never pluralizes.\n   */\n  title: string;\n  /** Current list of transfer jobs. */\n  jobs: ConversationTransferJob[];\n  /** Called when the queue should close (after confirmation if needed). */\n  onClose: () => void;\n  /**\n   * Called with the job id when the user cancels an in-progress job. The host\n   * is expected to abort the work and leave the job in `jobs` with status\n   * `Canceled`.\n   */\n  onCancel: (jobId: string) => void;\n  /** User-visible string labels. */\n  labels: ImportExportQueueLabels;\n  /** Color, typography, class, and CSS-variable overrides. */\n  styles?: ImportExportQueueStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ImportExportQueueLabels",
+        "file": "libs/conversation-panel/src/models/import-export-queue.ts",
+        "start": 9,
+        "end": 49,
+        "declaration": "export interface ImportExportQueueLabels {\n  /** Returns the accessible name for the cancel control of an in-progress job. */\n  cancelJobAriaLabel: (fileName: string) => string;\n  /** Trailing text shown on a canceled row. */\n  canceledLabel: string;\n  /** Returns the tooltip text explaining why a job failed. */\n  jobErrorMessage: (code: ConversationTransferErrorCode | undefined) => string;\n  /** Returns the accessible name for a row's in-progress spinner. */\n  jobProgressAriaLabel: (fileName: string) => string;\n  /** Returns the tooltip and accessible text for a warning, with skipped file names when available. */\n  jobWarningMessage: (\n    code: ConversationTransferWarningCode | undefined,\n    names?: string[],\n  ) => string;\n  /** Accessible name for the collapsed queue's aggregate progress bar. */\n  queueProgressAriaLabel: string;\n  /**\n   * Returns the aggregate bar's `aria-valuetext`. Given settled and total job\n   * counts rather than a percentage, because \"3 of 10 files\" reads better than\n   * \"36%\" when the work is a list of files.\n   */\n  queueProgressValueText: (completed: number, total: number) => string;\n  /** Accessible name for the queue collapse toggle when the panel is expanded. */\n  collapseQueueAriaLabel: string;\n  /** Accessible name for the queue expand toggle when the panel is collapsed. */\n  expandQueueAriaLabel: string;\n  /** Accessible name for the queue close button. */\n  closeQueueAriaLabel: string;\n  /** Heading text of the close-confirmation dialog. */\n  closeQueueConfirmHeader: string;\n  /** Confirmation dialog description when at least one job is InProgress and none are Failed. */\n  closeQueueConfirmDescriptionInProgress: string;\n  /** Confirmation dialog description when at least one job is Failed and none are InProgress. */\n  closeQueueConfirmDescriptionFailed: string;\n  /** Confirmation dialog description when there are both InProgress and Failed jobs. */\n  closeQueueConfirmDescriptionMixed: string;\n  /** Label for the confirmation dialog's confirm button. */\n  closeLabel: string;\n  /** Label for the confirmation dialog's cancel button. */\n  cancelLabel: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ImportExportQueueColors",
+        "file": "libs/conversation-panel/src/models/import-export-queue.ts",
+        "start": 52,
+        "end": 75,
+        "declaration": "export interface ImportExportQueueColors {\n  /** Queue panel background. */\n  background?: string;\n  /** Heading and job-label text. */\n  text?: string;\n  /** Neutral icon color and the canceled row's dimmed file name. */\n  textSecondary?: string;\n  /** Successful-job status icon color. */\n  successIcon?: string;\n  /** Failed-job status icon color. */\n  errorIcon?: string;\n  /**\n   * Warned-job status icon color. The aggregate progress bar has no\n   * counterpart here: it is the UI kit's `ProgressBar`, which themes its own\n   * track and fill from the same 2.0 tokens.\n   */\n  warningIcon?: string;\n  /** Divider between the header and the job rows. */\n  divider?: string;\n  /** Failed-job count badge background. */\n  failureCountBackground?: string;\n  /** Failed-job count badge text. */\n  failureCountText?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ImportExportQueueTypography",
+        "file": "libs/conversation-panel/src/models/import-export-queue.ts",
+        "start": 78,
+        "end": 87,
+        "declaration": "export interface ImportExportQueueTypography {\n  /** Class applied to the queue heading. Defaults to `'dial-small-semi-text'`. */\n  titleClassName?: string;\n  /** Class applied to a job's file name. Defaults to `'dial-small-text'`. */\n  jobLabelClassName?: string;\n  /** Class applied to the canceled row's trailing label. Defaults to `'dial-small-text'`. */\n  canceledLabelClassName?: string;\n  /** Class applied to the failed-job count badge. Defaults to `'dial-small-semi-text'`. */\n  failureCountClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ImportExportQueueStyles",
+        "file": "libs/conversation-panel/src/models/import-export-queue.ts",
+        "start": 90,
+        "end": 101,
+        "declaration": "export interface ImportExportQueueStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: ImportExportQueueColors;\n  /** Typography class overrides. */\n  typography?: ImportExportQueueTypography;\n  /** Extra class name(s) merged onto the queue root. */\n  rootClassName?: string;\n  /** Extra class name(s) merged onto the scrollable jobs container. */\n  bodyClassName?: string;\n  /** Arbitrary CSS custom properties applied after typed color overrides. */\n  cssVars?: CSSProperties;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "getTransferFileIcon",
+        "file": "libs/conversation-panel/src/utils/transfer-file.ts",
+        "start": 13,
+        "end": 22,
+        "declaration": "getTransferFileIcon = (fileName: string): TransferFileIcon => {\n  const lowerName = fileName.toLowerCase();\n  if (ARCHIVE_EXTENSIONS.some((extension) => lowerName.endsWith(extension))) {\n    return IconFileZip;\n  }\n  if (lowerName.endsWith('.json')) {\n    return IconJson;\n  }\n  return IconFile;\n}",
+        "signature": "(fileName: string): TransferFileIcon",
+        "props": [
+          {
+            "name": "toString",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "charAt",
+            "optional": false,
+            "type": "(pos: number) => string"
+          },
+          {
+            "name": "charCodeAt",
+            "optional": false,
+            "type": "(index: number) => number"
+          },
+          {
+            "name": "concat",
+            "optional": false,
+            "type": "(...strings: string[]) => string"
+          },
+          {
+            "name": "indexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "lastIndexOf",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => number"
+          },
+          {
+            "name": "localeCompare",
+            "optional": false,
+            "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+          },
+          {
+            "name": "match",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+          },
+          {
+            "name": "replace",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "search",
+            "optional": false,
+            "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+          },
+          {
+            "name": "slice",
+            "optional": false,
+            "type": "(start?: number, end?: number) => string"
+          },
+          {
+            "name": "split",
+            "optional": false,
+            "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+          },
+          {
+            "name": "substring",
+            "optional": false,
+            "type": "(start: number, end?: number) => string"
+          },
+          {
+            "name": "toLowerCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleLowerCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "toUpperCase",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "toLocaleUpperCase",
+            "optional": false,
+            "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+          },
+          {
+            "name": "trim",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "length",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "substr",
+            "optional": false,
+            "type": "(from: number, length?: number) => string"
+          },
+          {
+            "name": "valueOf",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "codePointAt",
+            "optional": false,
+            "type": "(pos: number) => number | undefined"
+          },
+          {
+            "name": "includes",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "endsWith",
+            "optional": false,
+            "type": "(searchString: string, endPosition?: number) => boolean"
+          },
+          {
+            "name": "normalize",
+            "optional": false,
+            "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+          },
+          {
+            "name": "repeat",
+            "optional": false,
+            "type": "(count: number) => string"
+          },
+          {
+            "name": "startsWith",
+            "optional": false,
+            "type": "(searchString: string, position?: number) => boolean"
+          },
+          {
+            "name": "anchor",
+            "optional": false,
+            "type": "(name: string) => string"
+          },
+          {
+            "name": "big",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "blink",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "bold",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fixed",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "fontcolor",
+            "optional": false,
+            "type": "(color: string) => string"
+          },
+          {
+            "name": "fontsize",
+            "optional": false,
+            "type": "{ (size: number): string; (size: string): string; }"
+          },
+          {
+            "name": "italics",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "link",
+            "optional": false,
+            "type": "(url: string) => string"
+          },
+          {
+            "name": "small",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "strike",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sub",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "sup",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "padStart",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "padEnd",
+            "optional": false,
+            "type": "(maxLength: number, fillString?: string) => string"
+          },
+          {
+            "name": "trimEnd",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimStart",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimLeft",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "trimRight",
+            "optional": false,
+            "type": "() => string"
+          },
+          {
+            "name": "matchAll",
+            "optional": false,
+            "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+          },
+          {
+            "name": "replaceAll",
+            "optional": false,
+            "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+          },
+          {
+            "name": "at",
+            "optional": false,
+            "type": "(index: number) => string | undefined"
+          },
+          {
+            "name": "__@iterator@21491",
+            "optional": false,
+            "type": "() => StringIterator<string>"
+          }
+        ]
+      },
+      {
+        "name": "ConversationMove",
+        "file": "libs/conversation-panel/src/models/panel-props.ts",
+        "start": 226,
+        "end": 233,
+        "declaration": "export interface ConversationMove {\n  /** Id of the conversation that was dragged. */\n  draggedId: string;\n  /** The group the item was dropped into. */\n  targetGroupKey: FilterTab;\n  /** Item to insert after; `null` means top of the target group. */\n  afterId: string | null;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ConversationPanelProps",
+        "file": "libs/conversation-panel/src/models/panel-props.ts",
+        "start": 162,
+        "end": 223,
+        "declaration": "export interface ConversationPanelProps {\n  /** Ordered list of conversations to display. */\n  conversations: ConversationItem[];\n  /** When true, renders skeleton rows instead of the conversation list. */\n  isLoading?: boolean;\n  /** Whether the panel is currently expanded. */\n  isOpen: boolean;\n  /** Called with the conversation `id` when a row is clicked. */\n  onSelectConversation: (id: string) => void;\n  /** `id` of the currently viewed conversation; that row gets `aria-current=\"page\"`. */\n  activeConversationId?: string;\n  /** Localised labels and text content for the panel. */\n  labels: ConversationPanelLabels;\n  /** Called when the New chat button is clicked. */\n  onNewChat: () => void;\n  /** Color and typography overrides applied as CSS custom properties. */\n  styles?: ConversationPanelStyles;\n  /** Extra class name(s) merged onto the panel root element. */\n  className?: string;\n  /**\n   * Renders the panel as a drawer that slides over the content instead of\n   * collapsing its width beside it. Set it when `className` positions the panel\n   * over the page. Defaults to `false`.\n   */\n  isOverlay?: boolean;\n  /** Builds dropdown actions for a row. When absent or empty, no action trigger is rendered. */\n  getActions?: (item: ConversationItem) => DropdownItem[];\n  /** Called when a row action menu opens; receives the trigger button. */\n  onActionMenuOpen?: (\n    item: ConversationItem,\n    trigger: HTMLButtonElement,\n  ) => void;\n  /** Called when the panel header toggle button is clicked. When provided, the toggle is visible on mobile. */\n  onToggle?: () => void;\n  /** Extra content rendered in the panel header action area. */\n  headerActions?: ReactNode;\n  /**\n   * Called when the user completes a drag-and-drop move.\n   * See `ConversationMove` for the payload shape.\n   */\n  onMoveConversation?: (move: ConversationMove) => void;\n  /** Programmatically sets the active filter tab. Pass `undefined` to leave the tab unchanged. */\n  activeFilter?: FilterTab;\n  /** Called when the active filter tab changes. */\n  onActiveFilterChange?: (tab: FilterTab) => void;\n  /**\n   * When `true`, the filter tabs are not rendered and the list stays on\n   * whichever tab is active \u2014 `FilterTab.All` unless `activeFilter` says\n   * otherwise. Defaults to `false`.\n   */\n  isFilterTabsHidden?: boolean;\n  /**\n   * Sources to exclude entirely. A conversation whose `source` is listed here\n   * is dropped before filtering/grouping, so it never appears under any tab\n   * (including `All`) or in a group heading, and its tab pill is not rendered\n   * in `FilterTabs`. Use this to fully gate a source (e.g. `Organization`)\n   * behind a deployment/config toggle, as opposed to `isFilterTabsHidden`,\n   * which only hides the tab row while leaving every source's conversations\n   * visible under `All`.\n   */\n  hiddenSources?: FilterTab[];\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ConversationPanelStyles",
+        "file": "libs/conversation-panel/src/models/panel-props.ts",
+        "start": 104,
+        "end": 122,
+        "declaration": "export interface ConversationPanelStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: ConversationColors;\n  /** Color overrides forwarded to the New chat button. */\n  newChatButton?: NewChatButtonColors;\n  /** Typography overrides for the panel and its children. */\n  typography?: ConversationPanelTypography;\n  /** CSS class applied to the icon badge in each conversation row. Defaults to `'rounded-full'`. */\n  itemIconBadgeClassName?: string;\n  /** Typography class applied to the task pill badge in each conversation row. Defaults to `'dial-caption-lead-semi-text'`. Colors come from the module stylesheet. */\n  taskBadgeClassName?: string;\n  /**\n   * Extra CSS class merged onto the search field's wrapper. The wrapper's\n   * corner radius is themed with the `--cp-search-radius` custom property, so\n   * this is only needed for anything the panel's own stylesheet does not\n   * cover; a `rounded-*` utility passed here still wins over that property.\n   */\n  searchWrapperClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ConversationColors",
+        "file": "libs/conversation-panel/src/models/panel-props.ts",
+        "start": 70,
+        "end": 101,
+        "declaration": "export interface ConversationColors {\n  /** Panel background color. */\n  background?: string;\n  /** Inner-edge divider border color. */\n  border?: string;\n  /** Hover background for a conversation row. */\n  itemHover?: string;\n  /** Active/selected background for a conversation row. */\n  itemActive?: string;\n  /** Primary text color. */\n  text?: string;\n  /** Secondary text color (dates, metadata). */\n  textSecondary?: string;\n  /** Ring color shown around a group header acting as a drag-and-drop target. */\n  dropZoneRing?: string;\n  /** Background color of the active row actions trigger button. */\n  triggerBackground?: string;\n  /** Icon color of the row actions trigger button while active. */\n  triggerIcon?: string;\n  /** Icon color of the row actions trigger button in its idle state. */\n  triggerIconIdle?: string;\n  /** Shimmer color of the loading skeleton avatar. */\n  skeletonColor?: string;\n  /** Border color of the task pill badge. Defaults to `--stroke-tertiary`. */\n  taskBadgeBorder?: string;\n  /** Background color of the task pill badge. Defaults to `--bg-layer-base`. */\n  taskBadgeBackground?: string;\n  /** Text color of the task pill badge. Defaults to `--text-secondary`. */\n  taskBadgeText?: string;\n  /** Fill color of the unread indicator dot. Defaults to `--text-accent`. */\n  unreadDot?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NewChatButtonColors",
+        "file": "libs/conversation-panel/src/models/panel-props.ts",
+        "start": 60,
+        "end": 67,
+        "declaration": "export interface NewChatButtonColors {\n  /** Default background. */\n  background?: string;\n  /** Label and icon color. */\n  text?: string;\n  /** Keyboard focus ring color. Defaults to `--stroke-focus-black`. */\n  focusOutline?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ConversationPanelTypography",
+        "file": "libs/conversation-panel/src/models/panel-props.ts",
+        "start": 46,
+        "end": 57,
+        "declaration": "export interface ConversationPanelTypography {\n  /** A single utility class (e.g. `'dial-body-semi-text'`) applied to the title span. */\n  fontClassName?: string;\n  /** Typography class applied to collapsible group header buttons. Defaults to `'dial-tiny-lead-semi-text'`. */\n  groupHeaderClassName?: string;\n  /** Typography class applied to conversation title text in each row. Defaults to `'dial-small-text'`. */\n  itemTitleClassName?: string;\n  /** Typography class applied to the New chat button label. Defaults to `'dial-small-semi-text'`. */\n  newChatLabelClassName?: string;\n  /** Class applied to each filter tab. Defaults to `'dial-tiny-semi-text'` (an additional `'flex-1'` class is always applied). */\n  tabClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ConversationPanelLabels",
+        "file": "libs/conversation-panel/src/models/panel-props.ts",
+        "start": 125,
+        "end": 159,
+        "declaration": "export interface ConversationPanelLabels {\n  /** Panel heading text (e.g. `\"Chats\"`). */\n  title: string;\n  /** Message shown when `conversations` is empty. */\n  emptyLabel: string;\n  /** Message shown when conversations exist but none match the active filter. */\n  noResultsLabel: string;\n  /** Status message announced to assistive tech while conversations are loading. Defaults to `'Loading conversations'`. */\n  loadingLabel?: string;\n  /** Label for the New chat button (e.g. `\"New chat\"`). */\n  newChatLabel: string;\n  /** Placeholder text for the search input (e.g. `\"Search chat\u2026\"`). */\n  searchPlaceholder: string;\n  /** Accessible label for the search input clear button. */\n  searchClearLabel: string;\n  /** Labels for the four filter tabs. */\n  filterLabels: FilterLabels;\n  /** Labels for collapsible group section headings. */\n  groupLabels?: {\n    /** Heading for the Pinned section. Defaults to `\"Pinned\"`. */\n    pinned?: string;\n    /** Heading for the My chats section. Defaults to `\"My chats\"`. */\n    myChats?: string;\n    /** Heading for the Shared section. Defaults to `\"Shared\"`. */\n    shared?: string;\n    /** Heading for the Organization section. Defaults to `\"Organization\"`. */\n    organization?: string;\n  };\n  /** Accessible label for the row actions trigger button. Defaults to `\"More actions\"`. */\n  actionsLabel?: string;\n  /** Accessible (visually hidden) label announced for the unread indicator dot. Defaults to `\"Unread\"`. */\n  unreadIndicatorLabel?: string;\n  /** Accessible label for the sidebar toggle icon button. Required when `onToggle` is provided. */\n  closeAriaLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "ConversationItem",
+        "file": "libs/conversation-panel/src/models/panel-props.ts",
+        "start": 20,
+        "end": 43,
+        "declaration": "export interface ConversationItem {\n  /** Unique conversation identifier (path or UUID). */\n  id: string;\n  /** Human-readable conversation title. */\n  title: string;\n  /** When true the item is shown in the Pinned section. */\n  isPinned?: boolean;\n  /** Ownership/share source \u2014 used to filter by tab. */\n  source?: FilterTab;\n  /** URL of the model or conversation icon. When absent a default icon is shown. */\n  iconUrl?: string;\n  /** Tooltip text shown on the deployment icon. */\n  iconTooltip?: string;\n  /** When `true`, a skeleton placeholder is shown instead of the deployment icon. */\n  isIconLoading?: boolean;\n  /** Conversation URL. When provided, middle-click opens it in a new tab. */\n  href?: string;\n  /** When `true`, a \"TASK\" pill badge is rendered at the end of the row. */\n  showTaskBadge?: boolean;\n  /** Text shown inside the task badge. When `showTaskBadge` is `true` and this is omitted, the badge renders with no text. */\n  taskBadgeLabel?: string;\n  /** When `true`, an unread indicator dot is rendered before the row's leading icon. */\n  isUnread?: boolean;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "FilterLabels",
+        "file": "libs/conversation-panel/src/models/panel-props.ts",
+        "start": 6,
+        "end": 17,
+        "declaration": "export interface FilterLabels {\n  /** Label for the \"All\" tab. */\n  all: string;\n  /** Label for the \"My chats\" tab. */\n  myChats: string;\n  /** Label for the \"Shared\" tab. */\n  shared: string;\n  /** Label for the \"Organization\" tab. */\n  organization: string;\n  /** Accessible name of the filter row itself. Defaults to `\"Filter chats\"`. */\n  groupAriaLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "ConversationPanel",
+      "file": "libs/conversation-panel/src/components/ConversationPanel/ConversationPanel.tsx",
+      "start": 52,
+      "end": 507,
+      "declaration": "ConversationPanel: FC<ConversationPanelProps> = memo(\n  ({\n    conversations,\n    isLoading,\n    isOpen,\n    onSelectConversation,\n    activeConversationId,\n    labels,\n    onNewChat,\n    styles: panelStyles,\n    className,\n    isOverlay = false,\n    getActions,\n    onActionMenuOpen,\n    onToggle,\n    headerActions,\n    onMoveConversation,\n    activeFilter,\n    onActiveFilterChange,\n    isFilterTabsHidden = false,\n    hiddenSources,\n  }) => {\n    const {\n      colors,\n      typography,\n      newChatButton: newChatButtonColors,\n      searchWrapperClassName,\n    } = panelStyles ?? {};\n\n    const {\n      title,\n      emptyLabel,\n      noResultsLabel,\n      loadingLabel = 'Loading conversations',\n      newChatLabel,\n      searchPlaceholder,\n      searchClearLabel,\n      filterLabels,\n      groupLabels,\n      actionsLabel,\n      unreadIndicatorLabel,\n      closeAriaLabel,\n    } = labels;\n    const [searchQuery, setSearchQuery] = useState('');\n    const [activeTab, setActiveTab] = useState(FilterTab.All);\n\n    useEffect(() => {\n      if (activeFilter == null) return;\n      setActiveTab(activeFilter);\n    }, [activeFilter]);\n\n    /*\n     * Dropped before any tab/search filtering so a hidden source never\n     * surfaces under `All` or as a group heading, not just off its own tab.\n     */\n    const visibleConversations = useMemo(\n      () =>\n        hiddenSources?.length\n          ? conversations.filter(\n              (item) =>\n                item.source == null || !hiddenSources.includes(item.source),\n            )\n          : conversations,\n      [conversations, hiddenSources],\n    );\n\n    const [expandedGroups, setExpandedGroups] = useState<Set<string>>(\n      () => ALL_GROUP_KEYS,\n    );\n    const [overscanCount, setOverscanCount] = useState(5);\n    const listId = useId();\n    const listRef = useRef<ListImperativeAPI>(null);\n    const lastScrolledIdRef = useRef<string | null>(null);\n\n    const [draggingId, setDraggingId] = useState<string | null>(null);\n    const [dragOverId, setDragOverId] = useState<string | null>(null);\n    const [allowedDropGroups, setAllowedDropGroups] =\n      useState<Set<FilterTab> | null>(null);\n\n    /*\n     * Refs let the drop handler read current values without being in the useCallback dep array,\n     * avoiding recreating the handler (and remounting rows) on every drag-state change.\n     */\n    const draggingIdRef = useRef<string | null>(null);\n    const allowedDropGroupsRef = useRef<Set<FilterTab> | null>(null);\n\n    const handleListResize = useCallback(({ height }: { height: number }) => {\n      setOverscanCount(Math.ceil((height / ITEM_ROW_HEIGHT) * 2));\n    }, []);\n\n    const handleSearchChange = useCallback((value?: string) => {\n      setSearchQuery(value ?? '');\n    }, []);\n\n    const handleToggleGroup = useCallback((key: string) => {\n      setExpandedGroups((prev) => {\n        const next = new Set(prev);\n        if (next.has(key)) {\n          next.delete(key);\n        } else {\n          next.add(key);\n        }\n        return next;\n      });\n    }, []);\n\n    const clearDragState = useCallback(() => {\n      draggingIdRef.current = null;\n      allowedDropGroupsRef.current = null;\n      setDraggingId(null);\n      setDragOverId(null);\n      setAllowedDropGroups(null);\n    }, []);\n\n    const handleDragStart = useCallback(\n      (id: string, rows: VirtualRow[]) => {\n        const groupKey = findGroupKeyForItem(rows, id);\n        const allowed = computeAllowedDropGroups(\n          id,\n          groupKey,\n          visibleConversations,\n        );\n        draggingIdRef.current = id;\n        allowedDropGroupsRef.current = allowed;\n        setDraggingId(id);\n        setAllowedDropGroups(allowed);\n      },\n      [visibleConversations],\n    );\n\n    const handleDragEnd = useCallback(() => {\n      clearDragState();\n    }, [clearDragState]);\n\n    const handleDragOver = useCallback((id: string) => {\n      setDragOverId(id);\n    }, []);\n\n    const handleDragLeave = useCallback(() => {\n      setDragOverId(null);\n    }, []);\n\n    const handleDrop = useCallback(\n      (targetId: string, targetGroupKey: FilterTab, afterId: string | null) => {\n        const currentDraggingId = draggingIdRef.current;\n        const currentAllowed = allowedDropGroupsRef.current;\n        clearDragState();\n        if (\n          currentDraggingId != null &&\n          currentDraggingId !== targetId &&\n          currentAllowed?.has(targetGroupKey)\n        ) {\n          onMoveConversation?.({\n            draggedId: currentDraggingId,\n            targetGroupKey,\n            afterId,\n          });\n        }\n      },\n      [clearDragState, onMoveConversation],\n    );\n\n    const cssVars = buildCssVars({\n      '--cp-item-hover': colors?.itemHover,\n      '--cp-item-active': colors?.itemActive,\n      '--cp-text': colors?.text,\n      '--cp-text-secondary': colors?.textSecondary,\n      '--cp-new-chat-bg': newChatButtonColors?.background,\n      '--cp-new-chat-text': newChatButtonColors?.text,\n      '--cp-new-chat-focus-outline': newChatButtonColors?.focusOutline,\n      '--cp-drop-zone-ring': colors?.dropZoneRing,\n      '--cp-trigger-bg': colors?.triggerBackground,\n      '--cp-trigger-icon': colors?.triggerIcon,\n      '--cp-trigger-icon-idle': colors?.triggerIconIdle,\n      '--cp-skeleton-color': colors?.skeletonColor,\n      '--cp-task-badge-border': colors?.taskBadgeBorder,\n      '--cp-task-badge-bg': colors?.taskBadgeBackground,\n      '--cp-task-badge-text': colors?.taskBadgeText,\n      '--cp-unread-dot': colors?.unreadDot,\n    });\n\n    const filteredItems = useMemo(\n      () =>\n        visibleConversations.filter(\n          (item) =>\n            matchesTab(item, activeTab) && matchesSearch(item, searchQuery),\n        ),\n      [visibleConversations, activeTab, searchQuery],\n    );\n\n    const pinnedItems = useMemo(\n      () => filteredItems.filter((item) => item.isPinned),\n      [filteredItems],\n    );\n\n    const myChatsItems = useMemo(\n      () =>\n        filteredItems.filter(\n          (item) =>\n            !item.isPinned &&\n            item.source !== FilterTab.Shared &&\n            item.source !== FilterTab.Organization,\n        ),\n      [filteredItems],\n    );\n\n    const sharedItems = useMemo(\n      () =>\n        filteredItems.filter(\n          (item) => !item.isPinned && item.source === FilterTab.Shared,\n        ),\n      [filteredItems],\n    );\n\n    const organizationItems = useMemo(\n      () =>\n        filteredItems.filter(\n          (item) => !item.isPinned && item.source === FilterTab.Organization,\n        ),\n      [filteredItems],\n    );\n\n    const groups = useMemo(\n      () => [\n        {\n          key: FilterTab.Pinned,\n          label: groupLabels?.pinned ?? 'Pinned',\n          items: pinnedItems,\n        },\n        {\n          key: FilterTab.MyChats,\n          label: groupLabels?.myChats ?? 'My chats',\n          items: myChatsItems,\n        },\n        {\n          key: FilterTab.Shared,\n          label: groupLabels?.shared ?? 'Shared',\n          items: sharedItems,\n        },\n        {\n          key: FilterTab.Organization,\n          label: groupLabels?.organization ?? 'Organization',\n          items: organizationItems,\n        },\n      ],\n      [groupLabels, pinnedItems, myChatsItems, sharedItems, organizationItems],\n    );\n\n    const virtualRows = useMemo(() => {\n      const rows: VirtualRow[] = [];\n      for (const group of groups) {\n        if (group.items.length === 0) continue;\n        rows.push({\n          kind: VirtualRowKind.Header,\n          groupKey: group.key,\n          label: group.label,\n        });\n        if (expandedGroups.has(group.key)) {\n          for (const item of group.items) {\n            rows.push({ kind: VirtualRowKind.Item, item, groupKey: group.key });\n          }\n        }\n      }\n      return rows;\n    }, [groups, expandedGroups]);\n\n    useEffect(() => {\n      if (!activeConversationId) return;\n\n      if (lastScrolledIdRef.current === activeConversationId) return;\n\n      const index = virtualRows.findIndex(\n        (row) =>\n          row.kind === VirtualRowKind.Item &&\n          row.item.id === activeConversationId,\n      );\n      if (index >= 0) {\n        listRef.current?.scrollToRow({\n          index,\n          align: 'smart',\n          behavior: 'smooth',\n        });\n        lastScrolledIdRef.current = activeConversationId;\n      }\n    }, [activeConversationId, groups, expandedGroups, virtualRows]);\n\n    const rowProps = useMemo<RowRendererData>(\n      () => ({\n        rows: virtualRows,\n        expandedGroups,\n        onToggleGroup: handleToggleGroup,\n        listId,\n        activeConversationId,\n        searchQuery,\n        onSelectConversation,\n        getActions,\n        onActionMenuOpen,\n        actionsLabel,\n        unreadIndicatorLabel,\n        styles: {\n          groupHeaderClassName: typography?.groupHeaderClassName,\n          itemTitleClassName: typography?.itemTitleClassName,\n          itemIconBadgeClassName: panelStyles?.itemIconBadgeClassName,\n          taskBadgeClassName: panelStyles?.taskBadgeClassName,\n        },\n        draggingId,\n        dragOverId,\n        allowedDropGroups,\n        onDragStart: (id: string) => handleDragStart(id, virtualRows),\n        onDragEnd: handleDragEnd,\n        onDragOver: handleDragOver,\n        onDragLeave: handleDragLeave,\n        onDrop: handleDrop,\n      }),\n      [\n        virtualRows,\n        expandedGroups,\n        handleToggleGroup,\n        listId,\n        activeConversationId,\n        searchQuery,\n        onSelectConversation,\n        getActions,\n        onActionMenuOpen,\n        actionsLabel,\n        unreadIndicatorLabel,\n        typography?.groupHeaderClassName,\n        typography?.itemTitleClassName,\n        panelStyles?.itemIconBadgeClassName,\n        panelStyles?.taskBadgeClassName,\n        draggingId,\n        dragOverId,\n        allowedDropGroups,\n        handleDragStart,\n        handleDragEnd,\n        handleDragOver,\n        handleDragLeave,\n        handleDrop,\n      ],\n    );\n\n    const isNoConversations = visibleConversations.length === 0;\n    const isNoResults =\n      visibleConversations.length > 0 && filteredItems.length === 0;\n\n    return (\n      <SidebarPanel\n        isOpen={isOpen}\n        isOverlay={isOverlay}\n        orientation={SidebarOrientation.Left}\n        title={title}\n        labels={{ ariaLabel: title, closeLabel: closeAriaLabel }}\n        onClose={onToggle}\n        styles={{\n          colors: {\n            background: colors?.background,\n            border: colors?.border,\n          },\n          typography: {\n            fontClassName: typography?.fontClassName,\n          },\n          bodyClassName: 'flex flex-col overflow-hidden p-0 gap-3',\n          cssVars,\n          titleClassName: typography?.fontClassName,\n          headerClassName: 'h-[64px]',\n          className: mergeClasses(\n            isOpen ? 'w-[324px] mobile:w-full' : 'w-0',\n            className,\n          ),\n        }}\n        rightActions={headerActions}\n      >\n        <NewChatButton\n          label={newChatLabel}\n          onClick={onNewChat}\n          labelClassName={typography?.newChatLabelClassName}\n          colors={newChatButtonColors}\n        />\n\n        <div\n          role=\"search\"\n          className={mergeClasses('px-3 py-2', CONVERSATION_PANEL_CLASS.search)}\n        >\n          <Search\n            wrapperClassName={mergeClasses(\n              styles.search,\n              searchWrapperClassName,\n            )}\n            value={searchQuery}\n            onChange={handleSearchChange}\n            placeholder={searchPlaceholder}\n            clearLabel={searchClearLabel}\n            aria-label={searchPlaceholder}\n          />\n        </div>\n\n        {!isFilterTabsHidden && (\n          <FilterTabs\n            activeTab={activeTab}\n            labels={filterLabels}\n            onChange={(tab) => {\n              setActiveTab(tab);\n              onActiveFilterChange?.(tab);\n            }}\n            tabClassName={typography?.tabClassName}\n            hiddenSources={hiddenSources}\n          />\n        )}\n\n        <span role=\"status\" aria-live=\"polite\" className=\"sr-only\">\n          {isLoading\n            ? loadingLabel\n            : isNoConversations\n              ? emptyLabel\n              : isNoResults\n                ? noResultsLabel\n                : ''}\n        </span>\n\n        <div className=\"flex-1 overflow-hidden py-1 pe-3 ps-2\">\n          {isLoading ? (\n            <div className=\"flex flex-col gap-3 px-2 py-3\">\n              {Array.from({ length: SKELETON_ROW_COUNT }, (_, i) => (\n                <Skeleton\n                  key={i}\n                  avatar={{ size: 24 }}\n                  showTitle={{ width: getSkeletonWidth(i) }}\n                  paragraph={false}\n                  active\n                  color={styles.skeletonColor}\n                />\n              ))}\n            </div>\n          ) : isNoConversations ? (\n            <PanelEmpty label={emptyLabel} />\n          ) : isNoResults ? (\n            <PanelNoResults label={noResultsLabel} />\n          ) : (\n            <List<RowRendererData>\n              listRef={listRef}\n              id={listId}\n              role=\"list\"\n              style={{ height: '100%' }}\n              rowComponent={RowRenderer}\n              rowCount={virtualRows.length}\n              rowHeight={getRowHeight}\n              overscanCount={overscanCount}\n              onResize={handleListResize}\n              rowProps={rowProps}\n            />\n          )}\n        </div>\n      </SidebarPanel>\n    );\n  },\n)",
+      "signature": "(props: ConversationPanelProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "conversations",
+          "optional": false,
+          "type": "import(\"../..\").ConversationItem[]"
+        },
+        {
+          "name": "isLoading",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isOpen",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "onSelectConversation",
+          "optional": false,
+          "type": "(id: string) => void"
+        },
+        {
+          "name": "activeConversationId",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").ConversationPanelLabels"
+        },
+        {
+          "name": "onNewChat",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").ConversationPanelStyles | undefined"
+        },
+        {
+          "name": "className",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "isOverlay",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "getActions",
+          "optional": true,
+          "type": "((item: import(\"../..\").ConversationItem) => import(\"@epam/ai-dial-ui-kit\").DropdownItem[]) | undefined"
+        },
+        {
+          "name": "onActionMenuOpen",
+          "optional": true,
+          "type": "((item: import(\"../..\").ConversationItem, trigger: HTMLButtonElement) => void) | undefined"
+        },
+        {
+          "name": "onToggle",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "headerActions",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "onMoveConversation",
+          "optional": true,
+          "type": "((move: import(\"../..\").ConversationMove) => void) | undefined"
+        },
+        {
+          "name": "activeFilter",
+          "optional": true,
+          "type": "FilterTab | undefined"
+        },
+        {
+          "name": "onActiveFilterChange",
+          "optional": true,
+          "type": "((tab: FilterTab) => void) | undefined"
+        },
+        {
+          "name": "isFilterTabsHidden",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "hiddenSources",
+          "optional": true,
+          "type": "FilterTab[] | undefined"
+        }
+      ]
+    },
+    {
+      "name": "ImportExportQueue",
+      "file": "libs/conversation-panel/src/components/ImportExportQueue/ImportExportQueue.tsx",
+      "start": 61,
+      "end": 196,
+      "declaration": "ImportExportQueue: FC<ImportExportQueueProps> = memo(\n  ({ title, jobs, onClose, onCancel, labels, styles }) => {\n    const [isCollapsed, setIsCollapsed] = useState(false);\n    const jobsId = useId();\n    const [isConfirmOpen, setIsConfirmOpen] = useState(false);\n    const colors = styles?.colors;\n    const cssVars = {\n      ...buildCssVars({\n        '--cp-transfer-queue-bg': colors?.background,\n        '--cp-transfer-queue-text': colors?.text,\n        '--cp-transfer-queue-text-secondary': colors?.textSecondary,\n        '--cp-transfer-queue-success-icon': colors?.successIcon,\n        '--cp-transfer-queue-error-icon': colors?.errorIcon,\n        '--cp-transfer-queue-warning-icon': colors?.warningIcon,\n        '--cp-transfer-queue-divider': colors?.divider,\n        '--cp-transfer-queue-failure-count-bg': colors?.failureCountBackground,\n        '--cp-transfer-queue-failure-count-text': colors?.failureCountText,\n      }),\n      ...styles?.cssVars,\n    };\n\n    const hasInProgress = jobs.some(\n      (job) => job.status === ConversationTransferJobStatus.InProgress,\n    );\n    const hasFailed = jobs.some(\n      (job) => job.status === ConversationTransferJobStatus.Failed,\n    );\n    const isEverySucceeded =\n      jobs.length > 0 &&\n      jobs.every((job) => job.status === ConversationTransferJobStatus.Success);\n\n    const handleClose = useCallback(() => {\n      if (hasInProgress || hasFailed) {\n        setIsConfirmOpen(true);\n      } else {\n        onClose();\n      }\n    }, [hasInProgress, hasFailed, onClose]);\n\n    const handleConfirmClose = useCallback(() => {\n      setIsConfirmOpen(false);\n      onClose();\n    }, [onClose]);\n\n    const handleToggleCollapse = useCallback(() => {\n      setIsCollapsed((value) => !value);\n    }, []);\n\n    useEffect(() => {\n      if (!isEverySucceeded) return undefined;\n\n      const timeoutId = setTimeout(onClose, AUTO_CLOSE_DELAY_MS);\n      return () => clearTimeout(timeoutId);\n    }, [isEverySucceeded, onClose]);\n\n    if (jobs.length === 0) return null;\n\n    const failedCount = jobs.filter(\n      (job) => job.status === ConversationTransferJobStatus.Failed,\n    ).length;\n\n    return (\n      <div\n        role=\"status\"\n        aria-live=\"polite\"\n        style={cssVars}\n        className={mergeClasses(\n          classes.root,\n          'w-[370px] max-w-[calc(100vw-2rem)] rounded-xl shadow-md',\n          styles?.rootClassName,\n        )}\n      >\n        <ImportExportQueueHeader\n          title={title}\n          failedCount={failedCount}\n          isCollapsed={isCollapsed}\n          jobsId={jobsId}\n          labels={labels}\n          styles={styles}\n          onToggleCollapse={handleToggleCollapse}\n          onClose={handleClose}\n        />\n        {isCollapsed && hasInProgress && (\n          /*\n           * Only while collapsed: expanded, every row already carries its own\n           * spinner, so an aggregate bar would restate what is on screen.\n           * Collapsed, the rows are unmounted and nothing else says work\n           * continues.\n           */\n          <ProgressBar\n            value={getAggregatePercent(jobs)}\n            size={ElementSize.Small}\n            aria-label={labels.queueProgressAriaLabel}\n            aria-valuetext={labels.queueProgressValueText(\n              getSettledCount(jobs),\n              jobs.length,\n            )}\n          />\n        )}\n        {!isCollapsed && (\n          <div\n            id={jobsId}\n            className={mergeClasses(\n              'flex max-h-[40vh] flex-col overflow-y-auto py-1',\n              styles?.bodyClassName,\n            )}\n          >\n            {jobs.map((job) => (\n              <ImportExportQueueRow\n                key={job.id}\n                job={job}\n                labels={labels}\n                onCancel={onCancel}\n                styles={styles}\n              />\n            ))}\n          </div>\n        )}\n        <ConfirmationPopup\n          open={isConfirmOpen}\n          header={labels.closeQueueConfirmHeader}\n          description={getCloseConfirmDescription(\n            hasInProgress,\n            hasFailed,\n            labels,\n          )}\n          confirmLabel={labels.closeLabel}\n          cancelLabel={labels.cancelLabel}\n          variant={ConfirmationPopupVariant.Danger}\n          onConfirm={handleConfirmClose}\n          onClose={() => setIsConfirmOpen(false)}\n        />\n      </div>\n    );\n  },\n)",
+      "signature": "(props: ImportExportQueueProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "jobs",
+          "optional": false,
+          "type": "ConversationTransferJob[]"
+        },
+        {
+          "name": "onClose",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onCancel",
+          "optional": false,
+          "type": "(jobId: string) => void"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "ImportExportQueueLabels"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"./ImportExportQueue\").ImportExportQueueStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "RenameConversationPopup",
+      "file": "libs/conversation-panel/src/components/RenameConversationPopup/RenameConversationPopup.tsx",
+      "start": 29,
+      "end": 178,
+      "declaration": "RenameConversationPopup: FC<RenameConversationPopupProps> = memo(\n  ({\n    isOpen,\n    currentTitle,\n    isSaving,\n    error,\n    onSave,\n    onCancel,\n    onGenerateWithAi,\n    labels,\n    styles,\n  }) => {\n    const [value, setValue] = useState(currentTitle);\n    const [isGenerating, setIsGenerating] = useState(false);\n    const [generateError, setGenerateError] = useState<string | null>(null);\n    const inputRef = useRef<HTMLInputElement>(null);\n    const wasOpenRef = useRef(false);\n    const generationIdRef = useRef(0);\n\n    useEffect(() => {\n      const hasJustOpened = isOpen && !wasOpenRef.current;\n      wasOpenRef.current = isOpen;\n      if (!isOpen) {\n        generationIdRef.current += 1;\n        setIsGenerating(false);\n        return undefined;\n      }\n      if (!hasJustOpened) return undefined;\n\n      generationIdRef.current += 1;\n      setValue(currentTitle);\n      setGenerateError(null);\n      setIsGenerating(false);\n      /* Defer focus so the popup has time to mount and become visible. */\n      const timeoutId = setTimeout(() => inputRef.current?.focus(), 0);\n      return () => clearTimeout(timeoutId);\n    }, [isOpen, currentTitle]);\n\n    useEffect(\n      () => () => {\n        generationIdRef.current += 1;\n      },\n      [],\n    );\n\n    const trimmed = stripTrailingDots(value.trim());\n    const isTooLong = getUtf8ByteLength(trimmed) > 255;\n    const isSaveDisabled =\n      isSaving ||\n      trimmed === '' ||\n      trimmed === currentTitle.trim() ||\n      isTooLong;\n\n    const handleSave = useCallback(() => {\n      if (!isSaveDisabled) onSave(trimmed);\n    }, [isSaveDisabled, onSave, trimmed]);\n\n    const handleKeyDown = useCallback(\n      (e: KeyboardEvent<HTMLInputElement>) => {\n        if (e.key === 'Enter') handleSave();\n      },\n      [handleSave],\n    );\n\n    const handleGenerateWithAi = useCallback(async () => {\n      if (isGenerating) return;\n      const generationId = ++generationIdRef.current;\n      setIsGenerating(true);\n      setGenerateError(null);\n      try {\n        const generatedName = await onGenerateWithAi();\n        if (generationId !== generationIdRef.current) return;\n        setValue(sanitizeConversationName(generatedName));\n      } catch {\n        if (generationId !== generationIdRef.current) return;\n        setGenerateError(labels.renameWithAiError);\n      } finally {\n        if (generationId === generationIdRef.current) {\n          setIsGenerating(false);\n        }\n      }\n    }, [isGenerating, onGenerateWithAi, labels.renameWithAiError]);\n\n    let inputError: string | undefined;\n    if (isTooLong) {\n      inputError = labels.nameTooLongError;\n    } else {\n      inputError = generateError ?? error ?? undefined;\n    }\n\n    return (\n      <Popup\n        open={isOpen}\n        header={labels.popupTitle}\n        size={PopupSize.Sm}\n        onClose={onCancel}\n        mainButtons={\n          isSaving\n            ? undefined\n            : [\n                { label: labels.cancelLabel, onClick: onCancel },\n                {\n                  label: labels.saveLabel,\n                  variant: ButtonVariant.Primary,\n                  disabled: isSaveDisabled,\n                  onClick: handleSave,\n                },\n              ]\n        }\n      >\n        <div className={styles?.bodyClassName} style={styles?.cssVars}>\n          {isSaving ? (\n            <div className=\"h-[120px] px-6 py-4\">\n              <Spinner size={50} />\n            </div>\n          ) : (\n            <div className=\"flex items-start gap-2 px-6 py-3\">\n              <div className=\"min-w-0 flex-1\">\n                <Input\n                  inputRef={inputRef}\n                  value={value}\n                  placeholder={labels.inputPlaceholder}\n                  error={inputError}\n                  onChange={(v) => setValue(sanitizeConversationName(v ?? ''))}\n                  onKeyDown={handleKeyDown}\n                />\n              </div>\n              <GhostIconButton\n                aria-label={labels.renameWithAiLabel}\n                tooltipProps={{ tooltip: labels.renameWithAiLabel }}\n                disabled={isGenerating || isSaving}\n                onClick={handleGenerateWithAi}\n                icon={\n                  isGenerating ? (\n                    <Spinner size={DIAL_ICON_SIZE.MD} />\n                  ) : (\n                    <IconSparkles\n                      size={DIAL_ICON_SIZE.MD}\n                      stroke={DIAL_KIT_ICON_STROKE}\n                    />\n                  )\n                }\n              />\n            </div>\n          )}\n        </div>\n      </Popup>\n    );\n  },\n)",
+      "signature": "(props: RenameConversationPopupProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "isOpen",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "currentTitle",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "isSaving",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "error",
+          "optional": false,
+          "type": "string | null"
+        },
+        {
+          "name": "onSave",
+          "optional": false,
+          "type": "(newTitle: string) => void"
+        },
+        {
+          "name": "onCancel",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onGenerateWithAi",
+          "optional": false,
+          "type": "() => Promise<string>"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").RenameConversationPopupLabels"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").RenameConversationPopupStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "getTransferFileIcon",
+      "file": "libs/conversation-panel/src/utils/transfer-file.ts",
+      "start": 13,
+      "end": 22,
+      "declaration": "getTransferFileIcon = (fileName: string): TransferFileIcon => {\n  const lowerName = fileName.toLowerCase();\n  if (ARCHIVE_EXTENSIONS.some((extension) => lowerName.endsWith(extension))) {\n    return IconFileZip;\n  }\n  if (lowerName.endsWith('.json')) {\n    return IconJson;\n  }\n  return IconFile;\n}",
+      "signature": "(fileName: string): TransferFileIcon",
+      "props": [
+        {
+          "name": "toString",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "charAt",
+          "optional": false,
+          "type": "(pos: number) => string"
+        },
+        {
+          "name": "charCodeAt",
+          "optional": false,
+          "type": "(index: number) => number"
+        },
+        {
+          "name": "concat",
+          "optional": false,
+          "type": "(...strings: string[]) => string"
+        },
+        {
+          "name": "indexOf",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => number"
+        },
+        {
+          "name": "lastIndexOf",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => number"
+        },
+        {
+          "name": "localeCompare",
+          "optional": false,
+          "type": "{ (that: string): number; (that: string, locales?: string | string[], options?: Intl.CollatorOptions): number; (that: string, locales?: Intl.LocalesArgument, options?: Intl.CollatorOptions): number; }"
+        },
+        {
+          "name": "match",
+          "optional": false,
+          "type": "{ (regexp: string | RegExp): RegExpMatchArray | null; (matcher: { [Symbol.match](string: string): RegExpMatchArray | null; }): RegExpMatchArray | null; }"
+        },
+        {
+          "name": "replace",
+          "optional": false,
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; (searchValue: { [Symbol.replace](string: string, replaceValue: string): string; }, replaceValue: string): string; (searchValue: { [Symbol.replace](string: string, replacer: (substring: string, ...args: any[]) => string): string; }, replacer: (substring: string, ...args: any[]) => string): string; }"
+        },
+        {
+          "name": "search",
+          "optional": false,
+          "type": "{ (regexp: string | RegExp): number; (searcher: { [Symbol.search](string: string): number; }): number; }"
+        },
+        {
+          "name": "slice",
+          "optional": false,
+          "type": "(start?: number, end?: number) => string"
+        },
+        {
+          "name": "split",
+          "optional": false,
+          "type": "{ (separator: string | RegExp, limit?: number): string[]; (splitter: { [Symbol.split](string: string, limit?: number): string[]; }, limit?: number): string[]; }"
+        },
+        {
+          "name": "substring",
+          "optional": false,
+          "type": "(start: number, end?: number) => string"
+        },
+        {
+          "name": "toLowerCase",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleLowerCase",
+          "optional": false,
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+        },
+        {
+          "name": "toUpperCase",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "toLocaleUpperCase",
+          "optional": false,
+          "type": "{ (locales?: string | string[]): string; (locales?: Intl.LocalesArgument): string; }"
+        },
+        {
+          "name": "trim",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "length",
+          "optional": false,
+          "type": "number"
+        },
+        {
+          "name": "substr",
+          "optional": false,
+          "type": "(from: number, length?: number) => string"
+        },
+        {
+          "name": "valueOf",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "codePointAt",
+          "optional": false,
+          "type": "(pos: number) => number | undefined"
+        },
+        {
+          "name": "includes",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => boolean"
+        },
+        {
+          "name": "endsWith",
+          "optional": false,
+          "type": "(searchString: string, endPosition?: number) => boolean"
+        },
+        {
+          "name": "normalize",
+          "optional": false,
+          "type": "{ (form: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\"): string; (form?: string): string; }"
+        },
+        {
+          "name": "repeat",
+          "optional": false,
+          "type": "(count: number) => string"
+        },
+        {
+          "name": "startsWith",
+          "optional": false,
+          "type": "(searchString: string, position?: number) => boolean"
+        },
+        {
+          "name": "anchor",
+          "optional": false,
+          "type": "(name: string) => string"
+        },
+        {
+          "name": "big",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "blink",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "bold",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "fixed",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "fontcolor",
+          "optional": false,
+          "type": "(color: string) => string"
+        },
+        {
+          "name": "fontsize",
+          "optional": false,
+          "type": "{ (size: number): string; (size: string): string; }"
+        },
+        {
+          "name": "italics",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "link",
+          "optional": false,
+          "type": "(url: string) => string"
+        },
+        {
+          "name": "small",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "strike",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "sub",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "sup",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "padStart",
+          "optional": false,
+          "type": "(maxLength: number, fillString?: string) => string"
+        },
+        {
+          "name": "padEnd",
+          "optional": false,
+          "type": "(maxLength: number, fillString?: string) => string"
+        },
+        {
+          "name": "trimEnd",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimStart",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimLeft",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "trimRight",
+          "optional": false,
+          "type": "() => string"
+        },
+        {
+          "name": "matchAll",
+          "optional": false,
+          "type": "(regexp: RegExp) => RegExpStringIterator<RegExpExecArray>"
+        },
+        {
+          "name": "replaceAll",
+          "optional": false,
+          "type": "{ (searchValue: string | RegExp, replaceValue: string): string; (searchValue: string | RegExp, replacer: (substring: string, ...args: any[]) => string): string; }"
+        },
+        {
+          "name": "at",
+          "optional": false,
+          "type": "(index: number) => string | undefined"
+        },
+        {
+          "name": "__@iterator@21491",
+          "optional": false,
+          "type": "() => StringIterator<string>"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/conversation-panel/src/components/FilterTabs/tests/FilterTabs.spec.tsx",
+      "assertions": [
+        "renders a tab for each filter",
+        "marks only the active tab as pressed",
+        "names the filter row so the group is announced",
+        "applies flex-1 by default so the tabs fill the row equally",
+        "applies the provided typography class to each tab",
+        "omits a tab listed in hiddenSources"
+      ]
+    },
+    {
+      "file": "libs/conversation-panel/src/components/ConversationRow/tests/ConversationRow.spec.tsx",
+      "assertions": [
+        "renders a skeleton when isIconLoading is true",
+        "skeleton has aria-hidden=\"true\"",
+        "skeleton is rendered with Circular variant at DIAL_ICON_SIZE.LG dimensions",
+        "renders DeploymentIcon when isIconLoading is false and iconUrl is set",
+        "renders DeploymentIcon when isIconLoading is omitted",
+        "renders DeploymentIcon fallback when isIconLoading is false and iconUrl is absent",
+        "exposes the action trigger when its menu opens",
+        "renders the task badge when showTaskBadge is true",
+        "does not render the task badge when showTaskBadge is omitted",
+        "does not render the task badge when showTaskBadge is false",
+        "marks the task badge icon as aria-hidden",
+        "clicking the task badge selects the conversation like any other row click",
+        "renders the unread dot with an accessible label when isUnread is true",
+        "does not render the unread dot when isUnread is omitted",
+        "does not render the unread dot when isUnread is false",
+        "uses a custom unreadIndicatorLabel when provided",
+        "clicking the row with an unread dot still selects the conversation",
+        "sets no radius utility on the row button"
+      ]
+    },
+    {
+      "file": "libs/conversation-panel/src/components/ImportExportQueue/tests/ImportExportQueue.spec.tsx",
+      "assertions": [
+        "renders nothing with an empty queue",
+        "is identified by its file name, with no title or breadcrumb",
+        "shows a named spinner for an in-progress job",
+        "renders no aggregate indicator \u2014 one spinner per in-progress row",
+        "explains a failed job and offers no retry",
+        "names a warned job on the icon, reachable without hovering",
+        "keeps a canceled row visible with its label and no spinner",
+        "dims the file name once a job is canceled",
+        "exposes no control on a settled row",
+        "is mounted and reachable without hovering",
+        "coexists with the spinner rather than replacing it",
+        "is not covered by the spinner it shares a cell with",
+        "renders the host-composed title verbatim",
+        "collapses the rows without hiding itself",
+        "shows the failed count only when a job has failed",
+        "closes immediately when every job succeeded",
+        "closes immediately when the only unfinished work was canceled",
+        "asks for confirmation while work is in progress",
+        "asks for confirmation while a failure is unacknowledged",
+        "uses the mixed description with both kinds present",
+        "leaves the queue open when the confirmation is dismissed",
+        "shows the mean of every job once collapsed",
+        "renders no bar while expanded",
+        "renders no bar once nothing is in progress",
+        "announces settled file counts rather than a percentage",
+        "never renders the percentage as visible text",
+        "closes 8 seconds after every job succeeds",
+        "does not close while a job is still in progress",
+        "does not close while a job has failed",
+        "does not close while a warned row is unread",
+        "does not close while a canceled row is unread",
+        "cancels the countdown when a new job starts",
+        "applies typed colors as CSS custom properties"
+      ]
+    },
+    {
+      "file": "libs/conversation-panel/src/components/ConversationPanel/tests/ConversationPanel.spec.tsx",
+      "assertions": [
+        "renders all conversation rows when open",
+        "shows empty label when conversations is empty",
+        "marks the active conversation with aria-current=\"page\"",
+        "calls onSelectConversation with the correct id",
+        "sets aria-hidden to true when isOpen is false",
+        "does not render backdrop when isOpen is false",
+        "calls onNewChat when the New chat button is clicked",
+        "renders the filter tabs by default",
+        "does not render the filter tabs when isFilterTabsHidden is true",
+        "still lists every conversation group when the filter tabs are hidden",
+        "puts isPinned items in Pinned group and others in My chats group",
+        "collapses a group when its header is clicked",
+        "renders headerActions in the panel header when provided",
+        "renders without error when headerActions is omitted",
+        "sets no radius utility on the search field by default",
+        "still forwards styles.searchWrapperClassName to the search field",
+        "drops conversations whose source is in hiddenSources from every group",
+        "omits the hidden source tab from the filter row",
+        "shows empty label when every conversation is hidden by hiddenSources",
+        "marks the new-chat button, and only it",
+        "marks the search region found by its role"
+      ]
+    },
+    {
+      "file": "libs/conversation-panel/src/components/RenameConversationPopup/tests/RenameConversationPopup.spec.tsx",
+      "assertions": [
+        "pre-fills the input with currentTitle",
+        "applies body class and CSS-variable overrides",
+        "Save button is disabled when value is unchanged",
+        "Save button is disabled when value is whitespace-only",
+        "replaces the fields and actions with a loader while isSaving is true",
+        "Save button is enabled when value differs from currentTitle",
+        "calls onSave with trimmed value on Save click",
+        "saves a valid changed value when Enter is pressed",
+        "strips trailing dots only when saving",
+        "preserves leading and internal dots and allowed special characters",
+        "calls onCancel on Cancel click",
+        "shows API error message when error prop is provided",
+        "Save button is disabled when title exceeds 255 UTF-8 bytes",
+        "shows byte-length validation error when title exceeds 255 UTF-8 bytes",
+        "byte-length error takes precedence over the error prop",
+        "does not render when isOpen is false",
+        "resets to the latest title and focuses the input every time it reopens",
+        "renders the AI rename button",
+        "calls onGenerateWithAi and populates the input with the returned name",
+        "shows a spinner and disables the AI button while generating",
+        "surfaces an error and leaves the input unchanged when generation fails",
+        "shows only the AI error when generation fails alongside an API error",
+        "a second generation attempt while one is in flight is ignored",
+        "ignores an AI result from a previous popup session",
+        "prohibited characters are stripped while typing",
+        "AI-generated name is sanitized before populating the input"
+      ]
+    },
+    {
+      "file": "libs/conversation-panel/src/utils/tests/drag.spec.ts",
+      "assertions": [
+        "maps Shared source to Shared group",
+        "maps Organization source to Organization group",
+        "maps MyChats source to MyChats group",
+        "maps undefined source to MyChats group",
+        "returns the group key of an item in Pinned",
+        "returns the group key of an item in MyChats",
+        "returns the group key of an item in Organization",
+        "returns null when the id is not found",
+        "always includes the drag source group (reorder within same group)",
+        "allows Pinned as a target when dragging from MyChats (pin action)",
+        "allows Pinned as a target when dragging from Organization (pin action)",
+        "does not allow Organization when dragging from MyChats",
+        "does not allow MyChats when dragging from Organization",
+        "allows unpin to MyChats when dragging a pinned MyChats item",
+        "allows unpin to Organization when dragging a pinned Organization item",
+        "always includes Pinned when dragging from Pinned (reorder within Pinned)",
+        "allows MyChats for pinned item with no source (defaults to MyChats)",
+        "returns empty set when draggingGroupKey is null",
+        "returns the item id when dropping on the bottom half (insert after)",
+        "returns the preceding item id when dropping on the top half (insert before)",
+        "returns null when dropping on the top half of the first item in a group",
+        "returns the correct preceding item for the last item in a group"
+      ]
+    },
+    {
+      "file": "libs/conversation-panel/src/utils/tests/conversation-row.spec.ts",
+      "assertions": [
+        "is 15",
+        "returns 60% for index 0",
+        "returns a percentage string for any index",
+        "returns values between 60% and 94%",
+        "produces different widths across rows to create visual variation",
+        "returns pe-3 when there are no actions",
+        "returns pe-9 when actions exist and the menu is open",
+        "reserves the trigger gutter on hover and on focus-within while idle",
+        "returns ITEM_ROW_HEIGHT for an item row at any index",
+        "returns FIRST_GROUP_HEADER_ROW_HEIGHT for a header at index 0",
+        "returns GROUP_HEADER_ROW_HEIGHT for a header at index > 0",
+        "FIRST_GROUP_HEADER_ROW_HEIGHT is smaller than GROUP_HEADER_ROW_HEIGHT (no top gap for first)"
+      ]
+    },
+    {
+      "file": "libs/conversation-panel/src/utils/tests/transfer-file.spec.ts",
+      "assertions": [
+        "returns the archive icon for a .dial name",
+        "returns the archive icon for a .zip name",
+        "returns the JSON icon for a .json name",
+        "matches the extension case-insensitively",
+        "falls back to the generic file icon for anything else",
+        "does not match an extension appearing mid-name"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "apps/chat/src/components/ConversationPanel/ConversationPanelView.tsx",
+      "matches": [
+        {
+          "start": 32,
+          "end": 42,
+          "excerpt": "import {\n  ConversationPanel,\n  ImportExportQueue,\n  RenameConversationPopup,\n  type ConversationItem,\n  type ConversationMove,\n  type ConversationPanelStyles,\n  type ImportExportQueueLabels,\n  type RenameConversationPopupLabels,\n} from '@epam/ai-dial-conversation-panel';\nimport {"
+        }
+      ]
+    }
+  ]
+}

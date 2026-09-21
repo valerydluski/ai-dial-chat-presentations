@@ -1,0 +1,515 @@
+{
+  "id": "libs/settings-panel",
+  "shortTitle": "Settings panel",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-settings-panel-01",
+      "title": "Settings panel",
+      "layout": "cover",
+      "subtitle": "Provide accessible vertical selection for settings pages.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-settings-panel",
+      "notes": "This session explains provide accessible vertical selection for settings pages. The library is a local private workspace package at libs/settings-panel. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/settings-panel/README.md",
+          "start": 1,
+          "end": 115
+        },
+        {
+          "file": "libs/settings-panel/src/index.ts",
+          "start": 1,
+          "end": 9
+        },
+        {
+          "file": "libs/settings-panel/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 34,
+          "end": 170,
+          "symbol": "SettingsPanel"
+        },
+        {
+          "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+          "start": 52,
+          "end": 65,
+          "symbol": "SettingsPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-settings-panel-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Provide accessible vertical selection for settings pages.",
+      "cards": [
+        {
+          "title": "Switch settings",
+          "body": "Render a compact navigation list beside host content."
+        },
+        {
+          "title": "Use a keyboard",
+          "body": "Move among enabled rows with arrows, Home and End."
+        },
+        {
+          "title": "Keep one selection",
+          "body": "The host controls activeId."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Switch settings: Render a compact navigation list beside host content. Use a keyboard: Move among enabled rows with arrows, Home and End. Keep one selection: The host controls activeId. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/settings-panel/README.md",
+          "start": 1,
+          "end": 115
+        },
+        {
+          "file": "libs/settings-panel/src/index.ts",
+          "start": 1,
+          "end": 9
+        },
+        {
+          "file": "libs/settings-panel/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 34,
+          "end": 170,
+          "symbol": "SettingsPanel"
+        },
+        {
+          "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+          "start": 52,
+          "end": 65,
+          "symbol": "SettingsPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-settings-panel-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host items",
+          "body": "Ids and labels"
+        },
+        {
+          "title": "SettingsPanel",
+          "body": "Roving focus"
+        },
+        {
+          "title": "onSelect",
+          "body": "Selected id"
+        },
+        {
+          "title": "Host content",
+          "body": "Show the matching tab"
+        }
+      ],
+      "takeaway": "Library: Vertical tab interactions, focus movement and selected styling.",
+      "notes": "The library owns Vertical tab interactions, focus movement and selected styling. The host owns Settings content, active state, item labels and navigation effects.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/settings-panel/README.md",
+          "start": 1,
+          "end": 115
+        },
+        {
+          "file": "libs/settings-panel/src/index.ts",
+          "start": 1,
+          "end": 9
+        },
+        {
+          "file": "libs/settings-panel/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 34,
+          "end": 170,
+          "symbol": "SettingsPanel"
+        },
+        {
+          "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+          "start": 52,
+          "end": 65,
+          "symbol": "SettingsPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-settings-panel-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "SettingsPanel \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "items",
+          "SettingsPanelItem[]"
+        ],
+        [
+          "activeId",
+          "string"
+        ],
+        [
+          "onSelect",
+          "(id: string) => void"
+        ],
+        [
+          "sectionLabel (optional)",
+          "string"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/settings-panel/README.md",
+          "start": 1,
+          "end": 115
+        },
+        {
+          "file": "libs/settings-panel/src/index.ts",
+          "start": 1,
+          "end": 9
+        },
+        {
+          "file": "libs/settings-panel/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 34,
+          "end": 170,
+          "symbol": "SettingsPanel"
+        },
+        {
+          "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+          "start": 52,
+          "end": 65,
+          "symbol": "SettingsPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-settings-panel-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "function SettingsDemo() {\n  const [activeId, setActiveId] = useState('usage');\n  return <SettingsPanel sectionLabel=\"Demo settings\" activeId={activeId}\n    onSelect={setActiveId} items={[\n      { id: 'usage', label: 'Usage' }, { id: 'profile', label: 'Profile' },\n    ]} />;\n}",
+      "caption": "Full example: examples/settings-panel.tsx \u00b7 uses @epam/ai-dial-settings-panel",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/settings-panel.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Render a compact navigation list beside host content. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/settings-panel/README.md",
+          "start": 1,
+          "end": 115
+        },
+        {
+          "file": "libs/settings-panel/src/index.ts",
+          "start": 1,
+          "end": 9
+        },
+        {
+          "file": "libs/settings-panel/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 34,
+          "end": 170,
+          "symbol": "SettingsPanel"
+        },
+        {
+          "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+          "start": 52,
+          "end": 65,
+          "symbol": "SettingsPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-settings-panel-10",
+      "title": "See controlled selection in the browser",
+      "layout": "image",
+      "kicker": "Reproducible demo \u00b7 actual workspace source components",
+      "image": "assets/component-demo.png",
+      "sideTitle": "Host-owned choice",
+      "body": "The host passes activeId and updates it through onSelect. Selecting Profile changes the highlighted row.",
+      "notes": "This is a real browser screenshot of the standalone demo in demo/main.tsx, captured by src/capture-demo.mjs. It renders SettingsPanel, UsageLimitCard and StagesPanel directly from the recorded source snapshot with local stylesheet dependencies. It is an illustrative host, not a screenshot of a deployed DIAL product. All data is synthetic and no backend request is made. Run the Vite command in examples/README.md, then the capture script. Expected behavior: Usage starts selected; selecting Profile updates the controlled active row. The amount and stage remain demo data. The host explicitly supplies dark-theme color overrides. Desktop and phone captures are retained under assets/.",
+      "sources": [
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 1,
+          "end": 170
+        },
+        {
+          "file": "libs/usage-dashboard/src/components/UsageLimitCard/UsageLimitCard.tsx",
+          "start": 1,
+          "end": 191
+        },
+        {
+          "file": "libs/conversation-stages/src/components/StagesPanel/StagesPanel.tsx",
+          "start": 1,
+          "end": 229
+        }
+      ]
+    },
+    {
+      "id": "lib-settings-panel-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep settings panel focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Choose the active item",
+          "body": "Map application state to the panel\u2019s activeId."
+        },
+        {
+          "title": "Handle selection",
+          "body": "onSelect returns the chosen item id to the host."
+        },
+        {
+          "title": "Show the chosen view",
+          "body": "The host renders the matching settings content beside it."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Choose the active item: Map application state to the panel\u2019s activeId. Handle selection: onSelect returns the chosen item id to the host. Show the chosen view: The host renders the matching settings content beside it. The complete typed module in examples/settings-panel.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/settings-panel/README.md",
+          "start": 1,
+          "end": 115
+        },
+        {
+          "file": "libs/settings-panel/src/index.ts",
+          "start": 1,
+          "end": 9
+        },
+        {
+          "file": "libs/settings-panel/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 34,
+          "end": 170,
+          "symbol": "SettingsPanel"
+        },
+        {
+          "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+          "start": 52,
+          "end": 65,
+          "symbol": "SettingsPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-settings-panel-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Disabled rows",
+          "body": "Keyboard navigation skips disabled items."
+        },
+        {
+          "title": "Automatic activation",
+          "body": "Focus movement also invokes selection."
+        },
+        {
+          "title": "Single item state",
+          "body": "One selected row uses a neutral visual treatment."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Disabled rows: Keyboard navigation skips disabled items. Automatic activation: Focus movement also invokes selection. Single item state: One selected row uses a neutral visual treatment. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/settings-panel/README.md",
+          "start": 1,
+          "end": 115
+        },
+        {
+          "file": "libs/settings-panel/src/index.ts",
+          "start": 1,
+          "end": 9
+        },
+        {
+          "file": "libs/settings-panel/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 34,
+          "end": 170,
+          "symbol": "SettingsPanel"
+        },
+        {
+          "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+          "start": 52,
+          "end": 65,
+          "symbol": "SettingsPanelProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-settings-panel-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat/pages/SettingsPage/SettingsPage.tsx"
+        ],
+        [
+          "Test evidence",
+          "renders one tab per item"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: apps/chat/src/pages/SettingsPage/SettingsPage.tsx; apps/chat/src/hooks/useSettingsTabConfig.tsx. Existing test evidence: [{\"file\": \"libs/settings-panel/src/components/SettingsPanel/tests/SettingsPanel.spec.tsx\", \"assertions\": [\"SettingsPanel\", \"renders one tab per item\", \"marks the active item as selected\", \"calls onSelect when an enabled, inactive row is clicked\", \"does not call onSelect when a disabled row is clicked\", \"only the active row is in the tab order\", \"ArrowDown skips a disabled row\", \"ArrowDown wraps from the last enabled row to the first\", \"ArrowUp skips a disabled row and wraps at the start\", \"Home jumps to the first enabled row\", \"End jumps to the last enabled row\", \"renders the section label when provided\", \"renders no section label by default\", \"applies a custom row focus outline color\", \"SettingsPanel \\u2014 public class names\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-settings-panel:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/settings-panel/README.md",
+          "start": 1,
+          "end": 115
+        },
+        {
+          "file": "libs/settings-panel/src/index.ts",
+          "start": 1,
+          "end": 9
+        },
+        {
+          "file": "libs/settings-panel/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 34,
+          "end": 170,
+          "symbol": "SettingsPanel"
+        },
+        {
+          "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+          "start": 52,
+          "end": 65,
+          "symbol": "SettingsPanelProps"
+        },
+        {
+          "file": "apps/chat/src/pages/SettingsPage/SettingsPage.tsx",
+          "start": 1,
+          "end": 35
+        },
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/tests/SettingsPanel.spec.tsx",
+          "start": 1,
+          "end": 225
+        }
+      ]
+    },
+    {
+      "id": "lib-settings-panel-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Panel content is external",
+          "body": "Selection does not create or load a settings page."
+        },
+        {
+          "title": "Keep ids coherent",
+          "body": "activeId must correspond to the intended item."
+        },
+        {
+          "title": "No route knowledge",
+          "body": "A route change is the host onSelect implementation."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Panel content is external: Selection does not create or load a settings page. Keep ids coherent: activeId must correspond to the intended item. No route knowledge: A route change is the host onSelect implementation. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/settings-panel/README.md",
+          "start": 1,
+          "end": 115
+        },
+        {
+          "file": "libs/settings-panel/src/index.ts",
+          "start": 1,
+          "end": 9
+        },
+        {
+          "file": "libs/settings-panel/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/settings-panel/src/components/SettingsPanel/SettingsPanel.tsx",
+          "start": 34,
+          "end": 170,
+          "symbol": "SettingsPanel"
+        },
+        {
+          "file": "libs/settings-panel/src/models/settings-panel-props.ts",
+          "start": 52,
+          "end": 65,
+          "symbol": "SettingsPanelProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/settings-panel.pptx"
+}

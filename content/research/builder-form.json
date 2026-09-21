@@ -1,0 +1,2186 @@
+{
+  "project": {
+    "id": "libs/builder-form",
+    "project": "@epam/ai-dial-builder-form",
+    "path": "libs/builder-form",
+    "package": "@epam/ai-dial-builder-form",
+    "purpose": "Research in progress",
+    "sources": [
+      "libs/builder-form/README.md",
+      "libs/builder-form/package.json",
+      "libs/builder-form/src/index.ts",
+      "libs/builder-form/src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx",
+      "libs/builder-form/src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx",
+      "libs/builder-form/src/components/EditorSection/tests/EditorSection.classes.spec.tsx",
+      "libs/builder-form/src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx",
+      "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+      "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+      "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+      "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx"
+    ],
+    "output": "decks/libs/builder-form.pptx",
+    "preview": "previews/libs/builder-form",
+    "status": "inventoried",
+    "targets": [
+      "typecheck",
+      "lint",
+      "build",
+      "serve",
+      "dev",
+      "preview",
+      "serve-static",
+      "build-deps",
+      "watch-deps",
+      "test",
+      "test-ci--src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx",
+      "test-ci--src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx",
+      "test-ci--src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx",
+      "test-ci--src/components/EditorSection/tests/EditorSection.classes.spec.tsx",
+      "test-ci--src/utils/validate-deployment-creation-fields.spec.ts",
+      "test-ci",
+      "publish"
+    ],
+    "dependencies": [
+      {
+        "source": "@epam/ai-dial-builder-form",
+        "target": "@epam/ai-dial-chat-shared",
+        "type": "static"
+      }
+    ]
+  },
+  "package": {
+    "name": "@epam/ai-dial-builder-form",
+    "description": "Presentational builder form shells, editor layouts, and shared deployment field sets for composing and editing DIAL entities",
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "private": true,
+    "type": "module",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      "./package.json": "./package.json",
+      "./styles.css": "./dist/index.css",
+      ".": {
+        "@epam/source": "./src/index.ts",
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      }
+    },
+    "dependencies": {
+      "@tabler/icons-react": "^3.44.0"
+    },
+    "peerDependencies": {
+      "@epam/ai-dial-chat-shared": "*",
+      "@epam/ai-dial-ui-kit": "^0.15.0-dev.9",
+      "react": "^19.2.8"
+    },
+    "nx": {
+      "tags": [
+        "publishable"
+      ],
+      "targets": {
+        "publish": {
+          "command": "node tools/publish-lib.mjs {projectName} --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        }
+      }
+    }
+  },
+  "nx": {
+    "root": "libs/builder-form",
+    "targets": {
+      "typecheck": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          "{workspaceRoot}/tsconfig.base.json",
+          {
+            "dependentTasksOutputFiles": "**/*.{d.ts,d.cts,d.mts,tsbuildinfo}",
+            "transitive": true
+          },
+          {
+            "externalDependencies": [
+              "typescript"
+            ]
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "typescript",
+            "typescript"
+          ],
+          "description": "Runs type-checking for the project.",
+          "help": {
+            "command": "npx tsc --build --help",
+            "example": {
+              "args": [
+                "--force"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          "^typecheck"
+        ],
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "outputs": [
+          "{projectRoot}/out-tsc/**"
+        ],
+        "options": {
+          "cwd": "libs/builder-form",
+          "command": "tsc --build --emitDeclarationOnly"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "lint": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^default",
+          "{workspaceRoot}/eslint.config.mjs",
+          "{workspaceRoot}/libs/builder-form/eslint.config.mjs",
+          "{workspaceRoot}/tools/eslint-rules/**/*",
+          {
+            "externalDependencies": [
+              "eslint"
+            ]
+          }
+        ],
+        "outputs": [
+          "{options.outputFile}"
+        ],
+        "metadata": {
+          "technologies": [
+            "eslint"
+          ],
+          "description": "Runs ESLint on project",
+          "help": {
+            "command": "npx eslint --help",
+            "example": {
+              "options": {
+                "max-warnings": 0
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/builder-form",
+          "command": "eslint ."
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build": {
+        "cache": true,
+        "dependsOn": [
+          "^build",
+          "^typecheck"
+        ],
+        "inputs": [
+          "production",
+          "^production",
+          {
+            "externalDependencies": [
+              "vite"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/dist"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Run Vite build",
+          "help": {
+            "command": "npx vite build --help",
+            "example": {
+              "options": {
+                "sourcemap": true,
+                "manifest": "manifest.json"
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/builder-form",
+          "command": "vite build"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          },
+          "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/builder-form",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "dev": {
+        "continuous": true,
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Starts Vite dev server",
+          "help": {
+            "command": "npx vite --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/builder-form",
+          "command": "vite"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "preview": {
+        "continuous": true,
+        "dependsOn": [
+          "build"
+        ],
+        "metadata": {
+          "technologies": [
+            "vite"
+          ],
+          "description": "Locally preview Vite production build",
+          "help": {
+            "command": "npx vite preview --help",
+            "example": {
+              "options": {
+                "port": 3000
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/builder-form",
+          "command": "vite preview"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "serve-static": {
+        "continuous": true,
+        "executor": "@nx/web:file-server",
+        "syncGenerators": [
+          "@nx/js:typescript-sync"
+        ],
+        "options": {
+          "buildTarget": "build",
+          "spa": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "build-deps": {
+        "dependsOn": [
+          "^build"
+        ],
+        "configurations": {},
+        "options": {},
+        "parallelism": true,
+        "executor": "nx:noop"
+      },
+      "watch-deps": {
+        "continuous": true,
+        "dependsOn": [
+          "build-deps"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "npx nx watch --projects @epam/ai-dial-builder-form --includeDependencies -- npx nx build-deps @epam/ai-dial-builder-form"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "dependsOn": [],
+        "options": {
+          "cwd": "libs/builder-form",
+          "command": "vitest",
+          "passWithNoTests": true
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/builder-form",
+          "command": "vitest run src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/builder-form",
+          "command": "vitest run src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/builder-form",
+          "command": "vitest run src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/components/EditorSection/tests/EditorSection.classes.spec.tsx": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/EditorSection/tests/EditorSection.classes.spec.tsx"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/components/EditorSection/tests/EditorSection.classes.spec.tsx",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/builder-form",
+          "command": "vitest run src/components/EditorSection/tests/EditorSection.classes.spec.tsx --coverage.reportsDirectory=test-output/vitest/coverage/src/components/EditorSection/tests/EditorSection.classes.spec.tsx"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci--src/utils/validate-deployment-creation-fields.spec.ts": {
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/utils/validate-deployment-creation-fields.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/utils/validate-deployment-creation-fields.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "executor": "nx:run-commands",
+        "options": {
+          "cwd": "libs/builder-form",
+          "command": "vitest run src/utils/validate-deployment-creation-fields.spec.ts --coverage.reportsDirectory=test-output/vitest/coverage/src/utils/validate-deployment-creation-fields.spec.ts"
+        },
+        "configurations": {},
+        "parallelism": true
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "fileset": "{projectRoot}/tsconfig.spec.json",
+            "dependencies": true
+          },
+          {
+            "fileset": "{projectRoot}/tsconfig.storybook.json",
+            "dependencies": true
+          },
+          {
+            "json": "{workspaceRoot}/tsconfig.json",
+            "fields": [
+              "compilerOptions"
+            ]
+          },
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          },
+          {
+            "dependentTasksOutputFiles": "**/*.js",
+            "transitive": true
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/vitest/coverage/src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/components/EditorSection/tests/EditorSection.classes.spec.tsx",
+          "{projectRoot}/test-output/vitest/coverage/src/utils/validate-deployment-creation-fields.spec.ts"
+        ],
+        "dependsOn": [
+          "test-ci--src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx",
+          "test-ci--src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx",
+          "test-ci--src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx",
+          "test-ci--src/components/EditorSection/tests/EditorSection.classes.spec.tsx",
+          "test-ci--src/utils/validate-deployment-creation-fields.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        },
+        "configurations": {},
+        "options": {},
+        "parallelism": true
+      },
+      "publish": {
+        "dependsOn": [
+          "build"
+        ],
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "node tools/publish-lib.mjs @epam/ai-dial-builder-form --version={args.ver} --dry={args.dry} --tag={args.tag} --development={args.development}"
+        },
+        "configurations": {},
+        "parallelism": true
+      }
+    },
+    "projectType": "library",
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx",
+          "test-ci--src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx",
+          "test-ci--src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx",
+          "test-ci--src/components/EditorSection/tests/EditorSection.classes.spec.tsx",
+          "test-ci--src/utils/validate-deployment-creation-fields.spec.ts"
+        ]
+      },
+      "description": "Presentational builder form shells, editor layouts, and shared deployment field sets for composing and editing DIAL entities",
+      "js": {
+        "packageName": "@epam/ai-dial-builder-form",
+        "packageVersion": "0.0.1",
+        "packageExports": {
+          "./package.json": "./package.json",
+          "./styles.css": "./dist/index.css",
+          ".": {
+            "@epam/source": "./src/index.ts",
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "default": "./dist/index.js"
+          }
+        },
+        "packageMain": "./dist/index.js",
+        "isInPackageManagerWorkspaces": true
+      }
+    },
+    "name": "@epam/ai-dial-builder-form",
+    "tags": [
+      "npm:private",
+      "publishable"
+    ],
+    "implicitDependencies": []
+  },
+  "files": [
+    "libs/builder-form/src/index.ts",
+    "libs/builder-form/src/vite-env.d.ts",
+    "libs/builder-form/src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx",
+    "libs/builder-form/src/components/DeploymentCreationForm/DeploymentCreationForm.tsx",
+    "libs/builder-form/src/components/EditorLayout/EditorLayout.module.scss",
+    "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+    "libs/builder-form/src/components/BuilderFormContainer/BuilderFormContainer.module.scss",
+    "libs/builder-form/src/components/BuilderFormContainer/BuilderFormContainer.tsx",
+    "libs/builder-form/src/components/AddAvatar/AddAvatar.tsx",
+    "libs/builder-form/src/components/AddAvatar/AddAvatar.module.scss",
+    "libs/builder-form/src/components/BuilderFormBody/BuilderFormBody.tsx",
+    "libs/builder-form/src/components/AvatarPickerModal/AvatarPickerModal.tsx",
+    "libs/builder-form/src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx",
+    "libs/builder-form/src/components/EditorSection/tests/EditorSection.classes.spec.tsx",
+    "libs/builder-form/src/components/EditorSection/EditorSection.tsx",
+    "libs/builder-form/src/components/EditorSection/EditorSection.module.scss",
+    "libs/builder-form/src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx",
+    "libs/builder-form/src/components/DeploymentLocalesField/DeploymentLocalesField.tsx",
+    "libs/builder-form/src/components/BuilderFormActions/BuilderFormActions.tsx",
+    "libs/builder-form/src/components/BuilderFormHeader/BuilderFormHeader.tsx",
+    "libs/builder-form/src/components/BuilderFormHeader/BuilderFormHeader.module.scss",
+    "libs/builder-form/src/test-setup.ts",
+    "libs/builder-form/src/models/add-avatar-props.ts",
+    "libs/builder-form/src/models/builder-form-header-props.ts",
+    "libs/builder-form/src/models/deployment-creation-form.ts",
+    "libs/builder-form/src/models/builder-form-actions-props.ts",
+    "libs/builder-form/src/models/avatar-picker-modal.ts",
+    "libs/builder-form/src/models/builder-form-body-props.ts",
+    "libs/builder-form/src/models/builder-form-container-props.ts",
+    "libs/builder-form/src/models/editor-layout-props.ts",
+    "libs/builder-form/src/models/editor-section-props.ts",
+    "libs/builder-form/src/models/validation.ts",
+    "libs/builder-form/src/utils/validate-deployment-creation-fields.spec.ts",
+    "libs/builder-form/src/utils/validate-deployment-creation-fields.ts",
+    "libs/builder-form/src/constants/public-class-names.ts",
+    "libs/builder-form/tsconfig.spec.json",
+    "libs/builder-form/eslint.config.mjs",
+    "libs/builder-form/postcss.config.js",
+    "libs/builder-form/tsconfig.lib.json",
+    "libs/builder-form/tsconfig.json",
+    "libs/builder-form/package.json",
+    "libs/builder-form/vite.config.mts",
+    "libs/builder-form/README.md",
+    "libs/builder-form/tailwind.config.js"
+  ],
+  "tests": [
+    "libs/builder-form/src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx",
+    "libs/builder-form/src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx",
+    "libs/builder-form/src/components/EditorSection/tests/EditorSection.classes.spec.tsx",
+    "libs/builder-form/src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx",
+    "libs/builder-form/src/utils/validate-deployment-creation-fields.spec.ts",
+    "libs/builder-form/tsconfig.spec.json"
+  ],
+  "consumers": [
+    "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+    "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+    "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+    "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+    "libs/toolset-editor/src/components/GeneralForm/GeneralForm.tsx",
+    "libs/toolset-editor/src/components/GeneralForm/tests/GeneralForm.spec.tsx",
+    "libs/toolset-editor/src/components/ToolsetEditor/tests/ToolsetEditor.spec.tsx",
+    "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+    "libs/toolset-editor/src/models/toolset-editor-props.ts",
+    "libs/toolset-editor/src/models/general-form-props.ts",
+    "libs/toolset-editor/src/models/toolset-form.ts",
+    "libs/toolset-editor/src/utils/toolsets.ts",
+    "libs/scheduled-tasks/src/components/ScheduledTaskCreateForm/ScheduledTaskCreateForm.tsx",
+    "libs/chat-hooks/src/shared/tests/locale.spec.ts",
+    "libs/chat-hooks/src/shared/locale.ts",
+    "apps/chat/src/pages/AppsEditor/GeneralForm.tsx",
+    "apps/chat/src/utils/locale.ts",
+    "apps/chat/src/pages/AppsEditor/tests/GeneralForm.spec.tsx",
+    "apps/chat/src/pages/PromptEditor/tests/PromptEditor.spec.tsx",
+    "apps/chat/src/pages/ToolsetEditor/CustomAppEditor.tsx"
+  ],
+  "readme": "# @epam/ai-dial-builder-form\n\n## Overview\n\nPresentational building blocks shared by DIAL's builder/editor form pages \u2014 the surfaces where a user composes or edits an entity (a scheduled task, a deployment, a toolset, a prompt, a skill) through a titled page with a back control and save/cancel actions. The package provides:\n\n- `BuilderFormContainer` \u2014 a full-height scrollable form page shell with a header and a three-column body;\n- `EditorLayout` and `EditorSection` \u2014 a two-column editor shell with a header row and a bordered card wrapper for named field groups;\n- `AddAvatar` and `AvatarPickerModal` \u2014 the avatar preview control and the host-wired file-manager modal behind it;\n- `DeploymentCreationForm`, `DeploymentLocalesField`, and `validateDeploymentCreationFields` \u2014 the shared General-step field set (avatar, name, description, version, topics, per-locale translations) and its validation.\n\nExtracting these blocks keeps every builder page visually identical and lets a single fix reach all of them. Quick Apps, Toolsets, and other deployment kinds all open with the same first step \u2014 identify the thing being created \u2014 so the field order, validation rules, and the \"Add locale\" popup are owned once instead of drifting apart between editors.\n\nLike every other lib in this workspace, it owns markup, layout, and interaction only: all user-visible strings, values, disabled states, and callbacks are supplied by the consuming app or lib through props. It holds no state of its own and has no knowledge of routing, i18n, feature flags, storage, or any backend API. Validation is split the same way \u2014 `validateDeploymentCreationFields` returns untranslated `DeploymentCreationFieldErrorCode` values, and the host maps those codes to messages in its own locale.\n\nUse it when building a form page shell or a shared editor field set: wire up i18n, data fetching, and form state at the app level, then render these components with the resolved strings and handlers.\n\n## Installation\n\n```json\n{\n  \"dependencies\": {\n    \"@epam/ai-dial-builder-form\": \"*\"\n  }\n}\n```\n\nImport the stylesheet once in the consuming app:\n\n```ts\nimport '@epam/ai-dial-builder-form/styles.css';\n```\n\n## Peer Dependencies\n\n- `react` `^19.2.8`\n- `@epam/ai-dial-chat-shared` `*`\n- `@epam/ai-dial-ui-kit` `^0.15.0-dev.9`\n\n## Components\n\n### BuilderFormContainer\n\nThe whole builder form page shell \u2014 full height, scrollable, with the page background applied.\n\nIt renders the header itself: a back control, the title, and a cancel/submit action pair, where submit is the primary action and both actions disable independently (e.g. submit disabled while required fields are empty, cancel disabled while a submission is in flight). Header styling is forwarded through `styles.header`.\n\nThe action pair is placed per breakpoint: in the header at the desktop breakpoint, and in a sticky footer pinned over the bottom of the scrolling form at mobile widths, so it stays thumb-reachable while the form scrolls. Both copies render the same actions from the same props \u2014 exactly one is visible (and in the tab order) at any width. The footer paints the page background and an elevation shadow (`--shadow-xs-1`/`--shadow-xs-2`) so scrolled content never shows through it, and its two actions split the row equally. At mobile the header row \u2014 back control and title \u2014 reads as the first row of the form rather than a page bar: its divider is drawn above the row (under the app shell's floating header) instead of below it.\n\n`isSubmitDisabled` covers both \"not ready yet\" and \"already submitting\", so it cannot on its own tell a user which of the two is happening. `isSubmitting` supplies the difference: it puts a spinner in the submit button, sets `aria-busy` on it, and announces `labels.submittingLabel` (default `'Submitting'`) through the header's `role=\"status\"` region. The button's accessible name stays `labels.submitButtonLabel` throughout \u2014 the spinner is `aria-hidden`. Set both flags while a submit is in flight.\n\nBelow the header it lays out a three-column body: `left`, the main column (`children`), and `metadata`. Side columns are full width on mobile and a fixed 360px on desktop, with the main column taking the rest. Supplying `left` without `metadata` reserves an empty end column of the same width, so the main column stays optically centered. Column content carries its own padding, borders, and `flex-1` \u2014 the container supplies only the column widths and the row/stack direction.\n\nThe `styles.cssVars` escape hatch sets arbitrary CSS custom properties on the root, so vars read anywhere inside the form cascade from one place.\n\n```tsx\nimport { BuilderFormContainer } from '@epam/ai-dial-builder-form';\n\n<BuilderFormContainer\n  labels={{\n    title: 'New task',\n    backButtonLabel: 'Back',\n    cancelButtonLabel: 'Cancel',\n    submitButtonLabel: 'Save',\n    submittingLabel: 'Saving',\n  }}\n  onBack={() => {}}\n  onCancel={() => {}}\n  onSubmit={() => {}}\n  isCancelDisabled={isSubmitting}\n  isSubmitDisabled={!isValid || isSubmitting}\n  isSubmitting={isSubmitting}\n  styles={{\n    colors: { background: 'var(--bg-layer-2)' },\n    header: { typography: { fontClassName: 'dial-h1-text' } },\n    cssVars,\n  }}\n  left={<section className=\"flex flex-1 flex-col px-8 py-6\">{fields}</section>}\n  metadata={<aside className=\"flex flex-1 flex-col px-8 py-6\">{summary}</aside>}\n>\n  <section className=\"flex flex-1 flex-col px-8 py-6\">{editor}</section>\n</BuilderFormContainer>;\n```\n\n`BuilderFormContainer`'s header is configured through `labels` (typed `BuilderFormHeaderLabels`) and styled through `styles.header` (typed `BuilderFormHeaderStyles`, holding `BuilderFormHeaderColors` and `BuilderFormHeaderTypography`). All four are exported for consumers building those objects. The header and body components themselves are internal to the container.\n\n### EditorLayout\n\nFull-height editor shell with a header and a responsive two-column body. On desktop, `actions` render at the end of the header row. On mobile/tablet, `actions` instead render in a bordered bar pinned to the bottom of the page, outside the scrollable body, so they never overlap `leftContent`/`rightContent`; each button grows to share the bar's width equally, and the primary action (the last child, e.g. Save/Create) is placed on the inline-start side with Cancel on the inline-end side \u2014 the reverse of the header's order.\n\n```tsx\nimport { EditorLayout } from '@epam/ai-dial-builder-form';\nimport { GhostButton, PrimaryButton } from '@epam/ai-dial-ui-kit';\n\n<EditorLayout\n  title=\"New Toolset\"\n  onBack={handleBack}\n  backAriaLabel=\"Back to toolsets\"\n  actions={\n    <>\n      <GhostButton label=\"Cancel\" onClick={handleCancel} />\n      <PrimaryButton label=\"Save\" onClick={handleSave} />\n    </>\n  }\n  isSaving={isSubmitting}\n  labels={{ savingStatusLabel: 'Saving' }}\n  leftContent={<MetadataSection />}\n  rightContent={<SetupSection />}\n/>;\n```\n\n**Props**\n\n| Prop            | Type                 | Required | Default  | Description                                                                                                      |\n| --------------- | -------------------- | -------- | -------- | ---------------------------------------------------------------------------------------------------------------- |\n| `title`         | `string`             | \u2713        | \u2014        | Heading text rendered as `<h1>` in the header row.                                                               |\n| `onBack`        | `() => void`         | \u2713        | \u2014        | Called when the back-arrow button is clicked.                                                                    |\n| `backAriaLabel` | `string`             |          | `'Back'` | Accessible label for the back-arrow button.                                                                      |\n| `actions`       | `ReactNode`          |          | \u2014        | Cancel + Save buttons. Rendered inline-end in the header on desktop, or in a pinned bottom bar on mobile/tablet. |\n| `leftContent`   | `ReactNode`          |          | \u2014        | Left column (Metadata).                                                                                          |\n| `rightContent`  | `ReactNode`          |          | \u2014        | Right column (Setup). When absent, left content fills full width.                                                |\n| `isSaving`      | `boolean`            |          | `false`  | When `true`, announces `savingStatusLabel` via `aria-live`.                                                      |\n| `labels`        | `EditorLayoutLabels` |          | \u2014        | Text overrides with English defaults.                                                                            |\n| `styles`        | `EditorLayoutStyles` |          | \u2014        | CSS custom property overrides.                                                                                   |\n| `dir`           | `'ltr' \\| 'rtl'`     |          | \u2014        | Explicit direction override forwarded to the root element.                                                       |\n\nWhen `rightContent` is omitted, `leftContent` expands to full width at all viewport sizes.\n\n### EditorSection\n\nBordered card wrapper for a named group of form fields.\n\n```tsx\nimport { EditorSection } from '@epam/ai-dial-builder-form';\n\n<EditorSection title=\"Metadata\">\n  <NameField />\n  <DescriptionField />\n</EditorSection>;\n```\n\n**Props**\n\n| Prop        | Type                  | Required | Default | Description                                       |\n| ----------- | --------------------- | -------- | ------- | ------------------------------------------------- |\n| `title`     | `string`              |          | \u2014       | Optional heading rendered above the section body. |\n| `children`  | `ReactNode`           |          | \u2014       | Section body content.                             |\n| `styles`    | `EditorSectionStyles` |          | \u2014       | CSS custom property overrides.                    |\n| `className` | `string`              |          | \u2014       | Additional CSS class applied to the root element. |\n\n### AddAvatar\n\nAvatar preview box with an \"Add avatar\" button and a format/size caption. Opening a file picker and validating the chosen file (type, size) is the host's responsibility \u2014 this component only renders the current state and reports clicks.\n\n```tsx\nimport { AddAvatar } from '@epam/ai-dial-builder-form';\n\n<AddAvatar\n  label=\"Avatar\"\n  avatarUrl={iconUrl}\n  addAvatarLabel=\"Add avatar\"\n  captionText=\"PNG, JPG or SVG (max 1 MB)\"\n  onAddAvatarClick={handleOpenAvatarPicker}\n/>;\n```\n\n**Props**\n\n| Prop               | Type              | Required | Default                        | Description                                                                                                                                     |\n| ------------------ | ----------------- | -------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |\n| `label`            | `string`          | \u2713        | \u2014                              | Field label rendered above the preview box and button.                                                                                          |\n| `avatarUrl`        | `string`          |          | \u2014                              | URL of the currently selected avatar image. When set, it fills the 64x64 preview box instead of the placeholder icon.                           |\n| `avatarAlt`        | `string`          |          | `''`                           | Alt text for the avatar image.                                                                                                                  |\n| `addAvatarLabel`   | `string`          |          | `'Add avatar'`                 | Label for the \"Add avatar\" button.                                                                                                              |\n| `captionText`      | `string`          |          | `'PNG, JPG or SVG (max 1 MB)'` | Caption describing the accepted formats and max size.                                                                                           |\n| `onAddAvatarClick` | `() => void`      | \u2713        | \u2014                              | Called when the \"Add avatar\" button is clicked. The host opens its own file picker/manager and passes the resulting URL back in as `avatarUrl`. |\n| `styles`           | `AddAvatarStyles` |          | \u2014                              | CSS custom property overrides.                                                                                                                  |\n| `className`        | `string`          |          | \u2014                              | Additional CSS class applied to the root element.                                                                                               |\n\n### AvatarPickerModal\n\nThe host-side counterpart to `DeploymentCreationForm`'s `onAddAvatarClick`: a file manager modal restricted to a single image, for picking an entity's avatar. It never talks to a backend, a specific file-manager implementation, or a storage identifier itself \u2014 `FileManagerModal` is the host's own DIAL file manager modal component (rendered for the actual browsing/upload UI), `bucket` comes from the host's user/session, `onAttach` is where the host resolves the picked file to a DIAL resource URL (and closes the modal), and every string is pre-translated through `labels`.\n\n```tsx\nimport { AvatarPickerModal } from '@epam/ai-dial-builder-form';\n\n<AvatarPickerModal\n  isOpen={isAvatarPickerOpen}\n  onAttach={(result) => {\n    const [file] = result.files;\n    const attachment = file\n      ? dialFileToAttachment(file, bucket, {\n          resolvePreviewUrl: resolveCatalogIconUrl,\n        })\n      : null;\n    if (attachment?.url) handleChange({ iconUrl: attachment.url });\n    setIsAvatarPickerOpen(false);\n  }}\n  onClose={() => setIsAvatarPickerOpen(false)}\n  bucket={bucket}\n  FileManagerModal={DialFileManagerModal}\n  allowedMimeTypes={AVATAR_ALLOWED_MIME_TYPES}\n  maxFileSizeBytes={AVATAR_MAX_FILE_SIZE_BYTES}\n  labels={{\n    title: 'Add avatar',\n    attachLabel: 'Attach',\n    emptyTitle: 'No files',\n    emptyDescription: '',\n    errorMessage: 'Something went wrong',\n    retryLabel: 'Retry',\n    hiddenFilesLabel: 'Hidden files',\n    showHiddenFilesLabel: 'Show hidden files',\n    hideHiddenFilesLabel: 'Hide hidden files',\n    getSelectionLabel: (count) => `${count} selected`,\n    uploadFilesLabel: 'Upload',\n    newFolderLabel: 'New folder',\n    downloadLabel: 'Download',\n    downloadingLabel: 'Downloading',\n    deleteLabel: 'Delete',\n    deletingLabel: 'Deleting',\n    deleteConfirmTitleSingle: 'Delete file?',\n    deleteConfirmTitleMultiple: 'Delete files?',\n    deleteConfirmSingleText: 'Are you sure you want to delete',\n    deleteConfirmMultipleText: 'Are you sure you want to delete',\n    deleteConfirmItemsLabel: 'items?',\n    deleteConfirmLabel: 'Delete',\n    deleteCancelLabel: 'Cancel',\n    uploadProgressTitle: 'Uploading',\n    cancelLabel: 'Cancel',\n  }}\n/>;\n```\n\n### DeploymentCreationForm\n\nRenders the whole shared General-step field set. `values`, `errors`, `onChange`, `onAddAvatarClick`, and `labels` are required. The avatar field never opens a file picker itself \u2014 `onAddAvatarClick` is the host's hook to open its own file manager/upload flow, and the host reports the result back through `onChange({ iconUrl })`. `iconPreviewUrl` is the URL to actually render in the preview box; the host resolves it from `values.iconUrl` (which may be a DIAL file id rather than a directly displayable URL). Supplying `labels.ariaLabel` wraps the root in a named `role=\"group\"`, so the field set is discoverable as one region inside a larger host form.\n\n```tsx\nimport { DeploymentCreationForm } from '@epam/ai-dial-builder-form';\n\n<DeploymentCreationForm\n  values={values}\n  errors={errors}\n  onChange={(patch) => setValues((prev) => ({ ...prev, ...patch }))}\n  onNameBlur={handleNameBlur}\n  onVersionBlur={handleVersionBlur}\n  iconPreviewUrl={resolveIconPreviewUrl(values.iconUrl)}\n  onAddAvatarClick={openAvatarPicker}\n  availableLocaleOptions={localeOptions}\n  labels={{\n    name: { label: 'Name', placeholder: 'Enter a name' },\n    description: { label: 'Description' },\n    iconUrl: {\n      label: 'Avatar',\n      addAvatarLabel: 'Add avatar',\n      captionText: 'PNG, JPG or SVG (max 1 MB)',\n    },\n    version: { label: 'Version', placeholder: '1.0.0' },\n    topics: { label: 'Topics' },\n    otherLocales: {\n      summaryLabel: 'Locales',\n      addLabel: 'Add locales',\n      editLabel: 'Edit locales',\n      popupTitle: 'Add locale',\n      addLocaleLabel: 'Add locale',\n      languageLabel: 'Language',\n      nameLabel: 'Name',\n      descriptionLabel: 'Description',\n      deleteAriaLabel: 'Remove locale',\n    },\n    ariaLabel: 'General',\n  }}\n/>;\n```\n\n### DeploymentLocalesField\n\nThe additional-locales summary row plus its editing popup, usable on its own when a host needs the locale editor without the surrounding fields. `value`, `onChange`, and `labels` are required; `onChange` receives the full updated list when the user saves.\n\n`availableLocaleOptions` drives whether the control exists at all: with an empty list (its default) the component renders `null` \u2014 no summary, no \"Add locales\" link. Every row needs a language and a name before Save enables, so a popup with nothing to pick from could never be satisfied. `value` is left untouched when the control hides, so locales already stored on the deployment survive.\n\n```tsx\nimport { DeploymentLocalesField } from '@epam/ai-dial-builder-form';\n\n<DeploymentLocalesField\n  value={values.otherLocales}\n  onChange={handleLocalesChange}\n  availableLocaleOptions={localeOptions}\n  labels={localeLabels}\n/>;\n```\n\n## Utilities\n\n### validateDeploymentCreationFields\n\nPure validation returning untranslated error codes. Pattern checks are opt-in, because the allowed character set differs by deployment kind.\n\n```tsx\nimport {\n  validateDeploymentCreationFields,\n  DeploymentCreationFieldErrorCode,\n  NAME_PATTERN,\n  VERSION_PATTERN,\n  SEMVER_VERSION_PATTERN,\n} from '@epam/ai-dial-builder-form';\n\nconst codes = validateDeploymentCreationFields(values, {\n  validateNamePattern: true,\n  validateVersionPattern: true, // or: SEMVER_VERSION_PATTERN for a stricter check\n});\n\nconst errors = {\n  name:\n    codes.name === DeploymentCreationFieldErrorCode.Required\n      ? t(AppsEditorI18nKeys.NameRequired)\n      : undefined,\n};\n```\n\n`NAME_PATTERN` allows letters, digits, spaces, underscores, dots, and dashes;\n`VERSION_PATTERN` (the default when `validateVersionPattern: true`) allows\nletters, digits, dots, underscores, and dashes. Pass a `RegExp` instead of\n`true` \u2014 e.g. `SEMVER_VERSION_PATTERN`, which requires one or more\ndot-separated numeric segments (`0.0.1`, `2.0`) \u2014 for a host that needs a\nstricter version format. All three are exported so a host can pre-filter\ninput with the same rule the validator applies.\n\n## Enums\n\n```tsx\nimport { DeploymentCreationFieldErrorCode } from '@epam/ai-dial-builder-form';\n\nDeploymentCreationFieldErrorCode.Required; // field left empty\nDeploymentCreationFieldErrorCode.InvalidFormat; // value fails its pattern\nDeploymentCreationFieldErrorCode.TooLong; // value exceeds its maximum length\n```\n\n## Types\n\n```tsx\nimport type {\n  AvatarPickerModalProps,\n  AvatarPickerModalLabels,\n  AvatarPickerFileManagerModalProps,\n  DeploymentCreationFormProps,\n  DeploymentCreationFormValues,\n  DeploymentCreationFormLabels,\n  DeploymentCreationFormFieldLabels,\n  DeploymentCreationFormIconLabels,\n  DeploymentCreationFormFieldErrors,\n  DeploymentCreationFormLocaleEntry,\n  DeploymentCreationFormLocaleOption,\n  DeploymentCreationFormLocaleLabels,\n  DeploymentCreationFormStyles,\n  DeploymentCreationFormErrorCodes,\n  DeploymentCreationFormValidationOptions,\n  DeploymentLocalesFieldProps,\n  BuilderFormContainerProps,\n  BuilderFormContainerStyles,\n  BuilderFormContainerColors,\n  BuilderFormActionsLabels,\n  BuilderFormHeaderLabels,\n  BuilderFormHeaderStyles,\n  BuilderFormHeaderColors,\n  BuilderFormHeaderTypography,\n  EditorLayoutProps,\n  EditorLayoutLabels,\n  EditorLayoutStyles,\n  EditorLayoutColors,\n  EditorSectionProps,\n  EditorSectionStyles,\n  EditorSectionColors,\n  AddAvatarProps,\n  AddAvatarColors,\n  AddAvatarStyles,\n} from '@epam/ai-dial-builder-form';\n```\n\n`DeploymentCreationFormStyles` carries only per-slot class names (`root`,\n`field`) \u2014 the field set composes into a host layout rather than owning one.\n\n`BuilderFormContainer`'s header is configured through `labels` (typed\n`BuilderFormHeaderLabels`, which extends `BuilderFormActionsLabels` \u2014 the\ncancel/submit labels shared by the header and the mobile footer) and styled\nthrough `styles.header` (typed `BuilderFormHeaderStyles`, holding\n`BuilderFormHeaderColors` and `BuilderFormHeaderTypography`). All of these are\nexported for consumers building those objects. The header, body, and actions\ncomponents themselves are internal to the container.\n\n## Public class names\n\nA host embedding this package cannot style it through its CSS-module locals \u2014\nthey are hashed at build time \u2014 nor through DOM order or ARIA attributes, which\nare structure and accessibility contracts rather than styling ones. Selected\nelements therefore carry a stable public class.\n\n| Key       | Class                       | Element                                                    |\n| --------- | --------------------------- | ---------------------------------------------------------- |\n| `layout`  | `dial-builder-form-layout`  | The editor layout root, holding the header and the columns |\n| `section` | `dial-builder-form-section` | Every `EditorSection` box, titled or not                   |\n\n```tsx\nimport { BUILDER_FORM_CLASS } from '@epam/ai-dial-builder-form';\n\nBUILDER_FORM_CLASS.section; // 'dial-builder-form-section'\n```\n\nBoth classes reach every editor built on this package, so a host styling\n`.dial-builder-form-section` restyles the prompt, skill and toolset editors at\nonce. To reach one of them only, pair this class with that editor's own \u2014\n`.dial-toolset-editor-setup-section`, for instance.\n\nThe classes carry no declarations of their own: nothing in `styles.css`\nselects on them, so they change nothing until a host writes a rule. Renaming\none, or moving it to a different element, is a breaking change. The convention\nis in [`openspec/lib-styling-guide.md`](../../openspec/lib-styling-guide.md).\n\nWrite host overrides with CSS logical properties (`margin-inline-start`,\n`inset-inline-end`) so they keep working under `dir=\"rtl\"`.\n",
+  "exports": {
+    "libs/builder-form/src/index.ts": "export { BuilderFormContainer } from './components/BuilderFormContainer/BuilderFormContainer';\nexport type {\n  BuilderFormContainerProps,\n  BuilderFormContainerStyles,\n  BuilderFormContainerColors,\n} from './models/builder-form-container-props';\nexport type { BuilderFormActionsLabels } from './models/builder-form-actions-props';\nexport type {\n  BuilderFormHeaderLabels,\n  BuilderFormHeaderStyles,\n  BuilderFormHeaderColors,\n  BuilderFormHeaderTypography,\n} from './models/builder-form-header-props';\nexport type {\n  EditorSectionColors,\n  EditorSectionProps,\n  EditorSectionStyles,\n} from './models/editor-section-props';\nexport type {\n  EditorLayoutColors,\n  EditorLayoutProps,\n  EditorLayoutLabels,\n  EditorLayoutStyles,\n} from './models/editor-layout-props';\nexport type {\n  AddAvatarProps,\n  AddAvatarColors,\n  AddAvatarStyles,\n} from './models/add-avatar-props';\nexport { EditorSection } from './components/EditorSection/EditorSection';\nexport { EditorLayout } from './components/EditorLayout/EditorLayout';\nexport { AddAvatar } from './components/AddAvatar/AddAvatar';\nexport { AvatarPickerModal } from './components/AvatarPickerModal/AvatarPickerModal';\nexport { DeploymentCreationForm } from './components/DeploymentCreationForm/DeploymentCreationForm';\nexport { DeploymentLocalesField } from './components/DeploymentLocalesField/DeploymentLocalesField';\nexport type { DeploymentLocalesFieldProps } from './components/DeploymentLocalesField/DeploymentLocalesField';\nexport type {\n  AvatarPickerFileManagerModalProps,\n  AvatarPickerModalLabels,\n  AvatarPickerModalProps,\n} from './models/avatar-picker-modal';\nexport type {\n  DeploymentCreationFormFieldErrors,\n  DeploymentCreationFormFieldLabels,\n  DeploymentCreationFormIconLabels,\n  DeploymentCreationFormLabels,\n  DeploymentCreationFormLocaleEntry,\n  DeploymentCreationFormLocaleLabels,\n  DeploymentCreationFormLocaleOption,\n  DeploymentCreationFormProps,\n  DeploymentCreationFormStyles,\n  DeploymentCreationFormValues,\n} from './models/deployment-creation-form';\nexport type {\n  DeploymentCreationFormErrorCodes,\n  DeploymentCreationFormValidationOptions,\n} from './models/validation';\nexport { DeploymentCreationFieldErrorCode } from './models/validation';\nexport {\n  NAME_PATTERN,\n  SEMVER_VERSION_PATTERN,\n  VERSION_PATTERN,\n  validateDeploymentCreationFields,\n} from './utils/validate-deployment-creation-fields';\nexport { BUILDER_FORM_CLASS } from './constants/public-class-names';\n"
+  },
+  "contracts": {
+    "libs/builder-form/src/index.ts": [
+      {
+        "name": "BuilderFormContainer",
+        "file": "libs/builder-form/src/components/BuilderFormContainer/BuilderFormContainer.tsx",
+        "start": 10,
+        "end": 79,
+        "declaration": "BuilderFormContainer: FC<BuilderFormContainerProps> = ({\n  labels,\n  onBack,\n  onCancel,\n  onSubmit,\n  isCancelDisabled = false,\n  isSubmitDisabled = false,\n  isSubmitting = false,\n  left,\n  children,\n  metadata,\n  styles: containerStyles,\n}) => {\n  const { colors, header, cssVars } = containerStyles ?? {};\n\n  return (\n    <div\n      style={{\n        ...buildCssVars({\n          '--bfc-bg': colors?.background,\n        }),\n        ...cssVars,\n      }}\n      className={mergeClasses(\n        'flex h-full w-full flex-col overflow-y-auto',\n        styles.container,\n      )}\n    >\n      <BuilderFormHeader\n        labels={labels}\n        onBack={onBack}\n        onCancel={onCancel}\n        onSubmit={onSubmit}\n        isCancelDisabled={isCancelDisabled}\n        isSubmitDisabled={isSubmitDisabled}\n        isSubmitting={isSubmitting}\n        styles={header}\n      />\n      <BuilderFormBody left={left} metadata={metadata}>\n        {children}\n      </BuilderFormBody>\n      {/*\n       * At mobile widths the action pair lives in this sticky footer pinned\n       * over the scrolling form instead of the header \u2014 a thumb-reachable\n       * position, with the two actions splitting the row equally. It renders\n       * the same `BuilderFormActions` the header holds at the desktop\n       * breakpoint: CSS cannot move one instance between the top of the page\n       * and the bottom, so exactly one copy is visible (and tabbable) at any\n       * width. Opaque background and the elevation shadow come from\n       * `styles.footer`, so scrolled content never shows through it.\n       */}\n      <div\n        className={mergeClasses(\n          'sticky bottom-0 z-10 flex items-center gap-2 p-3 desktop:hidden',\n          styles.footer,\n        )}\n      >\n        <BuilderFormActions\n          labels={labels}\n          onCancel={onCancel}\n          onSubmit={onSubmit}\n          isCancelDisabled={isCancelDisabled}\n          isSubmitDisabled={isSubmitDisabled}\n          isSubmitting={isSubmitting}\n          buttonClassName=\"flex-1\"\n        />\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: BuilderFormContainerProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").BuilderFormHeaderLabels"
+          },
+          {
+            "name": "onBack",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onCancel",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onSubmit",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "isCancelDisabled",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isSubmitDisabled",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "isSubmitting",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "left",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "metadata",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").BuilderFormContainerStyles | undefined"
+          }
+        ]
+      },
+      {
+        "name": "BuilderFormContainerProps",
+        "file": "libs/builder-form/src/models/builder-form-container-props.ts",
+        "start": 31,
+        "end": 54,
+        "declaration": "export interface BuilderFormContainerProps {\n  /** Localized labels for the header. */\n  labels: BuilderFormHeaderLabels;\n  /** Called when the user activates the header's back control. */\n  onBack: () => void;\n  /** Called when the user activates the form's cancel action (header on desktop, sticky footer on mobile). */\n  onCancel: () => void;\n  /** Called when the user activates the form's submit action (header on desktop, sticky footer on mobile). */\n  onSubmit: () => void;\n  /** When `true`, the cancel action is disabled on both surfaces. Defaults to `false`. */\n  isCancelDisabled?: boolean;\n  /** When `true`, the submit action is disabled on both surfaces. Defaults to `false`. */\n  isSubmitDisabled?: boolean;\n  /** When `true`, the submit action shows a spinner and reports `aria-busy` on both surfaces. Defaults to `false`. */\n  isSubmitting?: boolean;\n  /** Body's start-edge column. Full width on mobile, a fixed-width column on desktop. */\n  left?: ReactNode;\n  /** Body's main column, filling the space left by `left` and `metadata`. */\n  children: ReactNode;\n  /** Body's end-edge column, matching `left`'s width. When omitted while `left` is set, an empty column of the same width is reserved so the main column stays optically centered. */\n  metadata?: ReactNode;\n  /** Style overrides. */\n  styles?: BuilderFormContainerStyles;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "BuilderFormContainerStyles",
+        "file": "libs/builder-form/src/models/builder-form-container-props.ts",
+        "start": 17,
+        "end": 28,
+        "declaration": "export interface BuilderFormContainerStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: BuilderFormContainerColors;\n  /** Style overrides forwarded to the header. */\n  header?: BuilderFormHeaderStyles;\n  /**\n   * Arbitrary CSS custom properties applied to the container's root element,\n   * so vars read anywhere in the form cascade from a single place. Merged\n   * after `colors`, so they can override it.\n   */\n  cssVars?: CSSProperties;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "BuilderFormContainerColors",
+        "file": "libs/builder-form/src/models/builder-form-container-props.ts",
+        "start": 11,
+        "end": 14,
+        "declaration": "export interface BuilderFormContainerColors {\n  /** Container background. Fallback: `--bg-layer-base`. */\n  background?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "BuilderFormActionsLabels",
+        "file": "libs/builder-form/src/models/builder-form-actions-props.ts",
+        "start": 2,
+        "end": 7,
+        "declaration": "export interface BuilderFormActionsLabels {\n  /** Label for the cancel action. */\n  cancelButtonLabel: string;\n  /** Label for the submit action. */\n  submitButtonLabel: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "BuilderFormHeaderLabels",
+        "file": "libs/builder-form/src/models/builder-form-header-props.ts",
+        "start": 4,
+        "end": 11,
+        "declaration": "export interface BuilderFormHeaderLabels extends BuilderFormActionsLabels {\n  /** Title shown next to the back control. */\n  title: string;\n  /** Accessible label for the back control. */\n  backButtonLabel: string;\n  /** Accessible name for the submit action's busy indicator, announced while `isSubmitting` is `true`. Defaults to `'Submitting'`. */\n  submittingLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "BuilderFormHeaderStyles",
+        "file": "libs/builder-form/src/models/builder-form-header-props.ts",
+        "start": 31,
+        "end": 36,
+        "declaration": "export interface BuilderFormHeaderStyles {\n  /** Color overrides applied as CSS custom properties. */\n  colors?: BuilderFormHeaderColors;\n  /** Typography overrides applied to the title. */\n  typography?: BuilderFormHeaderTypography;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "BuilderFormHeaderColors",
+        "file": "libs/builder-form/src/models/builder-form-header-props.ts",
+        "start": 17,
+        "end": 20,
+        "declaration": "export interface BuilderFormHeaderColors {\n  /** Header's bottom border color. Fallback: `--stroke-tertiary`. */\n  borderColor?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "BuilderFormHeaderTypography",
+        "file": "libs/builder-form/src/models/builder-form-header-props.ts",
+        "start": 23,
+        "end": 28,
+        "declaration": "export interface BuilderFormHeaderTypography {\n  /** CSS class applied to the title. Defaults to `'dial-h1-text'`. */\n  fontClassName?: string;\n  /** Font family applied to the title. Ignored when `fontClassName` is set. */\n  fontFamily?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "EditorSectionColors",
+        "file": "libs/builder-form/src/models/editor-section-props.ts",
+        "start": 4,
+        "end": 9,
+        "declaration": "export interface EditorSectionColors {\n  /** Border color of the section card. Defaults to `--stroke-tertiary`. */\n  borderColor?: string;\n  /** Color of the section title heading. Defaults to `--text-primary`. */\n  titleColor?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "EditorSectionProps",
+        "file": "libs/builder-form/src/models/editor-section-props.ts",
+        "start": 18,
+        "end": 27,
+        "declaration": "export interface EditorSectionProps {\n  /** Optional heading rendered above the section body. */\n  title?: string;\n  /** Section body content. */\n  children?: ReactNode;\n  /** Optional style overrides applied via CSS custom properties. */\n  styles?: EditorSectionStyles;\n  /** Additional CSS class applied to the root element. */\n  className?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "EditorSectionStyles",
+        "file": "libs/builder-form/src/models/editor-section-props.ts",
+        "start": 12,
+        "end": 15,
+        "declaration": "export interface EditorSectionStyles {\n  /** Color token overrides. */\n  colors?: EditorSectionColors;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "EditorLayoutColors",
+        "file": "libs/builder-form/src/models/editor-layout-props.ts",
+        "start": 10,
+        "end": 15,
+        "declaration": "export interface EditorLayoutColors {\n  /** Bottom border color of the header row. Defaults to `--stroke-tertiary`. */\n  headerBorderColor?: string;\n  /** Inline-end border color of the left sidebar panel. Defaults to `--stroke-tertiary`. */\n  sidebarBorderColor?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "EditorLayoutProps",
+        "file": "libs/builder-form/src/models/editor-layout-props.ts",
+        "start": 24,
+        "end": 45,
+        "declaration": "export interface EditorLayoutProps {\n  /** Heading text rendered as `<h1>` in the header row. */\n  title: string;\n  /** Called when the back-arrow button is clicked. */\n  onBack: () => void;\n  /** Accessible label for the back-arrow button. Defaults to `'Back'`. */\n  backAriaLabel?: string;\n  /** Inline-end slot in the header row \u2014 typically Cancel + Save buttons. */\n  actions?: ReactNode;\n  /** Left column content (Metadata section at desktop; top on mobile). */\n  leftContent?: ReactNode;\n  /** Right column content (Setup section at desktop; bottom on mobile). When absent, left content fills full width. */\n  rightContent?: ReactNode;\n  /** When `true`, the SR-only saving status region announces `labels.savingStatusLabel`. */\n  isSaving?: boolean;\n  /** Text labels with English defaults. */\n  labels?: EditorLayoutLabels;\n  /** Style overrides applied via CSS custom properties. */\n  styles?: EditorLayoutStyles;\n  /** `dir` attribute forwarded to the root element for explicit direction override. */\n  dir?: 'ltr' | 'rtl';\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "EditorLayoutLabels",
+        "file": "libs/builder-form/src/models/editor-layout-props.ts",
+        "start": 4,
+        "end": 7,
+        "declaration": "export interface EditorLayoutLabels {\n  /** SR-only text announced while `isSaving` is `true`. Defaults to `'Saving'`. */\n  savingStatusLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "EditorLayoutStyles",
+        "file": "libs/builder-form/src/models/editor-layout-props.ts",
+        "start": 18,
+        "end": 21,
+        "declaration": "export interface EditorLayoutStyles {\n  /** Color token overrides. */\n  colors?: EditorLayoutColors;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AddAvatarProps",
+        "file": "libs/builder-form/src/models/add-avatar-props.ts",
+        "start": 20,
+        "end": 37,
+        "declaration": "export interface AddAvatarProps {\n  /** Field label rendered above the preview box and button (e.g. `'Avatar'`). */\n  label: string;\n  /** URL of the currently selected avatar image. When set, it fills the 64x64 preview box instead of the placeholder icon. */\n  avatarUrl?: string;\n  /** Alt text for the avatar image. Defaults to `''` (decorative \u2014 the field label and button already describe the control). */\n  avatarAlt?: string;\n  /** Label for the \"Add avatar\" button. Defaults to `'Add avatar'`. */\n  addAvatarLabel?: string;\n  /** Caption text describing the accepted formats and max size. Defaults to `'PNG, JPG or SVG (max 1 MB)'`. */\n  captionText?: string;\n  /** Called when the \"Add avatar\" button is clicked. The host opens its own file picker/manager and, once a file is chosen, passes its URL back in as `avatarUrl`. */\n  onAddAvatarClick: () => void;\n  /** Style overrides applied via CSS custom properties. */\n  styles?: AddAvatarStyles;\n  /** Additional CSS class applied to the root element. */\n  className?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AddAvatarColors",
+        "file": "libs/builder-form/src/models/add-avatar-props.ts",
+        "start": 2,
+        "end": 11,
+        "declaration": "export interface AddAvatarColors {\n  /** Background color of the 64x64 preview box shown when no avatar is set. Defaults to `--bg-layer-raised`. */\n  boxBackgroundColor?: string;\n  /** Border color of the 64x64 preview box. Defaults to `--stroke-tertiary`. */\n  boxBorderColor?: string;\n  /** Color of the placeholder photo icon shown when no avatar is set. Defaults to `--text-secondary`. */\n  placeholderIconColor?: string;\n  /** Color of the format/size caption text. Defaults to `--text-tertiary`. */\n  captionColor?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AddAvatarStyles",
+        "file": "libs/builder-form/src/models/add-avatar-props.ts",
+        "start": 14,
+        "end": 17,
+        "declaration": "export interface AddAvatarStyles {\n  /** Color token overrides. */\n  colors?: AddAvatarColors;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "EditorSection",
+        "file": "libs/builder-form/src/components/EditorSection/EditorSection.tsx",
+        "start": 8,
+        "end": 35,
+        "declaration": "EditorSection: FC<EditorSectionProps> = ({\n  title,\n  children,\n  styles: stylesProp,\n  className,\n}) => {\n  const cssVars = buildCssVars({\n    '--es-border-color': stylesProp?.colors?.borderColor,\n    '--es-title-color': stylesProp?.colors?.titleColor,\n  });\n\n  return (\n    <section\n      className={mergeClasses(\n        'flex flex-col gap-4 rounded border p-6',\n        styles.section,\n        className,\n        BUILDER_FORM_CLASS.section,\n      )}\n      style={cssVars}\n    >\n      {title != null && (\n        <h2 className={mergeClasses('dial-h3-text', styles.title)}>{title}</h2>\n      )}\n      {children}\n    </section>\n  );\n}",
+        "signature": "(props: EditorSectionProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "title",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").EditorSectionStyles | undefined"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "EditorLayout",
+        "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+        "start": 18,
+        "end": 120,
+        "declaration": "EditorLayout: FC<EditorLayoutProps> = ({\n  title,\n  onBack,\n  backAriaLabel = 'Back',\n  actions,\n  leftContent,\n  rightContent,\n  isSaving = false,\n  labels,\n  styles: stylesProp,\n  dir,\n}) => {\n  const savingStatusId = useId();\n  const savingStatusText = isSaving\n    ? (labels?.savingStatusLabel ?? 'Saving')\n    : '';\n\n  const cssVars = buildCssVars({\n    '--el-header-border-color': stylesProp?.colors?.headerBorderColor,\n    '--el-sidebar-border-color': stylesProp?.colors?.sidebarBorderColor,\n  });\n\n  return (\n    <div\n      dir={dir}\n      className={mergeClasses(\n        'flex min-h-0 flex-1 flex-col',\n        BUILDER_FORM_CLASS.layout,\n      )}\n      style={cssVars}\n    >\n      <span\n        role=\"status\"\n        aria-live=\"polite\"\n        className=\"sr-only\"\n        id={savingStatusId}\n      >\n        {savingStatusText}\n      </span>\n\n      {/* Header row */}\n      <div\n        className={mergeClasses(\n          'flex items-center justify-between gap-2 border-b px-4 py-2 desktop:px-8 desktop:pb-3 desktop:pt-3',\n          styles.headerBorder,\n        )}\n      >\n        <div className=\"flex min-w-0 flex-1 items-center gap-2\">\n          <GhostIconButton\n            icon={\n              <IconArrowNarrowLeft\n                size={DIAL_ICON_SIZE.LG}\n                stroke={DIAL_KIT_ICON_STROKE}\n                aria-hidden\n                className=\"rtl:scale-x-[-1]\"\n              />\n            }\n            aria-label={backAriaLabel}\n            onClick={onBack}\n          />\n          <h1 className=\"dial-h2-text min-w-0 truncate\">{title}</h1>\n        </div>\n        {actions != null && (\n          <div className=\"hidden shrink-0 items-center gap-2 desktop:flex\">\n            {actions}\n          </div>\n        )}\n      </div>\n\n      {/* Body: two-column on desktop, stacked on mobile */}\n      <div className=\"flex flex-1 flex-col overflow-y-auto desktop:flex-row desktop:overflow-hidden\">\n        <div\n          className={mergeClasses(\n            rightContent != null\n              ? 'desktop:w-[360px] desktop:shrink-0 desktop:overflow-y-auto desktop:border-e'\n              : 'desktop:flex-1',\n            'desktop:overflow-y-auto',\n            rightContent != null ? styles.sidebarBorder : undefined,\n          )}\n        >\n          {leftContent}\n        </div>\n        {rightContent != null && (\n          <div className=\"desktop:flex-1 desktop:overflow-y-auto\">\n            {rightContent}\n          </div>\n        )}\n      </div>\n\n      {/* Mobile/tablet action bar \u2014 kept out of the scrollable body so it never overlaps content. */}\n      {actions != null && (\n        <div\n          className={mergeClasses(\n            'flex shrink-0 flex-row-reverse items-center gap-2 border-t px-4 py-2 desktop:hidden [&>*]:flex-1',\n            styles.footerBorder,\n          )}\n        >\n          {actions}\n        </div>\n      )}\n    </div>\n  );\n}",
+        "signature": "(props: EditorLayoutProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "title",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "onBack",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "backAriaLabel",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "leftContent",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "rightContent",
+            "optional": true,
+            "type": "import(\"react\").ReactNode"
+          },
+          {
+            "name": "isSaving",
+            "optional": true,
+            "type": "boolean | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "type": "import(\"../..\").EditorLayoutLabels | undefined"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").EditorLayoutStyles | undefined"
+          },
+          {
+            "name": "dir",
+            "optional": true,
+            "type": "\"ltr\" | \"rtl\" | undefined"
+          }
+        ]
+      },
+      {
+        "name": "AddAvatar",
+        "file": "libs/builder-form/src/components/AddAvatar/AddAvatar.tsx",
+        "start": 15,
+        "end": 82,
+        "declaration": "AddAvatar: FC<AddAvatarProps> = ({\n  label,\n  avatarUrl,\n  avatarAlt = '',\n  addAvatarLabel = 'Add avatar',\n  captionText = 'PNG, JPG or SVG (max 1 MB)',\n  onAddAvatarClick,\n  styles: stylesProp,\n  className,\n}) => {\n  const cssVars = buildCssVars({\n    '--aa-box-bg': stylesProp?.colors?.boxBackgroundColor,\n    '--aa-box-border': stylesProp?.colors?.boxBorderColor,\n    '--aa-icon': stylesProp?.colors?.placeholderIconColor,\n    '--aa-caption': stylesProp?.colors?.captionColor,\n  });\n\n  return (\n    <div\n      className={mergeClasses('flex flex-col gap-2', className)}\n      style={cssVars}\n    >\n      <Label label={label} />\n      <div className=\"flex items-start gap-3\">\n        <div\n          className={mergeClasses(\n            'flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border',\n            styles.box,\n          )}\n        >\n          {avatarUrl ? (\n            <img\n              src={avatarUrl}\n              alt={avatarAlt}\n              className=\"h-16 w-16 object-cover\"\n            />\n          ) : (\n            <IconPhoto\n              size={DIAL_ICON_SIZE.LG}\n              stroke={DIAL_KIT_ICON_STROKE}\n              aria-hidden\n              className={styles.icon}\n            />\n          )}\n        </div>\n\n        <div className=\"flex flex-col gap-3\">\n          <LinkButton\n            size={ElementSize.Small}\n            iconBefore={\n              <IconPlus\n                size={DIAL_ICON_SIZE.SM}\n                stroke={DIAL_KIT_ICON_STROKE}\n                aria-hidden\n              />\n            }\n            className=\"w-fit\"\n            label={addAvatarLabel}\n            onClick={onAddAvatarClick}\n          />\n          <span className={mergeClasses('dial-tiny-text', styles.caption)}>\n            {captionText}\n          </span>\n        </div>\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: AddAvatarProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "label",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "avatarUrl",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "avatarAlt",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "addAvatarLabel",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "captionText",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "onAddAvatarClick",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").AddAvatarStyles | undefined"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "AvatarPickerModal",
+        "file": "libs/builder-form/src/components/AvatarPickerModal/AvatarPickerModal.tsx",
+        "start": 6,
+        "end": 91,
+        "declaration": "AvatarPickerModal: FC<AvatarPickerModalProps> = ({\n  isOpen,\n  onClose,\n  onAttach,\n  bucket,\n  FileManagerModal,\n  allowedMimeTypes,\n  maxFileSizeBytes,\n  labels,\n}) => {\n  const deleteConfirmTitle = useCallback(\n    (names: string[]) =>\n      names.length === 1\n        ? labels.deleteConfirmTitleSingle\n        : labels.deleteConfirmTitleMultiple,\n    [labels.deleteConfirmTitleSingle, labels.deleteConfirmTitleMultiple],\n  );\n\n  const deleteConfirmBody = useCallback(\n    (names: string[]) => (\n      <div className=\"dial-small-text px-6 py-3\">\n        <p className=\"mb-3 text-secondary\">\n          {names.length === 1 ? (\n            <>\n              {labels.deleteConfirmSingleText}{' '}\n              <span className=\"break-words text-primary\">\n                &quot;{names[0].split('/').pop()}&quot;?\n              </span>\n            </>\n          ) : (\n            <>\n              {labels.deleteConfirmMultipleText}{' '}\n              <span className=\"text-primary\">\n                {names.length} {labels.deleteConfirmItemsLabel}\n              </span>\n            </>\n          )}\n        </p>\n      </div>\n    ),\n    [\n      labels.deleteConfirmSingleText,\n      labels.deleteConfirmMultipleText,\n      labels.deleteConfirmItemsLabel,\n    ],\n  );\n\n  return (\n    <Suspense fallback={null}>\n      {isOpen && (\n        <FileManagerModal\n          isOpen={isOpen}\n          onClose={onClose}\n          onAttach={onAttach}\n          bucket={bucket}\n          allowedTypes={allowedMimeTypes}\n          maxSelectableFileSize={maxFileSizeBytes}\n          maximumAttachmentsAmount={1}\n          canAttachFolders={false}\n          title={labels.title}\n          attachLabel={labels.attachLabel}\n          emptyTitle={labels.emptyTitle}\n          emptyDescription={labels.emptyDescription}\n          errorMessage={labels.errorMessage}\n          retryLabel={labels.retryLabel}\n          hiddenFilesLabel={labels.hiddenFilesLabel}\n          showHiddenFilesLabel={labels.showHiddenFilesLabel}\n          hideHiddenFilesLabel={labels.hideHiddenFilesLabel}\n          getSelectionLabel={labels.getSelectionLabel}\n          uploadFilesLabel={labels.uploadFilesLabel}\n          newFolderLabel={labels.newFolderLabel}\n          downloadLabel={labels.downloadLabel}\n          downloadingLabel={labels.downloadingLabel}\n          deleteLabel={labels.deleteLabel}\n          deletingLabel={labels.deletingLabel}\n          deleteConfirmTitle={deleteConfirmTitle}\n          deleteConfirmBody={deleteConfirmBody}\n          deleteConfirmLabel={labels.deleteConfirmLabel}\n          deleteCancelLabel={labels.deleteCancelLabel}\n          uploadProgressTitle={labels.uploadProgressTitle}\n          cancelLabel={labels.cancelLabel}\n        />\n      )}\n    </Suspense>\n  );\n}",
+        "signature": "(props: AvatarPickerModalProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "isOpen",
+            "optional": false,
+            "type": "boolean"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "onAttach",
+            "optional": false,
+            "type": "(result: import(\"@epam/ai-dial-chat-shared\").AttachResult) => void"
+          },
+          {
+            "name": "bucket",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "FileManagerModal",
+            "optional": false,
+            "type": "import(\"react\").ComponentType<import(\"../..\").AvatarPickerFileManagerModalProps>"
+          },
+          {
+            "name": "allowedMimeTypes",
+            "optional": false,
+            "type": "string[]"
+          },
+          {
+            "name": "maxFileSizeBytes",
+            "optional": false,
+            "type": "number"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").AvatarPickerModalLabels"
+          }
+        ]
+      },
+      {
+        "name": "DeploymentCreationForm",
+        "file": "libs/builder-form/src/components/DeploymentCreationForm/DeploymentCreationForm.tsx",
+        "start": 18,
+        "end": 125,
+        "declaration": "DeploymentCreationForm: FC<DeploymentCreationFormProps> = ({\n  values,\n  errors,\n  onChange,\n  onNameBlur,\n  onVersionBlur,\n  iconPreviewUrl,\n  onAddAvatarClick,\n  labels,\n  styles,\n  availableLocaleOptions = [],\n}) => {\n  const nameInputRef = useRef<HTMLInputElement>(null);\n  const versionInputRef = useRef<HTMLInputElement>(null);\n  const hadErrorsRef = useRef(false);\n\n  const hasErrors = !!(errors.name || errors.version);\n\n  /*\n   * Only steal focus on the transition from no errors to some errors (a\n   * submit attempt), not on every keystroke that adds/removes one field's\n   * error while the user is still typing.\n   */\n  useEffect(() => {\n    if (hasErrors && !hadErrorsRef.current) {\n      const firstInvalidRef = errors.name ? nameInputRef : versionInputRef;\n\n      firstInvalidRef.current?.focus();\n    }\n\n    hadErrorsRef.current = hasErrors;\n  }, [hasErrors, errors.name, errors.version]);\n\n  return (\n    <div\n      role={labels.ariaLabel ? 'group' : undefined}\n      aria-label={labels.ariaLabel}\n      className={mergeClasses('flex flex-col gap-4', styles?.root)}\n    >\n      <AddAvatar\n        label={labels.iconUrl.label}\n        avatarUrl={iconPreviewUrl}\n        addAvatarLabel={labels.iconUrl.addAvatarLabel}\n        captionText={labels.iconUrl.captionText}\n        onAddAvatarClick={onAddAvatarClick}\n        className={styles?.field}\n      />\n\n      <div className={mergeClasses('flex items-start gap-4', styles?.field)}>\n        <Input\n          id=\"deployment-creation-form-name\"\n          inputRef={nameInputRef}\n          value={values.name}\n          onChange={(value) => onChange({ name: value ?? '' })}\n          onBlur={onNameBlur}\n          labelProps={{ label: labels.name.label, required: true }}\n          placeholder={labels.name.placeholder}\n          error={errors.name || undefined}\n          invalid={!!errors.name}\n          containerClassName=\"min-w-0 basis-0 grow-[2]\"\n        />\n\n        <Input\n          id=\"deployment-creation-form-version\"\n          inputRef={versionInputRef}\n          value={values.version}\n          onChange={(value) => onChange({ version: value ?? '' })}\n          onBlur={onVersionBlur}\n          labelProps={{ label: labels.version.label }}\n          placeholder={labels.version.placeholder}\n          error={errors.version || undefined}\n          invalid={!!errors.version}\n          containerClassName=\"min-w-0 basis-0 grow-[1]\"\n        />\n      </div>\n\n      <Textarea\n        id=\"deployment-creation-form-description\"\n        value={values.description}\n        onChange={(value) => onChange({ description: value })}\n        labelProps={{ label: labels.description.label }}\n        placeholder={labels.description.placeholder}\n        containerClassName={styles?.field}\n        className={RESIZABLE_TEXTAREA_CLASS_NAME}\n        resize={TextareaResize.Vertical}\n      />\n\n      <DeploymentLocalesField\n        value={values.otherLocales}\n        onChange={(otherLocales) => onChange({ otherLocales })}\n        availableLocaleOptions={availableLocaleOptions}\n        labels={labels.otherLocales}\n        className={styles?.field}\n      />\n\n      <div className={styles?.field}>\n        <TagInput\n          id=\"deployment-creation-form-topics\"\n          labelProps={{ label: labels.topics.label }}\n          placeholder={labels.topics.placeholder}\n          value={values.topics}\n          onChange={(topics) => onChange({ topics })}\n          tagClassName={TAG_INPUT_TAG_CLASS_NAME}\n        />\n      </div>\n    </div>\n  );\n}",
+        "signature": "(props: DeploymentCreationFormProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "values",
+            "optional": false,
+            "type": "import(\"../..\").DeploymentCreationFormValues"
+          },
+          {
+            "name": "errors",
+            "optional": false,
+            "type": "import(\"../..\").DeploymentCreationFormFieldErrors"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "type": "(patch: Partial<import(\"../..\").DeploymentCreationFormValues>) => void"
+          },
+          {
+            "name": "onNameBlur",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "onVersionBlur",
+            "optional": true,
+            "type": "(() => void) | undefined"
+          },
+          {
+            "name": "iconPreviewUrl",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "onAddAvatarClick",
+            "optional": false,
+            "type": "() => void"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "import(\"../..\").DeploymentCreationFormLabels"
+          },
+          {
+            "name": "styles",
+            "optional": true,
+            "type": "import(\"../..\").DeploymentCreationFormStyles | undefined"
+          },
+          {
+            "name": "availableLocaleOptions",
+            "optional": true,
+            "type": "import(\"../..\").DeploymentCreationFormLocaleOption[] | undefined"
+          }
+        ]
+      },
+      {
+        "name": "DeploymentLocalesField",
+        "file": "libs/builder-form/src/components/DeploymentLocalesField/DeploymentLocalesField.tsx",
+        "start": 59,
+        "end": 293,
+        "declaration": "DeploymentLocalesField: FC<DeploymentLocalesFieldProps> = ({\n  value,\n  onChange,\n  availableLocaleOptions = [],\n  labels,\n  className,\n  summaryClassName = 'dial-body-text text-secondary',\n  rowLabelClassName = 'dial-tiny-lead-text text-secondary',\n}) => {\n  const {\n    summaryLabel,\n    addLabel,\n    editLabel,\n    popupTitle,\n    addLocaleLabel,\n    localeRowLabel = 'Locale',\n    languageLabel,\n    nameLabel,\n    namePlaceholder,\n    descriptionLabel,\n    descriptionPlaceholder,\n    deleteAriaLabel,\n    cancelLabel = 'Cancel',\n    saveLabel = 'Save',\n  } = labels;\n\n  const [isOpen, setIsOpen] = useState(false);\n  const [draftEntries, setDraftEntries] = useState<\n    DeploymentCreationFormLocaleEntry[]\n  >([]);\n\n  const nextRowIdRef = useRef(0);\n\n  useEffect(() => {\n    if (isOpen) {\n      setDraftEntries(\n        value.length > 0\n          ? value\n          : [\n              createEmptyRow(\n                `locale-row-${++nextRowIdRef.current}`,\n                new Set(),\n                availableLocaleOptions,\n              ),\n            ],\n      );\n    }\n  }, [isOpen, value, availableLocaleOptions]);\n\n  const handleOpen = (): void => setIsOpen(true);\n  const handleCancel = (): void => setIsOpen(false);\n\n  const handleSave = (): void => {\n    onChange(draftEntries.filter((entry) => entry.language && entry.name));\n    setIsOpen(false);\n  };\n\n  const handleAddRow = (): void => {\n    const usedLanguages = new Set(\n      draftEntries.map((entry) => entry.language).filter(Boolean),\n    );\n    setDraftEntries((prev) => [\n      ...prev,\n      createEmptyRow(\n        `locale-row-${++nextRowIdRef.current}`,\n        usedLanguages,\n        availableLocaleOptions,\n      ),\n    ]);\n  };\n\n  const handleRowChange = (\n    id: string,\n    patch: Partial<Omit<DeploymentCreationFormLocaleEntry, 'id'>>,\n  ): void => {\n    setDraftEntries((prev) =>\n      prev.map((entry) => (entry.id === id ? { ...entry, ...patch } : entry)),\n    );\n  };\n\n  const handleRowDelete = (id: string): void => {\n    setDraftEntries((prev) => prev.filter((entry) => entry.id !== id));\n  };\n\n  const localeLabel = (code: string): string =>\n    availableLocaleOptions.find((option) => option.code === code)?.label ??\n    code.toUpperCase();\n\n  const isSaveDisabled = draftEntries.some(\n    (entry) => !entry.language || !entry.name,\n  );\n\n  /*\n   * With no selectable language there is nothing the popup could ever produce:\n   * every row would be missing its required language, so Save would stay\n   * permanently disabled with no way for the user to satisfy it. Render no\n   * control at all rather than an unusable one. `value` is left untouched \u2014\n   * `onChange` never fires from here, so already-stored locales survive.\n   */\n  if (availableLocaleOptions.length === 0) return null;\n\n  return (\n    <div className={mergeClasses('flex items-center gap-2', className)}>\n      {value.length > 0 && (\n        <span className={summaryClassName}>\n          {`${summaryLabel}: ${value.map((entry) => `[${localeLabel(entry.language)}]`).join(', ')}`}\n        </span>\n      )}\n      <LinkButton\n        label={value.length > 0 ? editLabel : addLabel}\n        iconBefore={\n          <IconPlus\n            size={DIAL_ICON_SIZE.SM}\n            aria-hidden\n            stroke={DIAL_KIT_ICON_STROKE}\n          />\n        }\n        className=\"!px-0\"\n        onClick={handleOpen}\n      />\n\n      <Popup\n        open={isOpen}\n        header={popupTitle}\n        onClose={handleCancel}\n        mainButtons={[\n          { label: cancelLabel, onClick: handleCancel },\n          {\n            label: saveLabel,\n            variant: ButtonVariant.Primary,\n            disabled: isSaveDisabled,\n            onClick: handleSave,\n          },\n        ]}\n      >\n        <div className=\"flex flex-col gap-8 px-6 py-3\">\n          {draftEntries.map((entry, index) => {\n            const usedByOtherRows = new Set(\n              draftEntries\n                .filter((other) => other.id !== entry.id)\n                .map((other) => other.language)\n                .filter(Boolean),\n            );\n\n            return (\n              <div key={entry.id} className=\"flex flex-col gap-2\">\n                <div className=\"flex items-center justify-between\">\n                  <span className={rowLabelClassName}>\n                    {localeRowLabel} {index + 1}\n                  </span>\n                  <DangerIconButton\n                    appearance={ButtonAppearance.Ghost}\n                    size={ElementSize.Small}\n                    icon={\n                      <IconTrashX\n                        size={DIAL_ICON_SIZE.SM}\n                        aria-hidden\n                        stroke={DIAL_KIT_ICON_STROKE}\n                      />\n                    }\n                    aria-label={`${deleteAriaLabel} ${index + 1}`}\n                    onClick={() => handleRowDelete(entry.id)}\n                  />\n                </div>\n\n                <div\n                  role=\"group\"\n                  aria-label={`${localeRowLabel} ${index + 1}`}\n                  className=\"flex flex-col gap-5\"\n                >\n                  <div className=\"flex flex-col gap-5 desktop:flex-row desktop:items-start\">\n                    <Select\n                      id={`${entry.id}-language`}\n                      labelProps={{ label: languageLabel, required: true }}\n                      /* Full width when stacked; on one row, wide enough for a full BCP-47 tag (\"PT-BR\") plus the chevron. */\n                      className=\"desktop:shrink-0 desktop:basis-40\"\n                      options={availableLocaleOptions.map((option) => ({\n                        value: option.code,\n                        label: option.label,\n                        disabled: usedByOtherRows.has(option.code),\n                      }))}\n                      value={entry.language}\n                      onChange={(next) =>\n                        handleRowChange(entry.id, {\n                          language: next as string,\n                        })\n                      }\n                    />\n\n                    <Input\n                      id={`${entry.id}-name`}\n                      containerClassName=\"min-w-0 flex-1\"\n                      required\n                      value={entry.name}\n                      onChange={(next) =>\n                        handleRowChange(entry.id, { name: next ?? '' })\n                      }\n                      labelProps={{ label: nameLabel, required: true }}\n                      placeholder={namePlaceholder}\n                    />\n                  </div>\n\n                  <Textarea\n                    id={`${entry.id}-description`}\n                    className={RESIZABLE_TEXTAREA_CLASS_NAME}\n                    resize={TextareaResize.Vertical}\n                    value={entry.description}\n                    onChange={(next) =>\n                      handleRowChange(entry.id, { description: next })\n                    }\n                    labelProps={{ label: descriptionLabel }}\n                    placeholder={descriptionPlaceholder}\n                  />\n                </div>\n              </div>\n            );\n          })}\n          <LinkButton\n            label={addLocaleLabel}\n            iconBefore={\n              <IconPlus\n                size={DIAL_ICON_SIZE.SM}\n                aria-hidden\n                stroke={DIAL_KIT_ICON_STROKE}\n              />\n            }\n            className=\"self-start\"\n            onClick={handleAddRow}\n            disabled={draftEntries.length >= availableLocaleOptions.length}\n          />\n        </div>\n      </Popup>\n    </div>\n  );\n}",
+        "signature": "(props: DeploymentLocalesFieldProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+        "props": [
+          {
+            "name": "value",
+            "optional": false,
+            "type": "DeploymentCreationFormLocaleEntry[]"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "type": "(entries: DeploymentCreationFormLocaleEntry[]) => void"
+          },
+          {
+            "name": "availableLocaleOptions",
+            "optional": true,
+            "type": "DeploymentCreationFormLocaleOption[] | undefined"
+          },
+          {
+            "name": "labels",
+            "optional": false,
+            "type": "DeploymentCreationFormLocaleLabels"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "summaryClassName",
+            "optional": true,
+            "type": "string | undefined"
+          },
+          {
+            "name": "rowLabelClassName",
+            "optional": true,
+            "type": "string | undefined"
+          }
+        ]
+      },
+      {
+        "name": "DeploymentLocalesFieldProps",
+        "file": "libs/builder-form/src/components/DeploymentLocalesField/DeploymentLocalesField.tsx",
+        "start": 28,
+        "end": 43,
+        "declaration": "export interface DeploymentLocalesFieldProps {\n  /** Current list of additional (non-primary) locale entries. */\n  value: DeploymentCreationFormLocaleEntry[];\n  /** Called with the full updated list when the user saves changes in the popup. */\n  onChange: (entries: DeploymentCreationFormLocaleEntry[]) => void;\n  /** Selectable language options for new/existing rows. Defaults to an empty list, in which case the whole control renders nothing. */\n  availableLocaleOptions?: DeploymentCreationFormLocaleOption[];\n  /** Pre-translated labels for the summary row and popup. */\n  labels: DeploymentCreationFormLocaleLabels;\n  /** Class applied to the summary row container. */\n  className?: string;\n  /** Typography and color class applied to the summary text. Defaults to `'dial-body-text text-secondary'`. */\n  summaryClassName?: string;\n  /** Typography and color class applied to each row's heading. Defaults to `'dial-tiny-lead-text text-secondary'`, which uppercases the label itself. */\n  rowLabelClassName?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AvatarPickerFileManagerModalProps",
+        "file": "libs/builder-form/src/models/avatar-picker-modal.ts",
+        "start": 63,
+        "end": 124,
+        "declaration": "export interface AvatarPickerFileManagerModalProps {\n  /** Whether the modal is open. */\n  isOpen: boolean;\n  /** Called when the modal should close without a selection. */\n  onClose: () => void;\n  /** Called with the picked file(s) once the user confirms. */\n  onAttach: (result: AttachResult) => void;\n  /** Storage bucket to browse. */\n  bucket: string;\n  /** Modal title. */\n  title: string;\n  /** Label for the confirm/attach button. */\n  attachLabel: string;\n  /** Title shown when the current folder has no files. */\n  emptyTitle: string;\n  /** Description shown when the current folder has no files. */\n  emptyDescription: string;\n  /** Message shown when file listing fails. */\n  errorMessage: string;\n  /** Label for the retry-after-error button. */\n  retryLabel: string;\n  /** Label for the hidden-files row/toggle. */\n  hiddenFilesLabel: string;\n  /** Label for the action that reveals hidden files. */\n  showHiddenFilesLabel: string;\n  /** Label for the action that hides hidden files again. */\n  hideHiddenFilesLabel: string;\n  /** Returns the selection-count summary text for the given count. */\n  getSelectionLabel: (count: number) => string;\n  /** Label for the upload-files action. */\n  uploadFilesLabel: string;\n  /** Label for the new-folder action. */\n  newFolderLabel: string;\n  /** Label for the download action. */\n  downloadLabel: string;\n  /** Label shown while a download is in progress. */\n  downloadingLabel: string;\n  /** Label for the delete action. */\n  deleteLabel: string;\n  /** Label shown while a delete is in progress. */\n  deletingLabel: string;\n  /** Renders the delete-confirmation title for the given item names. */\n  deleteConfirmTitle: (names: string[]) => ReactNode;\n  /** Renders the delete-confirmation body for the given item names. */\n  deleteConfirmBody: (names: string[]) => ReactNode;\n  /** Label for the delete-confirmation confirm button. */\n  deleteConfirmLabel: string;\n  /** Label for the delete-confirmation cancel button. */\n  deleteCancelLabel: string;\n  /** Title shown while an upload is in progress. */\n  uploadProgressTitle: string;\n  /** Label for the cancel button. */\n  cancelLabel: string;\n  /** MIME types selectable in the modal. Unset means no type restriction. */\n  allowedTypes?: string[];\n  /** Maximum size, in bytes, of a selectable file. */\n  maxSelectableFileSize?: number;\n  /** Maximum number of items that can be selected at once. */\n  maximumAttachmentsAmount?: number;\n  /** Whether folders can be selected. */\n  canAttachFolders?: boolean;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AvatarPickerModalLabels",
+        "file": "libs/builder-form/src/models/avatar-picker-modal.ts",
+        "start": 5,
+        "end": 56,
+        "declaration": "export interface AvatarPickerModalLabels {\n  /** Modal title. */\n  title: string;\n  /** Label for the confirm/attach button. */\n  attachLabel: string;\n  /** Title shown when the current folder has no files. */\n  emptyTitle: string;\n  /** Description shown when the current folder has no files. */\n  emptyDescription: string;\n  /** Message shown when file listing fails. */\n  errorMessage: string;\n  /** Label for the retry-after-error button. */\n  retryLabel: string;\n  /** Label for the hidden-files row/toggle. */\n  hiddenFilesLabel: string;\n  /** Label for the action that reveals hidden files. */\n  showHiddenFilesLabel: string;\n  /** Label for the action that hides hidden files again. */\n  hideHiddenFilesLabel: string;\n  /** Returns the selection-count summary text for the given count. */\n  getSelectionLabel: (count: number) => string;\n  /** Label for the upload-files action. */\n  uploadFilesLabel: string;\n  /** Label for the new-folder action. */\n  newFolderLabel: string;\n  /** Label for the download action. */\n  downloadLabel: string;\n  /** Label shown while a download is in progress. */\n  downloadingLabel: string;\n  /** Label for the delete action. */\n  deleteLabel: string;\n  /** Label shown while a delete is in progress. */\n  deletingLabel: string;\n  /** Delete-confirmation title used when deleting a single item. */\n  deleteConfirmTitleSingle: string;\n  /** Delete-confirmation title used when deleting multiple items. */\n  deleteConfirmTitleMultiple: string;\n  /** Confirmation body text used when deleting a single item, followed by its name. */\n  deleteConfirmSingleText: string;\n  /** Confirmation body text used when deleting multiple items, followed by the count. */\n  deleteConfirmMultipleText: string;\n  /** Unit label appended after the count in the multiple-item confirmation (e.g. `'items'`). */\n  deleteConfirmItemsLabel: string;\n  /** Label for the delete-confirmation confirm button. */\n  deleteConfirmLabel: string;\n  /** Label for the delete-confirmation cancel button. */\n  deleteCancelLabel: string;\n  /** Title shown while an upload is in progress. */\n  uploadProgressTitle: string;\n  /** Label for the cancel button. */\n  cancelLabel: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "AvatarPickerModalProps",
+        "file": "libs/builder-form/src/models/avatar-picker-modal.ts",
+        "start": 127,
+        "end": 148,
+        "declaration": "export interface AvatarPickerModalProps {\n  /** Whether the modal is open. */\n  isOpen: boolean;\n  /** Called when the modal is dismissed, with or without a selection. */\n  onClose: () => void;\n  /**\n   * Called with the picked file once the user confirms a single-image\n   * selection. The host resolves the file to a DIAL resource URL (and calls\n   * `onClose`) \u2014 this lib never resolves storage identifiers itself.\n   */\n  onAttach: (result: AttachResult) => void;\n  /** Storage bucket to browse, resolved by the host from the current user. */\n  bucket: string;\n  /** The host's own DIAL file manager modal component, rendered for the actual picking UI. */\n  FileManagerModal: ComponentType<AvatarPickerFileManagerModalProps>;\n  /** MIME types selectable in the modal (e.g. PNG/JPG/SVG). */\n  allowedMimeTypes: string[];\n  /** Maximum size, in bytes, of a selectable avatar file. */\n  maxFileSizeBytes: number;\n  /** Pre-translated labels for the modal. */\n  labels: AvatarPickerModalLabels;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFormFieldErrors",
+        "file": "libs/builder-form/src/models/deployment-creation-form.ts",
+        "start": 38,
+        "end": 43,
+        "declaration": "export interface DeploymentCreationFormFieldErrors {\n  /** Error message for the name field. */\n  name?: string;\n  /** Error message for the version field. */\n  version?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFormFieldLabels",
+        "file": "libs/builder-form/src/models/deployment-creation-form.ts",
+        "start": 46,
+        "end": 51,
+        "declaration": "export interface DeploymentCreationFormFieldLabels {\n  /** Field label text. */\n  label: string;\n  /** Placeholder text shown when the field is empty. */\n  placeholder?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFormIconLabels",
+        "file": "libs/builder-form/src/models/deployment-creation-form.ts",
+        "start": 54,
+        "end": 61,
+        "declaration": "export interface DeploymentCreationFormIconLabels {\n  /** Field label rendered above the avatar preview and button (e.g. `'Avatar'`). */\n  label: string;\n  /** Label for the \"Add avatar\" button. */\n  addAvatarLabel: string;\n  /** Caption describing the accepted formats and max size (e.g. `'PNG, JPG or SVG (max 1 MB)'`). */\n  captionText: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFormLabels",
+        "file": "libs/builder-form/src/models/deployment-creation-form.ts",
+        "start": 96,
+        "end": 111,
+        "declaration": "export interface DeploymentCreationFormLabels {\n  /** Labels for the name field. */\n  name: DeploymentCreationFormFieldLabels;\n  /** Labels for the description field. */\n  description: DeploymentCreationFormFieldLabels;\n  /** Labels for the icon/avatar field. */\n  iconUrl: DeploymentCreationFormIconLabels;\n  /** Labels for the version field. */\n  version: DeploymentCreationFormFieldLabels;\n  /** Labels for the topics field. */\n  topics: DeploymentCreationFormFieldLabels;\n  /** Labels for the additional-locales summary row and popup. */\n  otherLocales: DeploymentCreationFormLocaleLabels;\n  /** Accessible name for the field set group. */\n  ariaLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFormLocaleEntry",
+        "file": "libs/builder-form/src/models/deployment-creation-form.ts",
+        "start": 2,
+        "end": 11,
+        "declaration": "export interface DeploymentCreationFormLocaleEntry {\n  /** Stable client-side id for list rendering; not part of the persisted locale map. */\n  id: string;\n  /** Locale code this entry translates into (e.g. `'de'`). */\n  language: string;\n  /** Translated name for this locale. */\n  name: string;\n  /** Translated description for this locale. */\n  description: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFormLocaleLabels",
+        "file": "libs/builder-form/src/models/deployment-creation-form.ts",
+        "start": 64,
+        "end": 93,
+        "declaration": "export interface DeploymentCreationFormLocaleLabels {\n  /** Text preceding the list of configured locale codes, e.g. `'Locales'`. */\n  summaryLabel: string;\n  /** Label for the link that opens the popup when no locale has been added yet, e.g. `'Add locales'`. */\n  addLabel: string;\n  /** Label for the link that opens the popup once at least one locale exists, e.g. `'Edit locales'`. */\n  editLabel: string;\n  /** Title of the \"Add locale\" popup. */\n  popupTitle: string;\n  /** Label for the button that adds a new locale row. */\n  addLocaleLabel: string;\n  /** Label prefix for each row's heading (e.g. `'Locale'` -> `'Locale 1'`). Defaults to `'Locale'`. */\n  localeRowLabel?: string;\n  /** Label for the language select field. */\n  languageLabel: string;\n  /** Label for the per-locale name field. */\n  nameLabel: string;\n  /** Placeholder for the per-locale name field. */\n  namePlaceholder?: string;\n  /** Label for the per-locale description field. */\n  descriptionLabel: string;\n  /** Placeholder for the per-locale description field. */\n  descriptionPlaceholder?: string;\n  /** Accessible name for a row's delete button. */\n  deleteAriaLabel: string;\n  /** Label for the popup's cancel button. */\n  cancelLabel?: string;\n  /** Label for the popup's save button. */\n  saveLabel?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFormLocaleOption",
+        "file": "libs/builder-form/src/models/deployment-creation-form.ts",
+        "start": 14,
+        "end": 19,
+        "declaration": "export interface DeploymentCreationFormLocaleOption {\n  /** Locale code (e.g. `'de'`). */\n  code: string;\n  /** Display label for the option (e.g. `'DE'`). */\n  label: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFormProps",
+        "file": "libs/builder-form/src/models/deployment-creation-form.ts",
+        "start": 122,
+        "end": 147,
+        "declaration": "export interface DeploymentCreationFormProps {\n  /** Current field values. The component holds no state of its own. */\n  values: DeploymentCreationFormValues;\n  /** Field-level errors to surface, already translated by the host app. */\n  errors: DeploymentCreationFormFieldErrors;\n  /** Called with a partial patch whenever a field value changes. */\n  onChange: (patch: Partial<DeploymentCreationFormValues>) => void;\n  /** Called when the name field loses focus, so the host can run on-blur validation. */\n  onNameBlur?: () => void;\n  /** Called when the version field loses focus, so the host can run on-blur validation. */\n  onVersionBlur?: () => void;\n  /**\n   * URL to display in the avatar preview box. Resolved by the host from\n   * `values.iconUrl` (a DIAL file id or absolute URL) \u2014 this lib never\n   * resolves storage identifiers itself.\n   */\n  iconPreviewUrl?: string;\n  /** Called when the \"Add avatar\" button is clicked. The host opens its own file picker/manager and reports the result via `onChange({ iconUrl })`. */\n  onAddAvatarClick: () => void;\n  /** Pre-translated labels/placeholders for every field. */\n  labels: DeploymentCreationFormLabels;\n  /** Optional per-slot class name overrides. */\n  styles?: DeploymentCreationFormStyles;\n  /** Selectable language options for additional-locale rows. Defaults to an empty list (no locales addable). */\n  availableLocaleOptions?: DeploymentCreationFormLocaleOption[];\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFormStyles",
+        "file": "libs/builder-form/src/models/deployment-creation-form.ts",
+        "start": 114,
+        "end": 119,
+        "declaration": "export interface DeploymentCreationFormStyles {\n  /** Class applied to the root container. Defaults to a vertical flex stack. */\n  root?: string;\n  /** Class applied to each individual field wrapper. */\n  field?: string;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFormValues",
+        "file": "libs/builder-form/src/models/deployment-creation-form.ts",
+        "start": 22,
+        "end": 35,
+        "declaration": "export interface DeploymentCreationFormValues {\n  /** Display name of the entity being created. */\n  name: string;\n  /** Long-form description of the entity. */\n  description: string;\n  /** Icon/avatar reference (a DIAL file id or absolute URL), set by the host once a file is picked. */\n  iconUrl: string;\n  /** Version string (e.g. `'1.0.0'`). */\n  version: string;\n  /** Free-entry topic tags. */\n  topics: string[];\n  /** Additional (non-primary) locale entries for name/description, edited via the \"Add locale\" popup. */\n  otherLocales: DeploymentCreationFormLocaleEntry[];\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFormErrorCodes",
+        "file": "libs/builder-form/src/models/validation.ts",
+        "start": 12,
+        "end": 17,
+        "declaration": "export interface DeploymentCreationFormErrorCodes {\n  /** Error code for the name field, if invalid. */\n  name?: DeploymentCreationFieldErrorCode;\n  /** Error code for the version field, if invalid. */\n  version?: DeploymentCreationFieldErrorCode;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFormValidationOptions",
+        "file": "libs/builder-form/src/models/validation.ts",
+        "start": 20,
+        "end": 30,
+        "declaration": "export interface DeploymentCreationFormValidationOptions {\n  /** Whether to reject a name containing characters outside `NAME_PATTERN`. */\n  validateNamePattern?: boolean;\n  /**\n   * Whether to reject a non-empty version that doesn't match a pattern.\n   * `true` checks against the default `VERSION_PATTERN`; passing a `RegExp`\n   * checks against that pattern instead (e.g. `SEMVER_VERSION_PATTERN` for a\n   * host that requires a strict dot-separated numeric version).\n   */\n  validateVersionPattern?: boolean | RegExp;\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "DeploymentCreationFieldErrorCode",
+        "file": "libs/builder-form/src/models/validation.ts",
+        "start": 2,
+        "end": 9,
+        "declaration": "export enum DeploymentCreationFieldErrorCode {\n  /** The field is required and was left empty. */\n  Required = 'required',\n  /** The field's value does not match the required character pattern. */\n  InvalidFormat = 'invalid-format',\n  /** The field's value exceeds its maximum length. */\n  TooLong = 'too-long',\n}",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "NAME_PATTERN",
+        "file": "libs/builder-form/src/utils/validate-deployment-creation-fields.ts",
+        "start": 9,
+        "end": 9,
+        "declaration": "NAME_PATTERN = /^[a-zA-Z0-9 _.-]+$/",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "SEMVER_VERSION_PATTERN",
+        "file": "libs/builder-form/src/utils/validate-deployment-creation-fields.ts",
+        "start": 15,
+        "end": 15,
+        "declaration": "SEMVER_VERSION_PATTERN = /^\\d+(\\.\\d+)*$/",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "VERSION_PATTERN",
+        "file": "libs/builder-form/src/utils/validate-deployment-creation-fields.ts",
+        "start": 12,
+        "end": 12,
+        "declaration": "VERSION_PATTERN = /^[a-zA-Z0-9._-]+$/",
+        "signature": null,
+        "props": []
+      },
+      {
+        "name": "validateDeploymentCreationFields",
+        "file": "libs/builder-form/src/utils/validate-deployment-creation-fields.ts",
+        "start": 18,
+        "end": 43,
+        "declaration": "validateDeploymentCreationFields = (\n  values: DeploymentCreationFormValues,\n  options: DeploymentCreationFormValidationOptions = {},\n): DeploymentCreationFormErrorCodes => {\n  const errors: DeploymentCreationFormErrorCodes = {};\n\n  const trimmedName = values.name.trim();\n  if (!trimmedName) {\n    errors.name = DeploymentCreationFieldErrorCode.Required;\n  } else if (options.validateNamePattern && !NAME_PATTERN.test(trimmedName)) {\n    errors.name = DeploymentCreationFieldErrorCode.InvalidFormat;\n  }\n\n  const trimmedVersion = values.version.trim();\n  if (options.validateVersionPattern && trimmedVersion) {\n    const pattern =\n      options.validateVersionPattern instanceof RegExp\n        ? options.validateVersionPattern\n        : VERSION_PATTERN;\n    if (!pattern.test(trimmedVersion)) {\n      errors.version = DeploymentCreationFieldErrorCode.InvalidFormat;\n    }\n  }\n\n  return errors;\n}",
+        "signature": "(values: DeploymentCreationFormValues, options?: DeploymentCreationFormValidationOptions): DeploymentCreationFormErrorCodes",
+        "props": [
+          {
+            "name": "name",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "iconUrl",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "version",
+            "optional": false,
+            "type": "string"
+          },
+          {
+            "name": "topics",
+            "optional": false,
+            "type": "string[]"
+          },
+          {
+            "name": "otherLocales",
+            "optional": false,
+            "type": "import(\"..\").DeploymentCreationFormLocaleEntry[]"
+          }
+        ]
+      },
+      {
+        "name": "BUILDER_FORM_CLASS",
+        "file": "libs/builder-form/src/constants/public-class-names.ts",
+        "start": 11,
+        "end": 16,
+        "declaration": "BUILDER_FORM_CLASS = {\n  /** The editor layout root, which holds the header and the content columns. */\n  layout: 'dial-builder-form-layout',\n  /** Every `EditorSection` box, whatever a caller puts inside it. */\n  section: 'dial-builder-form-section',\n} as const",
+        "signature": null,
+        "props": []
+      }
+    ]
+  },
+  "implementationEvidence": [
+    {
+      "name": "BuilderFormContainer",
+      "file": "libs/builder-form/src/components/BuilderFormContainer/BuilderFormContainer.tsx",
+      "start": 10,
+      "end": 79,
+      "declaration": "BuilderFormContainer: FC<BuilderFormContainerProps> = ({\n  labels,\n  onBack,\n  onCancel,\n  onSubmit,\n  isCancelDisabled = false,\n  isSubmitDisabled = false,\n  isSubmitting = false,\n  left,\n  children,\n  metadata,\n  styles: containerStyles,\n}) => {\n  const { colors, header, cssVars } = containerStyles ?? {};\n\n  return (\n    <div\n      style={{\n        ...buildCssVars({\n          '--bfc-bg': colors?.background,\n        }),\n        ...cssVars,\n      }}\n      className={mergeClasses(\n        'flex h-full w-full flex-col overflow-y-auto',\n        styles.container,\n      )}\n    >\n      <BuilderFormHeader\n        labels={labels}\n        onBack={onBack}\n        onCancel={onCancel}\n        onSubmit={onSubmit}\n        isCancelDisabled={isCancelDisabled}\n        isSubmitDisabled={isSubmitDisabled}\n        isSubmitting={isSubmitting}\n        styles={header}\n      />\n      <BuilderFormBody left={left} metadata={metadata}>\n        {children}\n      </BuilderFormBody>\n      {/*\n       * At mobile widths the action pair lives in this sticky footer pinned\n       * over the scrolling form instead of the header \u2014 a thumb-reachable\n       * position, with the two actions splitting the row equally. It renders\n       * the same `BuilderFormActions` the header holds at the desktop\n       * breakpoint: CSS cannot move one instance between the top of the page\n       * and the bottom, so exactly one copy is visible (and tabbable) at any\n       * width. Opaque background and the elevation shadow come from\n       * `styles.footer`, so scrolled content never shows through it.\n       */}\n      <div\n        className={mergeClasses(\n          'sticky bottom-0 z-10 flex items-center gap-2 p-3 desktop:hidden',\n          styles.footer,\n        )}\n      >\n        <BuilderFormActions\n          labels={labels}\n          onCancel={onCancel}\n          onSubmit={onSubmit}\n          isCancelDisabled={isCancelDisabled}\n          isSubmitDisabled={isSubmitDisabled}\n          isSubmitting={isSubmitting}\n          buttonClassName=\"flex-1\"\n        />\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: BuilderFormContainerProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").BuilderFormHeaderLabels"
+        },
+        {
+          "name": "onBack",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onCancel",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onSubmit",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "isCancelDisabled",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isSubmitDisabled",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "isSubmitting",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "left",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "children",
+          "optional": false,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "metadata",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").BuilderFormContainerStyles | undefined"
+        }
+      ]
+    },
+    {
+      "name": "EditorSection",
+      "file": "libs/builder-form/src/components/EditorSection/EditorSection.tsx",
+      "start": 8,
+      "end": 35,
+      "declaration": "EditorSection: FC<EditorSectionProps> = ({\n  title,\n  children,\n  styles: stylesProp,\n  className,\n}) => {\n  const cssVars = buildCssVars({\n    '--es-border-color': stylesProp?.colors?.borderColor,\n    '--es-title-color': stylesProp?.colors?.titleColor,\n  });\n\n  return (\n    <section\n      className={mergeClasses(\n        'flex flex-col gap-4 rounded border p-6',\n        styles.section,\n        className,\n        BUILDER_FORM_CLASS.section,\n      )}\n      style={cssVars}\n    >\n      {title != null && (\n        <h2 className={mergeClasses('dial-h3-text', styles.title)}>{title}</h2>\n      )}\n      {children}\n    </section>\n  );\n}",
+      "signature": "(props: EditorSectionProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "title",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "children",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").EditorSectionStyles | undefined"
+        },
+        {
+          "name": "className",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "EditorLayout",
+      "file": "libs/builder-form/src/components/EditorLayout/EditorLayout.tsx",
+      "start": 18,
+      "end": 120,
+      "declaration": "EditorLayout: FC<EditorLayoutProps> = ({\n  title,\n  onBack,\n  backAriaLabel = 'Back',\n  actions,\n  leftContent,\n  rightContent,\n  isSaving = false,\n  labels,\n  styles: stylesProp,\n  dir,\n}) => {\n  const savingStatusId = useId();\n  const savingStatusText = isSaving\n    ? (labels?.savingStatusLabel ?? 'Saving')\n    : '';\n\n  const cssVars = buildCssVars({\n    '--el-header-border-color': stylesProp?.colors?.headerBorderColor,\n    '--el-sidebar-border-color': stylesProp?.colors?.sidebarBorderColor,\n  });\n\n  return (\n    <div\n      dir={dir}\n      className={mergeClasses(\n        'flex min-h-0 flex-1 flex-col',\n        BUILDER_FORM_CLASS.layout,\n      )}\n      style={cssVars}\n    >\n      <span\n        role=\"status\"\n        aria-live=\"polite\"\n        className=\"sr-only\"\n        id={savingStatusId}\n      >\n        {savingStatusText}\n      </span>\n\n      {/* Header row */}\n      <div\n        className={mergeClasses(\n          'flex items-center justify-between gap-2 border-b px-4 py-2 desktop:px-8 desktop:pb-3 desktop:pt-3',\n          styles.headerBorder,\n        )}\n      >\n        <div className=\"flex min-w-0 flex-1 items-center gap-2\">\n          <GhostIconButton\n            icon={\n              <IconArrowNarrowLeft\n                size={DIAL_ICON_SIZE.LG}\n                stroke={DIAL_KIT_ICON_STROKE}\n                aria-hidden\n                className=\"rtl:scale-x-[-1]\"\n              />\n            }\n            aria-label={backAriaLabel}\n            onClick={onBack}\n          />\n          <h1 className=\"dial-h2-text min-w-0 truncate\">{title}</h1>\n        </div>\n        {actions != null && (\n          <div className=\"hidden shrink-0 items-center gap-2 desktop:flex\">\n            {actions}\n          </div>\n        )}\n      </div>\n\n      {/* Body: two-column on desktop, stacked on mobile */}\n      <div className=\"flex flex-1 flex-col overflow-y-auto desktop:flex-row desktop:overflow-hidden\">\n        <div\n          className={mergeClasses(\n            rightContent != null\n              ? 'desktop:w-[360px] desktop:shrink-0 desktop:overflow-y-auto desktop:border-e'\n              : 'desktop:flex-1',\n            'desktop:overflow-y-auto',\n            rightContent != null ? styles.sidebarBorder : undefined,\n          )}\n        >\n          {leftContent}\n        </div>\n        {rightContent != null && (\n          <div className=\"desktop:flex-1 desktop:overflow-y-auto\">\n            {rightContent}\n          </div>\n        )}\n      </div>\n\n      {/* Mobile/tablet action bar \u2014 kept out of the scrollable body so it never overlaps content. */}\n      {actions != null && (\n        <div\n          className={mergeClasses(\n            'flex shrink-0 flex-row-reverse items-center gap-2 border-t px-4 py-2 desktop:hidden [&>*]:flex-1',\n            styles.footerBorder,\n          )}\n        >\n          {actions}\n        </div>\n      )}\n    </div>\n  );\n}",
+      "signature": "(props: EditorLayoutProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "title",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "onBack",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "backAriaLabel",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "actions",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "leftContent",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "rightContent",
+          "optional": true,
+          "type": "import(\"react\").ReactNode"
+        },
+        {
+          "name": "isSaving",
+          "optional": true,
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": true,
+          "type": "import(\"../..\").EditorLayoutLabels | undefined"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").EditorLayoutStyles | undefined"
+        },
+        {
+          "name": "dir",
+          "optional": true,
+          "type": "\"ltr\" | \"rtl\" | undefined"
+        }
+      ]
+    },
+    {
+      "name": "AddAvatar",
+      "file": "libs/builder-form/src/components/AddAvatar/AddAvatar.tsx",
+      "start": 15,
+      "end": 82,
+      "declaration": "AddAvatar: FC<AddAvatarProps> = ({\n  label,\n  avatarUrl,\n  avatarAlt = '',\n  addAvatarLabel = 'Add avatar',\n  captionText = 'PNG, JPG or SVG (max 1 MB)',\n  onAddAvatarClick,\n  styles: stylesProp,\n  className,\n}) => {\n  const cssVars = buildCssVars({\n    '--aa-box-bg': stylesProp?.colors?.boxBackgroundColor,\n    '--aa-box-border': stylesProp?.colors?.boxBorderColor,\n    '--aa-icon': stylesProp?.colors?.placeholderIconColor,\n    '--aa-caption': stylesProp?.colors?.captionColor,\n  });\n\n  return (\n    <div\n      className={mergeClasses('flex flex-col gap-2', className)}\n      style={cssVars}\n    >\n      <Label label={label} />\n      <div className=\"flex items-start gap-3\">\n        <div\n          className={mergeClasses(\n            'flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border',\n            styles.box,\n          )}\n        >\n          {avatarUrl ? (\n            <img\n              src={avatarUrl}\n              alt={avatarAlt}\n              className=\"h-16 w-16 object-cover\"\n            />\n          ) : (\n            <IconPhoto\n              size={DIAL_ICON_SIZE.LG}\n              stroke={DIAL_KIT_ICON_STROKE}\n              aria-hidden\n              className={styles.icon}\n            />\n          )}\n        </div>\n\n        <div className=\"flex flex-col gap-3\">\n          <LinkButton\n            size={ElementSize.Small}\n            iconBefore={\n              <IconPlus\n                size={DIAL_ICON_SIZE.SM}\n                stroke={DIAL_KIT_ICON_STROKE}\n                aria-hidden\n              />\n            }\n            className=\"w-fit\"\n            label={addAvatarLabel}\n            onClick={onAddAvatarClick}\n          />\n          <span className={mergeClasses('dial-tiny-text', styles.caption)}>\n            {captionText}\n          </span>\n        </div>\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: AddAvatarProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "label",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "avatarUrl",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "avatarAlt",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "addAvatarLabel",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "captionText",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "onAddAvatarClick",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").AddAvatarStyles | undefined"
+        },
+        {
+          "name": "className",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "AvatarPickerModal",
+      "file": "libs/builder-form/src/components/AvatarPickerModal/AvatarPickerModal.tsx",
+      "start": 6,
+      "end": 91,
+      "declaration": "AvatarPickerModal: FC<AvatarPickerModalProps> = ({\n  isOpen,\n  onClose,\n  onAttach,\n  bucket,\n  FileManagerModal,\n  allowedMimeTypes,\n  maxFileSizeBytes,\n  labels,\n}) => {\n  const deleteConfirmTitle = useCallback(\n    (names: string[]) =>\n      names.length === 1\n        ? labels.deleteConfirmTitleSingle\n        : labels.deleteConfirmTitleMultiple,\n    [labels.deleteConfirmTitleSingle, labels.deleteConfirmTitleMultiple],\n  );\n\n  const deleteConfirmBody = useCallback(\n    (names: string[]) => (\n      <div className=\"dial-small-text px-6 py-3\">\n        <p className=\"mb-3 text-secondary\">\n          {names.length === 1 ? (\n            <>\n              {labels.deleteConfirmSingleText}{' '}\n              <span className=\"break-words text-primary\">\n                &quot;{names[0].split('/').pop()}&quot;?\n              </span>\n            </>\n          ) : (\n            <>\n              {labels.deleteConfirmMultipleText}{' '}\n              <span className=\"text-primary\">\n                {names.length} {labels.deleteConfirmItemsLabel}\n              </span>\n            </>\n          )}\n        </p>\n      </div>\n    ),\n    [\n      labels.deleteConfirmSingleText,\n      labels.deleteConfirmMultipleText,\n      labels.deleteConfirmItemsLabel,\n    ],\n  );\n\n  return (\n    <Suspense fallback={null}>\n      {isOpen && (\n        <FileManagerModal\n          isOpen={isOpen}\n          onClose={onClose}\n          onAttach={onAttach}\n          bucket={bucket}\n          allowedTypes={allowedMimeTypes}\n          maxSelectableFileSize={maxFileSizeBytes}\n          maximumAttachmentsAmount={1}\n          canAttachFolders={false}\n          title={labels.title}\n          attachLabel={labels.attachLabel}\n          emptyTitle={labels.emptyTitle}\n          emptyDescription={labels.emptyDescription}\n          errorMessage={labels.errorMessage}\n          retryLabel={labels.retryLabel}\n          hiddenFilesLabel={labels.hiddenFilesLabel}\n          showHiddenFilesLabel={labels.showHiddenFilesLabel}\n          hideHiddenFilesLabel={labels.hideHiddenFilesLabel}\n          getSelectionLabel={labels.getSelectionLabel}\n          uploadFilesLabel={labels.uploadFilesLabel}\n          newFolderLabel={labels.newFolderLabel}\n          downloadLabel={labels.downloadLabel}\n          downloadingLabel={labels.downloadingLabel}\n          deleteLabel={labels.deleteLabel}\n          deletingLabel={labels.deletingLabel}\n          deleteConfirmTitle={deleteConfirmTitle}\n          deleteConfirmBody={deleteConfirmBody}\n          deleteConfirmLabel={labels.deleteConfirmLabel}\n          deleteCancelLabel={labels.deleteCancelLabel}\n          uploadProgressTitle={labels.uploadProgressTitle}\n          cancelLabel={labels.cancelLabel}\n        />\n      )}\n    </Suspense>\n  );\n}",
+      "signature": "(props: AvatarPickerModalProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "isOpen",
+          "optional": false,
+          "type": "boolean"
+        },
+        {
+          "name": "onClose",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "onAttach",
+          "optional": false,
+          "type": "(result: import(\"@epam/ai-dial-chat-shared\").AttachResult) => void"
+        },
+        {
+          "name": "bucket",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "FileManagerModal",
+          "optional": false,
+          "type": "import(\"react\").ComponentType<import(\"../..\").AvatarPickerFileManagerModalProps>"
+        },
+        {
+          "name": "allowedMimeTypes",
+          "optional": false,
+          "type": "string[]"
+        },
+        {
+          "name": "maxFileSizeBytes",
+          "optional": false,
+          "type": "number"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").AvatarPickerModalLabels"
+        }
+      ]
+    },
+    {
+      "name": "DeploymentCreationForm",
+      "file": "libs/builder-form/src/components/DeploymentCreationForm/DeploymentCreationForm.tsx",
+      "start": 18,
+      "end": 125,
+      "declaration": "DeploymentCreationForm: FC<DeploymentCreationFormProps> = ({\n  values,\n  errors,\n  onChange,\n  onNameBlur,\n  onVersionBlur,\n  iconPreviewUrl,\n  onAddAvatarClick,\n  labels,\n  styles,\n  availableLocaleOptions = [],\n}) => {\n  const nameInputRef = useRef<HTMLInputElement>(null);\n  const versionInputRef = useRef<HTMLInputElement>(null);\n  const hadErrorsRef = useRef(false);\n\n  const hasErrors = !!(errors.name || errors.version);\n\n  /*\n   * Only steal focus on the transition from no errors to some errors (a\n   * submit attempt), not on every keystroke that adds/removes one field's\n   * error while the user is still typing.\n   */\n  useEffect(() => {\n    if (hasErrors && !hadErrorsRef.current) {\n      const firstInvalidRef = errors.name ? nameInputRef : versionInputRef;\n\n      firstInvalidRef.current?.focus();\n    }\n\n    hadErrorsRef.current = hasErrors;\n  }, [hasErrors, errors.name, errors.version]);\n\n  return (\n    <div\n      role={labels.ariaLabel ? 'group' : undefined}\n      aria-label={labels.ariaLabel}\n      className={mergeClasses('flex flex-col gap-4', styles?.root)}\n    >\n      <AddAvatar\n        label={labels.iconUrl.label}\n        avatarUrl={iconPreviewUrl}\n        addAvatarLabel={labels.iconUrl.addAvatarLabel}\n        captionText={labels.iconUrl.captionText}\n        onAddAvatarClick={onAddAvatarClick}\n        className={styles?.field}\n      />\n\n      <div className={mergeClasses('flex items-start gap-4', styles?.field)}>\n        <Input\n          id=\"deployment-creation-form-name\"\n          inputRef={nameInputRef}\n          value={values.name}\n          onChange={(value) => onChange({ name: value ?? '' })}\n          onBlur={onNameBlur}\n          labelProps={{ label: labels.name.label, required: true }}\n          placeholder={labels.name.placeholder}\n          error={errors.name || undefined}\n          invalid={!!errors.name}\n          containerClassName=\"min-w-0 basis-0 grow-[2]\"\n        />\n\n        <Input\n          id=\"deployment-creation-form-version\"\n          inputRef={versionInputRef}\n          value={values.version}\n          onChange={(value) => onChange({ version: value ?? '' })}\n          onBlur={onVersionBlur}\n          labelProps={{ label: labels.version.label }}\n          placeholder={labels.version.placeholder}\n          error={errors.version || undefined}\n          invalid={!!errors.version}\n          containerClassName=\"min-w-0 basis-0 grow-[1]\"\n        />\n      </div>\n\n      <Textarea\n        id=\"deployment-creation-form-description\"\n        value={values.description}\n        onChange={(value) => onChange({ description: value })}\n        labelProps={{ label: labels.description.label }}\n        placeholder={labels.description.placeholder}\n        containerClassName={styles?.field}\n        className={RESIZABLE_TEXTAREA_CLASS_NAME}\n        resize={TextareaResize.Vertical}\n      />\n\n      <DeploymentLocalesField\n        value={values.otherLocales}\n        onChange={(otherLocales) => onChange({ otherLocales })}\n        availableLocaleOptions={availableLocaleOptions}\n        labels={labels.otherLocales}\n        className={styles?.field}\n      />\n\n      <div className={styles?.field}>\n        <TagInput\n          id=\"deployment-creation-form-topics\"\n          labelProps={{ label: labels.topics.label }}\n          placeholder={labels.topics.placeholder}\n          value={values.topics}\n          onChange={(topics) => onChange({ topics })}\n          tagClassName={TAG_INPUT_TAG_CLASS_NAME}\n        />\n      </div>\n    </div>\n  );\n}",
+      "signature": "(props: DeploymentCreationFormProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "values",
+          "optional": false,
+          "type": "import(\"../..\").DeploymentCreationFormValues"
+        },
+        {
+          "name": "errors",
+          "optional": false,
+          "type": "import(\"../..\").DeploymentCreationFormFieldErrors"
+        },
+        {
+          "name": "onChange",
+          "optional": false,
+          "type": "(patch: Partial<import(\"../..\").DeploymentCreationFormValues>) => void"
+        },
+        {
+          "name": "onNameBlur",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "onVersionBlur",
+          "optional": true,
+          "type": "(() => void) | undefined"
+        },
+        {
+          "name": "iconPreviewUrl",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "onAddAvatarClick",
+          "optional": false,
+          "type": "() => void"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "import(\"../..\").DeploymentCreationFormLabels"
+        },
+        {
+          "name": "styles",
+          "optional": true,
+          "type": "import(\"../..\").DeploymentCreationFormStyles | undefined"
+        },
+        {
+          "name": "availableLocaleOptions",
+          "optional": true,
+          "type": "import(\"../..\").DeploymentCreationFormLocaleOption[] | undefined"
+        }
+      ]
+    },
+    {
+      "name": "DeploymentLocalesField",
+      "file": "libs/builder-form/src/components/DeploymentLocalesField/DeploymentLocalesField.tsx",
+      "start": 59,
+      "end": 293,
+      "declaration": "DeploymentLocalesField: FC<DeploymentLocalesFieldProps> = ({\n  value,\n  onChange,\n  availableLocaleOptions = [],\n  labels,\n  className,\n  summaryClassName = 'dial-body-text text-secondary',\n  rowLabelClassName = 'dial-tiny-lead-text text-secondary',\n}) => {\n  const {\n    summaryLabel,\n    addLabel,\n    editLabel,\n    popupTitle,\n    addLocaleLabel,\n    localeRowLabel = 'Locale',\n    languageLabel,\n    nameLabel,\n    namePlaceholder,\n    descriptionLabel,\n    descriptionPlaceholder,\n    deleteAriaLabel,\n    cancelLabel = 'Cancel',\n    saveLabel = 'Save',\n  } = labels;\n\n  const [isOpen, setIsOpen] = useState(false);\n  const [draftEntries, setDraftEntries] = useState<\n    DeploymentCreationFormLocaleEntry[]\n  >([]);\n\n  const nextRowIdRef = useRef(0);\n\n  useEffect(() => {\n    if (isOpen) {\n      setDraftEntries(\n        value.length > 0\n          ? value\n          : [\n              createEmptyRow(\n                `locale-row-${++nextRowIdRef.current}`,\n                new Set(),\n                availableLocaleOptions,\n              ),\n            ],\n      );\n    }\n  }, [isOpen, value, availableLocaleOptions]);\n\n  const handleOpen = (): void => setIsOpen(true);\n  const handleCancel = (): void => setIsOpen(false);\n\n  const handleSave = (): void => {\n    onChange(draftEntries.filter((entry) => entry.language && entry.name));\n    setIsOpen(false);\n  };\n\n  const handleAddRow = (): void => {\n    const usedLanguages = new Set(\n      draftEntries.map((entry) => entry.language).filter(Boolean),\n    );\n    setDraftEntries((prev) => [\n      ...prev,\n      createEmptyRow(\n        `locale-row-${++nextRowIdRef.current}`,\n        usedLanguages,\n        availableLocaleOptions,\n      ),\n    ]);\n  };\n\n  const handleRowChange = (\n    id: string,\n    patch: Partial<Omit<DeploymentCreationFormLocaleEntry, 'id'>>,\n  ): void => {\n    setDraftEntries((prev) =>\n      prev.map((entry) => (entry.id === id ? { ...entry, ...patch } : entry)),\n    );\n  };\n\n  const handleRowDelete = (id: string): void => {\n    setDraftEntries((prev) => prev.filter((entry) => entry.id !== id));\n  };\n\n  const localeLabel = (code: string): string =>\n    availableLocaleOptions.find((option) => option.code === code)?.label ??\n    code.toUpperCase();\n\n  const isSaveDisabled = draftEntries.some(\n    (entry) => !entry.language || !entry.name,\n  );\n\n  /*\n   * With no selectable language there is nothing the popup could ever produce:\n   * every row would be missing its required language, so Save would stay\n   * permanently disabled with no way for the user to satisfy it. Render no\n   * control at all rather than an unusable one. `value` is left untouched \u2014\n   * `onChange` never fires from here, so already-stored locales survive.\n   */\n  if (availableLocaleOptions.length === 0) return null;\n\n  return (\n    <div className={mergeClasses('flex items-center gap-2', className)}>\n      {value.length > 0 && (\n        <span className={summaryClassName}>\n          {`${summaryLabel}: ${value.map((entry) => `[${localeLabel(entry.language)}]`).join(', ')}`}\n        </span>\n      )}\n      <LinkButton\n        label={value.length > 0 ? editLabel : addLabel}\n        iconBefore={\n          <IconPlus\n            size={DIAL_ICON_SIZE.SM}\n            aria-hidden\n            stroke={DIAL_KIT_ICON_STROKE}\n          />\n        }\n        className=\"!px-0\"\n        onClick={handleOpen}\n      />\n\n      <Popup\n        open={isOpen}\n        header={popupTitle}\n        onClose={handleCancel}\n        mainButtons={[\n          { label: cancelLabel, onClick: handleCancel },\n          {\n            label: saveLabel,\n            variant: ButtonVariant.Primary,\n            disabled: isSaveDisabled,\n            onClick: handleSave,\n          },\n        ]}\n      >\n        <div className=\"flex flex-col gap-8 px-6 py-3\">\n          {draftEntries.map((entry, index) => {\n            const usedByOtherRows = new Set(\n              draftEntries\n                .filter((other) => other.id !== entry.id)\n                .map((other) => other.language)\n                .filter(Boolean),\n            );\n\n            return (\n              <div key={entry.id} className=\"flex flex-col gap-2\">\n                <div className=\"flex items-center justify-between\">\n                  <span className={rowLabelClassName}>\n                    {localeRowLabel} {index + 1}\n                  </span>\n                  <DangerIconButton\n                    appearance={ButtonAppearance.Ghost}\n                    size={ElementSize.Small}\n                    icon={\n                      <IconTrashX\n                        size={DIAL_ICON_SIZE.SM}\n                        aria-hidden\n                        stroke={DIAL_KIT_ICON_STROKE}\n                      />\n                    }\n                    aria-label={`${deleteAriaLabel} ${index + 1}`}\n                    onClick={() => handleRowDelete(entry.id)}\n                  />\n                </div>\n\n                <div\n                  role=\"group\"\n                  aria-label={`${localeRowLabel} ${index + 1}`}\n                  className=\"flex flex-col gap-5\"\n                >\n                  <div className=\"flex flex-col gap-5 desktop:flex-row desktop:items-start\">\n                    <Select\n                      id={`${entry.id}-language`}\n                      labelProps={{ label: languageLabel, required: true }}\n                      /* Full width when stacked; on one row, wide enough for a full BCP-47 tag (\"PT-BR\") plus the chevron. */\n                      className=\"desktop:shrink-0 desktop:basis-40\"\n                      options={availableLocaleOptions.map((option) => ({\n                        value: option.code,\n                        label: option.label,\n                        disabled: usedByOtherRows.has(option.code),\n                      }))}\n                      value={entry.language}\n                      onChange={(next) =>\n                        handleRowChange(entry.id, {\n                          language: next as string,\n                        })\n                      }\n                    />\n\n                    <Input\n                      id={`${entry.id}-name`}\n                      containerClassName=\"min-w-0 flex-1\"\n                      required\n                      value={entry.name}\n                      onChange={(next) =>\n                        handleRowChange(entry.id, { name: next ?? '' })\n                      }\n                      labelProps={{ label: nameLabel, required: true }}\n                      placeholder={namePlaceholder}\n                    />\n                  </div>\n\n                  <Textarea\n                    id={`${entry.id}-description`}\n                    className={RESIZABLE_TEXTAREA_CLASS_NAME}\n                    resize={TextareaResize.Vertical}\n                    value={entry.description}\n                    onChange={(next) =>\n                      handleRowChange(entry.id, { description: next })\n                    }\n                    labelProps={{ label: descriptionLabel }}\n                    placeholder={descriptionPlaceholder}\n                  />\n                </div>\n              </div>\n            );\n          })}\n          <LinkButton\n            label={addLocaleLabel}\n            iconBefore={\n              <IconPlus\n                size={DIAL_ICON_SIZE.SM}\n                aria-hidden\n                stroke={DIAL_KIT_ICON_STROKE}\n              />\n            }\n            className=\"self-start\"\n            onClick={handleAddRow}\n            disabled={draftEntries.length >= availableLocaleOptions.length}\n          />\n        </div>\n      </Popup>\n    </div>\n  );\n}",
+      "signature": "(props: DeploymentLocalesFieldProps): import(\"react\").ReactNode | Promise<import(\"react\").ReactNode>",
+      "props": [
+        {
+          "name": "value",
+          "optional": false,
+          "type": "DeploymentCreationFormLocaleEntry[]"
+        },
+        {
+          "name": "onChange",
+          "optional": false,
+          "type": "(entries: DeploymentCreationFormLocaleEntry[]) => void"
+        },
+        {
+          "name": "availableLocaleOptions",
+          "optional": true,
+          "type": "DeploymentCreationFormLocaleOption[] | undefined"
+        },
+        {
+          "name": "labels",
+          "optional": false,
+          "type": "DeploymentCreationFormLocaleLabels"
+        },
+        {
+          "name": "className",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "summaryClassName",
+          "optional": true,
+          "type": "string | undefined"
+        },
+        {
+          "name": "rowLabelClassName",
+          "optional": true,
+          "type": "string | undefined"
+        }
+      ]
+    },
+    {
+      "name": "validateDeploymentCreationFields",
+      "file": "libs/builder-form/src/utils/validate-deployment-creation-fields.ts",
+      "start": 18,
+      "end": 43,
+      "declaration": "validateDeploymentCreationFields = (\n  values: DeploymentCreationFormValues,\n  options: DeploymentCreationFormValidationOptions = {},\n): DeploymentCreationFormErrorCodes => {\n  const errors: DeploymentCreationFormErrorCodes = {};\n\n  const trimmedName = values.name.trim();\n  if (!trimmedName) {\n    errors.name = DeploymentCreationFieldErrorCode.Required;\n  } else if (options.validateNamePattern && !NAME_PATTERN.test(trimmedName)) {\n    errors.name = DeploymentCreationFieldErrorCode.InvalidFormat;\n  }\n\n  const trimmedVersion = values.version.trim();\n  if (options.validateVersionPattern && trimmedVersion) {\n    const pattern =\n      options.validateVersionPattern instanceof RegExp\n        ? options.validateVersionPattern\n        : VERSION_PATTERN;\n    if (!pattern.test(trimmedVersion)) {\n      errors.version = DeploymentCreationFieldErrorCode.InvalidFormat;\n    }\n  }\n\n  return errors;\n}",
+      "signature": "(values: DeploymentCreationFormValues, options?: DeploymentCreationFormValidationOptions): DeploymentCreationFormErrorCodes",
+      "props": [
+        {
+          "name": "name",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "iconUrl",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "version",
+          "optional": false,
+          "type": "string"
+        },
+        {
+          "name": "topics",
+          "optional": false,
+          "type": "string[]"
+        },
+        {
+          "name": "otherLocales",
+          "optional": false,
+          "type": "import(\"..\").DeploymentCreationFormLocaleEntry[]"
+        }
+      ]
+    }
+  ],
+  "testEvidence": [
+    {
+      "file": "libs/builder-form/src/components/DeploymentCreationForm/tests/DeploymentCreationForm.spec.tsx",
+      "assertions": [
+        "renders all shared fields",
+        "calls onAddAvatarClick when the Add avatar button is clicked",
+        "calls onChange with a name patch when the name input changes",
+        "calls onChange with a description patch when the textarea changes",
+        "surfaces a passed-in name error without validating itself",
+        "renders no error when none is passed"
+      ]
+    },
+    {
+      "file": "libs/builder-form/src/components/AvatarPickerModal/tests/AvatarPickerModal.spec.tsx",
+      "assertions": [
+        "renders the host file manager modal when open",
+        "does not render the host file manager modal when closed",
+        "forwards the file manager attach result to onAttach"
+      ]
+    },
+    {
+      "file": "libs/builder-form/src/components/EditorSection/tests/EditorSection.classes.spec.tsx",
+      "assertions": [
+        "stamps every editor section, titled or not",
+        "stamps the editor layout root",
+        "keeps a caller className alongside the section class"
+      ]
+    },
+    {
+      "file": "libs/builder-form/src/components/DeploymentLocalesField/tests/DeploymentLocalesField.spec.tsx",
+      "assertions": [
+        "renders nothing when there are no selectable languages",
+        "renders nothing when there are no selectable languages, even with stored locales",
+        "marks both the language and the name field as required",
+        "hides the summary text when no additional locales are configured",
+        "renders the configured locale codes in the summary",
+        "shows \"Add locales\" and opens the popup when clicked, given no configured locales",
+        "shows \"Edit locales\" once at least one locale is configured",
+        "adds a new empty row when \"Add locale\" is clicked",
+        "disables save while a row has no name",
+        "calls onChange with only fully-filled rows when saved",
+        "removes a row when its delete button is clicked",
+        "discards edits when the popup is cancelled",
+        "disables \"Add locale\" once every available language is used"
+      ]
+    },
+    {
+      "file": "libs/builder-form/src/utils/validate-deployment-creation-fields.spec.ts",
+      "assertions": [
+        "returns no errors for valid values",
+        "returns a required error when name is empty",
+        "returns an invalid-format error for a bad name when the pattern check is enabled",
+        "does not check the name pattern unless enabled",
+        "returns an invalid-format error for a bad version when the pattern check is enabled",
+        "accepts a letters-only version when the default pattern check is enabled",
+        "returns an invalid-format error for a non-numeric version when a stricter pattern is passed",
+        "accepts a dot-separated numeric version when a stricter pattern is passed",
+        "does not flag an empty version even when the pattern check is enabled",
+        "does not check the version pattern unless enabled"
+      ]
+    }
+  ],
+  "consumerEvidence": [
+    {
+      "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { EditorLayout } from '@epam/ai-dial-builder-form';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "libs/skill-editor/src/components/SkillEditor/SkillEditor.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { EditorLayout } from '@epam/ai-dial-builder-form';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "libs/toolset-editor/src/components/GeneralForm/GeneralForm.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 6,
+          "excerpt": "import type {\n  AvatarPickerModalLabels,\n  DeploymentCreationFormLabels,\n  DeploymentCreationFormValues,\n} from '@epam/ai-dial-builder-form';\nimport {"
+        },
+        {
+          "start": 1,
+          "end": 10,
+          "excerpt": "import type {\n  AvatarPickerModalLabels,\n  DeploymentCreationFormLabels,\n  DeploymentCreationFormValues,\n} from '@epam/ai-dial-builder-form';\nimport {\n  AvatarPickerModal,\n  DeploymentCreationForm,\n} from '@epam/ai-dial-builder-form';\nimport { dialFileToAttachment } from '@epam/ai-dial-chat-hooks';"
+        }
+      ]
+    },
+    {
+      "file": "libs/toolset-editor/src/components/ToolsetEditor/ToolsetEditor.tsx",
+      "matches": [
+        {
+          "start": 1,
+          "end": 7,
+          "excerpt": "import {\n  DeploymentCreationFieldErrorCode,\n  EditorLayout,\n  EditorSection,\n  validateDeploymentCreationFields,\n} from '@epam/ai-dial-builder-form';\nimport {"
+        }
+      ]
+    },
+    {
+      "file": "libs/toolset-editor/src/models/toolset-editor-props.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 5,
+          "excerpt": "import type {\n  AvatarPickerFileManagerModalProps,\n  DeploymentCreationFormLocaleOption,\n} from '@epam/ai-dial-builder-form';\nimport type { ComponentType } from 'react';"
+        }
+      ]
+    },
+    {
+      "file": "libs/toolset-editor/src/models/general-form-props.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 7,
+          "excerpt": "import type {\n  AvatarPickerFileManagerModalProps,\n  AvatarPickerModalLabels,\n  DeploymentCreationFormLabels,\n  DeploymentCreationFormLocaleOption,\n} from '@epam/ai-dial-builder-form';\nimport type { ComponentType } from 'react';"
+        }
+      ]
+    },
+    {
+      "file": "libs/toolset-editor/src/models/toolset-form.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import type { DeploymentCreationFormLocaleEntry } from '@epam/ai-dial-builder-form';\nimport type {"
+        }
+      ]
+    },
+    {
+      "file": "libs/toolset-editor/src/utils/toolsets.ts",
+      "matches": [
+        {
+          "start": 1,
+          "end": 2,
+          "excerpt": "import { validateDeploymentCreationFields } from '@epam/ai-dial-builder-form';\nimport { ToolsetAuthTypes, WithLogin } from '@epam/ai-dial-chat-hooks';"
+        }
+      ]
+    }
+  ]
+}

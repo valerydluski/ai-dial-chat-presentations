@@ -1,0 +1,497 @@
+{
+  "id": "libs/prompt-editor",
+  "shortTitle": "Prompt editor",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-prompt-editor-01",
+      "title": "Prompt editor",
+      "layout": "cover",
+      "subtitle": "Author reusable prompt content while leaving persistence to the host.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-prompt-editor",
+      "notes": "This session explains author reusable prompt content while leaving persistence to the host. The library is a local private workspace package at libs/prompt-editor. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/prompt-editor/README.md",
+          "start": 1,
+          "end": 160
+        },
+        {
+          "file": "libs/prompt-editor/src/index.ts",
+          "start": 1,
+          "end": 16
+        },
+        {
+          "file": "libs/prompt-editor/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+          "start": 68,
+          "end": 310,
+          "symbol": "PromptEditor"
+        },
+        {
+          "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+          "start": 125,
+          "end": 162,
+          "symbol": "PromptEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-prompt-editor-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Author reusable prompt content while leaving persistence to the host.",
+      "cards": [
+        {
+          "title": "Create a prompt",
+          "body": "Edit name, description and Markdown content."
+        },
+        {
+          "title": "Revise a prompt",
+          "body": "Seed the form with stable initialValues."
+        },
+        {
+          "title": "Add folder controls",
+          "body": "Compose PromptFolderField separately when needed."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Create a prompt: Edit name, description and Markdown content. Revise a prompt: Seed the form with stable initialValues. Add folder controls: Compose PromptFolderField separately when needed. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/prompt-editor/README.md",
+          "start": 1,
+          "end": 160
+        },
+        {
+          "file": "libs/prompt-editor/src/index.ts",
+          "start": 1,
+          "end": 16
+        },
+        {
+          "file": "libs/prompt-editor/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+          "start": 68,
+          "end": 310,
+          "symbol": "PromptEditor"
+        },
+        {
+          "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+          "start": 125,
+          "end": 162,
+          "symbol": "PromptEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-prompt-editor-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host load",
+          "body": "Initial values and errors"
+        },
+        {
+          "title": "PromptEditor",
+          "body": "Local editing"
+        },
+        {
+          "title": "onSubmit",
+          "body": "PromptEditorValues"
+        },
+        {
+          "title": "Host save",
+          "body": "Validate and persist"
+        }
+      ],
+      "takeaway": "Library: Prompt form fields, editing state and optional folder-field UI.",
+      "notes": "The library owns Prompt form fields, editing state and optional folder-field UI. The host owns Save/load operations, validation errors, routes and folder mutations.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/prompt-editor/README.md",
+          "start": 1,
+          "end": 160
+        },
+        {
+          "file": "libs/prompt-editor/src/index.ts",
+          "start": 1,
+          "end": 16
+        },
+        {
+          "file": "libs/prompt-editor/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+          "start": 68,
+          "end": 310,
+          "symbol": "PromptEditor"
+        },
+        {
+          "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+          "start": 125,
+          "end": 162,
+          "symbol": "PromptEditorProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-prompt-editor-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "PromptEditor \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "onSubmit",
+          "(values: PromptEditorValues) => void"
+        ],
+        [
+          "onCancel",
+          "() => void"
+        ],
+        [
+          "initialValues (optional)",
+          "Partial<PromptEditorValues>"
+        ],
+        [
+          "errors (optional)",
+          "PromptEditorErrors"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/prompt-editor/README.md",
+          "start": 1,
+          "end": 160
+        },
+        {
+          "file": "libs/prompt-editor/src/index.ts",
+          "start": 1,
+          "end": 16
+        },
+        {
+          "file": "libs/prompt-editor/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+          "start": 68,
+          "end": 310,
+          "symbol": "PromptEditor"
+        },
+        {
+          "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+          "start": 125,
+          "end": 162,
+          "symbol": "PromptEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-prompt-editor-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "<PromptEditor\n  initialValues={{\n    name: 'Demo summary',\n    content: 'Summarize {{topic}}',\n  }}\n  onSubmit={save}\n  onCancel={onCancel}\n/>",
+      "caption": "Full example: examples/prompt-editor.tsx \u00b7 uses @epam/ai-dial-prompt-editor",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/prompt-editor.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Edit name, description and Markdown content. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/prompt-editor/README.md",
+          "start": 1,
+          "end": 160
+        },
+        {
+          "file": "libs/prompt-editor/src/index.ts",
+          "start": 1,
+          "end": 16
+        },
+        {
+          "file": "libs/prompt-editor/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+          "start": 68,
+          "end": 310,
+          "symbol": "PromptEditor"
+        },
+        {
+          "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+          "start": 125,
+          "end": 162,
+          "symbol": "PromptEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-prompt-editor-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep prompt editor focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Load a prompt",
+          "body": "Supply initialValues with a name and prompt content."
+        },
+        {
+          "title": "Edit and submit",
+          "body": "The editor collects the next values through onSubmit."
+        },
+        {
+          "title": "Save in the host",
+          "body": "Persist through an app adapter and decide where to navigate."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Load a prompt: Supply initialValues with a name and prompt content. Edit and submit: The editor collects the next values through onSubmit. Save in the host: Persist through an app adapter and decide where to navigate. The complete typed module in examples/prompt-editor.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/prompt-editor/README.md",
+          "start": 1,
+          "end": 160
+        },
+        {
+          "file": "libs/prompt-editor/src/index.ts",
+          "start": 1,
+          "end": 16
+        },
+        {
+          "file": "libs/prompt-editor/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+          "start": 68,
+          "end": 310,
+          "symbol": "PromptEditor"
+        },
+        {
+          "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+          "start": 125,
+          "end": 162,
+          "symbol": "PromptEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-prompt-editor-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Load and save states",
+          "body": "isLoading, hasLoadError and isSaving drive the form experience."
+        },
+        {
+          "title": "Editor customization",
+          "body": "Pass labels, limits and markdownEditorTheme."
+        },
+        {
+          "title": "Separate folder field",
+          "body": "PromptFolderField delegates mutations through folderActions."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Load and save states: isLoading, hasLoadError and isSaving drive the form experience. Editor customization: Pass labels, limits and markdownEditorTheme. Separate folder field: PromptFolderField delegates mutations through folderActions. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/prompt-editor/README.md",
+          "start": 1,
+          "end": 160
+        },
+        {
+          "file": "libs/prompt-editor/src/index.ts",
+          "start": 1,
+          "end": 16
+        },
+        {
+          "file": "libs/prompt-editor/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+          "start": 68,
+          "end": 310,
+          "symbol": "PromptEditor"
+        },
+        {
+          "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+          "start": 125,
+          "end": 162,
+          "symbol": "PromptEditorProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-prompt-editor-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat/pages/PromptEditor/PromptEditor.tsx"
+        ],
+        [
+          "Test evidence",
+          "stamps the form column that holds the fields"
+        ],
+        [
+          "Test evidence",
+          "renders the create heading by default"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: apps/chat/src/pages/PromptEditor/PromptEditor.tsx. Existing test evidence: [{\"file\": \"libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx\", \"assertions\": [\"PromptEditor \\u2014 public class names\", \"stamps the form column that holds the fields\"]}, {\"file\": \"libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.spec.tsx\", \"assertions\": [\"PromptEditor\", \"renders the create heading by default\", \"renders a flat form without section headings, a version field, or a folder picker\", \"renders the edit heading in edit mode\", \"seeds the fields from initialValues\", \"re-seeds the fields when initialValues arrives later\", \"submits the entered values\", \"does not validate on its own \\u2014 the host owns the storage contract\", \"renders host-supplied inline errors\", \"blocks submission and announces status while saving\", \"renders a labelled spinner instead of the form while loading\", \"renders an error state with retry instead of an empty form on load failure\", \"omits the retry button when the host cannot retry\", \"calls onCancel without submitting\", \"calls the dedicated back callback from the header\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-prompt-editor:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/prompt-editor/README.md",
+          "start": 1,
+          "end": 160
+        },
+        {
+          "file": "libs/prompt-editor/src/index.ts",
+          "start": 1,
+          "end": 16
+        },
+        {
+          "file": "libs/prompt-editor/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+          "start": 68,
+          "end": 310,
+          "symbol": "PromptEditor"
+        },
+        {
+          "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+          "start": 125,
+          "end": 162,
+          "symbol": "PromptEditorProps"
+        },
+        {
+          "file": "apps/chat/src/pages/PromptEditor/PromptEditor.tsx",
+          "start": 1,
+          "end": 282
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.classes.spec.tsx",
+          "start": 1,
+          "end": 39
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/tests/PromptEditor.spec.tsx",
+          "start": 1,
+          "end": 247
+        }
+      ]
+    },
+    {
+      "id": "lib-prompt-editor-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "No built-in folder picker",
+          "body": "PromptEditor itself renders no folder field."
+        },
+        {
+          "title": "Stable initial values",
+          "body": "Changing their identity can reseed editing state."
+        },
+        {
+          "title": "Host validation",
+          "body": "Backend naming and storage rules do not belong in this form."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. No built-in folder picker: PromptEditor itself renders no folder field. Stable initial values: Changing their identity can reseed editing state. Host validation: Backend naming and storage rules do not belong in this form. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/prompt-editor/README.md",
+          "start": 1,
+          "end": 160
+        },
+        {
+          "file": "libs/prompt-editor/src/index.ts",
+          "start": 1,
+          "end": 16
+        },
+        {
+          "file": "libs/prompt-editor/package.json",
+          "start": 1,
+          "end": 37
+        },
+        {
+          "file": "libs/prompt-editor/src/components/PromptEditor/PromptEditor.tsx",
+          "start": 68,
+          "end": 310,
+          "symbol": "PromptEditor"
+        },
+        {
+          "file": "libs/prompt-editor/src/models/prompt-editor-props.ts",
+          "start": 125,
+          "end": 162,
+          "symbol": "PromptEditorProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/prompt-editor.pptx"
+}

@@ -1,0 +1,497 @@
+{
+  "id": "libs/quotations",
+  "shortTitle": "Quotations",
+  "series": "Library deep dive",
+  "snapshot": {
+    "repository": "/Users/Valery_Dluski/projects/dial/ai-dial-chat",
+    "commit": "23fa39459d8971c10d5bd1c69734e61b124d249b",
+    "analysisDate": "2026-09-21T18:14:40.584272+00:00",
+    "gitStatus": [
+      "?? .claude/skills/pptx/",
+      "?? openspec/changes/migrate-nestjs-v12/",
+      "?? skills-lock.json"
+    ],
+    "skill": {
+      "source": "https://github.com/anthropics/skills/tree/main/skills/pptx",
+      "local": ".claude/skills/pptx/SKILL.md"
+    },
+    "notes": "Working tree snapshot; existing untracked files are recorded. No source-repository changes are authorized."
+  },
+  "slides": [
+    {
+      "id": "lib-quotations-01",
+      "title": "Quotations",
+      "layout": "cover",
+      "subtitle": "Connect answer annotations to inspectable evidence.",
+      "chips": [
+        "Problem and boundary",
+        "Public contract",
+        "Working integration"
+      ],
+      "caption": "@epam/ai-dial-quotations",
+      "notes": "This session explains connect answer annotations to inspectable evidence. The library is a local private workspace package at libs/quotations. Its manifest, source exports, tests and actual consumers were inspected. Package publication has not been verified; use the workspace integration shown here.",
+      "sources": [
+        {
+          "file": "libs/quotations/README.md",
+          "start": 1,
+          "end": 245
+        },
+        {
+          "file": "libs/quotations/src/index.ts",
+          "start": 1,
+          "end": 72
+        },
+        {
+          "file": "libs/quotations/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 33,
+          "end": 62,
+          "symbol": "CitationMarker"
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 17,
+          "end": 30,
+          "symbol": "CitationMarkerProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-quotations-02",
+      "title": "When this library is useful",
+      "layout": "cards",
+      "kicker": "Connect answer annotations to inspectable evidence.",
+      "cards": [
+        {
+          "title": "Mark a claim",
+          "body": "Show an inline source marker in an answer."
+        },
+        {
+          "title": "Group evidence",
+          "body": "Group annotations by source or citation id."
+        },
+        {
+          "title": "Jump to context",
+          "body": "Derive PDF or Office highlight locations."
+        }
+      ],
+      "notes": "Start with a concrete caller need. Mark a claim: Show an inline source marker in an answer. Group evidence: Group annotations by source or citation id. Jump to context: Derive PDF or Office highlight locations. These scenarios describe integration supported by the current public surface; they do not assert measured performance or production certification.",
+      "sources": [
+        {
+          "file": "libs/quotations/README.md",
+          "start": 1,
+          "end": 245
+        },
+        {
+          "file": "libs/quotations/src/index.ts",
+          "start": 1,
+          "end": 72
+        },
+        {
+          "file": "libs/quotations/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 33,
+          "end": 62,
+          "symbol": "CitationMarker"
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 17,
+          "end": 30,
+          "symbol": "CitationMarkerProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-quotations-03",
+      "title": "Follow the ownership boundary",
+      "layout": "flow",
+      "kicker": "Inputs and effects stay explicit.",
+      "nodes": [
+        {
+          "title": "Host message",
+          "body": "Annotations and references"
+        },
+        {
+          "title": "Grouping helpers",
+          "body": "Source or citation id"
+        },
+        {
+          "title": "CitationMarker",
+          "body": "Accessible source control"
+        },
+        {
+          "title": "Host opener",
+          "body": "Viewer and highlight"
+        }
+      ],
+      "takeaway": "Library: Annotation utilities, citation presentation and optional citation state.",
+      "notes": "The library owns Annotation utilities, citation presentation and optional citation state. The host owns Fetching sources, opening viewers, Markdown pipeline integration and localized labels.  The arrows show data/callback direction, not an implicit network request. The documented isolation rules and known implementation deviations are listed in qa-report.md.",
+      "sources": [
+        {
+          "file": "libs/quotations/README.md",
+          "start": 1,
+          "end": 245
+        },
+        {
+          "file": "libs/quotations/src/index.ts",
+          "start": 1,
+          "end": 72
+        },
+        {
+          "file": "libs/quotations/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 33,
+          "end": 62,
+          "symbol": "CitationMarker"
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 17,
+          "end": 30,
+          "symbol": "CitationMarkerProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    },
+    {
+      "id": "lib-quotations-04",
+      "title": "The public contract to start with",
+      "layout": "table",
+      "kicker": "CitationMarker \u00b7 selected surface; full API index is in the bundle.",
+      "headers": [
+        "Input or operation",
+        "Contract"
+      ],
+      "rows": [
+        [
+          "sourceName",
+          "string"
+        ],
+        [
+          "annotationCount",
+          "number"
+        ],
+        [
+          "onOpen",
+          "() => void"
+        ],
+        [
+          "labels",
+          "CitationMarkerLabels"
+        ]
+      ],
+      "notes": "These are selected public symbols or props, not a complete API listing. Required versus optional props come from the TypeScript checker over the current source. All declarations, including the source file and line range, are retained in content/api-index.md and the per-project research JSON. ",
+      "sources": [
+        {
+          "file": "libs/quotations/README.md",
+          "start": 1,
+          "end": 245
+        },
+        {
+          "file": "libs/quotations/src/index.ts",
+          "start": 1,
+          "end": 72
+        },
+        {
+          "file": "libs/quotations/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 33,
+          "end": 62,
+          "symbol": "CitationMarker"
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 17,
+          "end": 30,
+          "symbol": "CitationMarkerProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-quotations-05",
+      "title": "A minimal workspace integration",
+      "layout": "code",
+      "kicker": "TypeScript / React example \u00b7 imports and host setup abridged.",
+      "code": "<CitationMarker\n  sourceName=\"demo-report.pdf\" annotationCount={2}\n  onOpen={() => setOpened(true)}\n  labels={{\n    ariaLabel: 'Open demo citation',\n    label: 'demo-report.pdf',\n    labelWithOverflow: 'demo-report.pdf +1',\n  }}\n/>",
+      "caption": "Full example: examples/quotations.tsx \u00b7 uses @epam/ai-dial-quotations",
+      "notes": "Run this example in the existing React 19 workspace using the package source aliases and its declared peers. For browser-only modules use a browser host. Full imports, types and required props are in examples/quotations.tsx. The stylesheet import must be loaded by the host. Host parameters in the complete example are typed integration requirements, not hidden globals. Expected behavior: Show an inline source marker in an answer. Backend-dependent examples require a running configured service; the bundle type-checks them but does not call production services.",
+      "sources": [
+        {
+          "file": "libs/quotations/README.md",
+          "start": 1,
+          "end": 245
+        },
+        {
+          "file": "libs/quotations/src/index.ts",
+          "start": 1,
+          "end": 72
+        },
+        {
+          "file": "libs/quotations/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 33,
+          "end": 62,
+          "symbol": "CitationMarker"
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 17,
+          "end": 30,
+          "symbol": "CitationMarkerProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-quotations-06",
+      "title": "Wire a realistic host workflow",
+      "layout": "cards",
+      "kicker": "Keep quotations focused on its public responsibility.",
+      "cards": [
+        {
+          "title": "Prepare citation data",
+          "body": "Resolve the source name, count and display labels."
+        },
+        {
+          "title": "Render a marker",
+          "body": "CitationMarker turns that data into a selectable control."
+        },
+        {
+          "title": "Open host evidence",
+          "body": "Use onOpen to select a source or display its preview."
+        }
+      ],
+      "notes": "Follow this concrete integration sequence. Prepare citation data: Resolve the source name, count and display labels. Render a marker: CitationMarker turns that data into a selectable control. Open host evidence: Use onOpen to select a source or display its preview. The complete typed module in examples/quotations.tsx shows the required imports and host inputs. Application-owned network, routing and persistence behavior must be supplied by the caller.",
+      "sources": [
+        {
+          "file": "libs/quotations/README.md",
+          "start": 1,
+          "end": 245
+        },
+        {
+          "file": "libs/quotations/src/index.ts",
+          "start": 1,
+          "end": 72
+        },
+        {
+          "file": "libs/quotations/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 33,
+          "end": 62,
+          "symbol": "CitationMarker"
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 17,
+          "end": 30,
+          "symbol": "CitationMarkerProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-quotations-07",
+      "title": "Available customization",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Multiple citation forms",
+          "body": "Utilities support offset annotations and paired cit tags."
+        },
+        {
+          "title": "Markdown composition",
+          "body": "The citation Markdown hook builds renderer overrides."
+        },
+        {
+          "title": "Viewer locations",
+          "body": "Helpers derive PDF and supported Office highlight coordinates."
+        }
+      ],
+      "notes": "Customization comes from the current exports and prop declarations. Multiple citation forms: Utilities support offset annotations and paired cit tags. Markdown composition: useCitationMarkdownComponents builds citation renderers. Viewer locations: Helpers derive PDF and supported Office highlight coordinates. For UI, import the package stylesheet and use documented props or stable public classes. A component-level color override and inherited theme tokens are different levels of control. Locale strings and direction should be supplied by the host; do not introduce app i18n into a reusable library.",
+      "sources": [
+        {
+          "file": "libs/quotations/README.md",
+          "start": 1,
+          "end": 245
+        },
+        {
+          "file": "libs/quotations/src/index.ts",
+          "start": 1,
+          "end": 72
+        },
+        {
+          "file": "libs/quotations/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 33,
+          "end": 62,
+          "symbol": "CitationMarker"
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 17,
+          "end": 30,
+          "symbol": "CitationMarkerProps"
+        }
+      ]
+    },
+    {
+      "id": "lib-quotations-08",
+      "title": "Find the integration and its checks",
+      "layout": "table",
+      "kicker": "Existing tests are evidence of intended behavior; suite results are not claimed.",
+      "headers": [
+        "Evidence",
+        "Where to look"
+      ],
+      "rows": [
+        [
+          "Real consumer",
+          "chat-hooks/src/conversation-sources/useConversationSources/useConversationSources.ts"
+        ],
+        [
+          "Test evidence",
+          "returns content unchanged and renders no marker for uncited content without calling buildLabel"
+        ],
+        [
+          "Test evidence",
+          "uses the single label when annotationCount is 1"
+        ]
+      ],
+      "colW": [
+        2.7,
+        9.34
+      ],
+      "notes": "Actual consumers: libs/chat-hooks/src/conversation-sources/useConversationSources/useConversationSources.ts; libs/chat-hooks/src/entry-points/file-manager-canvas.ts; libs/chat-shared/src/components/MarkdownRenderer/MarkdownRenderer.tsx; libs/chat-hooks/src/attachment/useAttachmentAction/useAttachmentAction.ts; libs/chat-shared/src/utils/annotation.ts; libs/chat-hooks/src/files/attachment-canvas.ts. Existing test evidence: [{\"file\": \"libs/quotations/src/hooks/useCitationMarkdownComponents/tests/useCitationMarkdownComponents.spec.tsx\", \"assertions\": [\"useCitationMarkdownComponents\", \"returns content unchanged and renders no marker for uncited content without calling buildLabels\", \"reports the input content unchanged and empty overrides directly from the hook for uncited content\", \"injects a sentinel and renders a citation marker for cited content\", \"renders nothing for a sentinel index with no corresponding group entry, without throwing\", \"defaults the sentinel injection point to the end of content when the primary annotation has no character-range selector\", \"keeps the same markdownComponents reference across re-renders with unchanged groups emptiness\", \"recomputes markdownComponents when groups transitions from empty to non-empty\", \"recomputes markdownComponents when groups transitions from non-empty to empty\", \"delegates the preview action to onPreview without internal content-type branching\", \"delegates the open-in-browser action to onOpenInBrowser directly\", \"calls buildLabels once per rendered marker with the correct group\", \"useCitationMarkdownComponents \\u2014 cit element rendering\", \"renders a citation marker for a matched <cit> element when not streaming\", \"renders an unmatched supported <cit> element as literal text\"]}, {\"file\": \"libs/quotations/src/components/CitationMarker/tests/CitationMarker.spec.tsx\", \"assertions\": [\"CitationMarker\", \"uses the single label when annotationCount is 1\", \"uses the overflow label when annotationCount > 1\", \"calls onOpen when clicked\", \"renders without an icon by default\", \"renders the provided icon before the label\", \"caps the marker width and ellipsises a long source name\", \"keeps the descriptive aria-label rather than the raw source name\", \"CitationMarker \\u2014 public class names\", \"stamps the marker pill\", \"keeps the class on the overflow variant\"]}]. Reproduce project checks from the repository root with npm exec nx run @epam/ai-dial-quotations:typecheck and the available test/lint targets. This documentation task does not rebuild or modify the application repository. The bundle checks its own examples separately.",
+      "sources": [
+        {
+          "file": "libs/quotations/README.md",
+          "start": 1,
+          "end": 245
+        },
+        {
+          "file": "libs/quotations/src/index.ts",
+          "start": 1,
+          "end": 72
+        },
+        {
+          "file": "libs/quotations/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 33,
+          "end": 62,
+          "symbol": "CitationMarker"
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 17,
+          "end": 30,
+          "symbol": "CitationMarkerProps"
+        },
+        {
+          "file": "libs/chat-hooks/src/conversation-sources/useConversationSources/useConversationSources.ts",
+          "start": 1,
+          "end": 102
+        },
+        {
+          "file": "libs/quotations/src/hooks/useCitationMarkdownComponents/tests/useCitationMarkdownComponents.spec.tsx",
+          "start": 1,
+          "end": 545
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/tests/CitationMarker.spec.tsx",
+          "start": 1,
+          "end": 107
+        }
+      ]
+    },
+    {
+      "id": "lib-quotations-09",
+      "title": "Constraints that affect integration",
+      "layout": "cards",
+      "cards": [
+        {
+          "title": "Wire the pipeline",
+          "body": "Allowed cit tags and renderer overrides must agree."
+        },
+        {
+          "title": "Streaming fragments",
+          "body": "Incomplete citation tags need streaming-aware handling."
+        },
+        {
+          "title": "No source download",
+          "body": "Callbacks and resolvers connect the marker to actual evidence."
+        }
+      ],
+      "notes": "Review these constraints before choosing the library. Wire the pipeline: Allowed cit tags and renderer overrides must agree. Streaming fragments: Incomplete citation tags need streaming-aware handling. No source download: Callbacks and resolvers connect the marker to actual evidence. The package is private in this snapshot. The presence of build/publish tooling is not evidence that a compatible release is available from a registry. For externally packed installations, inspect the repository publish tooling and host-install matrix and verify the resulting artifact separately.",
+      "sources": [
+        {
+          "file": "libs/quotations/README.md",
+          "start": 1,
+          "end": 245
+        },
+        {
+          "file": "libs/quotations/src/index.ts",
+          "start": 1,
+          "end": 72
+        },
+        {
+          "file": "libs/quotations/package.json",
+          "start": 1,
+          "end": 41
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 33,
+          "end": 62,
+          "symbol": "CitationMarker"
+        },
+        {
+          "file": "libs/quotations/src/components/CitationMarker/CitationMarker.tsx",
+          "start": 17,
+          "end": 30,
+          "symbol": "CitationMarkerProps"
+        },
+        {
+          "file": "AGENTS.md",
+          "start": 1,
+          "end": 176
+        }
+      ]
+    }
+  ],
+  "output": "decks/libs/quotations.pptx"
+}
